@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	"github.com/cliclitv/go-clicli/def"
@@ -95,15 +94,15 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 
 	var query string
 	if level == 5 {
-		query += `NOT level = 1`
+		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 limit ?,?"
 	} else if level > -1 && level < 5 {
-		query += fmt.Sprintf(`level = '%v'`, level)
+		query = "SELECT id, name, level, qq, sign FROM users WHERE level = ? limit ?,?"
 	}
-	stmt, err := dbConn.Prepare("SELECT id, name, level, qq, sign FROM users WHERE ? limit ?,?")
+	stmt, err := dbConn.Prepare(query)
 
 	var res []*def.User
 
-	rows, err := stmt.Query(query, start, pageSize)
+	rows, err := stmt.Query(level, start, pageSize)
 	if err != nil {
 		return res, err
 	}
