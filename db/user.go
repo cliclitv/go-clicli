@@ -1,11 +1,12 @@
 package db
 
 import (
-	"log"
-	"github.com/cliclitv/go-clicli/util"
-	"github.com/cliclitv/go-clicli/def"
-	"fmt"
 	"database/sql"
+	"fmt"
+	"log"
+
+	"github.com/cliclitv/go-clicli/def"
+	"github.com/cliclitv/go-clicli/util"
 )
 
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
@@ -62,7 +63,7 @@ func GetUser(name string, id int, qq string) (*def.User, error) {
 		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE name = ?`
 	} else if id != 0 {
 		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE id = ?`
-	}else {
+	} else {
 		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE qq = ?`
 	}
 	stmt, _ := dbConn.Prepare(query)
@@ -98,12 +99,11 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 	} else if level > -1 && level < 5 {
 		query += fmt.Sprintf(`level = '%v'`, level)
 	}
-	rawSql := fmt.Sprintf(`SELECT id, name, level, qq, sign FROM users WHERE %s limit ?,?`, query)
-	stmtOut, err := dbConn.Prepare(rawSql)
+	stmt, err := dbConn.Prepare("SELECT id, name, level, qq, sign FROM users WHERE ? limit ?,?")
 
 	var res []*def.User
 
-	rows, err := stmtOut.Query(start, pageSize)
+	rows, err := stmt.Query(query, start, pageSize)
 	if err != nil {
 		return res, err
 	}
@@ -118,7 +118,7 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 		c := &def.User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
 		res = append(res, c)
 	}
-	defer stmtOut.Close()
+	defer stmt.Close()
 
 	return res, nil
 
@@ -126,11 +126,11 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 
 func SearchUsers(key string) ([]*def.User, error) {
 	key = string("%" + key + "%")
-	stmtOut, err := dbConn.Prepare("SELECT id, name, level, qq, sign FROM users WHERE name LIKE ?")
+	stmt, err := dbConn.Prepare("SELECT id, name, level, qq, sign FROM users WHERE name LIKE ?")
 
 	var res []*def.User
 
-	rows, err := stmtOut.Query(key)
+	rows, err := stmt.Query(key)
 	if err != nil {
 		return res, err
 	}
@@ -145,7 +145,7 @@ func SearchUsers(key string) ([]*def.User, error) {
 		c := &def.User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
 		res = append(res, c)
 	}
-	defer stmtOut.Close()
+	defer stmt.Close()
 
 	return res, nil
 
