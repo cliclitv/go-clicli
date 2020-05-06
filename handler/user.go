@@ -60,7 +60,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		level := resp.Level
 		claims := map[string]interface{}{"exp": time.Now().Add(time.Hour).Unix(), "level": level}
 		token, err := auth.New(claims)
-		str := RandStr()
+		str := RandStr(10)
 		auth.Secret([]byte(str))
 		if err != nil {
 			return
