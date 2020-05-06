@@ -91,18 +91,21 @@ func GetUser(name string, id int, qq string) (*def.User, error) {
 
 func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 	start := pageSize * (page - 1)
-
+	var slice []interface{}
 	var query string
 	if level == 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 AND 5 = ? limit ?,?"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 limit ?,?"
 	} else if level > -1 && level < 5 {
 		query = "SELECT id, name, level, qq, sign FROM users WHERE level = ? limit ?,?"
+		slice = append(slice, level)
 	}
+
+	slice = append(slice, start, pageSize)
 	stmt, err := dbConn.Prepare(query)
 
 	var res []*def.User
 
-	rows, err := stmt.Query(level, start, pageSize)
+	rows, err := stmt.Query(slice...)
 	if err != nil {
 		return res, err
 	}

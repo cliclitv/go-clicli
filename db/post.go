@@ -168,7 +168,7 @@ func SearchPosts(key string) ([]*def.Post, error) {
 			return res, err
 		}
 
-		c := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq, Count: count}
+		c := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
