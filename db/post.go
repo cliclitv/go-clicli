@@ -2,9 +2,9 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"strings"
 	"time"
+
 	"github.com/cliclitv/go-clicli/def"
 	"github.com/wangbin/jiebago"
 )
@@ -16,7 +16,7 @@ func init() {
 }
 
 func AddPost(title string, content string, status string, sort string, tag string, uid int) (*def.Post, error) {
-	cstZone := time.FixedZone("CST", 8*3600)  
+	cstZone := time.FixedZone("CST", 8*3600)
 	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
 	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid) VALUES (?,?,?,?,?,?,?)")
 	if err != nil {
@@ -92,15 +92,15 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	var query string
 	if status != "" && status != "nowait" && len(status) < 10 {
-		query = fmt.Sprintf(`AND posts.status ='%s'`, status)
+		query = `AND posts.status ='` + status + `'`
 	}
 
 	if sort != "" && sort != "bgm" && len(sort) < 10 {
-		query += fmt.Sprintf(`AND posts.sort ='%s'`, sort)
+		query += `AND posts.sort ='` + sort + `'`
 	}
 
 	if uid != 0 && len(string(uid)) < 6 {
-		query += fmt.Sprintf(`AND posts.uid ='%d'`, uid)
+		query += `AND posts.uid ='` + string(uid) + `'`
 	}
 
 	if sort == "bgm" {
@@ -117,15 +117,13 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 				continue
 			}
 			key := string("%" + tags[i] + "%")
-			query += fmt.Sprintf(`OR posts.tag LIKE '%s'`, key)
+			query += `OR posts.tag LIKE '` + key + `'`
 		}
 		query += `)`
 	}
 
-	sqlRaw := fmt.Sprintf(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id 
-WHERE 1=1 %s ORDER BY time DESC limit ?,?`, query)
-
-	//fmt.Printf("%s", sqlRaw)
+	sqlRaw := `SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id 
+WHERE 1=1` + query + ` ORDER BY time DESC limit ?,?`
 
 	stmt, _ := dbConn.Prepare(sqlRaw)
 

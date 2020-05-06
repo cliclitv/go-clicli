@@ -94,7 +94,7 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 
 	var query string
 	if level == 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 AND 5=? limit ?,?"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 AND 5 = ? limit ?,?"
 	} else if level > -1 && level < 5 {
 		query = "SELECT id, name, level, qq, sign FROM users WHERE level = ? limit ?,?"
 	}
