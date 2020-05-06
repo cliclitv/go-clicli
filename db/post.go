@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"log"
+	// "log"
 	"strings"
 	"time"
 
