@@ -94,32 +94,32 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	var query string
 	var slice []interface{}
 	if status != "" && status != "nowait" {
-		query = `AND posts.status = ? `
+		query = `AND posts.status = ?`
 		slice = append(slice, status)
 	}
 
 	if sort != "" && sort != "bgm" {
-		query += `AND posts.sort = ? `
+		query += ` AND posts.sort = ?`
 		slice = append(slice, sort)
 	}
 
 	if uid != 0 {
-		query += `AND posts.uid = ? `
+		query += ` AND posts.uid = ?`
 		slice = append(slice, uid)
 	}
 
 	if sort == "bgm" {
-		query += `AND NOT posts.sort='原创' `
+		query += ` AND NOT posts.sort='原创'`
 	}
 	if status == "nowait" {
-		query += `AND NOT posts.status='wait' `
+		query += ` AND NOT posts.status='wait'`
 	}
 
 	if len(tags) != 0 {
-		query += `AND (1=2 `
+		query += ` AND (1=2 `
 		for i := 0; i < len(tags); i++ {
 			key := string("%" + tags[i] + "%")
-			query += `OR posts.tag LIKE ? `
+			query += `OR posts.tag LIKE ?`
 			slice = append(slice, key)
 		}
 		query += `)`
