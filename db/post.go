@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"strings"
 	"time"
 
@@ -117,9 +118,6 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	if len(tags) != 0 {
 		query += `AND (1=2 `
 		for i := 0; i < len(tags); i++ {
-			if len(tags[i]) > 10 {
-				continue
-			}
 			key := string("%" + tags[i] + "%")
 			query += `OR posts.tag LIKE ?`
 			slice = append(slice, key)
@@ -129,10 +127,12 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	slice = append(slice, start, pageSize)
 
-	stmt, _ := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id 
-	WHERE 1=1 ` + query + ` ORDER BY time DESC limit ?,?`)
+	sqlRaw := fmt.Sprintf(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id 
+WHERE 1=1 %s ORDER BY time DESC limit ?,?`, query)
 
-	var rows, _ = stmt.Query(slice...)
+	stmt, _ := dbConn.Prepare(sqlRaw)
+
+	var rows, _ = stmt.Query(start, pageSize)
 
 	defer stmt.Close()
 
