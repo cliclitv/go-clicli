@@ -5,16 +5,8 @@ import (
 	// "log"
 	"strings"
 	"time"
-
 	"github.com/cliclitv/go-clicli/def"
-	"github.com/wangbin/jiebago"
 )
-
-var seg jiebago.Segmenter
-
-func init() {
-	seg.LoadDictionary("dict.txt")
-}
 
 func AddPost(title string, content string, status string, sort string, tag string, uid int) (*def.Post, error) {
 	cstZone := time.FixedZone("CST", 8*3600)

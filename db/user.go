@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"log"
-
 	"github.com/cliclitv/go-clicli/def"
 	"github.com/cliclitv/go-clicli/util"
 )
