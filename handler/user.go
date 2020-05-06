@@ -13,7 +13,7 @@ import (
 	"github.com/cliclitv/go-clicli/def"
 	"github.com/cliclitv/go-clicli/util"
 	"github.com/julienschmidt/httprouter"
-	auth "github.com/nilslice/jwt"
+	"github.com/nilslice/jwt"
 )
 
 const DOMAIN = "clicli.me"
@@ -59,9 +59,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	} else {
 		level := resp.Level
 		claims := map[string]interface{}{"exp": time.Now().Add(time.Hour).Unix(), "level": level}
-		token, err := auth.New(claims)
-		str := util.RandStr(10)
-		auth.Secret([]byte(str))
+		token, err := jwt.New(claims)
 		if err != nil {
 			return
 		}
@@ -118,8 +116,8 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 	var realLevel int
 	token := r.Header.Get("token")
-	if auth.Passes(token) {
-		s := auth.GetClaims(token)
+	if jwt.Passes(token) {
+		s := jwt.GetClaims(token)
 		l := int(s["level"].(float64))
 		if l < old.Level {
 			sendMsg(w, 401, "权限不足")

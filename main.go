@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
+	"github.com/nilslice/jwt"
 	"net/http"
 )
 
@@ -50,7 +51,10 @@ func RegisterHandler() *httprouter.Router {
 
 	return router
 }
+
 func main() {
+	str := util.RandStr(10)
+	jwt.Secret([]byte(str))
 	r := RegisterHandler()
 	mh := NewMiddleWareHandler(r)
 	http.ListenAndServe(":8084", mh)
