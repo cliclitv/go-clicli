@@ -92,7 +92,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	var query string
 	if status != "" && status != "nowait" && len(status) < 10 {
-		query = `AND posts.status ='` + status + `'`
+		query += `AND posts.status ='` + status + `'`
 	}
 
 	if sort != "" && sort != "bgm" && len(sort) < 10 {
