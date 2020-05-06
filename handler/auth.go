@@ -31,6 +31,7 @@ func Auth(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func AuthToken(w http.ResponseWriter, r *http.Request, level int) bool {
 	log.Printf("%d", level)
 	token := r.Header.Get("token")
+	log.Printf("%s", token)
 	if auth.Passes(token) {
 		s := auth.GetClaims(token)
 		if int(s["level"].(float64)) < level {
