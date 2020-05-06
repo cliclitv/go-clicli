@@ -128,7 +128,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	slice = append(slice, start, pageSize)
 
 	sqlRaw := `SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id 
-WHERE 1=1 ` + query + ` ORDER BY time DESC limit ?,?`
+WHERE 1=1` + query + ` ORDER BY time DESC limit ?,?`
 
 	log.Printf("%s", sqlRaw)
 
