@@ -58,8 +58,8 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	} else {
 		level := resp.Level
-		qq := resp.qq
-		name := resp.name
+		qq := resp.QQ
+		name := resp.Name
 		claims := map[string]interface{}{"exp": time.Now().Add(time.Hour).Unix(), "level": level, "qq": qq, "name": name}
 		token, err := jwt.New(claims)
 		if err != nil {
