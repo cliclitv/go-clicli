@@ -34,6 +34,9 @@ func AuthToken(w http.ResponseWriter, r *http.Request, level int) bool {
 	log.Printf("%s", token)
 	if auth.Passes(token) {
 		s := auth.GetClaims(token)
+		log.Printf("%s", s)
+		log.Printf("%s", s["name"])
+		log.Printf("%s", s["qq"])
 		if int(s["level"].(float64)) < level {
 			sendMsg(w, 401, "权限不足")
 			return false
