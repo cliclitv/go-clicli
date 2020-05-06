@@ -95,17 +95,17 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	var query string
 	var slice []interface{}
 	if status != "" && status != "nowait" {
-		query = `AND posts.status = ?`
+		query = `AND posts.status = ? `
 		slice = append(slice, status)
 	}
 
 	if sort != "" && sort != "bgm" {
-		query += `AND posts.sort = ?`
+		query += `AND posts.sort = ? `
 		slice = append(slice, sort)
 	}
 
 	if uid != 0 {
-		query += `AND posts.uid = ?`
+		query += `AND posts.uid = ? `
 		slice = append(slice, uid)
 	}
 
