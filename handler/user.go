@@ -2,17 +2,18 @@ package handler
 
 import (
 	"encoding/json"
+	"io"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/cliclitv/go-clicli/def"
 	"github.com/cliclitv/go-clicli/util"
 	"github.com/julienschmidt/httprouter"
-	"io/ioutil"
-	"net/http"
-	"strconv"
-	"log"
-	"time"
 	auth "github.com/nilslice/jwt"
-	"io"
 )
 
 const DOMAIN = "clicli.me"
@@ -26,13 +27,13 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	if res, _ := db.GetUser(ubody.Name, 0,""); res != nil {
+	if res, _ := db.GetUser(ubody.Name, 0, ""); res != nil {
 		sendMsg(w, 401, "用户名已存在")
 		return
 	}
 
 	if err := db.CreateUser(ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Desc); err != nil {
-		sendMsg(w, 401, "数据库错误")
+		sendMsg(w, 500, "数据库错误")
 		return
 	} else {
 		sendMsg(w, 200, "注册成功啦")
@@ -49,7 +50,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	resp, err := db.GetUser(ubody.Name, 0,"")
+	resp, err := db.GetUser(ubody.Name, 0, "")
 	pwd := util.Cipher(ubody.Pwd)
 
 	if err != nil || len(resp.Pwd) == 0 || pwd != resp.Pwd {
@@ -59,6 +60,8 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		level := resp.Level
 		claims := map[string]interface{}{"exp": time.Now().Add(time.Hour).Unix(), "level": level}
 		token, err := auth.New(claims)
+		str := RandStr()
+		auth.Secret([]byte(str))
 		if err != nil {
 			return
 		}
@@ -105,10 +108,10 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	old, _ := db.GetUser("", pint,"")
+	old, _ := db.GetUser("", pint, "")
 
 	if old.Name != ubody.Name {
-		if res, _ := db.GetUser(ubody.Name, 0,""); res != nil {
+		if res, _ := db.GetUser(ubody.Name, 0, ""); res != nil {
 			sendMsg(w, 401, "用户名已存在~")
 			return
 		}
@@ -134,7 +137,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	if resp, err := db.UpdateUser(pint, ubody.Name, ubody.Pwd, realLevel, ubody.QQ, ubody.Desc); err != nil {
-		sendMsg(w, 401, "数据库错误")
+		sendMsg(w, 500, "数据库错误")
 		return
 	} else {
 		ret := &def.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Desc: resp.Desc}
@@ -149,7 +152,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	uid, _ := strconv.Atoi(p.ByName("id"))
 	err := db.DeleteUser(uid)
 	if err != nil {
-		sendMsg(w, 401, "数据库错误")
+		sendMsg(w, 500, "数据库错误")
 		return
 	} else {
 		sendMsg(w, 200, "删除成功")
@@ -163,7 +166,7 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	resp, err := db.GetUser(uname, uid, uqq)
 	if err != nil {
 		log.Printf("%s", err)
-		sendMsg(w, 401, "数据库错误")
+		sendMsg(w, 500, "数据库错误")
 		return
 	}
 	sendUserResponse(w, resp, 200, "")
@@ -177,7 +180,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	resp, err := db.GetUsers(level, page, pageSize)
 	if err != nil {
-		sendMsg(w, 401, "数据库错误")
+		sendMsg(w, 500, "数据库错误")
 		return
 	} else {
 		res := &def.Users{Users: resp}
@@ -190,7 +193,7 @@ func SearchUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	resp, err := db.SearchUsers(key)
 	if err != nil {
-		sendMsg(w, 401, "数据库错误")
+		sendMsg(w, 500, "数据库错误")
 		return
 	} else {
 		res := &def.Users{Users: resp}
