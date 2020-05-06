@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"strings"
 	"time"
@@ -110,10 +109,10 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 	if sort == "bgm" {
-		query += `AND NOT posts.sort='原创'`
+		query += `AND NOT posts.sort='原创' `
 	}
 	if status == "nowait" {
-		query += `AND NOT posts.status='wait'`
+		query += `AND NOT posts.status='wait' `
 	}
 
 	if len(tags) != 0 {
@@ -128,8 +127,8 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	slice = append(slice, start, pageSize)
 
-	sqlRaw := fmt.Sprintf(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id 
-WHERE 1=1 %s ORDER BY time DESC limit ?,?`, query)
+	sqlRaw := `SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id 
+WHERE 1=1 ` + query + ` ORDER BY time DESC limit ?,?`
 
 	log.Printf("%s", sqlRaw)
 
