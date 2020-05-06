@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"encoding/json"
 	"io"
+	"log"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -28,6 +29,7 @@ func Auth(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func AuthToken(w http.ResponseWriter, r *http.Request, level int) bool {
+	log.Printf("%d", level)
 	token := r.Header.Get("token")
 	if auth.Passes(token) {
 		s := auth.GetClaims(token)
