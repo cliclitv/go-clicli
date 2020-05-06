@@ -31,6 +31,5 @@ func ReplacePv(pid int, pv int) (*def.Pv, error) {
 	defer stmtIns.Close()
 
 	res := &def.Pv{Pid: pid, Pv: pv}
-	defer stmtIns.Close()
 	return res, nil
 }

@@ -58,13 +58,13 @@ func DeletePost(id int) error {
 	if err != nil {
 		return err
 	}
-	stmtDel.Close()
+	defer stmtDel.Close()
 
 	return nil
 }
 
 func GetPost(id int) (*def.Post, error) {
-	stmtOut, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts 
+	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts 
 INNER JOIN users ON posts.uid = users.id WHERE posts.id = ?`)
 	if err != nil {
 		return nil, err
@@ -72,14 +72,14 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = ?`)
 	var pid, uid int
 	var title, content, status, sort, tag, ctime, uname, uqq string
 
-	err = stmtOut.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &uid, &uname, &uqq)
+	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &uid, &uname, &uqq)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-	defer stmtOut.Close()
+	defer stmt.Close()
 
 	res := &def.Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
 
@@ -150,40 +150,17 @@ WHERE 1=1 %s ORDER BY time DESC limit ?,?`, query)
 }
 
 func SearchPosts(key string) ([]*def.Post, error) {
-	var likeStr string
-
-	var words <-chan string
-	words = seg.CutForSearch(key, true)
-
-	index := 0
-	for word := range words {
-
-		index++
-		if index == 1 {
-			likeStr = "title LIKE '%" + word + "%'"
-		} else {
-			likeStr += " OR title LIKE '%" + word + "%'"
-		}
-
-	}
-
-	sql := `SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, users.id, users.name, users.qq 
-					FROM posts 
-					LEFT JOIN users ON posts.uid = users.id 
-					LEFT JOIN pv ON pv.pid = posts.id
-					WHERE ` + likeStr + `
-					ORDER BY pv.pv DESC`
-
-	stmtOut, err := dbConn.Prepare(sql)
+	key = string("%" + key + "%")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE title LIKE ? OR content LIKE ?")
 
 	var res []*def.Post
 
-	rows, err := stmtOut.Query()
+	rows, err := stmt.Query(key, key)
 	if err != nil {
 		return res, err
 	}
 
-	defer stmtOut.Close()
+	defer stmt.Close()
 
 	for rows.Next() {
 		var id, uid int
@@ -191,23 +168,25 @@ func SearchPosts(key string) ([]*def.Post, error) {
 		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
+
 		c := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
 	return res, nil
 }
+
 func GetRank() ([]*def.Post, error) {
-	stmtOut, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag,posts.time FROM posts LEFT JOIN pv ON posts.id = pv.pid ORDER BY pv DESC limit 0,10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag,posts.time FROM posts LEFT JOIN pv ON posts.id = pv.pid ORDER BY pv DESC limit 0,10")
 
 	var res []*def.Post
 
-	rows, err := stmtOut.Query()
+	rows, err := stmt.Query()
 	if err != nil {
 		return res, err
 	}
 
-	defer stmtOut.Close()
+	defer stmt.Close()
 
 	for rows.Next() {
 		var id int
