@@ -4,6 +4,7 @@ import (
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 	"github.com/nilslice/jwt"
+	"github.com/cliclitv/go-clicli/util"
 	"net/http"
 )
 
