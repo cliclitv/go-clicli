@@ -2,12 +2,13 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/cliclitv/go-clicli/db"
-	"github.com/cliclitv/go-clicli/def"
-	"github.com/julienschmidt/httprouter"
 	"io/ioutil"
 	"net/http"
 	"strconv"
+
+	"github.com/cliclitv/go-clicli/db"
+	"github.com/cliclitv/go-clicli/def"
+	"github.com/julienschmidt/httprouter"
 )
 
 func AddVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -18,12 +19,12 @@ func AddVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	body := &def.Video{}
 
 	if err := json.Unmarshal(req, body); err != nil {
-		sendMsg(w,401,"参数解析失败")
+		sendMsg(w, 401, "参数解析失败")
 		return
 	}
 
 	if resp, err := db.AddVideo(body.Oid, body.Title, body.Content, body.Pid, body.Uid); err != nil {
-		sendMsg(w,401,"数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		sendVideoResponse(w, resp, 200)
@@ -41,12 +42,12 @@ func UpdateVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	body := &def.Video{}
 
 	if err := json.Unmarshal(req, body); err != nil {
-		sendMsg(w,401,"参数解析失败")
+		sendMsg(w, 401, "参数解析失败")
 		return
 	}
 
 	if resp, err := db.UpdateVideo(vid, body.Oid, body.Title, body.Content, body.Pid, body.Uid); err != nil {
-		sendMsg(w,401,"数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		sendVideoResponse(w, resp, 200)
@@ -61,7 +62,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
 	resp, err := db.GetVideos(pid, uid, page, pageSize)
 	if err != nil {
-		sendMsg(w,401,"数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		res := &def.Videos{Videos: resp}
@@ -73,7 +74,7 @@ func GetVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	vid, _ := strconv.Atoi(p.ByName("id"))
 	resp, err := db.GetVideo(vid)
 	if err != nil {
-		sendMsg(w,401,"数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		sendVideoResponse(w, resp, 200)
@@ -89,9 +90,9 @@ func DeleteVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	err := db.DeleteVideo(id, pid)
 	if err != nil {
-		sendMsg(w,401,"数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
-		sendMsg(w,200,"删除成功")
+		sendMsg(w, 200, "删除成功")
 	}
 }
