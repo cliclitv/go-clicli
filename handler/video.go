@@ -60,6 +60,10 @@ func GetVideos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	uid, _ := strconv.Atoi(r.URL.Query().Get("uid"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
+	if pageSize > 101 {
+		sendMsg(w, 401, "pageSize太大了")
+		return
+	}
 	resp, err := db.GetVideos(pid, uid, page, pageSize)
 	if err != nil {
 		sendMsg(w, 401, "数据库错误")
