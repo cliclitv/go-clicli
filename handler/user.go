@@ -179,7 +179,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
 
-	if pageSize >= 100 {
+	if pageSize > 100 {
 		sendMsg(w, 401, "pageSize太大了")
 		return
 	}
