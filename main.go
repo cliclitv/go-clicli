@@ -39,7 +39,7 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/posts", handler.GetPosts)
 	router.POST("/video/add", handler.AddVideo)
 	router.POST("/video/update/:id", handler.UpdateVideo)
-	// router.POST("/video/delete", handler.DeleteVideo)
+	router.POST("/video/delete", handler.DeleteVideo)
 	router.GET("/video/:id", handler.GetVideo)
 	router.GET("/videos", handler.GetVideos)
 	router.GET("/search/posts", handler.SearchPosts)
