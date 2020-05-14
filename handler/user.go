@@ -137,13 +137,9 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	if resp, err := db.UpdateUser(pint, ubody.Name, ubody.Pwd, realLevel, ubody.QQ, ubody.Desc); err != nil {
-		sendMsg(w, 500, "数据库错误")
-		return
-	} else {
-		ret := &def.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Desc: resp.Desc}
-		sendUserResponse(w, ret, 200, "更新成功啦")
-	}
+	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, realLevel, ubody.QQ, ubody.Desc)
+	sendUserResponse(w, resp, 200, "更新成功啦")
+
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
