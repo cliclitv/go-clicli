@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
