@@ -162,7 +162,6 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	uid, _ := strconv.Atoi(r.URL.Query().Get("uid"))
 	resp, err := db.GetUser(uname, uid, uqq)
 	if err != nil {
-		log.Printf("%s", err)
 		sendMsg(w, 500, "数据库错误")
 		return
 	}
