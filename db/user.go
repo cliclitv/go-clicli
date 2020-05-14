@@ -66,13 +66,13 @@ func GetUser(name string, id int, qq string) (*def.User, error) {
 	}
 	stmt, _ := dbConn.Prepare(query)
 	var level int
-	var sign string
+	var sign, pwd string
 	if name != "" {
-		err = stmt.QueryRow(name).Scan(&id, &name, &level, &qq, &sign)
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE name = ?`
 	} else if id != 0 {
-		err = stmt.QueryRow(id).Scan(&id, &name, &level, &qq, &sign)
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE id = ?`
 	} else {
-		err = stmt.QueryRow(qq).Scan(&id, &name, &level, &qq, &sign)
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE qq = ?`
 	}
 
 	defer stmt.Close()
@@ -83,7 +83,7 @@ func GetUser(name string, id int, qq string) (*def.User, error) {
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-	res := &def.User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
+	res := &def.User{Id: id, Pwd: pwd, Name: name, Level: level, QQ: qq, Desc: sign}
 
 	return res, nil
 }
