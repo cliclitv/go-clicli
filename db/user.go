@@ -83,7 +83,7 @@ func GetUser(name string, id int, qq string) (*def.User, error) {
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-	res := &def.User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
+	res := &def.User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Desc: sign}
 
 	return res, nil
 }
