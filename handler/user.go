@@ -26,12 +26,8 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	res, _ := db.GetUser(ubody.Name, 0, "")
+	res, _ := db.GetUser("", 0, ubody.QQ)
 	if res != nil {
-		sendMsg(w, 401, "用户名已存在")
-		return
-	}
-	if res.QQ == ubody.QQ {
 		sendMsg(w, 401, "QQ已存在")
 		return
 	}
