@@ -147,7 +147,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 func SearchPosts(key string) ([]*def.Post, error) {
 	key = string("%" + key + "%")
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE title LIKE ? OR content LIKE ?")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE title LIKE ? OR content LIKE ? ORDER BY time DESC")
 
 	var res []*def.Post
 
