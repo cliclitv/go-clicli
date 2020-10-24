@@ -20,6 +20,7 @@ type Post struct {
 	Uid     int    `json:"uid,omitempty"`
 	Uname   string `json:"uname,omitempty"`
 	Uqq     string `json:"uqq,omitempty"`
+	Videos  string `json:"videos,omitempty"`
 }
 
 type Video struct {
