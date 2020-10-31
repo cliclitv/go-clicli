@@ -18,8 +18,8 @@ func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 	return m
 }
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE")
+	w.Header().Add("Access-Control-Allow-Origin", "http://localhost:8080")
+	w.Header().Add("Access-Control-Allow-Credentials", "true")
 	m.r.ServeHTTP(w, r)
 }
 
