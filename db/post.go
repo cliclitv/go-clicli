@@ -8,35 +8,35 @@ import (
 	"time"
 )
 
-func AddPost(title string, content string, status string, sort string, tag string, uid int) (*def.Post, error) {
+func AddPost(title string, content string, status string, sort string, tag string, uid int, videos string) (*def.Post, error) {
 	cstZone := time.FixedZone("CST", 8*3600)
 	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid) VALUES (?,?,?,?,?,?,?)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos) VALUES (?,?,?,?,?,?,?,?)")
 	if err != nil {
 		return nil, err
 
 	}
-	_, err = stmtIns.Exec(title, content, status, sort, tag, ctime, uid)
+	_, err = stmtIns.Exec(title, content, status, sort, tag, ctime, uid, videos)
 	if err != nil {
 		return nil, err
 	}
-	res := &def.Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid}
+	res := &def.Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Videos: videos}
 	defer stmtIns.Close()
 
 	return res, err
 }
 
-func UpdatePost(id int, title string, content string, status string, sort string, tag string, time string) (*def.Post, error) {
-	stmtIns, err := dbConn.Prepare("UPDATE posts SET title=?,content=?,status=?,sort=?,tag=?,time=? WHERE id =?")
+func UpdatePost(id int, title string, content string, status string, sort string, tag string, time string, videos string) (*def.Post, error) {
+	stmtIns, err := dbConn.Prepare("UPDATE posts SET title=?,content=?,status=?,sort=?,tag=?,time=?,videos=? WHERE id =?")
 	if err != nil {
 		return nil, err
 
 	}
-	_, err = stmtIns.Exec(&title, &content, &status, &sort, &tag, &time, &id)
+	_, err = stmtIns.Exec(&title, &content, &status, &sort, &tag, &time, &videos, &id)
 	if err != nil {
 		return nil, err
 	}
-	res := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: time}
+	res := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: time, Videos: videos}
 	defer stmtIns.Close()
 	return res, err
 }
