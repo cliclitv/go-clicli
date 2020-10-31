@@ -13,7 +13,7 @@ func sendUserResponse(w http.ResponseWriter, uRes *def.User, sc int, msg string)
 	resStr, _ := json.Marshal(struct {
 		Code int      `json:"code"`
 		Msg  string   `json:"msg,omitempty"`
-		User def.User `json:"user"`
+		Result def.User `json:"result"`
 	}{sc, msg, *uRes})
 
 	io.WriteString(w, string(resStr))
