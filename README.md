@@ -4,15 +4,22 @@
 
 [www.clicli.me](https://www.clicli.us)
 
+````bash
+# run dev
+env env=dev fresh
+```
+
 ### 依赖
-* httprouter
-* fasthttp
-* go-sql-driver
-* jwt
-* jieba
+
+- httprouter
+- fasthttp
+- go-sql-driver
+- jwt
+- jieba
 
 ### 特征
-* 用户、番剧的增删改查
-* 原生 sql 操作，包含外键关联、分页、模糊搜索
-* 简单的 jwt 和数值鉴权
 
+- 用户、番剧的增删改查
+- 原生 sql 操作，包含外键关联、分页、模糊搜索
+- 简单的 jwt 和数值鉴权
+````
