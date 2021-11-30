@@ -75,7 +75,7 @@ func RegisterHandler() *httprouter.Router {
 func main() {
 	env := "dev"
 	env = os.Getenv("env")
-	if errr := godotenv.Load(".env." + env); errr != nil {
+	if errr := godotenv.Load(".env." + env); errr != nil && !os.IsNotExist(errr) {
 		fmt.Print(errr)
 	}
 
