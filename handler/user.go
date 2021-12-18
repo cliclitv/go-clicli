@@ -15,6 +15,8 @@ import (
 	"github.com/nilslice/jwt"
 )
 
+const DOMAIN = "clicli.me"
+
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := ioutil.ReadAll(r.Body)
 	ubody := &def.User{}
@@ -72,13 +74,30 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			User  *def.User `json:"user"`
 		}{Code: 200, Token: token, User: res})
 
+		t := http.Cookie{Name: "token", Value: token, Path: "/", MaxAge: 86400, Domain: DOMAIN}
+		http.SetCookie(w, &t)
+		qq := http.Cookie{Name: "uqq", Value: resp.QQ, Path: "/", MaxAge: 86400, Domain: DOMAIN}
+		http.SetCookie(w, &qq)
+		uid := http.Cookie{Name: "uid", Value: strconv.Itoa(resp.Id), Path: "/", MaxAge: 86400, Domain: DOMAIN}
+		http.SetCookie(w, &uid)
+		l := http.Cookie{Name: "level", Value: strconv.Itoa(resp.Level), Path: "/", MaxAge: 86400, Domain: DOMAIN}
+		http.SetCookie(w, &l)
+
 		io.WriteString(w, string(resStr))
 	}
 
 }
 
 func Logout(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
-	sendMsg(w, 200, "Nothing Happened")
+	i := http.Cookie{Name: "uid", Path: "/", Domain: DOMAIN, MaxAge: -1}
+	q := http.Cookie{Name: "uqq", Path: "/", Domain: DOMAIN, MaxAge: -1}
+	l := http.Cookie{Name: "level", Path: "/", Domain: DOMAIN, MaxAge: -1}
+	t := http.Cookie{Name: "token", Path: "/", Domain: DOMAIN, MaxAge: -1}
+	http.SetCookie(w, &i)
+	http.SetCookie(w, &q)
+	http.SetCookie(w, &t)
+	http.SetCookie(w, &l)
+	sendMsg(w, 200, "退出成功啦")
 }
 
 func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {

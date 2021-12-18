@@ -24,7 +24,7 @@ func AddVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	if resp, err := db.AddVideo(body.Oid, body.Title, body.Content, body.Pid, body.Uid); err != nil {
-		sendMsg(w, 500, "数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		sendVideoResponse(w, resp, 200)
@@ -47,7 +47,7 @@ func UpdateVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	if resp, err := db.UpdateVideo(vid, body.Oid, body.Title, body.Content, body.Pid, body.Uid); err != nil {
-		sendMsg(w, 500, "数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		sendVideoResponse(w, resp, 200)
@@ -66,7 +66,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 	resp, err := db.GetVideos(pid, uid, page, pageSize)
 	if err != nil {
-		sendMsg(w, 500, "数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		res := &def.Videos{Videos: resp}
@@ -78,7 +78,7 @@ func GetVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	vid, _ := strconv.Atoi(p.ByName("id"))
 	resp, err := db.GetVideo(vid)
 	if err != nil {
-		sendMsg(w, 500, "数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		sendVideoResponse(w, resp, 200)
@@ -94,7 +94,7 @@ func DeleteVideo(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	err := db.DeleteVideo(id, pid)
 	if err != nil {
-		sendMsg(w, 500, "数据库错误")
+		sendMsg(w, 401, "数据库错误")
 		return
 	} else {
 		sendMsg(w, 200, "删除成功")
