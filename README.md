@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/cliclitv/go_clicli/workflows/deploy/badge.svg?branch=master)]
 
-[www.clicli.me](https://www.clicli.us)
+[www.clicli.me](https://www.clicli.cc)
 
 ### 依赖
 * httprouter
