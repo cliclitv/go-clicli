@@ -32,4 +32,4 @@ jobs:
           username: ${{ secrets.DEPLOY_USERNAME }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           port: 22
-          script: cd go_server && ./deploy.sh   
+          script: docker-compose up -d  

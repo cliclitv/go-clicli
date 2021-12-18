@@ -1,0 +1,8 @@
+version: '3'
+services:
+  server:
+    image: "yisar/clicli_api"
+    ports:
+     - "4000:4000"
+    environment:
+      MYSQL_STR: "root:root@tcp(localhost:3306)/clicli?charset=utf8"
