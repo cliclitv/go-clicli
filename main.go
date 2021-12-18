@@ -60,5 +60,5 @@ func main() {
 	jwt.Secret([]byte(str))
 	r := RegisterHandler()
 	mh := NewMiddleWareHandler(r)
-	http.ListenAndServe(":8084", mh)
+	http.ListenAndServe(":4000", mh)
 }
