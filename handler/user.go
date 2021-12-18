@@ -15,7 +15,7 @@ import (
 	"github.com/nilslice/jwt"
 )
 
-const DOMAIN = "clicli.me"
+const DOMAIN = "clicli.cc"
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := ioutil.ReadAll(r.Body)
