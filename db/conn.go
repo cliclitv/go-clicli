@@ -13,11 +13,7 @@ var (
 )
 
 func init() {
-	host := os.Getenv("MysqlHostname")
-	user := os.Getenv("MysqlUsername")
-	db := os.Getenv("MysqlDB")
-	pwd := os.Getenv("MysqlPassword")
-	str := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", user, pwd, host, db)
+	str := os.Getenv("MYSQL_STR")
 	dbConn, err = sql.Open("mysql", str)
 	if err != nil {
 		panic(err.Error())
