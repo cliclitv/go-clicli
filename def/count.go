@@ -1,9 +1,8 @@
 package def
 
-type Cookie struct {
-	Uid  int    `json:"uid"`
-	Hcy  string `json:"hcy"`
-	Quqi string `json:"quqi,omitempty"`
+type Play struct {
+	MType  string    `json:"mtype"`
+	Url string `json:"url"`
 }
 
 type Pv struct {

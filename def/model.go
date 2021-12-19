@@ -23,27 +23,10 @@ type Post struct {
 	Videos  string `json:"videos,omitempty"`
 }
 
-type Video struct {
-	Id      int    `json:"id,omitempty"`
-	Oid     int    `json:"oid"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Time    string `json:"time"`
-	Pid     int    `json:"pid"`
-	Ptitle  string `json:"ptitle,omitempty"`
-	Uid     int    `json:"uid"`
-	Uname   string `json:"uname,omitempty"`
-	Uqq     string `json:"uqq,omitempty"`
-}
-
 type Posts struct {
 	Posts []*Post `json:"posts"`
 }
 
 type Users struct {
 	Users []*User `json:"users"`
-}
-
-type Videos struct {
-	Videos []*Video `json:"videos"`
 }

@@ -50,31 +50,11 @@ func sendUsersResponse(w http.ResponseWriter, pRes *def.Users, sc int) {
 	io.WriteString(w, string(resStr))
 }
 
-func sendVideoResponse(w http.ResponseWriter, Res *def.Video, sc int) {
-	w.WriteHeader(sc)
-	resStr, _ := json.Marshal(struct {
-		Code   int       `json:"code"`
-		Result *def.Video `json:"result"`
-	}{sc, Res})
-
-	io.WriteString(w, string(resStr))
-}
-
-func sendVideosResponse(w http.ResponseWriter, Res *def.Videos, sc int) {
-	w.WriteHeader(sc)
-	resStr, _ := json.Marshal(struct {
-		Code int `json:"code"`
-		*def.Videos
-	}{sc, Res})
-
-	io.WriteString(w, string(resStr))
-}
-
-func sendCookieResponse(w http.ResponseWriter, cRes def.Cookie, sc int) {
+func sendPlayResponse(w http.ResponseWriter, cRes def.Play, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code   int        `json:"code"`
-		Result def.Cookie `json:"result"`
+		Result def.Play `json:"result"`
 	}{sc, cRes})
 
 	io.WriteString(w, string(resStr))
