@@ -18,16 +18,16 @@ func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 	return m
 }
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if  r.Header.Get("Origin") == "http://admin.clicli.cc" {
-		w.Header().Add("Access-Control-Allow-Origin", "http://admin.clicli.cc")
+	if  r.Header.Get("Origin") == "https://admin.clicli.cc" {
+		w.Header().Add("Access-Control-Allow-Origin", "https://admin.clicli.cc")
 	}
 
-	if  r.Header.Get("Origin") == "http://www.clicli.cc" {
-		w.Header().Add("Access-Control-Allow-Origin", "http://www.clicli.cc")
+	if  r.Header.Get("Origin") == "https://www.clicli.cc" {
+		w.Header().Add("Access-Control-Allow-Origin", "https://www.clicli.cc")
 	}
 	
-	if  r.Header.Get("Origin") == "http://clicli.cc" {
-		w.Header().Add("Access-Control-Allow-Origin", "http://clicli.cc")
+	if  r.Header.Get("Origin") == "https://clicli.cc" {
+		w.Header().Add("Access-Control-Allow-Origin", "https://clicli.cc")
 	}
 
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
