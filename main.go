@@ -32,7 +32,7 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
 	w.Header().Add("Access-Control-Allow-Methods", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "*")
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type,token")
 	m.r.ServeHTTP(w, r)
 }
 
