@@ -93,9 +93,9 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 	var slice []interface{}
 	var query string
 	if level == 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 limit $1,$2"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 LIMIT $1 OFFSET $2"
 	} else if level > -1 && level < 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 limit $2,$3"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 LIMIT $2 OFFSET $3"
 		slice = append(slice, level)
 	}
 
