@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	// "log"
 	"github.com/cliclitv/go-clicli/def"
 	"strings"
 	"time"
@@ -11,7 +10,7 @@ import (
 func AddPost(title string, content string, status string, sort string, tag string, uid int, videos string) (*def.Post, error) {
 	cstZone := time.FixedZone("CST", 8*3600)
 	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos) VALUES (?,?,?,?,?,?,?,?)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)")
 	if err != nil {
 		return nil, err
 
@@ -27,7 +26,7 @@ func AddPost(title string, content string, status string, sort string, tag strin
 }
 
 func UpdatePost(id int, title string, content string, status string, sort string, tag string, time string, videos string) (*def.Post, error) {
-	stmtIns, err := dbConn.Prepare("UPDATE posts SET title=?,content=?,status=?,sort=?,tag=?,time=?,videos=? WHERE id =?")
+	stmtIns, err := dbConn.Prepare("UPDATE posts SET title=$1,content=$2,status=$3,sort=$4,tag=$5,time=$6,videos=$7 WHERE id =$8")
 	if err != nil {
 		return nil, err
 
@@ -42,7 +41,7 @@ func UpdatePost(id int, title string, content string, status string, sort string
 }
 
 func DeletePost(id int) error {
-	stmtDel, err := dbConn.Prepare("DELETE FROM posts WHERE id=?")
+	stmtDel, err := dbConn.Prepare("DELETE FROM posts WHERE id=$1")
 	if err != nil {
 		return err
 	}
@@ -58,7 +57,7 @@ func DeletePost(id int) error {
 
 func GetPost(id int) (*def.Post, error) {
 	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts 
-INNER JOIN users ON posts.uid = users.id WHERE posts.id = ?`)
+INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +146,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 func SearchPosts(key string) ([]*def.Post, error) {
 	key = string("%" + key + "%")
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE ? OR content LIKE ?) ORDER BY time DESC")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
 
 	var res []*def.Post
 

@@ -9,7 +9,7 @@ import (
 
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
 	pwd = util.Cipher(pwd)
-	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign) VALUES (?,?,?,?,?)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign) VALUES ($1,$2,$3,$4,$5)")
 	if err != nil {
 		return err
 	}
@@ -24,7 +24,7 @@ func CreateUser(name string, pwd string, level int, qq string, sign string) erro
 
 func UpdateUser(id int, name string, pwd string, level int, qq string, sign string) (*def.User, error) {
 	if pwd == "" {
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=?,level=?,qq=?,sign=? WHERE id =?")
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,sign=$4 WHERE id =$5")
 		if err != nil {
 			return nil, err
 		}
@@ -39,7 +39,7 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, sign stri
 		return res, err
 	} else {
 		pwd = util.Cipher(pwd)
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=?,pwd=?,level=?,qq=?,sign=? WHERE id =?")
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5 WHERE id =$6")
 		if err != nil {
 			return nil, err
 		}
@@ -58,11 +58,11 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, sign stri
 func GetUser(name string, id int, qq string) (*def.User, error) {
 	var query string
 	if name != "" {
-		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE name = ?`
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE name = $1`
 	} else if id != 0 {
-		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE id = ?`
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE id = $1`
 	} else {
-		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE qq = ?`
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE qq = $1`
 	}
 	stmt, _ := dbConn.Prepare(query)
 	var level int
@@ -93,9 +93,9 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 	var slice []interface{}
 	var query string
 	if level == 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 limit ?,?"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 limit $1,$2"
 	} else if level > -1 && level < 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE level = ? limit ?,?"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 limit $2,$3"
 		slice = append(slice, level)
 	}
 
@@ -127,7 +127,7 @@ func GetUsers(level int, page int, pageSize int) ([]*def.User, error) {
 
 func SearchUsers(key string) ([]*def.User, error) {
 	key = string("%" + key + "%")
-	stmt, err := dbConn.Prepare("SELECT id, name, level, qq, sign FROM users WHERE name LIKE ?")
+	stmt, err := dbConn.Prepare("SELECT id, name, level, qq, sign FROM users WHERE name LIKE $1")
 
 	var res []*def.User
 
@@ -153,7 +153,7 @@ func SearchUsers(key string) ([]*def.User, error) {
 }
 
 func DeleteUser(id int) error {
-	stmtDel, err := dbConn.Prepare("DELETE FROM users WHERE id =?")
+	stmtDel, err := dbConn.Prepare("DELETE FROM users WHERE id =$1")
 	if err != nil {
 		log.Printf("%s", err)
 		return err

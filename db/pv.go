@@ -6,7 +6,7 @@ import (
 )
 
 func GetPv(pid int) (*def.Pv, error) {
-	stmtCount, err := dbConn.Prepare("SELECT pv FROM pv WHERE pid = ?")
+	stmtCount, err := dbConn.Prepare("SELECT pv FROM pv WHERE pid = $1")
 	var pv int
 	err = stmtCount.QueryRow(pid).Scan(&pv)
 	if err != nil && err != sql.ErrNoRows {
@@ -20,7 +20,7 @@ func GetPv(pid int) (*def.Pv, error) {
 }
 
 func ReplacePv(pid int, pv int) (*def.Pv, error) {
-	stmtIns, err := dbConn.Prepare("REPLACE INTO pv (pid,pv) VALUES (?,?)")
+	stmtIns, err := dbConn.Prepare("REPLACE INTO pv (pid,pv) VALUES ($1,$2)")
 	if err != nil {
 		return nil, err
 	}
