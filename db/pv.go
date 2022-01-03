@@ -20,11 +20,11 @@ func GetPv(pid int) (*def.Pv, error) {
 }
 
 func ReplacePv(pid int, pv int) (*def.Pv, error) {
-	stmtIns, err := dbConn.Prepare("REPLACE INTO pv (pid,pv) VALUES ($1,$2)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO pv (pid,pv) VALUES ($1,$2) ON conflict(pid) DO UPDATE SET pv=$3")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmtIns.Exec(pid, pv)
+	_, err = stmtIns.Exec(pid, pv,pv)
 	if err != nil {
 		return nil, err
 	}
