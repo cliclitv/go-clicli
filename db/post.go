@@ -5,6 +5,8 @@ import (
 	"github.com/cliclitv/go-clicli/def"
 	"strings"
 	"time"
+	"fmt"
+	"log"
 )
 
 func AddPost(title string, content string, status string, sort string, tag string, uid int, videos string) (*def.Post, error) {
@@ -85,18 +87,18 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	var query string
 	var slice []interface{}
 	if status != "" && status != "nowait" {
-		query += ` AND posts.status =?`
 		slice = append(slice, status)
+		query += fmt.Sprintf(" AND posts.status =$%d", len(slice))
 	}
 
 	if sort != "" && sort != "bgm" {
-		query += ` AND posts.sort =?`
 		slice = append(slice, sort)
+		query += fmt.Sprintf(" AND posts.sort =$%d", len(slice))
 	}
 
 	if uid != 0 {
-		query += ` AND posts.uid =?`
 		slice = append(slice, uid)
+		query += fmt.Sprintf(" AND posts.uid =$%d", len(slice))
 	}
 
 	if sort == "bgm" {
@@ -110,19 +112,19 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		query += ` AND (1=2 `
 		for i := 0; i < len(tags); i++ {
 			key := string("%" + tags[i] + "%")
-			query += `OR posts.tag LIKE ?`
 			slice = append(slice, key)
+			query += fmt.Sprintf(" OR posts.tag LIKE $%d",len(slice))
 		}
 		query += `)`
 	}
 
-	slice = append(slice, start, pageSize)
 
-	sqlRaw := `SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1` + query + ` ORDER BY time DESC limit ?,?`
+	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v LIMIT $%v OFFSET $%v",query, len(slice)+1, len(slice)+2)
 
-	// log.Printf("%s", sqlRaw)
+	slice = append(slice,pageSize,start)
 
 	stmt, _ := dbConn.Prepare(sqlRaw)
+
 
 	var rows, _ = stmt.Query(slice...)
 
@@ -134,6 +136,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		var id, uid int
 		var title, content, status, sort, tag, ctime, uname, uqq string
 		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &uid, &uname, &uqq); err != nil {
+			log.Println(err)
 			return res, err
 		}
 		c := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}

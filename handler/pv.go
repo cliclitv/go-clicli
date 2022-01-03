@@ -3,7 +3,6 @@ package handler
 import (
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/julienschmidt/httprouter"
-	"log"
 	"net/http"
 	"strconv"
 )
