@@ -1,8 +1,8 @@
 # go-clicli
 
-[![Build Status](https://github.com/cliclitv/go_clicli/workflows/deploy/badge.svg?branch=master)]
+[![Build Status](https://github.com/yisar/go-clicli/workflows/ci/badge.svg?branch=master)](https://github.com/yisar/go-clicli/actions)
 
-[www.clicli.me](https://www.clicli.cc)
+[www.clicli.cc](https://www.clicli.cc)
 
 ### 依赖
 * httprouter
