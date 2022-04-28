@@ -12,8 +12,7 @@ var (
 )
 
 func init() {
-	// str := os.Getenv("POSTGRES_STR")
-	str:="postgres://postgres:123456@localhost:5432/clicli?sslmode=disable"
+	str := os.Getenv("POSTGRES_STR")
 	dbConn, err = sql.Open("postgres", str)
 	if err != nil {
 		panic(err.Error())
