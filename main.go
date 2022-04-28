@@ -12,22 +12,25 @@ type middleWareHandler struct {
 	r *httprouter.Router
 }
 
+var whiteOrigins = [5]string{
+	"https://admin.clicli.cc",
+	"https://www.clicli.cc",
+	"https://clicli.cc",
+	"http://localhost:8080",
+	"http://localhost:1122",
+}
+
+var whiteOriginsSet = make(map[string]bool)
+
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 	m := middleWareHandler{}
 	m.r = r
 	return m
 }
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if  r.Header.Get("Origin") == "https://admin.clicli.cc" {
-		w.Header().Add("Access-Control-Allow-Origin", "https://admin.clicli.cc")
-	}
-
-	if  r.Header.Get("Origin") == "https://www.clicli.cc" {
-		w.Header().Add("Access-Control-Allow-Origin", "https://www.clicli.cc")
-	}
-	
-	if  r.Header.Get("Origin") == "https://clicli.cc" {
-		w.Header().Add("Access-Control-Allow-Origin", "https://clicli.cc")
+	origin := r.Header.Get("Origin")
+	if whiteOriginsSet[origin] {
+		w.Header().Add("Access-Control-Allow-Origin", origin)
 	}
 
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
@@ -61,6 +64,9 @@ func RegisterHandler() *httprouter.Router {
 }
 
 func main() {
+	for _, s := range whiteOrigins {
+		whiteOriginsSet[s] = true
+	}
 	str := util.RandStr(10)
 	jwt.Secret([]byte(str))
 	r := RegisterHandler()
