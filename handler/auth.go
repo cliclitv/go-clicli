@@ -9,6 +9,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
+
 func Auth(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	t, err := r.Cookie("token")
 	if err != nil {
