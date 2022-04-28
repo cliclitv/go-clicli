@@ -119,7 +119,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 
-	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v LIMIT $%v OFFSET $%v ORDER BY time DESC",query, len(slice)+1, len(slice)+2)
+	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 ORDER BY time DESC %v LIMIT $%v OFFSET $%v",query, len(slice)+1, len(slice)+2)
 
 	slice = append(slice,pageSize,start)
 
