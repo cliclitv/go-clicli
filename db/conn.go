@@ -12,7 +12,7 @@ var (
 )
 
 func init() {
-	str := os.Getenv("POSTGRES_STR")
+	str := os.Getenv("DATABASE_STR")
 	dbConn, err = sql.Open("postgres", str)
 	if err != nil {
 		panic(err.Error())
