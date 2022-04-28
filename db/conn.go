@@ -13,7 +13,7 @@ var (
 
 func init() {
 	str := os.Getenv("POSTGRES_STR")
-	dbConn, err = sql.Open("postgres", str)
+	dbConn, err = sql.Open("postgres",str)
 	if err != nil {
 		panic(err.Error())
 	}
