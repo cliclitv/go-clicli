@@ -6,7 +6,7 @@ import (
 	"github.com/nilslice/jwt"
 	"github.com/cliclitv/go-clicli/util"
 	"net/http"
-	"embed"
+	_ "embed"
 )
 
 type middleWareHandler struct {
