@@ -5,10 +5,11 @@ import (
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 	"io/fs"
-	"log"
 	"net/http"
-	"os"
 )
+
+//go:embed fre/dist
+var embededFiles embed.FS
 
 type middleWareHandler struct {
 	r *httprouter.Router
@@ -57,28 +58,12 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/pv/:pid", handler.GetPv)
 	router.GET("/rank", handler.GetRank)
 
-	useOS := len(os.Args) > 1 && os.Args[1] == "live"
-	router.Handler("GET", "/", http.FileServer(getFileSystem(useOS)))
+	fsys, _ := fs.Sub(embededFiles, "fre/dist")
+	router.ServeFiles("/assets/*filepath", http.FS(fsys))
+	router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
+
 
 	return router
-}
-
-//go:embed fre/dist
-var embededFiles embed.FS
-
-func getFileSystem(useOS bool) http.FileSystem {
-	if useOS {
-		log.Print("using live mode")
-		return http.FS(os.DirFS("fre/dist"))
-	}
-
-	log.Print("using embed mode")
-
-	fsys, err := fs.Sub(embededFiles, "fre/dist")
-	if err != nil {
-		panic(err)
-	}
-	return http.FS(fsys)
 }
 
 func main() {
