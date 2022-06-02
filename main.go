@@ -1,12 +1,13 @@
 package main
 
 import (
+	"embed"
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
-	"github.com/nilslice/jwt"
-	"github.com/cliclitv/go-clicli/util"
+	"io/fs"
+	"log"
 	"net/http"
-	_ "embed"
+	"os"
 )
 
 type middleWareHandler struct {
@@ -23,11 +24,6 @@ var whiteOrigins = [5]string{
 
 var whiteOriginsSet = make(map[string]bool)
 
-func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
-	m := middleWareHandler{}
-	m.r = r
-	return m
-}
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	origin := r.Header.Get("Origin")
 	if whiteOriginsSet[origin] {
@@ -61,16 +57,34 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/pv/:pid", handler.GetPv)
 	router.GET("/rank", handler.GetRank)
 
+	useOS := len(os.Args) > 1 && os.Args[1] == "live"
+	router.Handler("GET", "/", http.FileServer(getFileSystem(useOS)))
+
 	return router
+}
+
+//go:embed fre/dist
+var embededFiles embed.FS
+
+func getFileSystem(useOS bool) http.FileSystem {
+	if useOS {
+		log.Print("using live mode")
+		return http.FS(os.DirFS("static"))
+	}
+
+	log.Print("using embed mode")
+
+	fsys, err := fs.Sub(embededFiles, "fre/dist")
+	if err != nil {
+		panic(err)
+	}
+	return http.FS(fsys)
 }
 
 func main() {
 	for _, s := range whiteOrigins {
 		whiteOriginsSet[s] = true
 	}
-	str := util.RandStr(10)
-	jwt.Secret([]byte(str))
-	r := RegisterHandler()
-	mh := NewMiddleWareHandler(r)
-	http.ListenAndServe(":4000", mh)
+	router := RegisterHandler()
+	http.ListenAndServe(":4000", router)
 }
