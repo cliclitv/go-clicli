@@ -1,12 +1,21 @@
 import { render, Fragment, h, useEffect } from "fre"
-import Header from "./header/header"
+import { useRoutes, push, A } from './use-route'
 
-import './app.css'
-
-function App() {
-    return <>
-        <Header></Header>
-    </>
+const routes = {
+  '/': () => (
+    <div>
+      <p>home</p>
+      <A href='/home/jack'>Go jack</A>
+    </div>
+  ),
+  '/home/:id': ({ id }) => (
+    <div>
+      <p>{id}</p>
+      <button onClick={() => push('/')}>Go home</button>
+    </div>
+  )
 }
+
+const App = () => useRoutes(routes)
 
 render(<App />, document.getElementById("app"))
