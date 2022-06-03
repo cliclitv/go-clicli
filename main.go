@@ -40,28 +40,27 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
-	router.POST("/user/register", handler.Register)
-	router.POST("/user/login", handler.Login)
-	router.POST("/user/logout", handler.Logout)
-	router.POST("/user/update/:id", handler.UpdateUser)
-	// router.POST("/user/delete/:id", handler.DeleteUser)
-	router.GET("/users", handler.GetUsers)
-	router.GET("/user", handler.GetUser)
-	router.POST("/post/add", handler.AddPost)
-	// router.POST("/post/delete/:id", handler.DeletePost)
-	router.POST("/post/update/:id", handler.UpdatePost)
-	router.GET("/post/:id", handler.GetPost)
-	router.GET("/posts", handler.GetPosts)
-	router.GET("/search/posts", handler.SearchPosts)
-	router.GET("/search/users", handler.SearchUsers)
-	router.GET("/play", handler.GetPlay)
-	router.GET("/pv/:pid", handler.GetPv)
-	router.GET("/rank", handler.GetRank)
+	router.POST("/user/register", handler.Auth(handler.Register, 0))
+	router.POST("/user/login", handler.Auth(handler.Login, 0))
+	router.POST("/user/logout", handler.Auth(handler.Logout, 0)) // 前端清空 localstorage
+	router.POST("/user/update/:id", handler.Auth(handler.UpdateUser, 3))
+	router.POST("/user/delete/:id", handler.Auth(handler.DeleteUser, 3))
+	router.GET("/users", handler.Auth(handler.GetUsers, 3))
+	router.GET("/user", handler.Auth(handler.GetUser, 3))
+	router.POST("/post/add", handler.Auth(handler.AddPost, 1))
+	router.POST("/post/delete/:id", handler.Auth(handler.DeletePost, 3))
+	router.POST("/post/update/:id", handler.Auth(handler.UpdatePost, 1))
+	router.GET("/post/:id", handler.Auth(handler.GetPost, 0))
+	router.GET("/posts", handler.Auth(handler.GetPosts, 0))
+	router.GET("/search/posts", handler.Auth(handler.SearchPosts, 0))
+	router.GET("/search/users", handler.Auth(handler.SearchUsers, 0))
+	router.GET("/play", handler.Auth(handler.GetPlay, 0))
+	router.GET("/pv/:pid", handler.Auth(handler.GetPv, 0))
+	router.GET("/rank", handler.Auth(handler.GetRank, 0))
 
 	fsys, _ := fs.Sub(embededFiles, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
 	router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
-
 
 	return router
 }
@@ -70,15 +69,6 @@ func main() {
 	for _, s := range whiteOrigins {
 		whiteOriginsSet[s] = true
 	}
-
-	token, _ := handler.GenToken("132","132",1)
-
-	mc, err := handler.ParseToken(token)
-
-	fmt.Printf("mc: %v\n", mc)
-	fmt.Printf("mc.Name: %v\n", mc.Name)
-	fmt.Printf("err: %v\n", err)
-
 	router := RegisterHandler()
 	http.ListenAndServe(":4000", router)
 }
