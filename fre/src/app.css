@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 14px;
+    list-style: none;
+    color: var(--color);
+    background: var(--background);
+
+    --theme: #5c16c5;
+    --whrite: #fff;
+    --border: 0 1px 2px #ddd;
+    --color: #444;
+    --background: #f7f7f8
+}

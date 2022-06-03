@@ -1,0 +1,5 @@
+header{
+    padding: 10px;
+    background-color: var(--whrite);
+    box-shadow: var(--border);
+}
