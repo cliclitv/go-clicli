@@ -2,10 +2,12 @@ package main
 
 import (
 	"embed"
-	"github.com/cliclitv/go-clicli/handler"
-	"github.com/julienschmidt/httprouter"
+	"fmt"
 	"io/fs"
 	"net/http"
+
+	"github.com/cliclitv/go-clicli/handler"
+	"github.com/julienschmidt/httprouter"
 )
 
 //go:embed fre/dist
@@ -68,6 +70,15 @@ func main() {
 	for _, s := range whiteOrigins {
 		whiteOriginsSet[s] = true
 	}
+
+	token, _ := handler.GenToken("132","132",1)
+
+	mc, err := handler.ParseToken(token)
+
+	fmt.Printf("mc: %v\n", mc)
+	fmt.Printf("mc.Name: %v\n", mc.Name)
+	fmt.Printf("err: %v\n", err)
+
 	router := RegisterHandler()
 	http.ListenAndServe(":4000", router)
 }
