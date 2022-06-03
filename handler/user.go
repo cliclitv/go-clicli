@@ -2,16 +2,15 @@ package handler
 
 import (
 	"encoding/json"
-	"io"
-	"io/ioutil"
-	"net/http"
-	"strconv"
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/cliclitv/go-clicli/def"
 	"github.com/cliclitv/go-clicli/util"
 	"github.com/julienschmidt/httprouter"
+	"io"
+	"io/ioutil"
+	"net/http"
+	"strconv"
 )
-
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := ioutil.ReadAll(r.Body)
@@ -53,18 +52,14 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 401, "用户名或密码错误")
 		return
 	} else {
-		// level := resp.Level
-		// q := resp.QQ
-		// n := resp.Name
-		// uu := resp.Id
-
+		token, _ := GenToken(resp.Name, resp.Pwd, resp.Level)
 
 		res := &def.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Desc: resp.Desc}
 		resStr, _ := json.Marshal(struct {
 			Code  int       `json:"code"`
 			Token string    `json:"token"`
 			User  *def.User `json:"user"`
-		}{Code: 200, Token: "token", User: res})
+		}{Code: 200, Token: token, User: res})
 
 		io.WriteString(w, string(resStr))
 	}
@@ -83,19 +78,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 200, "参数解析失败")
 		return
 	}
-
-	old, _ := db.GetUser("", pint, "")
-
-	if old.Name != ubody.Name {
-		if res, _ := db.GetUser(ubody.Name, 0, ""); res != nil {
-			sendMsg(w, 401, "用户名已存在~")
-			return
-		}
-	}
-	var realLevel int
-	// _ := r.Header.Get("token")
-
-	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, realLevel, ubody.QQ, ubody.Desc)
+	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Desc)
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }
