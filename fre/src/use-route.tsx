@@ -1,37 +1,37 @@
 import { h, useState } from 'fre'
 
-let routeStack = {}
 let pathCache = {}
+let routesCache = null
+let routeStack = null
 
 export function useRoutes(routes) {
-  const id = useState(Symbol())[0]
+
   const setter = useState(0)[1]
 
   let stack = {
-    routes: Object.entries(routes),
-    setter
+    routes: Object.entries(routesCache || routes),
+    setter,
+    component: null,
+    props: {}
   }
 
-  console.log(stack)
+  routesCache = routes
+  routeStack = stack
 
-  routeStack[id] = stack
-  perfrom(id, true)
+  perfrom(routeStack)
 
-  if (typeof stack.component === 'string') {
-    push(stack.component)
-  } else {
-    console.log(111)
-    let vdom = h(stack.component, stack.props, null)
-    return vdom
-  }
+  return typeof stack.component.then === 'function' ? <div>loading...</div> : h(stack.component, {}, null)
 }
 
-function perfrom(id, skip) {
-  const { routes, setter } = routeStack[id]
+let index = 0
+
+function perfrom(stack) {
+  const { routes, setter } = stack
   const currentPath = location.pathname || '/'
-  let path, component, props
+  let path, component, props, ii
 
   for (let i = 0; i < routes.length; i++) {
+    ii = i
     const route = routes[i]
     path = route[0]
     component = route[1]
@@ -39,8 +39,7 @@ function perfrom(id, skip) {
 
     const res = currentPath.match(reg)
     if (!res) {
-      component = () => {
-      }
+      component = () => { }
       continue
     }
 
@@ -51,13 +50,25 @@ function perfrom(id, skip) {
     break
   }
 
-  Object.assign(routeStack[id], {
+  Object.assign(stack, {
     path,
     component,
     props
   })
 
-  if (!skip) setter(Symbol())
+  if (typeof component.then === 'function') {
+    component.then(res => {
+      if (index > 10) return
+      index++
+      routesCache[path] = res.default
+      setter(Symbol())
+    })
+  } else {
+    setter(Symbol())
+  }
+
+
+
 }
 
 function pathSlice(path) {
@@ -79,14 +90,11 @@ function pathSlice(path) {
 
 export function push(url) {
   window.history.pushState(null, null, url)
-  processStack()
+  perfrom(routeStack)
 }
 
-const processStack = () => {
-  Object.getOwnPropertySymbols(routeStack).forEach(perfrom)
-}
 
-window.addEventListener('popstate', processStack)
+window.addEventListener('popstate', () => perfrom(routeStack))
 
 function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
