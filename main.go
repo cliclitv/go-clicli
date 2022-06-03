@@ -19,8 +19,7 @@ var whiteOrigins = [5]string{
 	"https://admin.clicli.cc",
 	"https://www.clicli.cc",
 	"https://clicli.cc",
-	"http://localhost:8080",
-	"http://localhost:1122",
+	"http://localhost:3000",
 }
 
 var whiteOriginsSet = make(map[string]bool)
@@ -53,7 +52,6 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
 	router.GET("/search/users", handler.SearchUsers)
-	router.GET("/auth", handler.Auth)
 	router.GET("/play", handler.GetPlay)
 	router.GET("/pv/:pid", handler.GetPv)
 	router.GET("/rank", handler.GetRank)
