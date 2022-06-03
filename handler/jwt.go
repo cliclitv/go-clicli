@@ -2,9 +2,10 @@ package handler
 
 import (
 	"errors"
-	"time"
-
 	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/julienschmidt/httprouter"
+	"net/http"
+	"time"
 )
 
 var Key = []byte("clicli")
@@ -31,8 +32,7 @@ func GenToken(name string, pwd string, level int) (string, error) {
 	return token.SignedString(Key)
 }
 
-
-func ParseToken(str string) (*MyClaims, error){
+func ParseToken(str string) (*MyClaims, error) {
 	token, err := jwt.ParseWithClaims(str, &MyClaims{}, func(t *jwt.Token) (interface{}, error) {
 		return Key, nil
 	})
@@ -41,8 +41,31 @@ func ParseToken(str string) (*MyClaims, error){
 		return nil, err
 	}
 
-	if claims, ok := token.Claims.(*MyClaims); ok && token.Valid{
+	if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
 		return claims, nil
 	}
 	return nil, errors.New("invalid token")
+}
+
+func Auth(h httprouter.Handle, level int) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		// 首先判断 token
+
+		token := r.Header.Get("token")
+
+		mc, err := ParseToken(token)
+
+		if err != nil {
+			sendMsg(w, 401, "token 失效")
+		}
+
+		// 然后校验权限
+
+		if mc.Level < level {
+			sendMsg(w, 401, "权限不足")
+		}
+
+		h(w, r, p)
+
+	}
 }
