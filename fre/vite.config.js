@@ -1,7 +1,6 @@
 import legacy from '@vitejs/plugin-legacy'
 
 export default {
-  base:'/assets/',
   build: {
     assetsDir: '',
   },

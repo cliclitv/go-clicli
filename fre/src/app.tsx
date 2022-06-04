@@ -1,12 +1,13 @@
 import { render, Fragment, h, useEffect } from "fre"
-import Header from "./header/header"
+import { useRoutes, push, A } from './use-route'
 
-import './app.css'
 
-function App() {
-    return <>
-        <Header></Header>
-    </>
+
+const routes = {
+    '/': import('./home/home'),
+    '/home/:id': import('./post/post')
 }
+
+const App = () => useRoutes(routes)
 
 render(<App />, document.getElementById("app"))
