@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"fmt"
 	"io/fs"
 	"net/http"
 
@@ -22,6 +21,12 @@ var whiteOrigins = [5]string{
 	"https://www.clicli.cc",
 	"https://clicli.cc",
 	"http://localhost:3000",
+}
+
+func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
+	m := middleWareHandler{}
+	m.r = r
+	return m
 }
 
 var whiteOriginsSet = make(map[string]bool)
@@ -69,8 +74,9 @@ func main() {
 	for _, s := range whiteOrigins {
 		whiteOriginsSet[s] = true
 	}
-	body:=handler.Pay("视频名称", "789","0.5")
-	fmt.Printf("body: %v\n", body)
-	router := RegisterHandler()
-	http.ListenAndServe(":4000", router)
+	// body:=handler.Pay("视频名称", "789","0.5")
+	// fmt.Printf("body: %v\n", body)
+	r := RegisterHandler()
+	mh := NewMiddleWareHandler(r)
+	http.ListenAndServe(":4000", mh)
 }
