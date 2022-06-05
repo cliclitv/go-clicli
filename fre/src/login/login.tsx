@@ -1,8 +1,13 @@
-export default function Register(){
+import { h } from 'fre'
+import { A } from '../use-route'
+import './login.css'
+
+export default function Register() {
     return <div class="login">
-        <input type="text" placeholder="QQ（唯一标识）"/>
-        <input type="text" placeholder="昵称"/>
-        <input type="text" placeholder="密码"/>
-        <button>注册</button>
+        <li><h1>注册</h1></li>
+        <li><input type="text" placeholder="QQ（唯一标识）" /></li>
+        <li><input type="text" placeholder="昵称" /></li>
+        <li><input type="text" placeholder="密码" /></li>
+        <li><button>注册</button></li>
     </div>
 }
