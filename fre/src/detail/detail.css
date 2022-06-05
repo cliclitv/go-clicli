@@ -1,0 +1,111 @@
+.detail {
+    width: 1400px;
+    margin: 0 auto;
+}
+
+.detail h1 {
+    padding: 15px 10px;
+    font-size: 18px;
+}
+
+.detail .author {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #657586;
+    margin-left: 10px;
+}
+
+.detail .author li {
+    margin: 10px;
+    padding: 0 10px;
+    border-left: 1px solid #fff;
+    box-shadow: -1px 0 0 0 #e0e0e0;
+}
+
+.detail .author .avatar,
+.detail .author .avatar img {
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+}
+
+.detail .user {
+    margin: 15px;
+}
+
+.detail .user .name {
+    color: var(--theme);
+}
+
+.detail .author b {
+    font-weight: 400;
+    padding: 10px 0;
+    color: #8a93a1;
+    line-height: 28px;
+}
+
+.detail .videos li {
+    cursor: pointer;
+    margin: 10px;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    background-color: #fff;
+    border: 1px solid #e5e8ea;
+    border-radius: 12px;
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.detail .play {
+    display: flex;
+    box-shadow:0 1px 8px rgb(0 0 0 / 10%)
+}
+
+.detail .play .right {
+    width: 380px;
+    background: var(--whrite);
+}
+
+
+.detail .play .right .tab {
+    display: flex;
+    list-style: none;
+}
+
+.detail .play .right .tab li{
+    padding: 10px;
+    flex: 1;
+    text-align: center;
+    border-bottom: 3px solid #eee;
+}
+
+.detail .play .right .tab li.active{
+    border-bottom: 3px solid var(--theme);
+}
+
+.detail .play .left {
+    width: 1020px;
+    background: var(--whrite);
+}
+
+.detail .topic {
+    padding: 10px 25px;
+    background: #000;
+    color: #fff;
+}
+
+.detail .right .danmu li{
+    display: flex;
+    font-size: 12px;
+}
+
+.detail .right .danmu span{
+    padding: 10px 10px 0 10px;
+}
+
+.detail .right .danmu .text{
+    flex: 1;
+}
