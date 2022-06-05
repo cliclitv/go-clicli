@@ -1,21 +1,39 @@
 import { render, useState, h, useEffect } from "fre"
+import { push } from '../use-route'
+import { getAvatar } from "../util/avatar"
 import './header.css'
-
+// import Search from 'widget/search'
 
 export default function Header() {
-    return <header>
-        <nav>
-            <li>浏览</li>
-            <li>更多</li>
-        </nav>
-        <nav>
-            <input type="text" />
-            <button>搜索</button>
-        </nav>
-        <nav>
-            <li>登录</li>
-            <li>注册</li>
-            <li>投稿</li>
-        </nav>
-    </header>
+    const obj = {
+        投稿教程: 905,
+        使用说明: 31,
+        补档: 99
+    }
+
+
+    let user = JSON.parse(window.localStorage.getItem('user'))
+
+    return (
+        <header>
+            <div class='header'>
+                <div class='wrap'>
+                    <nav class='nav'>
+                        <a>
+                            <li class='active'>主站</li>
+                        </a>
+                        <a href='https://app.clicli.cc'>
+                            <li>APP下载</li>
+                        </a>
+                        {Object.keys(obj).map(key => (
+                            <li onClick={() => push(`/play/gv${obj[key]}`)}>{key}</li>
+                        ))}
+                    </nav>
+                    <div class='biu'>
+                        <div className="avatar"><img src={getAvatar(user.qq)} alt="" /></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    )
 }

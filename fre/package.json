@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-legacy": "^1.8.2",
+    "blueimp-md5": "^2.19.0",
     "fre": "^2.5.1"
   },
   "devDependencies": {

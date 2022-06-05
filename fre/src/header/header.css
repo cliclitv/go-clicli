@@ -1,5 +1,46 @@
-header{
-    padding: 10px;
-    background-color: var(--whrite);
-    box-shadow: var(--border);
+header {
+    box-shadow: 2px 2px 0px rgba(5, 20, 50, 0.1);
+    background: var(--black);
+}
+
+
+header li {
+    display: inline-block;
+    color: var(--whrite);
+    padding: 5px 15px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: .3s;
+    font-size: 13px;
+}
+
+header li:hover {
+    background: var(--black2);
+}
+
+header nav{
+    justify-items: left;
+    flex: 1;
+}
+
+header .header{
+    display: flex;
+}
+
+.wrap {
+    width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.biu {
+    justify-items: right;
+}
+
+.biu .avatar, .biu .avatar img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
 }
