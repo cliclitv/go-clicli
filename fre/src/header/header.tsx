@@ -31,6 +31,12 @@ export default function Header() {
                     </nav>
                     <div class='biu'>
                         <div className="avatar"><img src={getAvatar(user.qq)} alt="" /></div>
+                        <div className="pancel">
+                            <ul>
+                                <li>投稿</li>
+                                <li>充值</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

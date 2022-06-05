@@ -4,7 +4,7 @@ header {
 }
 
 
-header li {
+header nav li {
     display: inline-block;
     color: var(--whrite);
     padding: 5px 15px;
@@ -15,16 +15,16 @@ header li {
     font-size: 13px;
 }
 
-header li:hover {
+header nav li:hover {
     background: var(--black2);
 }
 
-header nav{
+header nav {
     justify-items: left;
     flex: 1;
 }
 
-header .header{
+header .header {
     display: flex;
 }
 
@@ -37,10 +37,37 @@ header .header{
 
 .biu {
     justify-items: right;
+    position: relative;
 }
 
-.biu .avatar, .biu .avatar img {
+.biu .avatar,
+.biu .avatar img {
     height: 30px;
     width: 30px;
     border-radius: 50%;
+}
+
+.pancel {
+    display: none;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    width: 150px;
+    box-shadow:0 0 6px 0 rgb(0 0 0 / 20%);
+    top: 40px;
+}
+
+.pancel li {
+    display: block;
+    color: #444;
+    border-bottom: 1px solid rgba(5, 20, 50, 0.1);
+    border-radius: 0;
+    box-sizing: unset;
+    padding: 10px 15px;
+    font-size: 600;
+}
+
+.pancel li:hover {
+    background: #eee;
+
 }
