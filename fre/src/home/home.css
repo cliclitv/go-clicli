@@ -16,6 +16,11 @@ nav i {
 
 nav{
     width: 140px;
+    font-size: 18px;
+}
+
+.icon-font{
+    font-size: 20px;
 }
 
 main {
