@@ -8,8 +8,6 @@ export default  function Home(){
     return(
         <div>
             <Header/>
-            <Detail/>
-            {/* <A href='/login'>Login</A> */}
         </div>
     )
 }

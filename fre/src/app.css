@@ -9,14 +9,21 @@ body {
     color: var(--color);
     background: var(--background);
 
-    --theme: #6651d2;
+    --theme: #946ce6;
+    --theme-bg: rgba(148, 108, 230, 0.1);
     --black: rgb(37, 37, 37);
     --whrite: #fff;
     --border: 0 1px 2px #ddd;
-    --color: #444;
-    --black2: #404040;
+    --color: #333;
     --background: #fafafa
 }
+
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
 
 a {
     color: var(--color);
@@ -25,4 +32,10 @@ a {
 
 a:hover {
     color: var(--theme);
+}
+
+input::-webkit-input-placeholder {
+
+    color: var(--theme);
+
 }

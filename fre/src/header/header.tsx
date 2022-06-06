@@ -16,28 +16,15 @@ export default function Header() {
 
     return (
         <header>
-            <div class='header'>
-                <div class='wrap'>
-                    <nav class='nav'>
-                        <a>
-                            <li class='active'>主站</li>
-                        </a>
-                        <a href='https://app.clicli.cc'>
-                            <li>APP下载</li>
-                        </a>
-                        {Object.keys(obj).map(key => (
-                            <li onClick={() => push(`/play/gv${obj[key]}`)}>{key}</li>
-                        ))}
-                    </nav>
-                    <div class='biu'>
-                        <div className="avatar"><img src={getAvatar(user.qq)} alt="" /></div>
-                        <div className="pancel">
-                            <ul>
-                                <li>投稿</li>
-                                <li>充值</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div className="wrap flex">
+                <h1>clicli!</h1>
+                <div className="search">
+                    <input type="text" placeholder="搜一下下菊花又不会坏😏"/>
+                </div>
+                <div className="biu">
+                    <li><i className="icon-font icon-download"></i><div className="download">Get APP</div></li>
+                    <li><i className="icon-font icon-upload"></i><div className="download">Upload</div></li>
+                    <li className="avatar"><img src={getAvatar(user.qq)} alt="" /></li>
                 </div>
             </div>
         </header>
