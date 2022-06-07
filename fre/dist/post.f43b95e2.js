@@ -1,1 +1,0 @@
-function r(t,e){return new Promise(n=>{fetch(t,{method:"post",body:JSON.stringify(e),headers:{"Content-Type":"application/json"}}).then(function(o){return o.json()}).then(o=>{n(o)})})}function s(t){return new Promise(e=>{fetch(t).then(function(n){return n.json()}).then(n=>{e(n)})})}export{s as g,r as p};

@@ -19,7 +19,7 @@ export default ({ mode }) => {
   }
 
   if (!dev) {
-    config['base'] = '/assets'
+    config['base'] = '/assets/'
   }
 
   return defineConfig(config)
