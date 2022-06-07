@@ -1,7 +1,5 @@
-import { render, useState, h, useEffect, useLayout } from "fre"
-import { push } from '../use-route'
+import { render, useState, h, useEffect } from "fre"
 import { addPost, getPostDetail, updatePost } from "../util/api"
-import { getAvatar } from "../util/avatar"
 import './upload.css'
 
 export default function Upload(props) {

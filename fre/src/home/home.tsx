@@ -1,8 +1,4 @@
 import { h, useEffect, useState } from 'fre'
-import { A } from '../use-route'
-import Header from '../header/header'
-import Post from '../play/play'
-import Detail from '../detail/detail'
 import { getPost, getRank } from '../util/api'
 import {ListA} from '../list/list'
 import { ListB } from '../list/list'
