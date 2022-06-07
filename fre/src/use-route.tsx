@@ -15,12 +15,13 @@ export function useRoutes(routes) {
     props: {}
   }
 
+
   routesCache = routes
   routeStack = stack
 
   perfrom(routeStack)
 
-  return typeof stack.component.then === 'function' ? <div>loading...</div> : h(stack.component, {}, null)
+  return typeof stack.component.then === 'function' ? <div>loading...</div> : h(stack.component, stack.props, null)
 }
 
 let index = 0
@@ -36,7 +37,6 @@ function perfrom(stack) {
     path = route[0]
     component = route[1]
     const [reg, params] = pathSlice(path)
-
     const res = currentPath.match(reg)
     if (!res) {
       component = () => { }
@@ -46,6 +46,7 @@ function perfrom(stack) {
     if (params.length) {
       props = {}
       params.forEach((item, index) => (props[item] = res[index + 1]))
+
     }
     break
   }
@@ -55,6 +56,7 @@ function perfrom(stack) {
     component,
     props
   })
+
 
   if (typeof component.then === 'function') {
     component.then(res => {

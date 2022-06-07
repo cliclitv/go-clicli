@@ -1,20 +1,36 @@
 import { render, useState, h, useEffect, useLayout } from "fre"
 import { push } from '../use-route'
+import { getPostDetail } from "../util/api"
 import { getAvatar } from "../util/avatar"
 import './upload.css'
 
-export default function Upload() {
-    const [tag, setTag] = useState("")
+export default function Upload(props) {
+    const [post, setPost] = useState({ title: "", status: "", sort: "", time: "", content: "", tag: "", videos: "" })
 
     useEffect(() => {
         var md = new window.TinyMDE(document.querySelector('textarea'))
+        if (props.id > 0) {
+            getPostDetail(props.id).then((res: any) => {
+                setPost(res.result)
+            })
+        } else {
+            // 新增
+        }
     }, [])
 
+    console.log(post)
+
     function selectTag(item) {
-        if (tag.indexOf(item) > -1) {
-            setTag(tag.replace(` ${item}`, ''))
+        if (post.tag.indexOf(item) > -1) {
+            setPost({
+                tag: post.tag.replace(` ${item}`, ''),
+                ...post
+            })
         } else {
-            setTag(tag + ' ' + item)
+            setPost({
+                tag: post.tag + ' ' + item,
+                ...post
+            })
         }
 
     }
@@ -26,7 +42,7 @@ export default function Upload() {
         <div className="upload">
             <h1>投稿</h1>
             <div className="title">
-                <input type="text" placeholder="请输入标题" />
+                <input type="text" placeholder="请输入标题" value={post.title} />
             </div>
             <section>
                 <i class="te te-bold" onclick={() => md.bold()}></i>
@@ -36,28 +52,28 @@ export default function Upload() {
                 <i class="te te-link" onclick={() => md.link()}></i>
                 <i class="te te-code" onclick={() => md.blockCode()}></i>
             </section>
-            <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法"></textarea>
+            <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content}></textarea>
             <div className="tags">
                 <ul>
                     {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
-                        className={tag.indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
+                        className={post.tag.indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>
             <div className="options">
-                <select name="" id="">
+                <select value={post.status}>
                     <option value="wait">待审核</option>
                     <option value="remove">待删除</option>
                     <option value="under">已下架</option>
-                    <option value="under">发布</option>
+                    <option value="public">发布</option>
                 </select>
-                <select name="" id="">
+                <select value={post.sort}>
                     <option value="原创">原创</option>
                     <option value="新番">新番</option>
                     <option value="完结">完结</option>
                     <option value="剧场版">剧场版</option>
                     <option value="影视">影视</option>
                 </select>
-                <input type="text" value={Date.now()}/>
+                <input type="text" value={post.time}/>
             </div>
 
             <div className="submit">

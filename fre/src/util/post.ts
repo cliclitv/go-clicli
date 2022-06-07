@@ -4,7 +4,8 @@ export function post(url, params) {
             method: 'post',
             body: JSON.stringify(params),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                token: localStorage.getItem('token')
             }
         }).then(function (res) {
             return res.json()
