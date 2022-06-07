@@ -6,9 +6,10 @@ import './upload.css'
 
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "", sort: "", time: "", content: "", tag: "", videos: "" })
+    let md
 
     useEffect(() => {
-        var md = new (window as any).TinyMDE(document.querySelector('textarea'))
+        md = new (window as any).TinyMDE(document.querySelector('textarea'))
         if (props.id > 0) {
             getPostDetail(props.id).then((res: any) => {
                 setPost(res.result)
