@@ -11,8 +11,8 @@ func sendUserResponse(w http.ResponseWriter, uRes *def.User, sc int, msg string)
 	w.WriteHeader(sc)
 
 	resStr, _ := json.Marshal(struct {
-		Code int      `json:"code"`
-		Msg  string   `json:"msg,omitempty"`
+		Code   int      `json:"code"`
+		Msg    string   `json:"msg,omitempty"`
 		Result def.User `json:"result"`
 	}{sc, msg, *uRes})
 
@@ -23,7 +23,7 @@ func sendUserResponse(w http.ResponseWriter, uRes *def.User, sc int, msg string)
 func sendPostResponse(w http.ResponseWriter, pRes *def.Post, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
-		Code   int      `json:"code"`
+		Code   int       `json:"code"`
 		Result *def.Post `json:"result"`
 	}{sc, pRes})
 
@@ -53,7 +53,7 @@ func sendUsersResponse(w http.ResponseWriter, pRes *def.Users, sc int) {
 func sendPlayResponse(w http.ResponseWriter, cRes def.Play, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
-		Code   int        `json:"code"`
+		Code   int      `json:"code"`
 		Result def.Play `json:"result"`
 	}{sc, cRes})
 
@@ -63,8 +63,8 @@ func sendPlayResponse(w http.ResponseWriter, cRes def.Play, sc int) {
 func sendPvResponse(w http.ResponseWriter, cRes *def.Pv, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
-		Code   int      `json:"code"`
-		Result *def.Pv 	`json:"result"`
+		Code   int     `json:"code"`
+		Result *def.Pv `json:"result"`
 	}{sc, cRes})
 
 	io.WriteString(w, string(resStr))

@@ -1,12 +1,13 @@
 import { render, useState, h, useEffect } from "fre"
 import { push } from '../use-route'
+import { getUser } from "../util/api"
 import { getAvatar } from "../util/avatar"
 import './header.css'
 // import Search from 'widget/search'
 
 export default function Header() {
 
-    let user = JSON.parse(window.localStorage.getItem('user'))
+    let user = getUser()
 
     return (
         <header>

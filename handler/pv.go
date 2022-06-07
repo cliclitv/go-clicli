@@ -5,6 +5,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"strconv"
+	"fmt"
 )
 
 
@@ -12,7 +13,7 @@ func GetPv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	pid, _ := strconv.Atoi(p.ByName("pid"))
 	resp, err := db.GetPv(pid)
 	if err != nil {
-		sendMsg(w, 401, "数据库错误")
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
 	if resp == nil{

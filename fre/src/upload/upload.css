@@ -10,20 +10,20 @@
     color: var(--theme);
 }
 
-textarea {
+.upload textarea {
     width: 100%;
     min-height: 200px;
     outline: none;
     border: none;
     box-sizing: border-box;
     padding: 10px 15px;
-    resize: none;
-    border-radius: 0 0 10px 10px;
+    resize: vertical;
     font-size: 16px;
     line-height: 20px;
 }
 
-section {
+
+.upload section {
     padding: 10px;
     background: #fff;
     border-bottom: 2px solid #f2f2f2;
@@ -90,7 +90,7 @@ section {
     color: var(--whrite);
     margin: 0 auto;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 18px;
     border: none;
     width: 100px;
 }

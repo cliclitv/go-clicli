@@ -31,21 +31,25 @@ export function addPost({ title, content, status, sort, tag, uid, videos }) {
     status,
     sort,
     tag,
-    uid,
+    uid: getUser().id,
     videos
   })
 }
 
+export function getUser() {
+  return JSON.parse(window.localStorage.getItem('user'))
+}
+
 export function updatePost({ id, title, content, status, sort, tag, uid, time, videos }) {
-  return post(`https://api.clicli.cc/post/update/${id}`, { 
-    id, 
-    title, 
-    content, 
-    status, 
-    sort, 
-    tag, 
-    uid, 
-    time, 
+  return post(`https://api.clicli.cc/post/update/${id}`, {
+    id,
+    title,
+    content,
+    status,
+    sort,
+    tag,
+    uid,
+    time,
     videos
-   })
+  })
 }
