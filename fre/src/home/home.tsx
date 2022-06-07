@@ -25,7 +25,6 @@ export default function Home() {
     }
     return (
         <div>
-            <Header />
             <div className="wrap">
                 <nav>
                     {Object.keys(obj).map(key => {

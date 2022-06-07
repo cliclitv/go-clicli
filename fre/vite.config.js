@@ -3,9 +3,7 @@ import { defineConfig, loadEnv } from 'vite'
 
 export default ({ mode }) => {
   const dev = mode === 'development'
-
-  return defineConfig({
-    base: dev ? '' : '/assets',
+  const config = {
     build: {
       assetsDir: '',
     },
@@ -16,7 +14,13 @@ export default ({ mode }) => {
       format: 'esm',
     },
     plugins: [
-      
+
     ]
-  })
+  }
+
+  if (!dev) {
+    config['base'] = '/assets'
+  }
+
+  return defineConfig(config)
 }

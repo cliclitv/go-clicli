@@ -8,6 +8,7 @@ header {
 header .wrap {
     width: 1268px;
     margin: 0 auto;
+    cursor: pointer;
 }
 
 header .flex {
