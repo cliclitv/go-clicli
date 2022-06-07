@@ -34,7 +34,7 @@ a:hover {
     color: var(--theme);
 }
 
-input::-webkit-input-placeholder {
+header input::-webkit-input-placeholder {
 
     color: var(--theme);
 
