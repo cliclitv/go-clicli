@@ -17,7 +17,7 @@ export default function Header() {
                 </div>
                 <div className="biu">
                     <li><i className="icon-font icon-download"></i>Get APP</li>
-                    <li><i className="icon-font icon-upload" onClick={() => push('/upload')}></i>Upload</li>
+                    <li onClick={() => push('/upload')}><i className="icon-font icon-upload"></i>Upload</li>
                     <li className="avatar"><img src={getAvatar(user.qq)} alt="" /></li>
                 </div>
             </div>
