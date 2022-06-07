@@ -1,4 +1,5 @@
 import { h, useState } from 'fre'
+import { getUser } from './util/api'
 
 let pathCache = {}
 let routesCache = null
@@ -21,10 +22,9 @@ export function useRoutes(routes) {
 
   perfrom(routeStack)
 
-  return typeof stack.component.then === 'function' ? <div>loading...</div> : h(stack.component, stack.props, null)
+  return typeof stack.component.then === 'function' ? <div></div> : h(stack.component, stack.props, null)
 }
 
-let index = 0
 
 function perfrom(stack) {
   const { routes, setter } = stack
@@ -59,17 +59,19 @@ function perfrom(stack) {
 
 
   if (typeof component.then === 'function') {
-    component.then(res => {
-      if (index > 10) return
-      index++
-      routesCache[path] = res.default
-      setter(Symbol())
-    })
+    if (getUser() || path === '/login') {
+      component.then(res => {
+        routesCache[path] = res.default
+        setter(Symbol())
+      })
+    }else{
+      setTimeout(()=>{
+        push('/login')
+      })
+    }
   } else {
     setter(Symbol())
   }
-
-
 
 }
 

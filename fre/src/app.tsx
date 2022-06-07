@@ -13,7 +13,7 @@ const routes = {
 const App = () => {
     let route = useRoutes(routes)
     return <>
-        <Header></Header>
+        {window.location.pathname !== '/login' && <Header />}
         {route}
     </>
 }
