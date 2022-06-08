@@ -66,8 +66,8 @@ func RegisterHandler() *httprouter.Router {
 	fsys, _ := fs.Sub(embededFiles, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
 	router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
-	// 重定向
-	router.NotFound = http.FileServer(http.FS(fsys))
+	router.Handler("GET", "/play/:gv", http.FileServer(http.FS(fsys)))
+	router.Handler("GET", "/login", http.FileServer(http.FS(fsys)))
 
 	return router
 }
