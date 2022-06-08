@@ -71,7 +71,7 @@ export default function Upload(props) {
                 <i class="te te-code" onclick={() => md.blockCode()}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-            <textarea spellcheck="false" placeholder="请输入标题+空格+直链，如：第一话 https://clicli.cc/001.mp4\n多个分P用回车隔开" value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
+            <textarea spellcheck="false" placeholder={`请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`} value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
             <div className="tags">
                 <ul>
                     {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}

@@ -1,0 +1,139 @@
+.player.wrap {
+    width: 1380px;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 20px;
+}
+
+.ep-wrap {
+    width: 1000px;
+    border-radius: 10px 0 0 10px;
+    height: 562.5px;
+    overflow: hidden;
+}
+
+.player {
+    background: #fff;
+    border-radius: 10px;
+}
+
+.p {
+    padding: 0 10px;
+    box-sizing: border-box;
+
+}
+
+.p h1 {
+    font-size: 18px;
+    flex: 1;
+}
+
+.p h1 span {
+    color: #bbb;
+    font-size: 14px;
+}
+
+.p ul li {
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: var(--theme-bg);
+    color: var(--theme);
+    margin: 10px;
+}
+
+.p ul {
+    width: 360px;
+    overflow: scroll;
+    height: 480px;
+}
+
+.p .info {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.p .avatar {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    width: 40px;
+}
+
+.p .avatar img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+article {
+    width: 900px;
+    padding: 20px;
+}
+
+article img[alt=suo] {
+    width: 100%;
+    border-radius: 2px;
+}
+
+article img {
+    max-width: 100%;
+    border-radius: 2px;
+}
+
+article h1 {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 20px 0;
+    border-left: 5px solid #946ce6;
+}
+
+article h2 {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 18px 0;
+    border-left: 5px solid #946ce6;
+}
+
+article h3 {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 16px 0;
+    border-left: 5px solid #946ce6;
+}
+
+article blockquote {
+    word-wrap: break-word;
+    background: rgba(148, 108, 230, 0.1);
+    color: #946ce6;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+article a {
+    text-decoration: none;
+    color: #946ce6;
+    padding: 0 5px;
+    font-weight: bold;
+}
+
+.editor {
+    text-align: center;
+    align-items: center;
+    padding-left: 80px;
+    padding-top: 20px;
+}
+
+.editor a {
+    display: block;
+    font-size: 20px;
+    padding: 20px;
+}

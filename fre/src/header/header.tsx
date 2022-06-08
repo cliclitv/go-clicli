@@ -12,7 +12,7 @@ export default function Header() {
     return (
         <header>
             <div className="wrap flex">
-                <h1>clicli!</h1>
+                <h1 onclick={() => push('/')}>clicli!</h1>
                 <div className="search">
                     <input type="text" placeholder="搜一下下菊花又不会坏😏" />
                 </div>

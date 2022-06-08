@@ -1,0 +1,42 @@
+Arguments: 
+  d:\Program Files\nodejs\node.exe C:\Users\132\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\132\AppData\Roaming\nvm;C:\Program Files\Go\bin;C:\Program Files\dotnet\;D:\flutter\bin;C:\Users\132\AppData\Local\Android\Sdk\platform-tools;C:\Users\132\AppData\Local\Android\Sdk\tools;C:\Users\132\AppData\Local\Android\Sdk\emulator;C:\Users\132\AppData\Local\Android\Sdk\cmdline-tools;D:\platform-tools;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\p4\;D:\Users\132\AppData\Roaming\nvm;d:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;D:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\132\.cargo\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\132\AppData\Roaming\nvm;C:\Program Files\Go\bin;C:\Program Files\dotnet\;D:\flutter\bin;C:\Users\132\AppData\Local\Android\Sdk\platform-tools;C:\Users\132\AppData\Local\Android\Sdk\tools;C:\Users\132\AppData\Local\Android\Sdk\emulator;C:\Users\132\AppData\Local\Android\Sdk\cmdline-tools;D:\platform-tools;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\p4\;D:\Users\132\AppData\Roaming\nvm;d:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;D:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\RedHat\Podman";D:\Users\132\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\132\AppData\Local\Microsoft\WindowsApps;D:\Users\132\AppData\Roaming\nvm;d:\Program Files\nodejs;D:\Program Files\JetBrains\CLion 2022.1\bin;;C:\Users\132\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.13.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\gopath\go-clicli\fre\node_modules\esbuild-windows-64\esbuild.exe'
+
+npm manifest: 
+  {
+    "name": "vite-fre-hello",
+    "version": "0.1.0",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "serve": "vite preview"
+    },
+    "dependencies": {
+      "@vitejs/plugin-legacy": "^1.8.2",
+      "blueimp-md5": "^2.19.0",
+      "fre": "^2.5.1"
+    },
+    "devDependencies": {
+      "vite": "^2.1.5"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
