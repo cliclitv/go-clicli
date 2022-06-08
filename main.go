@@ -4,13 +4,15 @@ import (
 	"embed"
 	"io/fs"
 	"net/http"
-
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 )
 
 //go:embed fre/dist
 var embededFiles embed.FS
+
+//go:embed fre/dist/index.html
+var html string
 
 type middleWareHandler struct {
 	r *httprouter.Router
@@ -68,7 +70,7 @@ func RegisterHandler() *httprouter.Router {
 	router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
 
 	router.NotFound  = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w,r, "fre/dist/index.html")
+		w.Write([]byte(html))
 	})
 
 	return router
