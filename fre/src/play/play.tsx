@@ -3,7 +3,7 @@ import { getPostDetail, getPv } from '../util/api'
 import { getAv, getAvatar } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import { get } from '../util/post'
-import { A } from '../use-route'
+import { A, push } from '../use-route'
 import './play.css'
 
 export default function Post({ gv }) {
@@ -12,7 +12,8 @@ export default function Post({ gv }) {
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
     const [pv, setPv] = useState("")
-    const a = useRef(null)
+    const a = useRef({} as any)
+    const [show, setShow] = useState(false)
 
     useEffect(() => {
         const p1 = getPostDetail(id)
@@ -25,7 +26,7 @@ export default function Post({ gv }) {
                 setPlay(videos[0][1])
             }
             setPv((res2 as any).result.pv)
-            a.current.innerHTML = snarkdown((res1 as any).result.content || "")
+            a.current.innerHTML = snarkdown((res1 as any).result.content)
         })
     }, [])
 
@@ -36,10 +37,7 @@ export default function Post({ gv }) {
                     <Eplayer url={play}></Eplayer>
                 </div>
                 <div className="p">
-                    <div class="info">
-                        <div className="avatar"><img src={getAvatar(post.uqq)} alt="" /></div>
-                        <h1>{post.title} <span>{pv} ℃</span></h1>
-                    </div>
+                    <div className="avatar"><img src={getAvatar(post.uqq)} alt="" /><p>{post.uname}</p></div>
                     <ul>
                         {videos.map((name, index) => {
                             return <li>{index}</li>
@@ -47,11 +45,21 @@ export default function Post({ gv }) {
                     </ul>
                 </div>
             </div>
-            <ul class="wrap editor">
-                <A href={`/upload/${id}`}>编辑</A>
-                <A>投币</A>
-            </ul>
-            {/* <article ref={a}></article> */}
+            <div className="info">
+                <h1>{post.title}</h1>
+                <div className="tag">
+                    <p>{pv} ℃</p>
+                    <div className="tags">
+                        {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
+                            return <li>{tag}</li>
+                        })}
+                        <li onclick={() => setShow(!show)}>展开详情 {show ? '⯅' : '⯆'}</li>
+                        <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>
+                    </div>
+                </div>
+                {<article ref={a} style={{ display: show ? 'block' : 'none' }}></article>}
+
+            </div>
         </main>
     )
 }

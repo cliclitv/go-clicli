@@ -67,6 +67,8 @@ func RegisterHandler() *httprouter.Router {
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
 	router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
 
+	router.NotFound = http.FileServer(http.FS(fsys))
+
 	return router
 }
 
