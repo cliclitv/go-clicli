@@ -2,8 +2,10 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"io/fs"
 	"net/http"
+
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 )
@@ -69,7 +71,7 @@ func RegisterHandler() *httprouter.Router {
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
 	router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
 
-	router.NotFound  = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(html))
 	})
 
@@ -84,5 +86,6 @@ func main() {
 	// fmt.Printf("body: %v\n", body)
 	r := RegisterHandler()
 	mh := NewMiddleWareHandler(r)
+	fmt.Println("server is run on http://localhost:4000")
 	http.ListenAndServe(":4000", mh)
 }
