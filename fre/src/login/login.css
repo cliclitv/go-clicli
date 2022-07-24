@@ -1,5 +1,5 @@
 .login {
-    width: 250px;
+    width: 300px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -12,8 +12,8 @@
 }
 
 .login li input{
-    padding: 10px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 18px;
     border: none;
     width: 100%;
     box-sizing: border-box;
@@ -24,11 +24,12 @@
     color: var(--whrite);
     width: 100%;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 18px;
     border: none;
 }
 
 .login li h1{
     color: var(--theme);
     text-align: left;
+    padding: 10px 0;
 }
