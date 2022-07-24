@@ -43,14 +43,8 @@ export default function Register() {
             console.log(hash)
             setHash(hash)
             post("https://api.clicli.cc/user/register", { name, pwd, qq, hash }).then((res: any) => {
-                if (res.code === 200) {
-                    window.localStorage.setItem('token', res.token)
-                    window.localStorage.setItem('user', JSON.stringify(res.user))
-                    push('/')
-                } else {
-                    alert(res.msg)
-                }
-
+                push('/')
+                alert(res.msg)
             })
         }
     }
