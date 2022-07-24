@@ -7,14 +7,14 @@ import (
 	"log"
 )
 
-func CreateUser(name string, pwd string, level int, qq string, sign string) error {
+func CreateUser(name string, pwd string, level int, qq string, sign string, hash string) error {
 	pwd = util.Cipher(pwd)
-	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign) VALUES ($1,$2,$3,$4,$5)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign,hash) VALUES ($1,$2,$3,$4,$5,$6)")
 	if err != nil {
 		return err
 	}
 
-	_, err = stmtIns.Exec(name, pwd, level, qq, sign)
+	_, err = stmtIns.Exec(name, pwd, level, qq, sign,hash)
 	if err != nil {
 		return err
 	}
