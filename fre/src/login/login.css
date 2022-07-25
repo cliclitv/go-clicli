@@ -26,10 +26,16 @@
     padding: 10px;
     border-radius: 18px;
     border: none;
+    cursor: pointer;
 }
 
 .login li h1{
     color: var(--theme);
     text-align: left;
     padding: 10px 0;
+}
+
+button:disabled {
+    opacity: .7;   
+    cursor: wait!important;
 }

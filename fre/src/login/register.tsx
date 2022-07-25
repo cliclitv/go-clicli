@@ -6,10 +6,10 @@ import './login.css'
 
 export default function Register() {
 
-    const [name, setName] = useState("")
-    const [pwd, setPwd] = useState("")
-    const [qq, setQQ] = useState("")
-    const [hash, setHash] = useState("")
+    const [name, setName] = useState(null)
+    const [pwd, setPwd] = useState(null)
+    const [qq, setQQ] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     function changeName(v) {
         setName(v)
@@ -24,6 +24,10 @@ export default function Register() {
     }
 
     async function register() {
+        if (!name || !qq || !pwd) {
+            alert('全都得填::>_<::')
+        }
+        setLoading(true)
         const getFn = (data) => {
             console.log(data)
         }
@@ -41,11 +45,9 @@ export default function Register() {
             wallet = await hedgehog.signUp(name, pwd)
             const hash = hedgehog.getWallet().getAddressString()
             console.log(hash)
-            setHash(hash)
-            post("https://api.clicli.cc/user/register", { name, pwd, qq, hash }).then((res: any) => {
-                push('/')
-                alert(res.msg)
-            })
+            const res = await post("https://api.clicli.cc/user/register", { name, pwd, qq, hash })
+            setLoading(false)
+            alert("注册成功啦~")
         }
     }
     return <div class="login">
@@ -53,7 +55,7 @@ export default function Register() {
         <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} /></li>
         <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} /></li>
         <li><input type="text" placeholder="密码（不可修改）" onInput={(e) => changePwd(e.target.value)} /></li>
-        <li><button onClick={register}>{hash === "" ? '注册' : hash}</button></li>
+        <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : '注册'}</button></li>
         <li><A href="/login">登录</A></li>
     </div>
 }
