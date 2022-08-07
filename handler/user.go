@@ -49,7 +49,11 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	resp, err := db.GetUser(ubody.Name, 0, "")
 	pwd := util.Cipher(ubody.Pwd)
 
-	if err != nil || len(resp.Pwd) == 0 || pwd != resp.Pwd {
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+	if len(resp.Pwd) == 0 || pwd != resp.Pwd {
 		sendMsg(w, 400, "用户名或密码错误")
 		return
 	} else {
