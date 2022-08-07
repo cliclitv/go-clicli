@@ -63,7 +63,7 @@ func GetUser(name string, id int, qq string) (*def.User, error) {
 	} else {
 		query += `SELECT id,name,pwd,level,qq,sign,hash FROM users WHERE qq = $1`
 	}
-	stmt, _ := dbConn.Prepare(query)
+	stmt, err := dbConn.Prepare(query)
 	var level int
 	var sign, pwd, hash string
 	if name != "" {
