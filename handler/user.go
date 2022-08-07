@@ -50,7 +50,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	pwd := util.Cipher(ubody.Pwd)
 
 	if err != nil || len(resp.Pwd) == 0 || pwd != resp.Pwd {
-		sendMsg(w, 400, fmt.Sprintf("%s", resp.Pwd))
+		sendMsg(w, 400, "用户名或密码错误")
 		return
 	} else {
 		token, _ := GenToken(resp.Name, resp.Pwd, resp.Level)
