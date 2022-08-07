@@ -50,7 +50,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	pwd := util.Cipher(ubody.Pwd)
 
 	if err != nil || len(resp.Pwd) == 0 || pwd != resp.Pwd {
-		sendMsg(w, 400, fmt.Sprintf("%s", err))
+		sendMsg(w, 400, fmt.Sprintf("%s", resp.Pwd))
 		return
 	} else {
 		token, _ := GenToken(resp.Name, resp.Pwd, resp.Level)
