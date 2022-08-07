@@ -32,7 +32,6 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, sign stri
 		if err != nil {
 			return nil, err
 		}
-		defer stmtIns.Close()
 
 		res := &def.User{Id: id, Name: name, QQ: qq, Level: level, Desc: sign}
 		defer stmtIns.Close()
