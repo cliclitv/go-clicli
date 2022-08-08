@@ -20,6 +20,7 @@ export default function Register({ id }) {
         setName(user.result.name)
         setQQ(user.result.qq)
         setUid(user.result.id)
+        setLevel(user.result.level)
     }, [])
 
 
@@ -81,10 +82,10 @@ export default function Register({ id }) {
         <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} value={name} /></li>
         <li><input type="text" placeholder={id ? "留空则不改" : "密码（不可修改）"} onInput={(e) => changePwd(e.target.value)} /></li>
         {id && <select value={level} onInput={e => changeLevel(e.target.value)}>
-            <option value="0">游客</option>
-            <option value="1">作者</option>
-            <option value="2">审核</option>
-            <option value="3">管理</option>
+            <option value="1">游客</option>
+            <option value="2">作者</option>
+            <option value="3">审核</option>
+            <option value="4">管理</option>
         </select>}
         <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : '注册'}</button></li>
         {!id && <li><A href="/login">登录</A></li>}
