@@ -7,7 +7,7 @@ import { A, push } from '../use-route'
 import './play.css'
 
 export default function Post({ gv }) {
-    const id = getAv(gv)
+    const [id, setId] = useState(getAv(gv))
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
@@ -28,7 +28,11 @@ export default function Post({ gv }) {
             setPv((res2 as any).result.pv)
             a.current.innerHTML = snarkdown((res1 as any).result.content)
         })
-    }, [])
+    }, [id])
+
+    const changeid = (id) =>{
+        setId(id)
+    }
 
     return (
         <main>
@@ -40,7 +44,7 @@ export default function Post({ gv }) {
                     <div className="avatar"><img src={getAvatar(post.uqq)} alt="" /><p>{post.uname}</p></div>
                     <ul>
                         {videos.map((name, index) => {
-                            return <li>{index}</li>
+                            return <li onClick={e=>changeid(e.target.value)}>{index}</li>
                         })}
                     </ul>
                 </div>

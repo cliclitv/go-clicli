@@ -43,12 +43,12 @@ export default function Upload(props) {
     function submit() {
         if (props.id > 0) {
             updatePost(post as any).then(res => {
-                console.log(res)
+                alert(res.msg)
             })
         } else {
             console.log(post)
             addPost(post as any).then(res=>{
-                console.log(res)
+                alert(res.msg)
             })
         }
     }
