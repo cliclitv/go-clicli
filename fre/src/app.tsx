@@ -7,10 +7,11 @@ import Header from "./header/header"
 const routes = {
     '/': import('./home/home'),
     '/login': import('./login/login'),
-    '/register/:id': import('./login/register'),
+    '/register': import('./login/register'),
     '/upload/:id': import('./upload/upload'),
     '/play/:gv': import('./play/play'),
-    '/search/:k': import('./search/search')
+    '/search/:k': import('./search/search'),
+    '/user/:id': import('./login/register')
 }
 
 const App = () => {

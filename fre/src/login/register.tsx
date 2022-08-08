@@ -6,6 +6,7 @@ import './login.css'
 import { getUserB, updateUser } from '../util/api'
 
 export default function Register({ id }) {
+
     const [name, setName] = useState(null)
     const [pwd, setPwd] = useState(null)
     const [qq, setQQ] = useState(null)
@@ -79,12 +80,12 @@ export default function Register({ id }) {
         <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} value={qq} /></li>
         <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} value={name} /></li>
         <li><input type="text" placeholder={id ? "留空则不改" : "密码（不可修改）"} onInput={(e) => changePwd(e.target.value)} /></li>
-        <select value={level} onInput={e => changeLevel(e.target.value)}>
+        {id && <select value={level} onInput={e => changeLevel(e.target.value)}>
             <option value="0">游客</option>
             <option value="1">作者</option>
             <option value="2">审核</option>
             <option value="3">管理</option>
-        </select>
+        </select>}
         <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : '注册'}</button></li>
         {!id && <li><A href="/login">登录</A></li>}
     </div>
