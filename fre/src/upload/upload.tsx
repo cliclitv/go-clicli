@@ -4,10 +4,9 @@ import './upload.css'
 
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "", sort: "", time: "", content: "", tag: "", videos: "" })
-    let md
 
     useEffect(() => {
-        md = new (window as any).TinyMDE(document.querySelector('textarea'))
+        window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
         if (props.id > 0) {
             getPostDetail(props.id).then((res: any) => {
                 setPost(res.result)
@@ -63,12 +62,12 @@ export default function Upload(props) {
                 <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
             </div>
             <section>
-                <i class="te te-bold" onclick={() => md.bold()}></i>
-                <i class="te te-italic" onclick={() => md.italic()}></i>
-                <i class="te te-quote" onclick={() => md.quote()}></i>
-                <i class="te te-image" onclick={() => md.image()}></i>
-                <i class="te te-link" onclick={() => md.link()}></i>
-                <i class="te te-code" onclick={() => md.blockCode()}></i>
+                <i class="te te-bold" onclick={() => window.md.bold()}></i>
+                <i class="te te-italic" onclick={() => window.md.italic()}></i>
+                <i class="te te-quote" onclick={() => window.md.quote()}></i>
+                <i class="te te-image" onclick={() => window.md.image()}></i>
+                <i class="te te-link" onclick={() => window.md.link()}></i>
+                <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
             <textarea spellcheck="false" placeholder={`请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`} value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
