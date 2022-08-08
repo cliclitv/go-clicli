@@ -5,7 +5,7 @@ import { h } from 'fre'
 
 export function ListA({ posts }) {
     return <section className="a">
-        {posts.length > 0 && posts.map(item => {
+        {posts && posts.length > 0 && posts.map(item => {
             return <li onClick={() => push(`/play/gv${item.id}`)} key={item.id} >
                 <div className="item">
                     <div className="cover">
@@ -20,7 +20,7 @@ export function ListA({ posts }) {
 
 export function ListB({ posts }) {
     return <section className="b">
-        {posts.length > 0 && posts.map(item => {
+        {posts && posts.length > 0 && posts.map(item => {
             return <li onClick={() => push(`/play/gv${item.id}`)} key={item.id} >
                 <div className="item">
                     <div className="cover">

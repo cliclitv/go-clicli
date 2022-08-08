@@ -1,6 +1,6 @@
 import { h, useEffect, useState } from 'fre'
 import { getPost, getRank } from '../util/api'
-import {ListA} from '../list/list'
+import { ListA } from '../list/list'
 import { ListB } from '../list/list'
 import './home.css'
 
@@ -10,8 +10,8 @@ export default function Home() {
     useEffect(() => {
         getPost('', '推荐', 1, 8).then((res: any) => {
             setRecommend(res.posts)
-            getRank().then((res2:any)=>{
-                setRank(res2.posts.splice(0,8))
+            getRank().then((res2: any) => {
+                setRank(res2.posts.splice(0, 8))
             })
         })
     }, [])
@@ -29,9 +29,9 @@ export default function Home() {
                 </nav>
                 <main>
                     <h1>UGC Videos</h1>
-                    <ListA posts={recommend}/>
+                    <ListA posts={recommend} />
                     <h1>Top10 Animes</h1>
-                    <ListB posts={rank}/>
+                    <ListB posts={rank} />
                 </main>
             </div>
 

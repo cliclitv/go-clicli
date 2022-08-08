@@ -53,3 +53,13 @@ export function updatePost({ id, title, content, status, sort, tag, uid, time, v
     videos
   })
 }
+
+export function updateUser({ id, name, pwd, desc, qq, level }) {
+  return post(`https://api.clicli.cc/user/update/${id}`, {
+    name, pwd, qq, desc, level: parseInt(level)
+  })
+}
+
+export function getUserB({ id, qq, name }) {
+  return get(`https://api.clicli.cc/user?uid=${id || ""}&uname=${name || ""}&uqq=${qq || ""}`)
+}

@@ -11,7 +11,7 @@
     padding: 10px;
 }
 
-.login li input{
+.login li input {
     padding: 10px 20px;
     border-radius: 18px;
     border: none;
@@ -19,7 +19,7 @@
     box-sizing: border-box;
 }
 
-.login li button{
+.login li button {
     background: var(--theme);
     color: var(--whrite);
     width: 100%;
@@ -29,13 +29,22 @@
     cursor: pointer;
 }
 
-.login li h1{
+.login li h1 {
     color: var(--theme);
     text-align: left;
     padding: 10px 0;
 }
 
 button:disabled {
-    opacity: .7;   
-    cursor: wait!important;
+    opacity: .7;
+    cursor: wait !important;
+}
+
+.login select {
+    padding: 10px 20px;
+    border-radius: 18px;
+    border: none;
+    width: 280px;
+    box-sizing: border-box;
+    margin: 10px 0;
 }

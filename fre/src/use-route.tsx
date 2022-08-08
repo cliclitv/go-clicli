@@ -51,6 +51,7 @@ function perfrom(stack) {
     break
   }
 
+
   Object.assign(stack, {
     path,
     component,
