@@ -9,7 +9,7 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -75,17 +75,17 @@ func FormatPrivateKey(privateKey string) string {
 	return privateKey
 }
 
-func httpPost(url string) string{
-    resp, err := http.Post(url,
-        "application/x-www-form-urlencoded",
-        strings.NewReader(""))
-    if err != nil {
-        fmt.Println(err)
-    }
-    defer resp.Body.Close()
-    body, err := ioutil.ReadAll(resp.Body)
-    if err != nil {
-        // handle error
-    }
-    return string(body)
+func httpPost(url string) string {
+	resp, err := http.Post(url,
+		"application/x-www-form-urlencoded",
+		strings.NewReader(""))
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		// handle error
+	}
+	return string(body)
 }

@@ -6,14 +6,14 @@ import (
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/cliclitv/go-clicli/def"
 	"github.com/julienschmidt/httprouter"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"strconv"
 )
 
 func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	req, _ := ioutil.ReadAll(r.Body)
+	req, _ := io.ReadAll(r.Body)
 	pbody := &def.Post{}
 
 	if err := json.Unmarshal(req, pbody); err != nil {
@@ -34,7 +34,7 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	pid := p.ByName("id")
 	pint, _ := strconv.Atoi(pid)
-	req, _ := ioutil.ReadAll(r.Body)
+	req, _ := io.ReadAll(r.Body)
 	pbody := &def.Post{}
 	if err := json.Unmarshal(req, pbody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))

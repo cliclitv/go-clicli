@@ -2,19 +2,18 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/cliclitv/go-clicli/def"
 	"github.com/cliclitv/go-clicli/util"
 	"github.com/julienschmidt/httprouter"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
-	"fmt"
 )
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	req, _ := ioutil.ReadAll(r.Body)
+	req, _ := io.ReadAll(r.Body)
 	ubody := &def.User{}
 
 	if err := json.Unmarshal(req, ubody); err != nil {
@@ -38,7 +37,7 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	req, _ := ioutil.ReadAll(r.Body)
+	req, _ := io.ReadAll(r.Body)
 	ubody := &def.User{}
 
 	if err := json.Unmarshal(req, ubody); err != nil {
@@ -77,7 +76,7 @@ func Logout(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 
 func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	pint, _ := strconv.Atoi(p.ByName("id"))
-	req, _ := ioutil.ReadAll(r.Body)
+	req, _ := io.ReadAll(r.Body)
 	ubody := &def.User{}
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, "参数解析失败")
