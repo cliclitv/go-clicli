@@ -1,31 +1,31 @@
 import { get, post } from './post'
 
 export function getPost(type, tag, page, pageSize, status?, uid?) {
-  return get(`https://api.clicli.cc/posts?status=${status || 'public'}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
+  return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
 }
 
 export function getRank() {
-  return get('https://api.clicli.cc/rank')
+  return get('https://www.clicli.cc/rank')
 }
 
 export function getPostDetail(pid) {
-  return get(`https://api.clicli.cc/post/${pid}`)
+  return get(`https://www.clicli.cc/post/${pid}`)
 }
 
 export function getPlayUrl(url) {
-  return get(`https://api.clicli.cc/play?url=${url}`)
+  return get(`https://www.clicli.cc/play?url=${url}`)
 }
 
 export function getPv(pid) {
-  return get(`https://api.clicli.cc/pv/${pid}`)
+  return get(`https://www.clicli.cc/pv/${pid}`)
 }
 
 export function getSearch(key) {
-  return get(`https://api.clicli.cc/search/posts?key=${key}`)
+  return get(`https://www.clicli.cc/search/posts?key=${key}`)
 }
 
 export function addPost({ title, content, status, sort, tag, uid, videos }) {
-  return post('https://api.clicli.cc/post/add', {
+  return post('https://www.clicli.cc/post/add', {
     title,
     content,
     status,
@@ -41,7 +41,7 @@ export function getUser() {
 }
 
 export function updatePost({ id, title, content, status, sort, tag, uid, time, videos }) {
-  return post(`https://api.clicli.cc/post/update/${id}`, {
+  return post(`https://www.clicli.cc/post/update/${id}`, {
     id,
     title,
     content,
@@ -55,11 +55,11 @@ export function updatePost({ id, title, content, status, sort, tag, uid, time, v
 }
 
 export function updateUser({ id, name, pwd, desc, qq, level }) {
-  return post(`https://api.clicli.cc/user/update/${id}`, {
+  return post(`https://www.clicli.cc/user/update/${id}`, {
     name, pwd, qq, desc, level: parseInt(level)
   })
 }
 
 export function getUserB({ id, qq, name }) {
-  return get(`https://api.clicli.cc/user?uid=${id || ""}&uname=${name || ""}&uqq=${qq || ""}`)
+  return get(`https://www.clicli.cc/user?uid=${id || ""}&uname=${name || ""}&uqq=${qq || ""}`)
 }
