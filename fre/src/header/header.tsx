@@ -30,7 +30,7 @@ export default function Header() {
                 <div className="biu">
                     <li><i className="icon-font icon-download"></i>Get APP</li>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
-                    <li className="avatar"><img src={getAvatar((user || {}).qq)} alt="" /></li>
+                    <li className="avatar"><img src={getAvatar((user || {}).qq)} alt="" onClick={()=>push(`/user/${(user||{}).qq}`)}/></li>
                 </div>
             </div>
         </header>

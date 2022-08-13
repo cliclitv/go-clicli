@@ -63,3 +63,7 @@ export function updateUser({ id, name, pwd, desc, qq, level }) {
 export function getUserB({ id, qq, name }) {
   return get(`https://www.clicli.cc/user?uid=${id || ""}&uname=${name || ""}&uqq=${qq || ""}`)
 }
+
+export function getDogeToken({fname, rname}){
+  return get(`https://www.clicli.cc/doge?fname=${fname}&rname=${rname}`)
+}

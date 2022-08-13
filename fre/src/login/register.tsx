@@ -77,7 +77,7 @@ export default function Register({ id }) {
         }
     }
     return <div class="login">
-        <li><h1>CliCli.{id ? '编辑用户' : '注册'}</h1></li>
+        <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
         <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} value={qq} /></li>
         <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} value={name} /></li>
         <li><input type="text" placeholder={id ? "留空则不改" : "密码（不可修改）"} onInput={(e) => changePwd(e.target.value)} /></li>
@@ -87,7 +87,7 @@ export default function Register({ id }) {
             <option value="3">审核</option>
             <option value="4">管理</option>
         </select>}
-        <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : '注册'}</button></li>
+        <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : id ? '修改' : '注册'}</button></li>
         {!id && <li><A href="/login">登录</A></li>}
     </div>
 }
