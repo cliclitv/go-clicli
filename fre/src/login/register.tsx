@@ -52,6 +52,7 @@ export default function Register({ id }) {
         }
         if (!name || !qq || !pwd) {
             alert('全都得填::>_<::')
+            return
         }
         setLoading(true)
         const getFn = (data) => {
