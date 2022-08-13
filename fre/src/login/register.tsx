@@ -1,7 +1,7 @@
 import { h, useState, useEffect } from 'fre'
 import { A, push } from '../use-route'
 import { post } from '../util/post'
-import '../util/metamask.js'
+// import '../util/metamask.js'
 import './login.css'
 import { getUserB, updateUser } from '../util/api'
 
@@ -63,18 +63,18 @@ export default function Register({ id }) {
         const setUserFn = (data) => {
             console.log(data)
         }
-        const hedgehog = new (window as any).Hedgehog(getFn, setAuthFn, setUserFn)
-        let wallet
-        if (hedgehog.isLoggedIn()) {
-            wallet = hedgehog.getWallet()
-        } else {
-            wallet = await hedgehog.signUp(name, pwd)
-            const hash = hedgehog.getWallet().getAddressString()
-            console.log(hash)
-            const res = await post("https://api.clicli.cc/user/register", { name, pwd, qq, hash })
-            setLoading(false)
-            alert("注册成功啦~")
-        }
+        // const hedgehog = new (window as any).Hedgehog(getFn, setAuthFn, setUserFn)
+        // let wallet
+        // if (hedgehog.isLoggedIn()) {
+        //     wallet = hedgehog.getWallet()
+        // } else {
+        // wallet = await hedgehog.signUp(name, pwd)
+        // const hash = hedgehog.getWallet().getAddressString()
+        // console.log(hash)
+        const res = await post("https://api.clicli.cc/user/register", { name, pwd, qq, hash: "" })
+        setLoading(false)
+        alert("注册成功啦~")
+        // }
     }
     return <div class="login">
         <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
