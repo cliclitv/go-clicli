@@ -19,6 +19,7 @@ header .flex {
 header h1 {
     flex: 1;
     color: var(--theme);
+    font-size: 45px;
 }
 
 header .search input {
