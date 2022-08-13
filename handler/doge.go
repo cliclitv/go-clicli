@@ -9,14 +9,17 @@ import (
     "crypto/sha1"
     "encoding/hex"
 	"net"
+	"net/url"
+	"github.com/tidwall/gjson"
 )
 
 func DogeAuth(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	fname := r.URL.Query().Get("fname")
 	rname := r.URL.Query().Get("rname")
-	params := "/auth/upload.json?filename="+fname+"&vn="+rname
+	params := "/auth/upload.json?filename="+url.QueryEscape(fname)+"&vn="+url.QueryEscape(rname)
 	data := Get(params)
-	sendMsg(w, 200, data)
+	value:=gjson.Get(data, "data.uploadToken")
+	sendMsg(w, 200, value.String())
 }
 
 func Get(params string)string{
@@ -34,7 +37,6 @@ func Get(params string)string{
 	if err != nil {
 		return ""
 	}
-	// body, err := json.Marshal(data)
 	return string(data)
 }
 
@@ -56,7 +58,8 @@ func GetDoge(r *http.Request, vid string) string {
 	params := "/video/streams.json?platform=pch5&vid="+vid+"&ip="+ip
 	fmt.Printf(params)
 	data:=Get(params)
-	return data
+	value:=gjson.Get(data,"data.stream.0.url")
+	return value.String()
 }
 
 func getClientIp() string {
