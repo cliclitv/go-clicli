@@ -72,7 +72,7 @@ export default function Register({ id }) {
         // wallet = await hedgehog.signUp(name, pwd)
         // const hash = hedgehog.getWallet().getAddressString()
         // console.log(hash)
-        const res = await post("https://api.clicli.cc/user/register", { name, pwd, qq, hash: "" })
+        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, hash: "" })
         setLoading(false)
         alert("注册成功啦~")
         // }

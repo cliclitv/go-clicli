@@ -75,7 +75,7 @@ function buildVideos(str) {
 export function Eplayer(props) {
     const t = useRef(null)
     useEffect(() => {
-        get(`https://api.clicli.cc/play?url=${props.url}`).then((res: any) => {
+        get(`https://www.clicli.cc/play?url=${props.url}`).then((res: any) => {
             const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
             t.current.setAttribute('type', type)
             t.current.setAttribute('src', res.result.url)

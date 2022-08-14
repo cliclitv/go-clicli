@@ -16,7 +16,7 @@ export default function Login() {
     }
 
     function login() {
-        post("https://api.clicli.cc/user/login", { name, pwd }).then((res: any) => {
+        post("https://www.clicli.cc/user/login", { name, pwd }).then((res: any) => {
             if (res.code === 200) {
                 window.localStorage.setItem('token', res.token)
                 window.localStorage.setItem('user', JSON.stringify(res.user))

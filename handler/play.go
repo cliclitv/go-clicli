@@ -17,7 +17,7 @@ func GetPlay(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		mtype = "m3u8"
 	}
 
-	if arr[1] == "dogecloud"{
+	if len(arr)>1 && arr[1] == "dogecloud"{
 	 url = GetDoge(r, arr[0])
 	 mtype = "m3u8"
 	}
