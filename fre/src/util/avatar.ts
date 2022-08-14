@@ -2,7 +2,7 @@ import md5 from 'blueimp-md5'
 
 export function getAvatar(avatar) {
   if (/^[0-9]+$/.test(avatar)) {
-    return `http://q1.qlogo.cn/g?b=qq&nk=${avatar}&s=640`
+    return `https://q1.qlogo.cn/g?b=qq&nk=${avatar}&s=640`
   } else {
     let hash = md5(avatar)
     return `https://sdn.geekzu.org/avatar/${hash}?s=100&d=retro`
