@@ -46,11 +46,15 @@ export default function Upload(props) {
         if (props.id > 0) {
             updatePost(post as any).then(res => {
                 alert("更新成功啦！")
+            }).catch(e=>{
+                alert("登陆信息过期了")
             })
         } else {
             console.log(post)
             addPost(post as any).then(res => {
-                alert("更新成功啦！")
+                alert("投稿成功啦！")
+            }).catch(e=>{
+                alert("登陆信息过期了")
             })
         }
     }
