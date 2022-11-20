@@ -44,7 +44,7 @@ export default function Post({ gv }) {
                     <div className="avatar"><img src={getAvatar(post.uqq)} alt="" /><p>{post.uname}</p></div>
                     <ul>
                         {videos.map((name, index) => {
-                            return <li onClick={()=>changeid(index)}>{index}</li>
+                            return <li onClick={()=>changeid(index)}>{index+1}</li>
                         })}
                     </ul>
                 </div>
