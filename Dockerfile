@@ -1,5 +1,7 @@
 FROM alpine:latest
 WORKDIR /root/
 COPY . .
-RUN ls
-ENTRYPOINT ["./go-clicli"]
+RUN apk add git
+RUN go build -o app
+EXPOSE 4000
+ENTRYPOINT ["./app"]
