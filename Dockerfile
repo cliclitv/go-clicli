@@ -1,4 +1,4 @@
-FROM alpine:lates
+FROM alpine:latest
 WORKDIR /root/
 COPY . .
 RUN ls
