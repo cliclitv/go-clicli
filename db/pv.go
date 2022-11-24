@@ -1,14 +1,8 @@
 package db
 
 import (
-	"github.com/cliclitv/go-clicli/handler"
 	"database/sql"
 )
-
-type Pv struct {
-	Pid  int `json:"pid"`
-	Pv int `json:"pv"`
-}
 
 func GetPv(pid int) (*Pv, error) {
 	stmtCount, err := dbConn.Prepare("SELECT pv FROM pv WHERE pid = $1")
@@ -24,7 +18,7 @@ func GetPv(pid int) (*Pv, error) {
 	return res, nil
 }
 
-func ReplacePv(pid int, pv int) (*handler.Pv, error) {
+func ReplacePv(pid int, pv int) (*Pv, error) {
 	stmtIns, err := dbConn.Prepare("INSERT INTO pv (pid,pv) VALUES ($1,$2) ON conflict(pid) DO UPDATE SET pv=$3")
 	if err != nil {
 		return nil, err
@@ -35,6 +29,6 @@ func ReplacePv(pid int, pv int) (*handler.Pv, error) {
 	}
 	defer stmtIns.Close()
 
-	res := &handler.Pv{Pid: pid, Pv: pv}
+	res := &Pv{Pid: pid, Pv: pv}
 	return res, nil
 }

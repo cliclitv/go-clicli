@@ -13,7 +13,7 @@ import (
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
-	ubody := &User{}
+	ubody := &db.User{}
 
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, "参数解析失败")
@@ -37,7 +37,7 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
-	ubody := &User{}
+	ubody := &db.User{}
 
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, "参数解析失败")
@@ -57,11 +57,11 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	} else {
 		token, _ := GenToken(resp.Name, resp.Pwd, resp.Level)
 
-		res := &User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
+		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
 		resStr, _ := json.Marshal(struct {
 			Code  int       `json:"code"`
 			Token string    `json:"token"`
-			User  *User `json:"user"`
+			User  *db.User `json:"user"`
 		}{Code: 200, Token: token, User: res})
 
 		io.WriteString(w, string(resStr))
@@ -76,7 +76,7 @@ func Logout(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	pint, _ := strconv.Atoi(p.ByName("id"))
 	req, _ := io.ReadAll(r.Body)
-	ubody := &User{}
+	ubody := &db.User{}
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, "参数解析失败")
 		return
@@ -107,7 +107,7 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	res := &User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Desc: resp.Desc, Hash: resp.Hash}
+	res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Desc: resp.Desc, Hash: resp.Hash}
 	sendUserResponse(w, res, 200, "")
 
 }
@@ -127,7 +127,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		res := &Users{Users: resp}
+		res := &db.Users{Users: resp}
 		sendUsersResponse(w, res, 200)
 	}
 }
@@ -140,7 +140,7 @@ func SearchUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		res := &Users{Users: resp}
+		res := &db.Users{Users: resp}
 		sendUsersResponse(w, res, 200)
 	}
 }

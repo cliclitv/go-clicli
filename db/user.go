@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"github.com/cliclitv/go-clicli/handler"
 	"github.com/cliclitv/go-clicli/util"
 	"log"
 )
@@ -22,7 +21,7 @@ func CreateUser(name string, pwd string, level int, qq string, sign string, hash
 	return nil
 }
 
-func UpdateUser(id int, name string, pwd string, level int, qq string, sign string) (*handler.User, error) {
+func UpdateUser(id int, name string, pwd string, level int, qq string, sign string) (*User, error) {
 	if pwd == "" {
 		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,sign=$4 WHERE id =$5")
 		if err != nil {
@@ -33,7 +32,7 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, sign stri
 			return nil, err
 		}
 
-		res := &handler.User{Id: id, Name: name, QQ: qq, Level: level, Desc: sign}
+		res := &User{Id: id, Name: name, QQ: qq, Level: level, Desc: sign}
 		defer stmtIns.Close()
 		return res, err
 	} else {
@@ -48,13 +47,13 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, sign stri
 		}
 		defer stmtIns.Close()
 
-		res := &handler.User{Id: id, Name: name, Pwd: pwd, QQ: qq, Level: level, Desc: sign}
+		res := &User{Id: id, Name: name, Pwd: pwd, QQ: qq, Level: level, Desc: sign}
 		return res, err
 	}
 
 }
 
-func GetUser(name string, id int, qq string) (*handler.User, error) {
+func GetUser(name string, id int, qq string) (*User, error) {
 	var query string
 	if name != "" {
 		query += `SELECT id,name,pwd,level,qq,sign,hash FROM users WHERE name = $1`
@@ -82,12 +81,12 @@ func GetUser(name string, id int, qq string) (*handler.User, error) {
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-	res := &handler.User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Desc: sign, Hash: hash}
+	res := &User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Desc: sign, Hash: hash}
 
 	return res, nil
 }
 
-func GetUsers(level int, page int, pageSize int) ([]*handler.User, error) {
+func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 	start := pageSize * (page - 1)
 	var slice []interface{}
 	var query string
@@ -101,7 +100,7 @@ func GetUsers(level int, page int, pageSize int) ([]*handler.User, error) {
 	slice = append(slice, start, pageSize)
 	stmt, err := dbConn.Prepare(query)
 
-	var res []*handler.User
+	var res []*User
 
 	rows, err := stmt.Query(slice...)
 	if err != nil {
@@ -115,7 +114,7 @@ func GetUsers(level int, page int, pageSize int) ([]*handler.User, error) {
 			return res, err
 		}
 
-		c := &handler.User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
+		c := &User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
 		res = append(res, c)
 	}
 	defer stmt.Close()
@@ -124,11 +123,11 @@ func GetUsers(level int, page int, pageSize int) ([]*handler.User, error) {
 
 }
 
-func SearchUsers(key string) ([]*handler.User, error) {
+func SearchUsers(key string) ([]*User, error) {
 	key = string("%" + key + "%")
 	stmt, err := dbConn.Prepare("SELECT id, name, level, qq, sign FROM users WHERE name LIKE $1")
 
-	var res []*handler.User
+	var res []*User
 
 	rows, err := stmt.Query(key)
 	if err != nil {
@@ -142,7 +141,7 @@ func SearchUsers(key string) ([]*handler.User, error) {
 			return res, err
 		}
 
-		c := &handler.User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
+		c := &User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
 		res = append(res, c)
 	}
 	defer stmt.Close()

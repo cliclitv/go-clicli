@@ -4,66 +4,67 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"github.com/cliclitv/go-clicli/db"
 )
 
-func sendUserResponse(w http.ResponseWriter, uRes *User, sc int, msg string) {
+func sendUserResponse(w http.ResponseWriter, uRes *db.User, sc int, msg string) {
 	w.WriteHeader(sc)
 
 	resStr, _ := json.Marshal(struct {
 		Code   int      `json:"code"`
 		Msg    string   `json:"msg,omitempty"`
-		Result User `json:"result"`
+		Result db.User `json:"result"`
 	}{sc, msg, *uRes})
 
 	io.WriteString(w, string(resStr))
 
 }
 
-func sendPostResponse(w http.ResponseWriter, pRes *Post, sc int) {
+func sendPostResponse(w http.ResponseWriter, pRes *db.Post, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code   int       `json:"code"`
-		Result *Post `json:"result"`
+		Result *db.Post `json:"result"`
 	}{sc, pRes})
 
 	io.WriteString(w, string(resStr))
 }
 
-func sendPostsResponse(w http.ResponseWriter, pRes *Posts, sc int) {
+func sendPostsResponse(w http.ResponseWriter, pRes *db.Posts, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code int `json:"code"`
-		*Posts
+		*db.Posts
 	}{sc, pRes})
 
 	io.WriteString(w, string(resStr))
 }
 
-func sendUsersResponse(w http.ResponseWriter, pRes *Users, sc int) {
+func sendUsersResponse(w http.ResponseWriter, pRes *db.Users, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code int `json:"code"`
-		*Users
+		*db.Users
 	}{sc, pRes})
 
 	io.WriteString(w, string(resStr))
 }
 
-func sendPlayResponse(w http.ResponseWriter, cRes Play, sc int) {
+func sendPlayResponse(w http.ResponseWriter, cRes db.Play, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code   int      `json:"code"`
-		Result Play `json:"result"`
+		Result db.Play `json:"result"`
 	}{sc, cRes})
 
 	io.WriteString(w, string(resStr))
 }
 
-func sendPvResponse(w http.ResponseWriter, cRes *Pv, sc int) {
+func sendPvResponse(w http.ResponseWriter, cRes *db.Pv, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code   int     `json:"code"`
-		Result *Pv `json:"result"`
+		Result *db.Pv `json:"result"`
 	}{sc, cRes})
 
 	io.WriteString(w, string(resStr))
