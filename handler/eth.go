@@ -48,7 +48,7 @@ func CallContractWithAbi(client *ethclient.Client, privKey *ecdsa.PrivateKey, fr
 		fmt.Println("abi json: ", err)
 		return "", err
 	}
-	amount, _ := new(big.Int).SetString("1000000000", 10) //100
+	amount, _ := new(big.Int).SetString("1000000", 10) //1
 	callData, err := contractABI.Pack("transfer", to, amount)
 	if err != nil {
 		fmt.Println("abi pack: ", err)
