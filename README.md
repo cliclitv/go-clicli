@@ -1,6 +1,6 @@
 # go-clicli
 
-[![Build Status](https://github.com/cliclitv/go-clicli/workflows/build/badge.svg?branch=master)](https://github.com/cliclitv/go-clicli/actions)
+[![Build Status](https://github.com/cliclitv/go-clicli/workflows/main/badge.svg?branch=master)](https://github.com/cliclitv/go-clicli/actions)
 
 [www.clicli.cc](https://www.clicli.cc)
 
