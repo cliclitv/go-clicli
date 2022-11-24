@@ -1,11 +1,16 @@
 package db
 
 import (
-	"github.com/cliclitv/go-clicli/def"
+	"github.com/cliclitv/go-clicli/handler"
 	"database/sql"
 )
 
-func GetPv(pid int) (*def.Pv, error) {
+type Pv struct {
+	Pid  int `json:"pid"`
+	Pv int `json:"pv"`
+}
+
+func GetPv(pid int) (*Pv, error) {
 	stmtCount, err := dbConn.Prepare("SELECT pv FROM pv WHERE pid = $1")
 	var pv int
 	err = stmtCount.QueryRow(pid).Scan(&pv)
@@ -13,13 +18,13 @@ func GetPv(pid int) (*def.Pv, error) {
 		return nil, err
 	}
 
-	res := &def.Pv{Pid: pid, Pv: pv}
+	res := &Pv{Pid: pid, Pv: pv}
 
 	defer stmtCount.Close()
 	return res, nil
 }
 
-func ReplacePv(pid int, pv int) (*def.Pv, error) {
+func ReplacePv(pid int, pv int) (*handler.Pv, error) {
 	stmtIns, err := dbConn.Prepare("INSERT INTO pv (pid,pv) VALUES ($1,$2) ON conflict(pid) DO UPDATE SET pv=$3")
 	if err != nil {
 		return nil, err
@@ -30,6 +35,6 @@ func ReplacePv(pid int, pv int) (*def.Pv, error) {
 	}
 	defer stmtIns.Close()
 
-	res := &def.Pv{Pid: pid, Pv: pv}
+	res := &handler.Pv{Pid: pid, Pv: pv}
 	return res, nil
 }

@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"github.com/cliclitv/go-clicli/def"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"strings"
@@ -22,7 +21,7 @@ func GetPlay(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	 mtype = "m3u8"
 	}
 
-	res := def.Play{MType:mtype,Url:url}
+	res := Play{MType:mtype,Url:url}
 	sendPlayResponse(w, res, 200)
 
 }

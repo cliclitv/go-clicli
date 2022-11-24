@@ -1,4 +1,14 @@
-package def
+package handler
+
+type Pv struct {
+	Pid  int `json:"pid"`
+	Pv int `json:"pv"`
+}
+
+type Play struct {
+	MType  string    `json:"mtype"`
+	Url string `json:"url"`
+}
 
 type User struct {
 	Id    int    `json:"id,omitempty"`

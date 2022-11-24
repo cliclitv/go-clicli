@@ -2,14 +2,14 @@ package db
 
 import (
 	"database/sql"
-	"github.com/cliclitv/go-clicli/def"
+	"github.com/cliclitv/go-clicli/handler"
 	"strings"
 	"time"
 	"fmt"
 	"log"
 )
 
-func AddPost(title string, content string, status string, sort string, tag string, uid int, videos string) (*def.Post, error) {
+func AddPost(title string, content string, status string, sort string, tag string, uid int, videos string) (*handler.Post, error) {
 	cstZone := time.FixedZone("CST", 8*3600)
 	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
 	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)")
@@ -21,13 +21,13 @@ func AddPost(title string, content string, status string, sort string, tag strin
 	if err != nil {
 		return nil, err
 	}
-	res := &def.Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Videos: videos}
+	res := &handler.Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Videos: videos}
 	defer stmtIns.Close()
 
 	return res, err
 }
 
-func UpdatePost(id int, title string, content string, status string, sort string, tag string, time string, videos string) (*def.Post, error) {
+func UpdatePost(id int, title string, content string, status string, sort string, tag string, time string, videos string) (*handler.Post, error) {
 	stmtIns, err := dbConn.Prepare("UPDATE posts SET title=$1,content=$2,status=$3,sort=$4,tag=$5,time=$6,videos=$7 WHERE id =$8")
 	if err != nil {
 		return nil, err
@@ -37,7 +37,7 @@ func UpdatePost(id int, title string, content string, status string, sort string
 	if err != nil {
 		return nil, err
 	}
-	res := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: time, Videos: videos}
+	res := &handler.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: time, Videos: videos}
 	defer stmtIns.Close()
 	return res, err
 }
@@ -57,7 +57,7 @@ func DeletePost(id int) error {
 	return nil
 }
 
-func GetPost(id int) (*def.Post, error) {
+func GetPost(id int) (*handler.Post, error) {
 	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts 
 INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	if err != nil {
@@ -75,12 +75,12 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	}
 	defer stmt.Close()
 
-	res := &def.Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
+	res := &handler.Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
 
 	return res, nil
 }
 
-func GetPosts(page int, pageSize int, status string, sort string, tag string, uid int) ([]*def.Post, error) {
+func GetPosts(page int, pageSize int, status string, sort string, tag string, uid int) ([]*handler.Post, error) {
 	start := pageSize * (page - 1)
 	tags := strings.Fields(tag)
 
@@ -130,7 +130,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	defer stmt.Close()
 
-	var res []*def.Post
+	var res []*handler.Post
 
 	for rows.Next() {
 		var id, uid int
@@ -139,7 +139,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 			log.Println(err)
 			return res, err
 		}
-		c := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &handler.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
@@ -147,11 +147,11 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 }
 
-func SearchPosts(key string) ([]*def.Post, error) {
+func SearchPosts(key string) ([]*handler.Post, error) {
 	key = string("%" + key + "%")
 	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
 
-	var res []*def.Post
+	var res []*handler.Post
 
 	rows, err := stmt.Query(key, key)
 	if err != nil {
@@ -167,17 +167,17 @@ func SearchPosts(key string) ([]*def.Post, error) {
 			return res, err
 		}
 
-		c := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &handler.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
 	return res, nil
 }
 
-func GetRank() ([]*def.Post, error) {
+func GetRank() ([]*handler.Post, error) {
 	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 10")
 
-	var res []*def.Post
+	var res []*handler.Post
 
 	rows, err := stmt.Query()
 	if err != nil {
@@ -193,7 +193,7 @@ func GetRank() ([]*def.Post, error) {
 			return res, err
 		}
 
-		c := &def.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime}
+		c := &handler.Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime}
 		res = append(res, c)
 	}
 

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/cliclitv/go-clicli/db"
-	"github.com/cliclitv/go-clicli/def"
 	"github.com/julienschmidt/httprouter"
 	"io"
 	"log"
@@ -14,7 +13,7 @@ import (
 
 func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
-	pbody := &def.Post{}
+	pbody := &Post{}
 
 	if err := json.Unmarshal(req, pbody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
@@ -35,7 +34,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	pid := p.ByName("id")
 	pint, _ := strconv.Atoi(pid)
 	req, _ := io.ReadAll(r.Body)
-	pbody := &def.Post{}
+	pbody := &Post{}
 	if err := json.Unmarshal(req, pbody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
 		return
@@ -89,7 +88,7 @@ func GetPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		res := &def.Posts{Posts: resp}
+		res := &Posts{Posts: resp}
 		sendPostsResponse(w, res, 200)
 	}
 }
@@ -103,7 +102,7 @@ func SearchPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		log.Printf("%s", err)
 		return
 	} else {
-		res := &def.Posts{Posts: resp}
+		res := &Posts{Posts: resp}
 		sendPostsResponse(w, res, 200)
 	}
 
@@ -116,7 +115,7 @@ func GetRank(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		log.Printf("%s", err)
 		return
 	} else {
-		res := &def.Posts{Posts: resp}
+		res := &Posts{Posts: resp}
 		sendPostsResponse(w, res, 200)
 	}
 
