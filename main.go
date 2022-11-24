@@ -67,6 +67,7 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/pv/:pid", handler.GetPv)
 	router.GET("/rank", handler.GetRank)
 	router.GET("/doge", handler.DogeAuth)
+	router.GET("/transfer", handler.Transfer)
 
 	fsys, _ := fs.Sub(embededFiles, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
