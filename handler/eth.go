@@ -47,7 +47,7 @@ func CallContractWithAbi(client *ethclient.Client, privKey *ecdsa.PrivateKey, fr
 		fmt.Println("abi json: ", err)
 		return "", err
 	}
-	amount, _ := new(big.Int).SetString("100000000", 10) //10
+	amount, _ := new(big.Int).SetString("1000000000", 10) //100
 	callData, err := contractABI.Pack("transferFrom", from, to, amount)
 	if err != nil {
 		fmt.Println("abi pack: ", err)
@@ -69,6 +69,12 @@ func CallContractWithAbi(client *ethclient.Client, privKey *ecdsa.PrivateKey, fr
 	return signedTx.Hash().Hex(), nil
 }
 
+func BalanceOf(w http.ResponseWriter, r *http.Request, p httprouter.Params){
+	from, _ := strconv.Atoi(r.URL.Query().Get("uid"))
+
+	user, err := db.GetUser("", from, "")
+	
+}
 
 func Transfer(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	client, err := ethclient.Dial(BscTestNet)
