@@ -114,7 +114,7 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 			return res, err
 		}
 
-		c := &User{Id: id, Name: name, Level: level, QQ: qq, Desc: sign}
+		c := &User{Id: id, Name: name, Level: level, QQ: qq}
 		res = append(res, c)
 	}
 	defer stmt.Close()
