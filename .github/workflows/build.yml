@@ -1,4 +1,4 @@
-on: pull_request
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,6 +10,7 @@ jobs:
         with:
           version: latest
           platform: x64
+      
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
