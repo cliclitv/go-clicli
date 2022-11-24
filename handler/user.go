@@ -58,7 +58,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	} else {
 		token, _ := GenToken(resp.Name, resp.Pwd, resp.Level)
 
-		res := &def.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Desc: resp.Desc, Hash: resp.Hash}
+		res := &def.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
 		resStr, _ := json.Marshal(struct {
 			Code  int       `json:"code"`
 			Token string    `json:"token"`

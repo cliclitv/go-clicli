@@ -5,7 +5,7 @@ type User struct {
 	Name  string `json:"name"`
 	Pwd   string `json:"pwd,omitempty"`
 	QQ    string `json:"qq"`
-	Desc  string `json:"desc"`
+	Desc  string `json:"desc,omitempty"`
 	Level int    `json:"level"`
 	Hash  string `json:"hash"`
 }

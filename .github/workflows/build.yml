@@ -10,6 +10,13 @@ jobs:
           go-version: '>=1.19.0'
       - run: |
           go version
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+          platform: x64
+      - run: |
+          gcc -v
 
       - name: download go mod
         run: |
