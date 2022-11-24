@@ -2,5 +2,5 @@ FROM alpine:latest
 WORKDIR /root/
 COPY . .
 RUN ls
-EXPOSE 8080
+EXPOSE 4000
 ENTRYPOINT ["./go-clicli"]
