@@ -1,7 +1,4 @@
-FROM alpine:latest
-WORKDIR /root/
-COPY . .
-RUN apk add git
-RUN go build -o app
-EXPOSE 4000
-ENTRYPOINT ["./app"]
+FROM plugins/base:linux-amd64
+COPY app /bin/
+RUN ls
+ENTRYPOINT ["/bin/app"]
