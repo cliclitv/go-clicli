@@ -1,18 +1,37 @@
-on:
-  push:
-    branches:
-      - master
+on: push
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Go
-        uses: actions/setup-go@master
+      - uses: actions/checkout@v3
+
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
         with:
-          go-version: 1.19
-        id: go
-        
-      - uses: actions/checkout@v2
+          version: latest
+          platform: x64
+      
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.19.0'
+      - run: |
+          go version
+      - name: download go mod
+        run: |
+          go mod download
+      - name: go build
+        run: |
+          go build .
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "go-clicli"
+
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: echo "🥳"
 
       - name: Build Image
         env:
