@@ -13,14 +13,18 @@ export default function Register({ id }) {
     const [loading, setLoading] = useState(false)
     const [level, setLevel] = useState(0)
     const [uid, setUid] = useState(0)
+    const [hash, setHash] = useState("")
 
-    useEffect(async () => {
+    useEffect(() => {
         console.log('编辑用户')
-        const user = await getUserB({ qq: id })
-        setName(user.result.name)
-        setQQ(user.result.qq)
-        setUid(user.result.id)
-        setLevel(user.result.level)
+        getUserB({ qq: id } as any).then((user: any) => {
+            setName(user.result.name)
+            setQQ(user.result.qq)
+            setUid(user.result.id)
+            setLevel(user.result.level)
+            setHash(user.result.hash)
+        })
+
     }, [])
 
 
@@ -44,7 +48,7 @@ export default function Register({ id }) {
         if (id != null) {
             console.log('修改用户')
             updateUser({ id: uid, name, qq, pwd, desc: "", level: level }).then(res => {
-                if (res.code === 200) {
+                if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }
             })
@@ -55,29 +59,11 @@ export default function Register({ id }) {
             return
         }
         setLoading(true)
-        const getFn = (data) => {
-            console.log(data)
-        }
-        const setAuthFn = (data) => {
-            console.log(data)
-        }
-        const setUserFn = (data) => {
-            console.log(data)
-        }
-        // const hedgehog = new (window as any).Hedgehog(getFn, setAuthFn, setUserFn)
-        // let wallet
-        // if (hedgehog.isLoggedIn()) {
-        //     wallet = hedgehog.getWallet()
-        // } else {
-        // wallet = await hedgehog.signUp(name, pwd)
-        // const hash = hedgehog.getWallet().getAddressString()
-        // console.log(hash)
         const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, hash: "" })
         setLoading(false)
         alert("注册成功啦~")
-        // }
     }
-    function logout(){
+    function logout() {
         localStorage.clear()
         location.reload()
     }
@@ -85,15 +71,16 @@ export default function Register({ id }) {
         <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
         <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} value={qq} /></li>
         <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} value={name} /></li>
-        <li><input type="text" placeholder={id ? "留空则不改" : "密码（不可修改）"} onInput={(e) => changePwd(e.target.value)} /></li>
+        <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => changePwd(e.target.value)} /></li>
         {id && <select value={level} onInput={e => changeLevel(e.target.value)}>
             <option value="1">游客</option>
             <option value="2">作者</option>
             <option value="3">审核</option>
             <option value="4">管理</option>
         </select>}
+        {id && <li><input type="text" placeholder="钱包地址" disabled value={hash} /></li>}
         <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : id ? '修改' : '注册'}</button></li>
-        {id && <li><button onClick={logout} style={{background: '#ff2b79'}}>退出登陆</button></li>}
+        {id && <li><button onClick={logout} style={{ background: '#ff2b79' }}>退出登陆</button></li>}
         {!id && <li><A href="/login">登录</A></li>}
     </div>
 }

@@ -28,7 +28,7 @@ export default function Header() {
                     <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
                 </div>
                 <div className="biu">
-                    <li><i className="icon-font icon-download"></i>Get APP</li>
+                    <a href="https://zhuanlan.zhihu.com/p/585459295" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
                     <li className="avatar"><img src={getAvatar((user || {}).qq)} alt="" onClick={()=>push(`/user/${(user||{}).qq}`)}/></li>
                 </div>

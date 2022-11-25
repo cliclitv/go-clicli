@@ -67,3 +67,7 @@ export function getUserB({ id, qq, name }) {
 export function getDogeToken({fname, rname}){
   return get(`https://www.clicli.cc/doge?fname=${fname}&rname=${rname}`)
 }
+
+export function getTransfer({from, to}){
+  return get(`https://www.clicli.cc/eth/transfer?from=${from}&to=${to}`)
+}

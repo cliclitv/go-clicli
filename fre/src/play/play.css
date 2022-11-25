@@ -58,6 +58,10 @@
     align-items: center;
 }
 
+.p .avatar p {
+    flex: 1;
+}
+
 .p .avatar img {
     height: 40px;
     width: 40px;
@@ -141,12 +145,21 @@ article a {
     color: #666;
 }
 
-.info .tag{
+.info .tag {
     display: flex;
     align-items: center;
 }
 
-.info .tags li{
+.info .tags li {
     font-size: 16px;
+    cursor: pointer;
+}
+
+.icon-shouye {
+    background-color: #fbde00;
+    color: #333;
+    padding: 8px;
+    font-size: 30px;
+    border-radius: 50%;
     cursor: pointer;
 }

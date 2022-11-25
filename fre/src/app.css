@@ -55,3 +55,7 @@ header input::-webkit-input-placeholder {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2) !important;
     background: transparent !important;
 }
+
+input:disabled{
+    background-color: #f2f2f2;
+}

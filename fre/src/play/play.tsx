@@ -1,8 +1,7 @@
 import { h, useEffect, useState, useRef } from 'fre'
-import { getPostDetail, getPv } from '../util/api'
+import { getPlayUrl, getPostDetail, getPv, getTransfer } from '../util/api'
 import { getAv, getAvatar } from '../util/avatar'
 import snarkdown from 'snarkdown'
-import { get } from '../util/post'
 import { A, push } from '../use-route'
 import './play.css'
 
@@ -30,8 +29,14 @@ export default function Post({ gv }) {
         })
     }, [])
 
-    const changeid = (id)=>{
+    const changeid = (id) => {
         setPlay(videos[id][1])
+    }
+
+    const transfer = () => {
+        getTransfer({ from: 1, to: 2 }).then(res => {
+            alert(`${(res as any).msg}`)
+        })
     }
 
     return (
@@ -41,10 +46,13 @@ export default function Post({ gv }) {
                     <Eplayer url={play}></Eplayer>
                 </div>
                 <div className="p">
-                    <div className="avatar"><img src={getAvatar(post.uqq)} alt="" /><p>{post.uname}</p></div>
+                    <div className="avatar">
+                        <img src={getAvatar(post.uqq)} alt="" /><p>{post.uname}</p>
+                        <i className="icon-font icon-shouye" onClick={transfer}></i>
+                    </div>
                     <ul>
                         {videos.map((name, index) => {
-                            return <li onClick={()=>changeid(index)}>{index+1}</li>
+                            return <li onClick={() => changeid(index)}>{index + 1}</li>
                         })}
                     </ul>
                 </div>
@@ -75,7 +83,7 @@ function buildVideos(str) {
 export function Eplayer(props) {
     const t = useRef(null)
     useEffect(() => {
-        get(`https://www.clicli.cc/play?url=${props.url}`).then((res: any) => {
+        getPlayUrl(props.url).then((res: any) => {
             const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
             t.current.setAttribute('type', type)
             t.current.setAttribute('src', res.result.url)

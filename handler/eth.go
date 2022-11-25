@@ -150,8 +150,6 @@ func CallContractWithAbi(client *ethclient.Client, privKey *ecdsa.PrivateKey, fr
 		fmt.Println("gas price: ", err)
 		return "", err
 	}
-	// function data
-	// abiData, err := ioutil.ReadFile("usdt.abi")
 	if err != nil {
 		fmt.Println("read file: ", err)
 		return "", err
