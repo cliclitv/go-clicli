@@ -196,12 +196,12 @@ func Transfer(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	if err != nil {
 		fmt.Println("eth client: ", err)
-		os.Exit(1)
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
 	}
 
 	txHash, err := CallContractWithAbi(client, PrivateKey, FromAddr, ToAddr, ContractCdd)
 	if err != nil {
-		os.Exit(1)
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
 	}
 	fmt.Println("tx hash: ", txHash)
 	sendMsg(w, 200, txHash)
