@@ -1,7 +1,6 @@
 import { h, useState, useEffect } from 'fre'
 import { A, push } from '../use-route'
 import { post } from '../util/post'
-// import '../util/metamask.js'
 import './login.css'
 import { getUserB, updateUser } from '../util/api'
 
@@ -13,17 +12,19 @@ export default function Register({ id }) {
     const [loading, setLoading] = useState(false)
     const [level, setLevel] = useState(0)
     const [uid, setUid] = useState(0)
-    const [hash, setHash] = useState("")
+    const [hash, setHash] = useState(null)
 
     useEffect(() => {
-        console.log('编辑用户')
-        getUserB({ qq: id } as any).then((user: any) => {
-            setName(user.result.name)
-            setQQ(user.result.qq)
-            setUid(user.result.id)
-            setLevel(user.result.level)
-            setHash(user.result.hash)
-        })
+        if (id) {
+            console.log('编辑用户')
+            getUserB({ qq: id } as any).then((user: any) => {
+                setName(user.result.name)
+                setQQ(user.result.qq)
+                setUid(user.result.id)
+                setLevel(user.result.level)
+                setHash(user.result.hash)
+            })
+        }
 
     }, [])
 
