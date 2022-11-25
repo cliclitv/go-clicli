@@ -22,5 +22,5 @@ export default ({ mode }) => {
     config['base'] = '/assets/'
   }
 
-  return defineConfig(config)
+  return defineConfig(config as any)
 }
