@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"bytes"
 	"math/big"
-	"os"
 	"crypto/ecdsa"
 	"net/http"
 	"strconv"
