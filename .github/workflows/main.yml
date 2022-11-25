@@ -7,7 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      - run: |
+          cd fre
+          yarn i
+          yarn build
+          cd ../
       - name: Set up GCC
         uses: egor-tensin/setup-gcc@v1
         with:
