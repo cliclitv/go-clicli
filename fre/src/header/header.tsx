@@ -31,7 +31,7 @@ export default function Header() {
     }
 
     const openWallet = () => {
-        setBal(!bal)
+        setBal(bal === false ? true : false)
     }
 
     return (
@@ -45,10 +45,10 @@ export default function Header() {
                 <div className="biu">
                     <a href="https://zhuanlan.zhihu.com/p/585459295" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
-                    <li className="avatar" >
-                        <img src={getAvatar((user || {}).qq)} alt="" onClick={openWallet} />
+                    <li className="avatar" onClick={openWallet}>
+                        <img src={getAvatar((user || {}).qq)} alt="" />
                         {bal && <div className="wallet">
-                            <li><h2>{parseInt(balance as any)/1000000} 肥皂</h2></li>
+                            <li><h2>{parseInt(balance as any) / 1000000} 肥皂</h2></li>
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
                         </div>}
                     </li>
