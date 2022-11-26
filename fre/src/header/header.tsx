@@ -18,9 +18,8 @@ export default function Header() {
     }
 
     useEffect(() => {
-        console.log(bal)
         if (bal) {
-            getBal(2).then(res => {
+            getBal(user.id).then(res => {
                 setBalance(res.msg)
             })
         }

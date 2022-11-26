@@ -1,5 +1,5 @@
 import { h, useEffect, useState, useRef } from 'fre'
-import { getPlayUrl, getPostDetail, getPv, getTransfer } from '../util/api'
+import { getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
 import { getAv, getAvatar } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import { A, push } from '../use-route'
@@ -34,7 +34,7 @@ export default function Post({ gv }) {
     }
 
     const transfer = () => {
-        getTransfer({ from: 1, to: 2 }).then(res => {
+        getTransfer({ from: getUser()?.id, to: post.uid }).then(res => {
             alert(`${(res as any).msg}`)
         })
     }
