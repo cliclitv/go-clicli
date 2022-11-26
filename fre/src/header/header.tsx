@@ -48,7 +48,7 @@ export default function Header() {
                     <li className="avatar" >
                         <img src={getAvatar((user || {}).qq)} alt="" onClick={openWallet} />
                         {bal && <div className="wallet">
-                            <li><h2>{parseInt(balance as any)/1000000} CCB</h2></li>
+                            <li><h2>{parseInt(balance as any)/1000000} 肥皂</h2></li>
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
                         </div>}
                     </li>
