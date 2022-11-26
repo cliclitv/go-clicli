@@ -55,7 +55,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 400, "用户名或密码错误")
 		return
 	} else {
-		token, _ := GenToken(resp.Name, resp.Pwd, resp.Level)
+		token, _ := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
 
 		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
 		resStr, _ := json.Marshal(struct {

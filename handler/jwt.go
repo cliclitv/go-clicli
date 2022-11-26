@@ -5,20 +5,23 @@ import (
 	jwt "github.com/golang-jwt/jwt/v4"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
+	"strconv"
 	"time"
 )
 
 var Key = []byte("clicli")
 
 type MyClaims struct {
+	Id    int    `json:"id"`
 	Name  string `json:"name"`
 	Pwd   string `json:"pwd"`
 	Level int    `json:"level"`
 	jwt.StandardClaims
 }
 
-func GenToken(name string, pwd string, level int) (string, error) {
+func GenToken(id int, name string, pwd string, level int) (string, error) {
 	c := MyClaims{
+		id,
 		name,
 		pwd,
 		level,
@@ -49,8 +52,8 @@ func ParseToken(str string) (*MyClaims, error) {
 
 func Auth(h httprouter.Handle, level int) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		// 首先判断 token
-
+		// 首先判断是否本人
+		id, _ := strconv.Atoi(p.ByName("id"))
 		token := r.Header.Get("token")
 
 		mc, err := ParseToken(token)
@@ -59,9 +62,9 @@ func Auth(h httprouter.Handle, level int) httprouter.Handle {
 			sendMsg(w, 401, "token 失效")
 		}
 
-		// 然后校验权限
-
-		if mc.Level < level {
+		if id == mc.Id {
+			h(w, r, p)
+		} else if mc.Level < level {
 			sendMsg(w, 401, "权限不足")
 		}
 

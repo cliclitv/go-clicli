@@ -52,7 +52,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/user/register", handler.Register)
 	router.POST("/user/login", handler.Login)
 	router.POST("/user/logout", handler.Logout) // 前端清空 localstorage
-	router.POST("/user/update/:id", handler.Auth(handler.UpdateUser, 4))
+	router.POST("/user/update/:id", handler.Auth(handler.UpdateUser, 3))
 	router.POST("/user/delete/:id", handler.Auth(handler.DeleteUser, 4))
 	router.GET("/users", handler.GetUsers)
 	router.GET("/user", handler.GetUser)
