@@ -60,7 +60,7 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, hash stri
 		}
 		defer stmtIns.Close()
 
-		res := &User{Id: id, Name: name, Pwd: pwd, QQ: qq, Level: level, Hash: hash}
+		res := &User{Id: id, Name: name, QQ: qq, Level: level, Hash: hash}
 		return res, err
 	}
 
