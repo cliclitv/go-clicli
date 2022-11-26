@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"github.com/cliclitv/go-clicli/util"
 	"log"
+	"github.com/ethereum/go-ethereum/crypto"
+	"encoding/hex"
 )
 
 func CreateUser(name string, pwd string, level int, qq string, sign string, hash string) error {
@@ -13,7 +15,7 @@ func CreateUser(name string, pwd string, level int, qq string, sign string, hash
 		return err
 	}
 
-	_, err = stmtIns.Exec(name, pwd, level, qq, sign,hash)
+	_, err = stmtIns.Exec(name, pwd, level, qq, sign, hash)
 	if err != nil {
 		return err
 	}
@@ -21,13 +23,24 @@ func CreateUser(name string, pwd string, level int, qq string, sign string, hash
 	return nil
 }
 
-func UpdateUser(id int, name string, pwd string, level int, qq string, sign string) (*User, error) {
-	if pwd == "" {
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,sign=$4 WHERE id =$5")
+func UpdateUser(id int, name string, pwd string, level int, qq string, hash string, sign string) (*User, error) {
+	if pwd == "" { // 编辑状态
+		if hash == "" && sign == "" {
+			key, err := crypto.GenerateKey()
+	
+			if err != nil {
+				return nil, err
+			}
+		
+			hash = crypto.PubkeyToAddress(key.PublicKey).Hex()
+		
+			sign = hex.EncodeToString(key.D.Bytes())
+		}
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,hash=$4,sign=$5 WHERE id =$6")
 		if err != nil {
 			return nil, err
 		}
-		_, err = stmtIns.Exec(&name, &level, &qq, &sign, &id)
+		_, err = stmtIns.Exec(&name, &level, &qq, &hash, &sign, &id)
 		if err != nil {
 			return nil, err
 		}

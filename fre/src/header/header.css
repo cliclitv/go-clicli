@@ -46,7 +46,18 @@ header .biu li i{
 }
 
 header .biu .avatar,header .biu .avatar img {
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
+}
+
+header .icon-shouye{
+    background: var(--theme);
+    height: 40px;
+    width: 40px;
+    padding: 0px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    box-sizing: border-box;
 }

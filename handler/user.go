@@ -59,8 +59,8 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
 		resStr, _ := json.Marshal(struct {
-			Code  int       `json:"code"`
-			Token string    `json:"token"`
+			Code  int      `json:"code"`
+			Token string   `json:"token"`
 			User  *db.User `json:"user"`
 		}{Code: 200, Token: token, User: res})
 
@@ -81,7 +81,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 400, "参数解析失败")
 		return
 	}
-	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Desc)
+	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Hash, ubody.Desc)
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }

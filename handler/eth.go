@@ -1,28 +1,29 @@
 package handler
 
 import (
-	"context"
-	"fmt"
 	"bytes"
-	"math/big"
+	"context"
 	"crypto/ecdsa"
-	"net/http"
-	"strconv"
+	"fmt"
 	"github.com/cliclitv/go-clicli/db"
-	"github.com/julienschmidt/httprouter"
+	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/julienschmidt/httprouter"
+	"math/big"
+	"net/http"
+	"strconv"
 )
 
-
 var (
-	client, _ = ethclient.Dial(BscTestNet)
-	ContractCdd   = "0xD29F60b227aeb700431C97F256dEBe23E17C8956"
-	BscTestNet    = "https://eth-goerli.public.blastapi.io"
-	abiData = []byte(`[
+	client, _      = ethclient.Dial(BscTestNet)
+	contractABI, _ = abi.JSON(bytes.NewReader(abiData))
+	ContractCdd    = common.HexToAddress("0xD29F60b227aeb700431C97F256dEBe23E17C8956")
+	BscTestNet     = "https://eth-goerli.public.blastapi.io"
+	abiData        = []byte(`[
 		{
 			"inputs": [
 				{
@@ -137,7 +138,7 @@ var (
 	]`)
 )
 
-func CallContractWithAbi(client *ethclient.Client, privKey *ecdsa.PrivateKey, from, to common.Address, contract string) (string, error) {
+func CallContractWithAbi(privKey *ecdsa.PrivateKey, from, to, contract common.Address) (string, error) {
 	// create tx
 	nonce, err := client.NonceAt(context.Background(), from, nil)
 	if err != nil {
@@ -149,22 +150,13 @@ func CallContractWithAbi(client *ethclient.Client, privKey *ecdsa.PrivateKey, fr
 		fmt.Println("gas price: ", err)
 		return "", err
 	}
-	if err != nil {
-		fmt.Println("read file: ", err)
-		return "", err
-	}
-	contractABI, err := abi.JSON(bytes.NewReader(abiData))
-	if err != nil {
-		fmt.Println("abi json: ", err)
-		return "", err
-	}
 	amount, _ := new(big.Int).SetString("1000000", 10) //1
 	callData, err := contractABI.Pack("transfer", from, to, amount)
 	if err != nil {
 		fmt.Println("abi pack: ", err)
 		return "", err
 	}
-	tx := types.NewTransaction(nonce, common.HexToAddress(contract), big.NewInt(0), uint64(300000), gasPrice, callData)
+	tx := types.NewTransaction(nonce, contract, big.NewInt(0), uint64(300000), gasPrice, callData)
 	// sign tx
 	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(big.NewInt(5)), privKey)
 	if err != nil {
@@ -180,6 +172,39 @@ func CallContractWithAbi(client *ethclient.Client, privKey *ecdsa.PrivateKey, fr
 	return signedTx.Hash().Hex(), nil
 }
 
+func BalanceWithABI(from, to common.Address) (*big.Int, error) {
+
+	input, err := contractABI.Pack(
+		"balanceOf",
+		from,
+	)
+	if err != nil {
+		return nil, err
+	}
+	msg := ethereum.CallMsg{
+		From:  from,
+		To:    &to,
+		Value: nil,
+		Data:  input,
+	}
+	out, err := client.CallContract(context.Background(), msg, nil)
+	if err != nil {
+		return nil, err
+	}
+	res, err := contractABI.Unpack("balanceOf", out)
+	if err != nil {
+		return nil, err
+	}
+	if len(res) != 1 {
+		return nil, fmt.Errorf("error call res")
+	}
+	out0, ok := res[0].(*big.Int)
+	if !ok {
+		return nil, fmt.Errorf("error call res")
+	}
+	return out0, nil
+}
+
 func Transfer(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	from, _ := strconv.Atoi(r.URL.Query().Get("from"))
@@ -189,19 +214,29 @@ func Transfer(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	userTo, err := db.GetUser("", to, "")
 
 	PrivateKey, _ := crypto.HexToECDSA(userFrom.Desc)
-	FromAddr      := common.HexToAddress(userFrom.Hash)
-	ToAddr        := common.HexToAddress(userTo.Hash)
+	FromAddr := common.HexToAddress(userFrom.Hash)
+	ToAddr := common.HexToAddress(userTo.Hash)
 
-
-	if err != nil {
-		fmt.Println("eth client: ", err)
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-	}
-
-	txHash, err := CallContractWithAbi(client, PrivateKey, FromAddr, ToAddr, ContractCdd)
+	txHash, err := CallContractWithAbi(PrivateKey, FromAddr, ToAddr, ContractCdd)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 	}
 	fmt.Println("tx hash: ", txHash)
 	sendMsg(w, 200, txHash)
+}
+
+func BalanceOf(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+
+	from, _ := strconv.Atoi(r.URL.Query().Get("from"))
+
+	userFrom, err := db.GetUser("", from, "")
+
+	FromAddr := common.HexToAddress(userFrom.Hash)
+
+	txHash, err := BalanceWithABI(FromAddr, ContractCdd)
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+	}
+	fmt.Println("tx hash: ", txHash)
+	sendMsg(w, 200, txHash.String())
 }

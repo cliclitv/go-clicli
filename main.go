@@ -68,7 +68,7 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/rank", handler.GetRank)
 	router.GET("/doge", handler.DogeAuth)
 	router.GET("/eth/transfer", handler.Transfer)
-	// router.GET("/eth/transfer", handler.BalanceOf)
+	router.GET("/eth/balanceof", handler.BalanceOf)
 
 	fsys, _ := fs.Sub(embededFiles, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
@@ -85,8 +85,6 @@ func main() {
 	for _, s := range whiteOrigins {
 		whiteOriginsSet[s] = true
 	}
-	// body:=handler.Pay("视频名称", "789","0.5")
-	// fmt.Printf("body: %v\n", body)
 	r := RegisterHandler()
 	mh := NewMiddleWareHandler(r)
 	fmt.Println("server is run on http://localhost:4000")
