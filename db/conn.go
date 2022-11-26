@@ -14,7 +14,6 @@ var (
 
 func init() {
 	str := os.Getenv("DATABASE_STR")
-	// str:="postgres://postgres:Zchanghao123@45.207.47.90:5432/postgres?sslmode=disable"
 	fmt.Println(str)
 	dbConn, err = sql.Open("postgres", str)
 	if err != nil {
