@@ -48,7 +48,7 @@ export default function Register({ id }) {
     async function register() {
         if (id != null) {
             console.log('修改用户')
-            updateUser({ id: uid, name, qq, pwd, desc: "", level: level }).then(res => {
+            updateUser({ id: uid, name, qq, pwd, desc: "", level: level, hash }).then(res => {
                 if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }
@@ -60,7 +60,7 @@ export default function Register({ id }) {
             return
         }
         setLoading(true)
-        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, hash: "" })
+        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, hash: "", sign: "" })
         setLoading(false)
         alert("注册成功啦~")
     }

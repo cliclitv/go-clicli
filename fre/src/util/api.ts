@@ -54,9 +54,9 @@ export function updatePost({ id, title, content, status, sort, tag, uid, time, v
   })
 }
 
-export function updateUser({ id, name, pwd, desc, qq, level }) {
+export function updateUser({ id, name, pwd, qq, level, hash, sign }) {
   return post(`https://www.clicli.cc/user/update/${id}`, {
-    name, pwd, qq, desc, level: parseInt(level)
+    name, pwd, qq, level: parseInt(level), hash, sign
   })
 }
 
@@ -70,4 +70,8 @@ export function getDogeToken({fname, rname}){
 
 export function getTransfer({from, to}){
   return get(`https://www.clicli.cc/eth/transfer?from=${from}&to=${to}`)
+}
+
+export function getBal(from){
+  return get(`https://www.clicli.cc/eth/balanceof?from=${from}`)
 }

@@ -30,6 +30,10 @@ header .search input {
     padding: 8px 20px;
 }
 
+header .avatar {
+    position: relative;
+}
+
 header .biu {
     display: flex;
     align-items: center;
@@ -41,17 +45,18 @@ header .biu li {
     align-items: center;
 }
 
-header .biu li i{
+header .biu li i {
     padding: 10px;
 }
 
-header .biu .avatar,header .biu .avatar img {
+header .biu .avatar,
+header .biu .avatar img {
     height: 40px;
     width: 40px;
     border-radius: 50%;
 }
 
-header .icon-shouye{
+header .icon-shouye {
     background: var(--theme);
     height: 40px;
     width: 40px;
@@ -60,4 +65,35 @@ header .icon-shouye{
     line-height: 40px;
     color: #fff;
     box-sizing: border-box;
+}
+
+header .wallet {
+    color: #fff;
+    width: 200px;
+    position: absolute;
+    top: 70px;
+    left: -80px;
+    text-align: center;
+    /* padding: 10px; */
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 2px 2px 5px #000;
+    overflow: hidden;
+
+}
+
+header .wallet h2{
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    border-bottom: 1px solid #444;
+    /* background: #000; */
+}
+
+header .wallet li:hover{
+    background: #000;
+}
+
+header .wallet li{
+    padding: 10px 20px;
 }
