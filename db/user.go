@@ -2,10 +2,10 @@ package db
 
 import (
 	"database/sql"
-	"github.com/cliclitv/go-clicli/util"
-	"log"
-	"github.com/ethereum/go-ethereum/crypto"
 	"encoding/hex"
+	"github.com/cliclitv/go-clicli/util"
+	"github.com/ethereum/go-ethereum/crypto"
+	"log"
 )
 
 func CreateUser(name string, pwd string, level int, qq string, sign string, hash string) error {
@@ -27,13 +27,13 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, hash stri
 	if pwd == "" { // 编辑状态
 		if hash == "" && sign == "" {
 			key, err := crypto.GenerateKey()
-	
+
 			if err != nil {
 				return nil, err
 			}
-		
+
 			hash = crypto.PubkeyToAddress(key.PublicKey).Hex()
-		
+
 			sign = hex.EncodeToString(key.D.Bytes())
 		}
 		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,hash=$4,sign=$5 WHERE id =$6")
@@ -45,22 +45,22 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, hash stri
 			return nil, err
 		}
 
-		res := &User{Id: id, Name: name, QQ: qq, Level: level, Desc: sign}
+		res := &User{Id: id, Name: name, QQ: qq, Level: level, Hash: hash}
 		defer stmtIns.Close()
 		return res, err
 	} else {
 		pwd = util.Cipher(pwd)
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5 WHERE id =$6")
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5,hash=$6 WHERE id =$7")
 		if err != nil {
 			return nil, err
 		}
-		_, err = stmtIns.Exec(&name, &pwd, &level, &qq, &sign, &id)
+		_, err = stmtIns.Exec(&name, &pwd, &level, &qq, &sign, &hash, &id)
 		if err != nil {
 			return nil, err
 		}
 		defer stmtIns.Close()
 
-		res := &User{Id: id, Name: name, Pwd: pwd, QQ: qq, Level: level, Desc: sign}
+		res := &User{Id: id, Name: name, Pwd: pwd, QQ: qq, Level: level, Hash: hash}
 		return res, err
 	}
 
