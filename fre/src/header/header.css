@@ -71,7 +71,7 @@ header .wallet {
     color: #fff;
     width: 200px;
     position: absolute;
-    top: 70px;
+    top: 60px;
     left: -80px;
     text-align: center;
     /* padding: 10px; */
@@ -82,12 +82,15 @@ header .wallet {
 
 }
 
+header .wallet{
+    padding-bottom :10px;
+}
+
 header .wallet h2{
     text-align: center;
     padding: 20px;
-    width: 100%;
     border-bottom: 1px solid #444;
-    /* background: #000; */
+    background: rgba(0, 0, 0, 0.8);
 }
 
 header .wallet li:hover{

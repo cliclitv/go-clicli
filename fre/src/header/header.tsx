@@ -18,6 +18,7 @@ export default function Header() {
     }
 
     useEffect(() => {
+        console.log(bal)
         if (bal) {
             getBal(user.id).then(res => {
                 setBalance(res.msg)
@@ -48,7 +49,9 @@ export default function Header() {
                     <li className="avatar" onClick={openWallet}>
                         <img src={getAvatar((user || {}).qq)} alt="" />
                         {bal && <div className="wallet">
-                            <li><h2>{parseInt(balance as any) / 1000000} 肥皂</h2></li>
+                            <h2>{parseInt(balance as any) / 1000000} 肥皂</h2>
+                            <li>UID {user?.id}</li>
+                            <li>我的投搞</li>
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
                         </div>}
                     </li>
