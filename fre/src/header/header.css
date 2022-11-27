@@ -100,3 +100,7 @@ header .wallet li:hover{
 header .wallet li{
     padding: 10px 20px;
 }
+
+header .wallet li a{
+    color: #fff;
+}
