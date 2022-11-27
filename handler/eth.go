@@ -21,8 +21,8 @@ import (
 var (
 	client, _      = ethclient.Dial(BscTestNet)
 	contractABI, _ = abi.JSON(bytes.NewReader(abiData))
-	ContractCdd    = common.HexToAddress("0xf3748a0483cF266354A111594850723b61FB9613")
-	BscTestNet     = "https://rpc.sepolia.org"
+	ContractCdd    = common.HexToAddress("0xD29F60b227aeb700431C97F256dEBe23E17C8956")
+	BscTestNet     = "https://eth-goerli.public.blastapi.io"
 	abiData        = []byte(`[
 		{
 			"inputs": [
@@ -158,7 +158,7 @@ func CallContractWithAbi(privKey *ecdsa.PrivateKey, from, to, contract common.Ad
 	}
 	tx := types.NewTransaction(nonce, contract, big.NewInt(0), uint64(300000), gasPrice, callData)
 	// sign tx
-	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(big.NewInt(11155111)), privKey)
+	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(big.NewInt(5)), privKey)
 	if err != nil {
 		fmt.Println("sign tx: ", err)
 		return "", err
@@ -220,7 +220,6 @@ func Transfer(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	txHash, err := CallContractWithAbi(PrivateKey, FromAddr, ToAddr, ContractCdd)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
 	}
 	fmt.Println("tx hash: ", txHash)
 	sendMsg(w, 200, txHash)
