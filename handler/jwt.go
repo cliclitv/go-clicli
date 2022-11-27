@@ -60,12 +60,15 @@ func Auth(h httprouter.Handle, level int) httprouter.Handle {
 
 		if err != nil {
 			sendMsg(w, 401, "token 失效")
+			return
 		}
 
 		if id == mc.Id {
 			h(w, r, p)
+			return
 		} else if mc.Level < level {
 			sendMsg(w, 401, "权限不足")
+			return
 		}
 
 		h(w, r, p)
