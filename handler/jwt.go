@@ -69,9 +69,9 @@ func Auth(h httprouter.Handle, level int) httprouter.Handle {
 		} else if mc.Level < level {
 			sendMsg(w, 401, "权限不足")
 			return
+		} else {
+			h(w, r, p)
 		}
-
-		h(w, r, p)
 
 	}
 }
