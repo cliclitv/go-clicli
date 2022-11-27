@@ -18,11 +18,18 @@ import (
 	"strconv"
 )
 
+// PrivateKey, _ = crypto.HexToECDSA("17f41c6ceb2fddf34aa939dd670a361fbef7b54c87649648bc9c72c3ac98ed72")
+// FromAddr      = common.HexToAddress("0x53a02a83e2aC5AA3C1A81C6cF2Eb50F4a0aBEFe4")
+// ToAddr        = common.HexToAddress("0x899B0FEA11D83C25eD3192c541B8c54913BB3DF3")
+// ContractCdd   = common.HexToAddress("0xf3748a0483cF266354A111594850723b61FB9613")
+// BscTestNet    = "https://rpc.sepolia.org"
+
 var (
 	client, _      = ethclient.Dial(BscTestNet)
 	contractABI, _ = abi.JSON(bytes.NewReader(abiData))
-	ContractCdd    = common.HexToAddress("0xD29F60b227aeb700431C97F256dEBe23E17C8956")
-	BscTestNet     = "https://eth-goerli.public.blastapi.io"
+	ContractCdd    = common.HexToAddress("0xf3748a0483cF266354A111594850723b61FB9613")
+	BscTestNet     = "https://rpc.sepolia.org"
+	ChainId        = big.NewInt(11155111)
 	abiData        = []byte(`[
 		{
 			"inputs": [
@@ -158,7 +165,7 @@ func CallContractWithAbi(privKey *ecdsa.PrivateKey, from, to, contract common.Ad
 	}
 	tx := types.NewTransaction(nonce, contract, big.NewInt(0), uint64(300000), gasPrice, callData)
 	// sign tx
-	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(big.NewInt(5)), privKey)
+	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(ChainId), privKey)
 	if err != nil {
 		fmt.Println("sign tx: ", err)
 		return "", err
