@@ -82,25 +82,29 @@ header .wallet {
 
 }
 
-header .wallet{
-    padding-bottom :10px;
+header .wallet {
+    padding-bottom: 10px;
 }
 
-header .wallet h2{
+header .wallet h2 {
     text-align: center;
     padding: 20px;
     border-bottom: 1px solid #444;
     background: rgba(0, 0, 0, 0.8);
 }
 
-header .wallet li:hover{
+header .wallet li:hover {
     background: #000;
 }
 
-header .wallet li{
+header .wallet li {
     padding: 10px 20px;
 }
 
-header .wallet li a{
+header .wallet li a {
     color: #fff;
+}
+
+nav {
+    display: none;
 }
