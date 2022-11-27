@@ -48,13 +48,13 @@ export default function Header() {
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
                     <li className="avatar" onClick={openWallet}>
                         <img src={getAvatar((user || {}).qq)} alt="" />
-                        {bal && <div className="wallet">
+                        <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
                             <h2>{parseInt(balance as any) / 1000000} 肥皂</h2>
                             <li>UID {user?.id}</li>
                             <li>我的投搞</li>
                             <li><a href="https://sepolia-faucet.pk910.de/">挖矿领水</a></li>
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
-                        </div>}
+                        </div>
                     </li>
 
                 </div>
