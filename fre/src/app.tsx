@@ -27,3 +27,12 @@ try {
 } catch (e) { }
 
 
+let curDate = new Date();
+// let curDate = curDate.setDate(curDate.getDate() - 1)
+
+// 以下都是时间戳对比
+if (Date.now() < 1670256000000) {
+    document.body.style = `filter: grayscale(100%)`
+}
+
+

@@ -8,7 +8,6 @@ body {
     list-style: none;
     color: var(--color);
     background: var(--background);
-
     --theme: #946ce6;
     --theme-bg: rgba(148, 108, 230, 0.1);
     --black: rgb(37, 37, 37);
