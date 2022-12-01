@@ -1,7 +1,8 @@
-import { render, Fragment, h, useEffect } from "fre"
-import { useRoutes, push, A } from './use-route'
+import { render, Fragment, h, } from "fre"
+import { useRoutes} from './use-route'
 import './app.css'
 import Header from "./header/header"
+import Footer from './header/footer'
 
 
 const routes = {
@@ -19,6 +20,7 @@ const App = () => {
     return <>
         {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Header />}
         {route}
+        {/* {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Footer />} */}
     </>
 }
 
@@ -27,12 +29,9 @@ try {
 } catch (e) { }
 
 
-let curDate = new Date();
-// let curDate = curDate.setDate(curDate.getDate() - 1)
-
 // 以下都是时间戳对比
 if (Date.now() < 1670256000000) {
-    document.body.style = `filter: grayscale(100%)`
+    document.getElementById('app').style = `filter: grayscale(100%);position:absolute;top:0;bottom:0;left:0;right:0;`
 }
 
 
