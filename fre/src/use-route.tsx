@@ -22,7 +22,7 @@ export function useRoutes(routes) {
 
   perfrom(routeStack)
 
-  return typeof stack.component.then === 'function' ? <div></div> : h(stack.component, stack.props, null)
+  return typeof stack.component.then === 'function' ? null : h(stack.component, stack.props)
 }
 
 

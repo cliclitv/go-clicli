@@ -14,20 +14,25 @@ const routes = {
     '/user/:id': import('./login/register')
 }
 
+function A(){
+    return <div>222</div>
+}
+
 const App = () => {
     let route = useRoutes(routes)
     return <div>
         {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Header />}
         {route}
+        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Footer />}
     </div>
 }
 
 render(<App />, document.getElementById("app"))
 
 
-// 以下都是时间戳对比
-if (Date.now() < 1670256000000 && window.location.pathname === '/') {
-    document.getElementById('app').style = `filter: grayscale(100%);position:absolute;top:0;bottom:0;left:0;right:0;`
-}
+// // 以下都是时间戳对比
+// if (Date.now() < 1670256000000 && window.location.pathname === '/') {
+//     document.getElementById('app').style = `filter: grayscale(100%);position:absolute;top:0;bottom:0;left:0;right:0;`
+// }
 
 

@@ -104,3 +104,10 @@ header .wallet li {
 header .wallet li a {
     color: #fff;
 }
+footer{
+    padding: 30px;
+    text-align: center;
+    color: #bbb;
+    overflow: hidden;
+    border-top: 1px solid #ddd;
+}
