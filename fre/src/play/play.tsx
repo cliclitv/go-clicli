@@ -39,9 +39,11 @@ export default function Post({ gv }) {
         })
     }
 
+    const oth = (post.tag || "").indexOf('其它') < 0
+
     return (
         <main>
-            <div class="wrap player">
+            { oth ? (<div class="wrap player">
                 <div className="ep-wrap">
                     <Eplayer url={play}></Eplayer>
                 </div>
@@ -56,7 +58,7 @@ export default function Post({ gv }) {
                         })}
                     </ul>
                 </div>
-            </div>
+            </div>) : <div></div>}
             <div className="info">
                 <h1>{post.title}</h1>
                 <div className="tag">
@@ -69,7 +71,7 @@ export default function Post({ gv }) {
                         <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>
                     </div>
                 </div>
-                {<article ref={a} style={{ display: show ? 'block' : 'none' }}></article>}
+                {<article ref={a} style={{ display: (show || !oth) ? 'block' : 'none' }}></article>}
 
             </div>
         </main>
