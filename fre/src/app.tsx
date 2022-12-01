@@ -20,10 +20,13 @@ function A(){
 
 const App = () => {
     let route = useRoutes(routes)
+    console.log(route)
+    const header =  <Header />
+    const footer = <Footer />
     return <div>
-        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Header />}
-        {route}
-        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Footer />}
+        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && header}
+        <div>{route}</div>
+        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && footer}
     </div>
 }
 
