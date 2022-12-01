@@ -1,8 +1,7 @@
-import { render, Fragment, h, } from "fre"
+import { render, h, } from "fre"
 import { useRoutes} from './use-route'
 import './app.css'
 import Header from "./header/header"
-import Footer from './header/footer'
 
 
 const routes = {
@@ -24,9 +23,7 @@ const App = () => {
     </>
 }
 
-try {
     render(<App />, document.getElementById("app"))
-} catch (e) { }
 
 
 // 以下都是时间戳对比
