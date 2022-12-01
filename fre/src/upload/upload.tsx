@@ -3,7 +3,7 @@ import { addPost, getDogeToken, getPostDetail, updatePost } from "../util/api"
 import './upload.css'
 
 export default function Upload(props) {
-    const [post, setPost] = useState({ title: "", status: "", sort: "", time: "", content: "", tag: "", videos: "" })
+    const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
     const [vid, setVid] = useState(0)
     const [pre, setPre] = useState(0)
     const up = useRef(null)

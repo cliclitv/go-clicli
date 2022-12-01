@@ -2,7 +2,7 @@ import { render, Fragment, h, } from "fre"
 import { useRoutes } from './use-route'
 import './app.css'
 import Header from "./header/header"
-
+import Footer from './header/footer'
 
 const routes = {
     '/': import('./home/home'),
@@ -16,11 +16,10 @@ const routes = {
 
 const App = () => {
     let route = useRoutes(routes)
-    return <>
-        <Header />
+    return <div>
+        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Header />}
         {route}
-        {/* {window.location.pathname !== '/login' && window.location.pathname !== '/register' ? <Footer /> : ''} */}
-    </>
+    </div>
 }
 
 render(<App />, document.getElementById("app"))
