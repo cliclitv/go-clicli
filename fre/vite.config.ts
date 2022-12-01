@@ -7,6 +7,9 @@ export default ({ mode }) => {
     build: {
       assetsDir: '',
     },
+    server:{
+      port:3000
+    },
     esbuild: {
       jsxFactory: 'h',
       jsxFragment: 'Fragment',

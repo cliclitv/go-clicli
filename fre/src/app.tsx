@@ -1,5 +1,5 @@
 import { render, Fragment, h, } from "fre"
-import { useRoutes} from './use-route'
+import { useRoutes } from './use-route'
 import './app.css'
 import Header from "./header/header"
 
@@ -17,13 +17,13 @@ const routes = {
 const App = () => {
     let route = useRoutes(routes)
     return <>
-        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Header />}
+        <Header />
         {route}
-        {/* {window.location.pathname !== '/login' && window.location.pathname !== '/register' && <Footer />} */}
+        {/* {window.location.pathname !== '/login' && window.location.pathname !== '/register' ? <Footer /> : ''} */}
     </>
 }
 
-    render(<App />, document.getElementById("app"))
+render(<App />, document.getElementById("app"))
 
 
 // 以下都是时间戳对比
