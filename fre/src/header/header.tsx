@@ -43,7 +43,7 @@ export default function Header() {
                     <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
                 </div>
                 <div className="biu">
-                    <a href="https://zhuanlan.zhihu.com/p/585459295" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
+                    <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
                     <li className="avatar" onClick={openWallet}>
                         <img src={getAvatar((user || {}).qq)} alt="" />
