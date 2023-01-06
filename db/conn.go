@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"time"
 	_ "github.com/lib/pq"
 )
 
@@ -21,7 +22,7 @@ func init() {
 		panic(err.Error())
 	}
 	
-	dbConn.SetMaxIdleConns(4)
     	dbConn.SetMaxOpenConns(8)
+	dbConn.SetConnMaxLifetime(time.Minute)
 
 }
