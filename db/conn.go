@@ -16,6 +16,7 @@ func init() {
 	str := os.Getenv("DATABASE_STR")
 	fmt.Println(str)
 	dbConn, err = sql.Open("postgres", str)
+	defer dbConn.Close()
 	if err != nil {
 		panic(err.Error())
 	}
