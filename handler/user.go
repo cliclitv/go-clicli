@@ -57,7 +57,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	if len(resp.Pwd) == 0 || pwd != resp.Pwd {
+	if pwd != resp.Pwd {
 		sendMsg(w, 400, "用户名或密码错误")
 		return
 	} else {
