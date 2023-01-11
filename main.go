@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/fs"
 	"net/http"
-
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 )

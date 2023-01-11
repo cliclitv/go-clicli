@@ -2,9 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"encoding/hex"
 	"github.com/cliclitv/go-clicli/util"
-	"github.com/ethereum/go-ethereum/crypto"
 	"log"
 )
 
@@ -24,18 +22,8 @@ func CreateUser(name string, pwd string, level int, qq string, sign string, hash
 }
 
 func UpdateUser(id int, name string, pwd string, level int, qq string, hash string, sign string) (*User, error) {
+	hash = ""
 	if pwd == "" { // 编辑状态
-		if hash == "" && sign == "" {
-			key, err := crypto.GenerateKey()
-
-			if err != nil {
-				return nil, err
-			}
-
-			hash = crypto.PubkeyToAddress(key.PublicKey).Hex()
-
-			sign = hex.EncodeToString(key.D.Bytes())
-		}
 		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,hash=$4,sign=$5 WHERE id =$6")
 		if err != nil {
 			return nil, err
