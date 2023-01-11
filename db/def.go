@@ -11,7 +11,7 @@ type Play struct {
 }
 
 type User struct {
-	Id    *int    `json:"id,omitempty"`
+	Id    int    `json:"id,omitempty"`
 	Name  string `json:"name"`
 	Pwd   string `json:"pwd,omitempty"`
 	QQ    string `json:"qq"`
@@ -21,7 +21,7 @@ type User struct {
 }
 
 type Post struct {
-	Id      *int    `json:"id,omitempty"`
+	Id      int    `json:"id,omitempty"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
 	Status  string `json:"status"`
