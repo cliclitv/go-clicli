@@ -17,11 +17,6 @@ func GetPlay(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		mtype = "m3u8"
 	}
 
-	if len(arr)>1 && arr[1] == "dogecloud"{
-	 url = GetDoge(r, arr[0])
-	 mtype = "m3u8"
-	}
-
 	res := db.Play{MType:mtype,Url:url}
 	sendPlayResponse(w, res, 200)
 
