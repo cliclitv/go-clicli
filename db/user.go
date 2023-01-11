@@ -24,9 +24,6 @@ func CreateUser(name string, pwd string, level int, qq string, sign string, hash
 }
 
 func UpdateUser(id int, name string, pwd string, level int, qq string, hash string, sign string) (*User, error) {
-	if id == nil {
-		return nil, nil
-	}
 	if pwd == "" { // 编辑状态
 		if hash == "" && sign == "" {
 			key, err := crypto.GenerateKey()
