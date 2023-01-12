@@ -26,7 +26,7 @@ func GenToken(id int, name string, pwd string, level int) (string, error) {
 		pwd,
 		level,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 5).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 48).Unix(),
 			Issuer:    "yisar",
 		},
 	}

@@ -6,7 +6,6 @@ import (
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/julienschmidt/httprouter"
 	"io"
-	"log"
 	"net/http"
 	"strconv"
 )
@@ -68,7 +67,6 @@ func GetPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	pid, _ := strconv.Atoi(p.ByName("id"))
 	resp, err := db.GetPost(pid)
 	if err != nil {
-		log.Printf("%s", err)
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
@@ -104,7 +102,6 @@ func SearchPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	resp, err := db.SearchPosts(key)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		log.Printf("%s", err)
 		return
 	} else {
 		res := &db.Posts{Posts: resp}
@@ -118,7 +115,6 @@ func GetRank(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	resp, err := db.GetRank()
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		log.Printf("%s", err)
 		return
 	} else {
 		res := &db.Posts{Posts: resp}

@@ -38,7 +38,6 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, hash stri
 		return res, err
 	} else {
 		pwd = util.Cipher(pwd)
-		log.Printf("%s", id)
 		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5,hash=$6 WHERE id =$7")
 		if err != nil {
 			return nil, err

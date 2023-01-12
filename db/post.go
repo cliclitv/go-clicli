@@ -67,6 +67,7 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 
 	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq)
 	if err != nil && err != sql.ErrNoRows {
+		fmt.Println("aaa")
 		return nil, err
 	}
 	if err == sql.ErrNoRows {
@@ -136,6 +137,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		var title, content, status, sort, tag, ctime, uname, uqq string
 		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &uid, &uname, &uqq); err != nil {
 			log.Println(err)
+			log.Println("2")
 			return res, err
 		}
 		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}

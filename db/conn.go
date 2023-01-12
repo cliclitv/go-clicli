@@ -19,7 +19,7 @@ func init() {
 	dbConn, err = sql.Open("postgres", str)
 	
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err)
 	}
 	
     dbConn.SetMaxOpenConns(8)
