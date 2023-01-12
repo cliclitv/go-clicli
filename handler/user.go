@@ -12,6 +12,7 @@ import (
 )
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Println("register")
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
 
@@ -42,6 +43,7 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Println("login")
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
 
@@ -80,6 +82,7 @@ func Logout(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 }
 
 func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	fmt.Println("updateuser")
 	pint, _ := strconv.Atoi(p.ByName("id"))
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
@@ -119,6 +122,7 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Println("getuser")
 	level, _ := strconv.Atoi(r.URL.Query().Get("level"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
