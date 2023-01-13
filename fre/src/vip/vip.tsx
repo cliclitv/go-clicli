@@ -15,5 +15,6 @@ export default function Pay() {
     return <div changeName="vip">
         <h1>请扫描充值</h1>
         <div className="qrcode" ref={q}></div>
+        <button></button>
     </div>
 }
