@@ -66,7 +66,7 @@ function perfrom(stack) {
         setter(Symbol())
       })
     } else {
-      if (currentPath !== '/register') {
+      if (currentPath !== '/register' && currentPath !== '/vip') {
         setTimeout(() => {
           push('/login')
         })
