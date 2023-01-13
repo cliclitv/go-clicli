@@ -25,8 +25,8 @@ func Pay(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	order := r.URL.Query().Get("order")
 	price := r.URL.Query().Get("price")
 	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
-	p := `app_id=2021003130695981&biz_content={"subject":"CliCli超大会员","out_trade_no":`+order+`,"total_amount":`+price+`}&charset=UTF-8&method=alipay.trade.precreate&notify_url=http://www.qq.com&sign_type=RSA2&timestamp=` + ctime + "&version=1.0"
-	p2 := `app_id=2021003130695981&biz_content=` + url.QueryEscape(`{"subject":"CliCli超大会员","out_trade_no":`+order+`,"total_amount":`+price+`}`) + `&charset=UTF-8&method=alipay.trade.precreate&notify_url=` + url.QueryEscape(`http://www.qq.com`) + `&sign_type=RSA2&timestamp=` + url.QueryEscape(ctime) + "&version=1.0"
+	p := `app_id=2021003130695981&biz_content={"subject":"CliCli超大会员","body":2,"out_trade_no":`+order+`,"total_amount":`+price+`}&charset=UTF-8&method=alipay.trade.precreate&notify_url=https://www.clicli.cc/vip/callback&sign_type=RSA2&timestamp=` + ctime + "&version=1.0"
+	p2 := `app_id=2021003130695981&biz_content=` + url.QueryEscape(`{"subject":"CliCli超大会员","body":2,"out_trade_no":`+order+`,"total_amount":`+price+`}`) + `&charset=UTF-8&method=alipay.trade.precreate&notify_url=` + url.QueryEscape(`https://www.clicli.cc/vip/callback`) + `&sign_type=RSA2&timestamp=` + url.QueryEscape(ctime) + "&version=1.0"
 	fmt.Printf("p: %v\n", p)
 	sign := RsaSign(p, privatekey, crypto.SHA256)
 	fmt.Printf("p: %v\n", sign)
@@ -52,8 +52,9 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	aaa:= r.PostFormValue("aaa")
-	fmt.Println(aaa)
+	r.ParseForm()
+	body:= r.Form.Get("body")
+	fmt.Println(body)
 
 }
 
