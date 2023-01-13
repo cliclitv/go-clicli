@@ -11,6 +11,7 @@ export default function Pay() {
     useEffect(()=>{
         pay(0.1,order).then(res=>{
             q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), '#ff2b79')
+            q2.current.href = res.alipay_trade_precreate_response.qr_code
         })
     },[])
     const check = ()=>{
@@ -19,10 +20,11 @@ export default function Pay() {
         })
     }
     const q = useRef(null)
+    const q2 = useRef(null)
 
     return <div className="vip">
         <h1>请扫描充值</h1>
         <div className="qrcode" ref={q}></div>
-        <button onClick={check}>充值完成，点此激活</button>
+        <a href="" ref={q2}><button>不扫码，点此充值</button></a>
     </div>
 }
