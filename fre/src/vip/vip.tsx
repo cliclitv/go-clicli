@@ -14,18 +14,13 @@ export default function Pay() {
             q2.current.href = res.alipay_trade_precreate_response.qr_code
         })
     },[])
-    const check = ()=>{
-        paycheck(order).then(res=>{
-            console.log(123)
-        })
-    }
     const q = useRef(null)
     const q2 = useRef(null)
 
     return <div className="vip">
-        {!isMobile()?<div> <h1>请扫描充值</h1>
-        <div className="qrcode" ref={q}></div></div>:
-       
-        <a href="" ref={q2}><button>点此充值</button></a>}
+        <h1>方式一：跳转支付宝APP</h1>
+        <a href="" ref={q2}><button>点此充值</button></a>
+        <h1>方式二：支付宝扫码</h1>
+        <div className="qrcode" ref={q}></div>
     </div>
 }
