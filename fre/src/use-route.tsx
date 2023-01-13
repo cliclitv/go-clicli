@@ -66,11 +66,11 @@ function perfrom(stack) {
         setter(Symbol())
       })
     } else {
-      // if (currentPath !== '/register') {
-      //   setTimeout(() => {
-      //     push('/login')
-      //   })
-      // }
+      if (currentPath !== '/register') {
+        setTimeout(() => {
+          push('/login')
+        })
+      }
 
     }
   } else {
