@@ -52,7 +52,8 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Println("充值成功")
+	aaa:= r.PostFormValue("aaa")
+	fmt.Println(aaa)
 
 }
 

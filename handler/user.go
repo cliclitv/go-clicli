@@ -12,7 +12,6 @@ import (
 )
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Println("register")
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
 
@@ -43,7 +42,6 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Println("login")
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
 
@@ -58,19 +56,26 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if resp == nil || err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
-	}
-	if resp == nil || len(resp.Pwd) == 0 || pwd != resp.Pwd {
+	} else if len(resp.Pwd) == 0 || pwd != resp.Pwd {
 		sendMsg(w, 400, "用户名或密码错误")
 		return
 	} else {
-		token, _ := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
+		token, err := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
+
+		if err != nil{
+			fmt.Println(err)
+		}
 
 		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
-		resStr, _ := json.Marshal(struct {
+		resStr, err := json.Marshal(struct {
 			Code  int      `json:"code"`
 			Token string   `json:"token"`
 			User  *db.User `json:"user"`
 		}{Code: 200, Token: token, User: res})
+
+		if err != nil{
+			fmt.Println(err)
+		}
 
 		io.WriteString(w, string(resStr))
 	}
@@ -82,7 +87,6 @@ func Logout(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 }
 
 func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	fmt.Println("updateuser")
 	pint, _ := strconv.Atoi(p.ByName("id"))
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
@@ -122,7 +126,6 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Println("getuser")
 	level, _ := strconv.Atoi(r.URL.Query().Get("level"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
