@@ -90,7 +90,7 @@ func httpPost(url string) string {
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		// handle error
+		fmt.Println(err)
 	}
 	return string(body)
 }
