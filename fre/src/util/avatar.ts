@@ -17,3 +17,11 @@ export function getSuo(content) {
 export function getAv(id) {
   return id.substring(2, id.length)
 }
+
+export function isMobile() {
+  try {
+    document.createEvent("TouchEvent"); return true;
+  } catch (e) {
+    return false;
+  }
+}

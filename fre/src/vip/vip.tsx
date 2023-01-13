@@ -1,7 +1,7 @@
 import {h, useEffect, useRef} from 'fre'
 import { pay, paycheck } from '../util/api'
 import { getMatrix, render, renderPath } from 'qr-code-generator-lib'
-import { nanoid } from 'nanoid'
+import {isMobile} from '../util/avatar'
 
 import './vip.css'
 
@@ -23,8 +23,9 @@ export default function Pay() {
     const q2 = useRef(null)
 
     return <div className="vip">
-        <h1>请扫描充值</h1>
-        <div className="qrcode" ref={q}></div>
-        <a href="" ref={q2}><button>不扫码，点此充值</button></a>
+        {!isMobile()?<div> <h1>请扫描充值</h1>
+        <div className="qrcode" ref={q}></div></div>:
+       
+        <a href="" ref={q2}><button>点此充值</button></a>}
     </div>
 }
