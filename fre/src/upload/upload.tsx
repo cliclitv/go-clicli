@@ -104,8 +104,8 @@ export default function Upload(props) {
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-            <input type="file" ref={up} accept="video/*"
-                onInput={uploadVideo} style={{ display: 'none' }} /><div class="upload-video"><i class="icon-font icon-video" onClick={uploadVideo2}></i>←点击按钮上传视频 <span class="video-pre">{pre}%</span>{vid !== 0 && <input type="text" value={vid + "@dogecloud"} class="video-vid" onInput={e => e.stopPropagation()} />}</div>
+            {/* <input type="file" ref={up} accept="video/*"
+                onInput={uploadVideo} style={{ display: 'none' }} /><div class="upload-video"><i class="icon-font icon-video" onClick={uploadVideo2}></i>←点击按钮上传视频 <span class="video-pre">{pre}%</span>{vid !== 0 && <input type="text" value={vid + "@dogecloud"} class="video-vid" onInput={e => e.stopPropagation()} />}</div> */}
             <textarea spellcheck="false" placeholder={`请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`} value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
             <div className="tags">
                 <ul>

@@ -50,8 +50,8 @@ export default function Header() {
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
                             <h2>{parseInt(balance as any) / 1000000} 肥皂</h2>
                             <li>UID {user?.id}</li>
-                            <li>我的投搞</li>
-                            <li><a href="https://sepolia-faucet.pk910.de/">挖矿领水</a></li>
+                            <li onClick={() => push(`/search/uid:${(user || {}).id}`)}>我的投搞</li>
+                            {/* <li><a href="https://sepolia-faucet.pk910.de/">挖矿领水</a></li> */}
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
                         </div>
                     </li>

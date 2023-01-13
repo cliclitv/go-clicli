@@ -48,8 +48,8 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
-// 	router.POST("/user/register", handler.Register)
-	router.POST("/user/login", handler.Login)
+	router.POST("/user/register", handler.Register)
+	// router.POST("/user/login", handler.Login)
 	router.POST("/user/logout", handler.Logout) // 前端清空 localstorage
 	router.POST("/user/update/:id", handler.Auth(handler.UpdateUser, 3))
 	router.POST("/user/delete/:id", handler.Auth(handler.DeleteUser, 4))
