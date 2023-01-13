@@ -36,6 +36,21 @@ func Pay(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 }
 
+func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	tradeno := r.URL.Query().Get("tradeno")
+	//2023011122001430791454534176
+	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
+	p := `app_id=2021003130695981&biz_content={"trade_no":`+tradeno+`}&charset=UTF-8&method=alipay.trade.query&out_trade_no=888&sign_type=RSA2&timestamp=` + ctime + "&version=1.0"
+	p2 := `app_id=2021003130695981&biz_content={"trade_no":`+tradeno+`}&charset=UTF-8&method=alipay.trade.query&out_trade_no=888&sign_type=RSA2&timestamp=` + url.QueryEscape(ctime) + "&version=1.0"
+	fmt.Printf("p: %v\n", p)
+	sign := RsaSign(p, privatekey, crypto.SHA256)
+	fmt.Printf("p: %v\n", sign)
+	aaa := "https://openapi.alipay.com/gateway.do?" + p2 + "&sign=" + url.QueryEscape(sign)
+	body := httpPost(aaa)
+	io.WriteString(w, string(body))
+
+}
+
 const (
 	PEM_BEGIN = "-----BEGIN RSA PRIVATE KEY-----\n"
 	PEM_END   = "\n-----END RSA PRIVATE KEY-----"
