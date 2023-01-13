@@ -38,6 +38,7 @@
     background: var(--theme-bg);
     color: var(--theme);
     margin: 10px;
+    cursor: pointer;
 }
 
 .p ul {

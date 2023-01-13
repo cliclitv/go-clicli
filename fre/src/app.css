@@ -20,8 +20,7 @@ body {
 button {
     background: var(--theme);
     color: var(--whrite);
-    width: 100%;
-    padding: 10px;
+    padding: 10px 30px;
     border-radius: 18px;
     border: none;
     cursor: pointer;
