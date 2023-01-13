@@ -68,7 +68,6 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 
 	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq)
 	if err != nil && err != sql.ErrNoRows {
-		fmt.Println("aaa")
 		return nil, err
 	}
 	if err == sql.ErrNoRows {

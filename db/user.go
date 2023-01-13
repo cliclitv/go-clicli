@@ -76,8 +76,11 @@ func GetUser(name string, id int, qq string) (*User, error) {
 
 	defer stmt.Close()
 
-	if err != nil {
+	if err != nil && err != sql.ErrNoRows {
 		return nil, err
+	}
+	if err == sql.ErrNoRows {
+		return nil, nil
 	}
 	res := &User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Desc: sign, Hash: hash}
 
