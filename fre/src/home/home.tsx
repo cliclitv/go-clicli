@@ -15,7 +15,7 @@ export default function Home() {
         getRank().then((res2: any) => {
             setRank(res2.posts.splice(0, 8))
         })
-        getPost('原创', '', 1, 8).then((res: any) => {
+        getPost('', '', 1, 16).then((res: any) => {
             setUgc(res.posts)
         })
     }, [])
@@ -36,7 +36,7 @@ export default function Home() {
                     <ListA posts={recommend} />
                     <h1>Top10 Animes</h1>
                     <ListB posts={rank} />
-                    <h1>UGC Videos</h1>
+                    <h1>Latest Videos</h1>
                     <ListA posts={ugc} />
                 </main>
             </div>
