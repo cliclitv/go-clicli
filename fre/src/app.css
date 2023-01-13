@@ -17,6 +17,16 @@ body {
     --background: #fafafa
 }
 
+button {
+    background: var(--theme);
+    color: var(--whrite);
+    width: 100%;
+    padding: 10px;
+    border-radius: 18px;
+    border: none;
+    cursor: pointer;
+}
+
 .icon {
     width: 1em; height: 1em;
     vertical-align: -0.15em;
