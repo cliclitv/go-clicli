@@ -11,11 +11,8 @@ const routes = {
     '/upload/:id': import('./upload/upload'),
     '/play/:gv': import('./play/play'),
     '/search/:k': import('./search/search'),
-    '/user/:id': import('./login/register')
-}
-
-function A(){
-    return <div>222</div>
+    '/user/:id': import('./login/register'),
+    '/vip': import('./vip/vip')
 }
 
 const App = () => {

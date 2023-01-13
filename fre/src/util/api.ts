@@ -75,3 +75,11 @@ export function getTransfer({from, to}){
 export function getBal(from){
   return get(`https://www.clicli.cc/eth/balanceof?from=${from}`)
 }
+
+export function pay(price){
+  return get(`https://www.clicli.cc/vip/pay?price=${price}`)
+}
+
+export function paycheck(tradeno){
+  return get(`https://www.clicli.cc/vip/paycheck?tradeno=${tradeno}`)
+}
