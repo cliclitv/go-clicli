@@ -19,7 +19,7 @@ export default function Pay() {
 
     return <div className="vip">
         <h1>方式一：跳转支付宝APP</h1>
-        <a href="" ref={q2}><button>点此充值</button></a>
+        <a href="" ref={q2}><button>点此充值月卡</button></a>
         <h1>方式二：支付宝扫码</h1>
         <div className="qrcode" ref={q}></div>
     </div>
