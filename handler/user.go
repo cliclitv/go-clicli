@@ -61,9 +61,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 400, "用户名或密码错误")
 		return
 	} else {
-		token, err := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
-
-
+		// token, err := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -74,7 +72,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			Code  int      `json:"code"`
 			Token string   `json:"token"`
 			User  *db.User `json:"user"`
-		}{Code: 200, Token: token, User: res})
+		}{Code: 200, Token: "token", User: res})
 
 		if err != nil{
 			fmt.Println(err)

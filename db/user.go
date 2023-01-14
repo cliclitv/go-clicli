@@ -67,6 +67,7 @@ func GetUser(name string, id int, qq string) (*User, error) {
 		return nil, nil
 	}
 	stmt, err := dbConn.Prepare(query)
+	
 	var level int
 	var sign, pwd, time string
 	if name != "" {
@@ -121,6 +122,7 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 		c := &User{Id: id, Name: name, Level: level, QQ: qq}
 		res = append(res, c)
 	}
+	defer rows.Close()
 	defer stmt.Close()
 
 	return res, nil
@@ -148,6 +150,7 @@ func SearchUsers(key string) ([]*User, error) {
 		c := &User{Id: id, Name: name, Level: level, QQ: qq, Sign: sign}
 		res = append(res, c)
 	}
+	defer rows.Close()
 	defer stmt.Close()
 
 	return res, nil
