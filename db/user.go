@@ -10,7 +10,7 @@ import (
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
 	pwd = util.Cipher(pwd)
 	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
-	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign,vip) VALUES ($1,$2,$3,$4,$5,$6)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign,time) VALUES ($1,$2,$3,$4,$5,$6)")
 	if err != nil {
 		return err
 	}
@@ -23,34 +23,33 @@ func CreateUser(name string, pwd string, level int, qq string, sign string) erro
 	return nil
 }
 
-func UpdateUser(id int, name string, pwd string, level int, qq string, vip string, sign string) (*User, error) {
-	vip = ""
+func UpdateUser(id int, name string, pwd string, level int, qq string, time string, sign string) (*User, error) {
 	if pwd == "" { // 编辑状态
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,vip=$4,sign=$5 WHERE id =$6")
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,time=$4,sign=$5 WHERE id =$6")
 		if err != nil {
 			return nil, err
 		}
-		_, err = stmtIns.Exec(&name, &level, &qq, &vip, &sign, &id)
+		_, err = stmtIns.Exec(&name, &level, &qq, &time, &sign, &id)
 		if err != nil {
 			return nil, err
 		}
 
-		res := &User{Id: id, Name: name, QQ: qq, Level: level, Vip: vip}
+		res := &User{Id: id, Name: name, QQ: qq, Level: level, Time: time}
 		defer stmtIns.Close()
 		return res, err
 	} else {
 		pwd = util.Cipher(pwd)
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5,vip=$6 WHERE id =$7")
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5,time=$6 WHERE id =$7")
 		if err != nil {
 			return nil, err
 		}
-		_, err = stmtIns.Exec(&name, &pwd, &level, &qq, &sign, &vip, &id)
+		_, err = stmtIns.Exec(&name, &pwd, &level, &qq, &sign, &time, &id)
 		if err != nil {
 			return nil, err
 		}
 		defer stmtIns.Close()
 
-		res := &User{Id: id, Name: name, QQ: qq, Level: level, Vip: vip}
+		res := &User{Id: id, Name: name, QQ: qq, Level: level, Time: time}
 		return res, err
 	}
 
@@ -59,23 +58,23 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, vip strin
 func GetUser(name string, id int, qq string) (*User, error) {
 	var query string
 	if name != "" {
-		query += `SELECT id,name,pwd,level,qq,sign,vip FROM users WHERE name = $1`
+		query += `SELECT id,name,pwd,level,qq,sign,time FROM users WHERE name = $1`
 	} else if id != 0 {
-		query += `SELECT id,name,pwd,level,qq,sign,vip FROM users WHERE id = $1`
+		query += `SELECT id,name,pwd,level,qq,sign,time FROM users WHERE id = $1`
 	} else if qq != "" {
-		query += `SELECT id,name,pwd,level,qq,sign,vip FROM users WHERE qq = $1`
+		query += `SELECT id,name,pwd,level,qq,sign,time FROM users WHERE qq = $1`
 	} else {
 		return nil, nil
 	}
 	stmt, err := dbConn.Prepare(query)
 	var level int
-	var sign, pwd, vip string
+	var sign, pwd, time string
 	if name != "" {
-		err = stmt.QueryRow(name).Scan(&id, &name, &pwd, &level, &qq, &sign, &vip)
+		err = stmt.QueryRow(name).Scan(&id, &name, &pwd, &level, &qq, &sign, &time)
 	} else if id != 0 {
-		err = stmt.QueryRow(id).Scan(&id, &name, &pwd, &level, &qq, &sign, &vip)
+		err = stmt.QueryRow(id).Scan(&id, &name, &pwd, &level, &qq, &sign, &time)
 	} else {
-		err = stmt.QueryRow(qq).Scan(&id, &name, &pwd, &level, &qq, &sign, &vip)
+		err = stmt.QueryRow(qq).Scan(&id, &name, &pwd, &level, &qq, &sign, &time)
 	}
 
 	defer stmt.Close()
@@ -86,7 +85,7 @@ func GetUser(name string, id int, qq string) (*User, error) {
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-	res := &User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Sign: sign, Vip: vip}
+	res := &User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Sign: sign, Time: time}
 
 	return res, nil
 }

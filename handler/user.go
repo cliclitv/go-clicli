@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -67,7 +68,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			return
 		}
 
-		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Vip: resp.Vip}
+		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Time: resp.Time}
 		resStr, err := json.Marshal(struct {
 			Code  int      `json:"code"`
 			Token string   `json:"token"`
@@ -96,7 +97,9 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 400, "参数解析失败")
 		return
 	}
-	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Vip, ubody.Sign)
+	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
+
+	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ctime, ubody.Sign)
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }
@@ -122,7 +125,7 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Vip: resp.Vip}
+	res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Time: resp.Time}
 	sendUserResponse(w, res, 200, "")
 
 }

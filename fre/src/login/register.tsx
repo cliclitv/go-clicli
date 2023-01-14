@@ -22,7 +22,7 @@ export default function Register({ id }) {
                 setQQ(user.result.qq)
                 setUid(user.result.id)
                 setLevel(user.result.level)
-                setHash(user.result.hash)
+                setHash(user.result.vip)
             })
         }
 
@@ -48,7 +48,7 @@ export default function Register({ id }) {
     async function register() {
         if (id != null) {
             console.log('修改用户')
-            updateUser({ id: uid, name, qq, pwd, desc: "", level: level, hash }).then(res => {
+            updateUser({ id: uid, name, qq, pwd, desc: "", level: level}).then(res => {
                 if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }
@@ -62,7 +62,9 @@ export default function Register({ id }) {
         setLoading(true)
         const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, hash: "", sign: "" })
         setLoading(false)
-        alert("注册成功啦~")
+        if(res.code === 200){
+            alert("注册成功啦~")
+        }
     }
     function logout() {
         localStorage.clear()
@@ -79,7 +81,7 @@ export default function Register({ id }) {
             <option value="3">审核</option>
             <option value="4">管理</option>
         </select>}
-        {id && <li><input type="text" placeholder="钱包地址" disabled value={hash} /></li>}
+        {id && <li><input type="text" placeholder="vip过期时间" disabled value={hash} /></li>}
         <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : id ? '修改' : '注册'}</button></li>
         {id && <li><button onClick={logout} style={{ background: '#ff2b79' }}>退出登陆</button></li>}
         {!id && <li><A href="/login">登录</A></li>}
