@@ -10,7 +10,7 @@ export default function Header() {
     const [bal, setBal] = useState(false)
     const [balance, setBalance] = useState(0)
 
-    let user = getUser()
+    let user = getUser() || {}
     const keydown = (e) => {
         if (e.keyCode == 13) {
             console.log(key)
