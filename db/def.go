@@ -15,7 +15,7 @@ type User struct {
 	Name  string `json:"name"`
 	Pwd   string `json:"pwd,omitempty"`
 	QQ    string `json:"qq"`
-	Desc  string `json:"desc,omitempty"`
+	Sign  string `json:"sign,omitempty"`
 	Level int    `json:"level"`
 	Vip  string `json:"vip,omitempty"`
 }
