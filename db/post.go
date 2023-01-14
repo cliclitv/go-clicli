@@ -123,11 +123,16 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	slice = append(slice,pageSize,start)
 
-	stmt, _ := dbConn.Prepare(sqlRaw)
+	stmt, err := dbConn.Prepare(sqlRaw)
 
-
-	var rows, _ = stmt.Query(slice...)
-
+        if err != nil {
+		return nil, err
+	}
+	var rows, err = stmt.Query(slice...)
+if err != nil {
+		return nil, err
+	}
+        defer rows.Close()
 	defer stmt.Close()
 
 	var res []*Post
