@@ -45,6 +45,7 @@ export default function Header() {
                 <div className="biu">
                     <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
+                    <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li>
                     <li className="avatar" onClick={openWallet}>
                         <img src={getAvatar((user || {}).qq)} alt="" />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>

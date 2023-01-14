@@ -77,7 +77,7 @@ export function getBal(from){
 }
 
 export function pay(price,order){
-  return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}`)
+  return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}&uid=${getUser().id}`)
 }
 
 export function paycheck(tradeno){
