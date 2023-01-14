@@ -47,7 +47,7 @@ export default function Header() {
                     <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
                     <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li>
-                    <li onClick={openWallet}>
+                    <li onClick={openWallet} style={{position:'relative'}}>
                     <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
                             <h2>{parseInt(balance as any) / 1000000} 肥皂</h2>
