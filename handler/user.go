@@ -53,9 +53,6 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	resp, err := db.GetUser(ubody.Name, 0, "")
 	pwd := util.Cipher(ubody.Pwd)
 
-	fmt.Println(ubody.Name)
-	fmt.Println(ubody.Pwd)
-
 	if resp == nil || err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
@@ -67,6 +64,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 		if err != nil{
 			fmt.Println(err)
+			return
 		}
 
 		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
@@ -78,6 +76,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 		if err != nil{
 			fmt.Println(err)
+			return
 		}
 
 		io.WriteString(w, string(resStr))
