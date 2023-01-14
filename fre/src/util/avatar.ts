@@ -1,4 +1,5 @@
 import md5 from 'blueimp-md5'
+import { getUser } from './api'
 
 export function getAvatar(avatar) {
   if (/^[0-9]+$/.test(avatar)) {
@@ -24,4 +25,11 @@ export function isMobile() {
   } catch (e) {
     return false;
   }
+}
+
+export default function shouldVIP(time){
+  let tt = new Date(time)
+  let ttt = tt.getTime()
+
+  return ttt>=Date.now()
 }

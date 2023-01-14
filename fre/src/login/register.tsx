@@ -12,7 +12,7 @@ export default function Register({ id }) {
     const [loading, setLoading] = useState(false)
     const [level, setLevel] = useState(0)
     const [uid, setUid] = useState(0)
-    const [hash, setHash] = useState(null)
+    const [time, setTime] = useState(null)
 
     useEffect(() => {
         if (id) {
@@ -22,7 +22,7 @@ export default function Register({ id }) {
                 setQQ(user.result.qq)
                 setUid(user.result.id)
                 setLevel(user.result.level)
-                setHash(user.result.vip)
+                setTime(user.result.time)
             })
         }
 
@@ -60,7 +60,7 @@ export default function Register({ id }) {
             return
         }
         setLoading(true)
-        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, hash: "", sign: "" })
+        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, time: "", sign: "" })
         setLoading(false)
         if(res.code === 200){
             alert("注册成功啦~")
@@ -81,7 +81,7 @@ export default function Register({ id }) {
             <option value="3">审核</option>
             <option value="4">管理</option>
         </select>}
-        {id && <li><input type="text" placeholder="vip过期时间" disabled value={hash} /></li>}
+        {id && <li><input type="text" placeholder="vip过期时间" disabled value={time} /></li>}
         <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : id ? '修改' : '注册'}</button></li>
         {id && <li><button onClick={logout} style={{ background: '#ff2b79' }}>退出登陆</button></li>}
         {!id && <li><A href="/login">登录</A></li>}

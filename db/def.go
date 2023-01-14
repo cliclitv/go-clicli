@@ -31,6 +31,7 @@ type Post struct {
 	Uid     int    `json:"uid,omitempty"`
 	Uname   string `json:"uname,omitempty"`
 	Uqq     string `json:"uqq,omitempty"`
+	Utime     string `json:"utime,omitempty"`
 	Videos  string `json:"videos,omitempty"`
 }
 

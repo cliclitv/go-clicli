@@ -1,6 +1,6 @@
 import { h, useEffect, useState, useRef } from 'fre'
 import { getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
-import { getAv, getAvatar } from '../util/avatar'
+import shouldVIP, { getAv, getAvatar } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import { A, push } from '../use-route'
 import './play.css'
@@ -50,7 +50,8 @@ export default function Post({ gv }) {
                 <div className="p">
                     <div className="avatar">
                         <img src={getAvatar(post.uqq)} alt="" /><p>{post.uname}</p>
-                        <i className="icon-font icon-shouye" onClick={transfer}></i>
+                        {shouldVIP(post.utime) && <b></b>}
+                        {/* <i className="icon-font icon-shouye" onClick={transfer}></i> */}
                     </div>
                     <ul>
                         {videos.map((name, index) => {

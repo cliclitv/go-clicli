@@ -17,7 +17,6 @@ const routes = {
 
 const App = () => {
     let route = useRoutes(routes)
-    console.log(route)
     const header =  <Header />
     const footer = <Footer />
     return <div>

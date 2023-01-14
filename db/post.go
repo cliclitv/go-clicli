@@ -58,15 +58,15 @@ func DeletePost(id int) error {
 
 func GetPost(id int) (*Post, error) {
 	fmt.Println(id)
-	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts 
+	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq,users.time FROM posts 
 INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	if err != nil {
 		return nil, err
 	}
 	var pid, uid int
-	var title, content, status, sort, tag, ctime, uname, uqq, videos string
+	var title, content, status, sort, tag, ctime, uname, uqq,utime, videos string
 
-	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq)
+	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq, &utime)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	}
 	defer stmt.Close()
 
-	res := &Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
+	res := &Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Utime: utime}
 
 	return res, nil
 }
