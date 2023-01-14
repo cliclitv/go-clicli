@@ -128,9 +128,9 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
         if err != nil {
 		return nil, err
 	}
-	var rows, err = stmt.Query(slice...)
-if err != nil {
-		return nil, err
+	rows, err2 := stmt.Query(slice...)
+if err2 != nil {
+		return nil, err2
 	}
         defer rows.Close()
 	defer stmt.Close()
