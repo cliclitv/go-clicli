@@ -61,28 +61,27 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 400, "用户名或密码错误")
 		return
 	} else {
-// 		token, err := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
+		token, err := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
 
 
-// 		if err != nil{
-// 			fmt.Println(err)
-// 			return
-// 		}
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-// 		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Time: resp.Time}
-// 		resStr, err := json.Marshal(struct {
-// 			Code  int      `json:"code"`
-// 			Token string   `json:"token"`
-// 			User  *db.User `json:"user"`
-// 		}{Code: 200, Token: token, User: res})
+		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Time: resp.Time}
+		resStr, err := json.Marshal(struct {
+			Code  int      `json:"code"`
+			Token string   `json:"token"`
+			User  *db.User `json:"user"`
+		}{Code: 200, Token: token, User: res})
 
-// 		if err != nil{
-// 			fmt.Println(err)
-// 			return
-// 		}
+		if err != nil{
+			fmt.Println(err)
+			return
+		}
 
-// 		io.WriteString(w, string(resStr))
-		sendMsg(w, 200, "登陆成功")
+		io.WriteString(w, string(resStr))
 	}
 
 }
