@@ -9,7 +9,7 @@ import './vip.css'
 export default function Pay() {
     const order = Math.floor(Math.random()*10000000000)
     useEffect(()=>{
-        pay(0.1,order).then(res=>{
+        pay(1.0,order).then(res=>{
             q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), '#ff2b79')
             q2.current.href = res.alipay_trade_precreate_response.qr_code
         })
