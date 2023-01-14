@@ -63,6 +63,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	} else {
 		token, err := GenToken(resp.Id, resp.Name, resp.Pwd, resp.Level)
 
+
 		if err != nil{
 			fmt.Println(err)
 			return
@@ -105,7 +106,6 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-
 	uid, _ := strconv.Atoi(p.ByName("id"))
 	err := db.DeleteUser(uid)
 	if err != nil {
