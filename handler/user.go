@@ -32,7 +32,7 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	if err := db.CreateUser(ubody.Name, ubody.Pwd, 1, ubody.QQ, ubody.Sign, ubody.Vip); err != nil {
+	if err := db.CreateUser(ubody.Name, ubody.Pwd, 1, ubody.QQ, ubody.Sign); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
