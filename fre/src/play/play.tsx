@@ -1,9 +1,10 @@
 import { h, useEffect, useState, useRef } from 'fre'
 import { getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
-import shouldVIP, { getAv, getAvatar } from '../util/avatar'
+import { getAv } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import { A, push } from '../use-route'
 import './play.css'
+import Avatar from '../component/avatar/avatar'
 
 export default function Post({ gv }) {
     const id = getAv(gv)
@@ -43,16 +44,12 @@ export default function Post({ gv }) {
 
     return (
         <main>
-            { oth ? (<div class="wrap player">
+            {oth ? (<div class="wrap player">
                 <div className="ep-wrap">
                     <Eplayer url={play}></Eplayer>
                 </div>
                 <div className="p">
-                    <div className="avatar">
-                        <img src={getAvatar(post.uqq)} alt="" /><p>{post.uname}</p>
-                        {shouldVIP(post.utime) && <b></b>}
-                        {/* <i className="icon-font icon-shouye" onClick={transfer}></i> */}
-                    </div>
+                    <Avatar uqq={post.uqq} uname={post.uname} utime={post.utime} />
                     <ul>
                         {videos.map((name, index) => {
                             return <li onClick={() => changeid(index)}>{index + 1}</li>

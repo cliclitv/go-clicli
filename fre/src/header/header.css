@@ -30,10 +30,6 @@ header .search input {
     padding: 8px 20px;
 }
 
-header .avatar {
-    position: relative;
-}
-
 header .biu {
     display: flex;
     align-items: center;
@@ -49,11 +45,8 @@ header .biu li i {
     padding: 10px;
 }
 
-header .biu .avatar,
-header .biu .avatar img {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+header .avatar p{
+    display: none;
 }
 
 header .icon-shouye {

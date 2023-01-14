@@ -3,6 +3,7 @@ import { push } from '../use-route'
 import { getUser, getBal } from "../util/api"
 import { getAvatar } from "../util/avatar"
 import './header.css'
+import Avatar from "../component/avatar/avatar"
 
 export default function Header() {
     const [key, setKey] = useState("")
@@ -46,8 +47,8 @@ export default function Header() {
                     <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
                     <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li>
-                    <li className="avatar" onClick={openWallet}>
-                        <img src={getAvatar((user || {}).qq)} alt="" />
+                    <li onClick={openWallet}>
+                    <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
                             <h2>{parseInt(balance as any) / 1000000} 肥皂</h2>
                             <li>UID {user?.id}</li>
