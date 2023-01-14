@@ -48,7 +48,7 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
-	//router.POST("/user/register", handler.Register)
+	router.POST("/user/register", handler.Register)
 	router.POST("/user/login", handler.Login)
 	router.POST("/user/logout", handler.Logout) // 前端清空 localstorage
 	router.POST("/user/update/:id", handler.Auth(handler.UpdateUser, 3))
@@ -58,7 +58,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/post/add", handler.Auth(handler.AddPost, 2))
 	router.POST("/post/delete/:id", handler.Auth(handler.DeletePost, 3))
 	router.POST("/post/update/:id", handler.Auth(handler.UpdatePost, 2))
-	router.GET("/post/:id", handler.GetPost)
+	//router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
 	router.GET("/search/users", handler.SearchUsers)
