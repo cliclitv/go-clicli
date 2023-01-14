@@ -32,7 +32,7 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	if err := db.CreateUser(ubody.Name, ubody.Pwd, 1, ubody.QQ, ubody.Desc, ubody.Hash); err != nil {
+	if err := db.CreateUser(ubody.Name, ubody.Pwd, 1, ubody.QQ, ubody.Desc, ubody.Vip); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
@@ -67,7 +67,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			return
 		}
 
-		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
+		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Vip: resp.Vip}
 		resStr, err := json.Marshal(struct {
 			Code  int      `json:"code"`
 			Token string   `json:"token"`
@@ -96,7 +96,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 400, "参数解析失败")
 		return
 	}
-	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Hash, ubody.Desc)
+	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Vip, ubody.Desc)
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }
@@ -122,7 +122,7 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Hash: resp.Hash}
+	res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Vip: resp.Vip}
 	sendUserResponse(w, res, 200, "")
 
 }
