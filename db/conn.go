@@ -22,8 +22,8 @@ func init() {
 		panic(err.Error())
 	}
 
-	dbConn.SetMaxOpenConns(8)
-	dbConn.SetConnMaxLifetime(time.Minute)
+	//dbConn.SetMaxOpenConns(8)
+	//dbConn.SetConnMaxLifetime(time.Minute)
 
 	err = dbConn.Ping()
 	if err != nil {
