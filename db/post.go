@@ -163,6 +163,8 @@ func SearchPosts(key string) ([]*Post, error) {
 	if err != nil {
 		return res, err
 	}
+	
+	defer rows.Close()
 
 	defer stmt.Close()
 
@@ -189,6 +191,8 @@ func GetRank() ([]*Post, error) {
 	if err != nil {
 		return res, err
 	}
+	
+	defer rows.Close()
 
 	defer stmt.Close()
 
