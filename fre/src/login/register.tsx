@@ -64,6 +64,8 @@ export default function Register({ id }) {
         setLoading(false)
         if(res.code === 200){
             alert("注册成功啦~")
+        }else{
+            alert(res.msg)
         }
     }
     function logout() {
