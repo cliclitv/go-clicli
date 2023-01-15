@@ -123,11 +123,16 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	slice = append(slice,pageSize,start)
 
-	stmt, _ := dbConn.Prepare(sqlRaw)
+	stmt, err := dbConn.Prepare(sqlRaw)
 
-
-	var rows, _ = stmt.Query(slice...)
-
+        if err != nil {
+		return nil, err
+	}
+	rows, err2 := stmt.Query(slice...)
+if err2 != nil {
+		return nil, err2
+	}
+        defer rows.Close()
 	defer stmt.Close()
 
 	var res []*Post
@@ -158,6 +163,8 @@ func SearchPosts(key string) ([]*Post, error) {
 	if err != nil {
 		return res, err
 	}
+	
+	defer rows.Close()
 
 	defer stmt.Close()
 
@@ -184,6 +191,8 @@ func GetRank() ([]*Post, error) {
 	if err != nil {
 		return res, err
 	}
+	
+	defer rows.Close()
 
 	defer stmt.Close()
 

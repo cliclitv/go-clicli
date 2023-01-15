@@ -111,6 +111,10 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 	if err != nil {
 		return res, err
 	}
+	
+	defer rows.Close()
+	
+	defer stmt.Close()
 
 	for rows.Next() {
 		var id, level int
@@ -122,8 +126,6 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 		c := &User{Id: id, Name: name, Level: level, QQ: qq}
 		res = append(res, c)
 	}
-	defer rows.Close()
-	defer stmt.Close()
 
 	return res, nil
 
