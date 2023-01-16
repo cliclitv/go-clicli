@@ -12,8 +12,7 @@ export default function Header() {
 
     let user = getUser() || {}
     const keydown = (e) => {
-        if (e.keyCode == 13) {
-            console.log(key)
+        if (e.keyCode == 13 && key!=="") {
             push(`/search/${key}`)
         }
     }
@@ -46,7 +45,7 @@ export default function Header() {
                 <div className="biu">
                     <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>Get APP</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
-                    <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li>
+                    {/* <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li> */}
                     <li onClick={openWallet} style={{position:'relative'}}>
                     <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
