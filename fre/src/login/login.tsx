@@ -33,7 +33,7 @@ export default function Login() {
         <li><input type="text" placeholder="密码" onInput={(e) => changePwd(e.target.value)} /></li>
         <li><button onClick={login}>登录</button></li>
         <li><A href="/register">注册</A></li>
-        <li><a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li>APP 下载一</li></a></li>
-        <li><a href="https://cdn.jsdelivr.net/npm/@clicli/app@latest/web/app-release.apk" target="_blank"><li>APP 下载二</li></a></li>
+        {/* <li><a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li>APP 下载一</li></a></li>
+        <li><a href="https://cdn.jsdelivr.net/npm/@clicli/app@latest/web/app-release.apk" target="_blank"><li>APP 下载二</li></a></li> */}
     </div>
 }

@@ -20,9 +20,9 @@ const App = () => {
     const header =  <Header />
     const footer = <Footer />
     return <div>
-        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && header}
+        {header}
         <div>{route}</div>
-        {window.location.pathname !== '/login' && window.location.pathname !== '/register' && footer}
+        {footer}
     </div>
 }
 
