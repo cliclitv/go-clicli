@@ -17,7 +17,7 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	ubody := &db.User{}
 
 	if err := json.Unmarshal(req, ubody); err != nil {
-		sendMsg(w, 400, "参数解析失败")
+		sendMsg(w, 400, fmt.Sprintf("%s", err))
 		return
 	}
 
@@ -45,9 +45,11 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
+	
+	fmt.Sprintf("%s", req)
 
 	if err := json.Unmarshal(req, ubody); err != nil {
-		sendMsg(w, 400, "参数解析失败")
+		sendMsg(w, 400, fmt.Sprintf("%s", err))
 		return
 	}
 
