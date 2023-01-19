@@ -58,7 +58,7 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendMsg(w, 401, "pageSize太大了")
 		return
 	}
-	resp, err := db.Getcomments(pid, uid, page, pageSize)
+	resp, err := db.GetComments(pid, uid, page, pageSize)
 	if err != nil {
 		sendMsg(w, 500,fmt.Sprintf("%s", err))
 		return
