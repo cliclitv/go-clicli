@@ -23,7 +23,7 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500,fmt.Sprintf("%s", err))
 		return
 	} else {
-		sendMsg(w, 500, "添加成功了")
+		sendMsg(w, 200, "添加成功了")
 	}
 
 }
