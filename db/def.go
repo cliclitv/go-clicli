@@ -10,6 +10,18 @@ type Play struct {
 	Url string `json:"url"`
 }
 
+type Comment struct {
+	Id      int    `json:"id,omitempty"`
+	Rate    int    `json:"rate"`
+	Content string `json:"content"`
+	Time    string `json:"time"`
+	Pid     int    `json:"pid"`
+	Ptitle  string `json:"ptitle,omitempty"`
+	Uid     int    `json:"uid"`
+	Uname   string `json:"uname,omitempty"`
+	Uqq     string `json:"uqq,omitempty"`
+}
+
 type User struct {
 	Id    int    `json:"id,omitempty"`
 	Name  string `json:"name"`
@@ -41,4 +53,8 @@ type Posts struct {
 
 type Users struct {
 	Users []*User `json:"users"`
+}
+
+type Comments struct {
+	Comments []*Comment `json:"comments"`
 }
