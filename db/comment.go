@@ -34,7 +34,7 @@ WHERE comments.pid=$1 OR comments.uid =$2 ORDER BY time DESC LIMIT $3 OFFSET $4`
 
 	var res []*Comment
 
-	rows, err := stmtOut.Query(pid, uid, start, pageSize)
+	rows, err := stmtOut.Query(pid, uid, pageSize, start)
 	if err != nil {
 		return res, err
 	}
