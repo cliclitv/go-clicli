@@ -43,8 +43,9 @@ export default function Header() {
                     <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
                 </div>
                 <div className="biu">
-                    <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>APP ①</li></a>
-                    <a href="https://cdn.jsdelivr.net/npm/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>APP ②</li></a>
+                    {/* <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>APP ①</li></a> */}
+                    <a href="https://cdn.jsdelivr.net/npm/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>
+                    <a href="#" onclick={push('/login')}><li><i className="icon-font icon-denglu"></i>登录</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
                     {/* <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li> */}
                     <li onClick={openWallet} style={{position:'relative'}}>

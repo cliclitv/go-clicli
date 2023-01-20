@@ -60,7 +60,7 @@ function perfrom(stack) {
 
 
   if (typeof component.then === 'function') {
-    if (getUser() || path === '/login'|| path === '/register') {
+    if (1) {
       component.then(res => {
         routesCache[path] = res.default
         setter(Symbol())
