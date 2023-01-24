@@ -88,7 +88,7 @@ export default function Upload(props) {
     const tags = ['推荐', '转载', '漫画改', '小说改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '治愈',
         '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID', '影视',
-        '特摄', '真人剧', '原神', '绝区零', '星穹铁道', '其它']
+        '特摄', '真人剧', '原神', '绝区零', '星穹铁道','明日方舟', '和平精英','王者荣耀','其它']
     return (
         <div className="upload">
             <h1>投稿</h1>
@@ -125,6 +125,7 @@ export default function Upload(props) {
                     <option value="新番">新番</option>
                     <option value="完结">完结</option>
                     <option value="剧场版">剧场版</option>
+                    <option value="直播推流">直播推流</option>
                     <option value="影视">影视</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
