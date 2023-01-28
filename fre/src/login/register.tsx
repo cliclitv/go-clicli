@@ -70,7 +70,7 @@ export default function Register({ id }) {
     }
     function logout() {
         localStorage.clear()
-        location.reload()
+        window.location.href = 'https://www.clicli.cc'
     }
     return <div class="login">
         <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>

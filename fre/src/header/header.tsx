@@ -44,7 +44,7 @@ export default function Header() {
                 </div>
                 <div className="biu">
                     {/* <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>APP ①</li></a> */}
-                    <a href="https://cdn.jsdelivr.net/npm/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>
+                    <a href="https://app.clicli.cc" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>
                     <a href="#" onclick={()=>push('/login')}><li><i className="icon-font icon-denglu"></i>登录</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
                     {/* <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li> */}
