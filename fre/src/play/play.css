@@ -10,6 +10,7 @@
     border-radius: 10px 0 0 10px;
     height: 562.5px;
     overflow: hidden;
+    position: relative
 }
 
 .player {
@@ -146,4 +147,61 @@ article a {
     font-size: 30px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+/* .poster {
+    width: 800px;
+    height: 300px;
+    overflow: hidden;
+    margin: 100px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+} 
+.poster::after{
+    width: 100%;
+    height: 100%;
+    content: '';
+    position: absolute;
+    z-index: -1;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    filter: blur(10px) brightness(1.2);
+    
+} */
+.poster {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(https://p5.music.126.net/obj/wo3DlcOGw6DClTvDisK1/4602256867/5855/63fb/325b/d7e4e3a244701ee85fecb5d4f6b5bd57.png?imageView=&quality=75&thumbnail=200y200);
+    
+}
+
+.poster img {
+    width: 150px;
+    height: 150px;
+    padding: 25px;
+    object-fit: fill;
+    border-radius: 50%;
+    animation: rotate 10s linear infinite;
+    animation-play-state: paused;
+}
+
+.poster:before {
+    
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
