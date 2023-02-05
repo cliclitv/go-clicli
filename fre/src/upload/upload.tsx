@@ -131,6 +131,7 @@ export default function Upload(props) {
                     <option value="新番">新番</option>
                     <option value="完结">完结</option>
                     <option value="剧场版">剧场版</option>
+                    <option value="广播剧">广播剧</option>
                     <option value="推流">推流</option>
                     <option value="影视">影视</option>
                 </select>
