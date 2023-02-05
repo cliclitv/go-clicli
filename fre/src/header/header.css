@@ -1,6 +1,6 @@
 header {
     height: 100px;
-    background: var(--background);
+    /* background: var(--background); */
     display: flex;
     align-items: center;
 }
@@ -98,6 +98,7 @@ header .wallet li a {
     color: #fff;
 }
 footer{
+    margin: 50px;
     padding: 30px;
     text-align: center;
     color: #bbb;

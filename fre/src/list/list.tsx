@@ -25,8 +25,9 @@ export function ListB({ posts }) {
                 <div className="item">
                     <div className="cover">
                         <img src={getSuo(item.content)} />
+                        <div className="title">{item.title}</div>
                     </div>
-                    <div className="title">{item.title}</div>
+                    
                 </div>
             </li>
         })}

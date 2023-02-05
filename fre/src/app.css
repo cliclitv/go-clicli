@@ -7,7 +7,7 @@ body {
     font-size: 14px;
     list-style: none;
     color: var(--color);
-    background: var(--background);
+    background: url(https://catbox.moe/bgs/texture3.png);
     --theme: #946ce6;
     --theme-bg: rgba(148, 108, 230, 0.1);
     --black: rgb(37, 37, 37);
@@ -15,6 +15,7 @@ body {
     --border: 0 1px 2px #ddd;
     --color: #333;
     --background: #fafafa
+
 }
 
 button {
@@ -66,4 +67,8 @@ header input::-webkit-input-placeholder {
 
 input:disabled{
     background-color: #f2f2f2;
+}
+
+li{
+    list-style: none;
 }

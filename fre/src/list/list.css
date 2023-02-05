@@ -3,7 +3,7 @@
 }
 
 .a li {
-    width: 25%;
+    width: 16.6%;
     display: inline-block;
     cursor: pointer;
 }
@@ -11,20 +11,29 @@
 .a .title {
     height: 40px;
     overflow: hidden;
-    margin: 10px 0;
+    margin: 15px 0;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .a .item {
-    padding: 7px;
+    padding: 15px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .a .cover,
 .a .cover img {
     width: 100%;
     height: 200px;
-    border-radius: 5px;
+    border-radius: 8px;
     object-fit: cover;
+    box-shadow: 5px 5px #dddade;
+
+}
+
+.a .cover:hover {
+    box-shadow: 5px 5px var(--theme);
 }
 
 .b {
@@ -38,20 +47,29 @@
 }
 
 .b .title {
-    height: 40px;
     overflow: hidden;
-    margin: 10px 0;
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+    color: #fff;
+    padding: 5px 10px;
+    width: 100%;
+    height: 14px;
 }
 
 .b .item {
-    padding: 7px;
+    padding: 15px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .b .cover,
 .b .cover img {
     width: 100%;
-    height: 200px;
-    border-radius: 5px;
+    height: 210px;
+    border-radius: 8px;
     object-fit: cover;
+    box-shadow: 5px 5px #dddade;
+    overflow: hidden;
+    position: relative;
 }

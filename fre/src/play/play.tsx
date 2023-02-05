@@ -76,7 +76,7 @@ export default function Post({ gv }) {
     )
 }
 
-function buildVideos(str) {
+export function buildVideos(str) {
     return str.split('\n').map(v => v.split('$')).filter(i => i.length > 0 && i[1] != null)
 }
 

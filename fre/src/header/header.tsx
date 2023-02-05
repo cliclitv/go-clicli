@@ -43,18 +43,16 @@ export default function Header() {
                     <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
                 </div>
                 <div className="biu">
-                    {/* <a href="https://unpkg.com/@clicli/app@latest/web/app-release.apk" target="_blank"><li><i className="icon-font icon-download"></i>APP ①</li></a> */}
                     <a href="https://app.clicli.cc" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>
                     <a href="#" onclick={()=>push('/login')}><li><i className="icon-font icon-denglu"></i>登录</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>Upload</li>
-                    {/* <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li> */}
+                    <li onClick={() => push('/vip')}><i className="icon-font icon-vip"></i>VIP</li>
                     <li onClick={openWallet} style={{position:'relative'}}>
                     <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
                             <h2>{parseInt(balance as any) / 1000000} 肥皂</h2>
                             <li>UID {user?.id}</li>
                             <li onClick={() => push(`/search/uid:${(user || {}).id}`)}>我的投搞</li>
-                            {/* <li><a href="https://sepolia-faucet.pk910.de/">挖矿领水</a></li> */}
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
                         </div>
                     </li>

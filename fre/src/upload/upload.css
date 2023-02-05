@@ -42,7 +42,7 @@
     background: #f2f2f2;
 }
 
-.title input {
+.upload .title input {
     padding: 10px 20px;
     border-radius: 18px;
     margin: 20px 0;
@@ -52,7 +52,7 @@
     background: #f2f2f2;
 }
 
-.title {
+.upload .title {
     width: 100%;
     box-sizing: border-box;
     margin: 10px 0;
