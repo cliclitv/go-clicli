@@ -45,7 +45,7 @@ header .biu li i {
     padding: 10px;
 }
 
-header .avatar p{
+header .avatar p {
     display: none;
 }
 
@@ -97,7 +97,8 @@ header .wallet li {
 header .wallet li a {
     color: #fff;
 }
-footer{
+
+footer {
     margin: 50px;
     padding: 30px;
     text-align: center;
@@ -106,6 +107,17 @@ footer{
     border-top: 1px solid #ddd;
 }
 
-.icon-vip{
+.icon-vip {
     color: #ffc100;
+}
+
+footer img {
+    width: 100px;
+}
+
+footer p{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
 }
