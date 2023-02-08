@@ -1,5 +1,5 @@
 import { render, useState, h, useEffect, useRef } from "fre"
-import { addPost, getDogeToken, getPostDetail, updatePost } from "../util/api"
+import { addPost, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
 import './upload.css'
 
 export default function Upload(props) {
@@ -7,6 +7,7 @@ export default function Upload(props) {
     const [vid, setVid] = useState(0)
     const [pre, setPre] = useState(0)
     const up = useRef(null)
+    const user = getUser()
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
@@ -107,7 +108,7 @@ export default function Upload(props) {
                 <i class="te te-image" onclick={() => window.md.image()}></i>
                 <i class="te te-link" onclick={() => window.md.link()}></i>
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
-                <i class="te te-upload" onclick={() => openWindow('https://zm.igsubs.com:83/index.php/upapi.html?cid=1')}></i>
+                <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?pid=${user.id}`)}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
             {/* <input type="file" ref={up} accept="video/*"
