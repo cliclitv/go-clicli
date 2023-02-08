@@ -108,7 +108,7 @@ export default function Upload(props) {
                 <i class="te te-image" onclick={() => window.md.image()}></i>
                 <i class="te te-link" onclick={() => window.md.link()}></i>
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
-                <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?pid=${user.id}`)}></i>
+                <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
             {/* <input type="file" ref={up} accept="video/*"
