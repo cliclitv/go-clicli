@@ -13,13 +13,13 @@ export default function Home() {
     const [ugc, setUgc] = useState([])
     const [rank, setRank] = useState([])
     useEffect(() => {
-        getPost('原创', '独播', 1, 8).then((res: any) => {
+        getPost('', '独播', 1, 8).then((res: any) => {
             setRecommend(res.posts)
         })
         getRank().then((res2: any) => {
             setRank(res2.posts.splice(0, 8))
         })
-        getPost('原创', '', 1, 12).then((res: any) => {
+        getPost('', '原创', 1, 12).then((res: any) => {
             setUgc(res.posts)
         })
     }, [])

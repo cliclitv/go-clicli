@@ -91,7 +91,7 @@ export default function Upload(props) {
         let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no');
         myWindow.focus();
     }
-    const tags = ['推荐', '授权转载', '正版', '独播', '漫画改', '小说改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔',
+    const tags = ['推荐', '原创', '授权转载', '正版', '独播', '漫画改', '小说改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '治愈',
         '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID', '影视',
         '特摄', '真人剧', '原神', '绝区零', '星穹铁道', '明日方舟', '和平精英', '王者荣耀', '其它']
@@ -111,8 +111,6 @@ export default function Upload(props) {
                 <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-            {/* <input type="file" ref={up} accept="video/*"
-                onInput={uploadVideo} style={{ display: 'none' }} /><div class="upload-video"><i class="icon-font icon-video" onClick={uploadVideo2}></i>←点击按钮上传视频 <span class="video-pre">{pre}%</span>{vid !== 0 && <input type="text" value={vid + "@dogecloud"} class="video-vid" onInput={e => e.stopPropagation()} />}</div> */}
             <textarea spellcheck="false" placeholder={`请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`} value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
             <div className="tags">
                 <ul>
@@ -128,11 +126,8 @@ export default function Upload(props) {
                     <option value="public">发布</option>
                 </select>
                 <select value={post.sort} onInput={e => change('sort', e.target.value)}>
-                    <option value="原创">原创</option>
-                    <option value="新番">新番</option>
-                    <option value="完结">完结</option>
-                    <option value="剧场版">剧场版</option>
                     <option value="广播剧">广播剧</option>
+                    <option value="番剧">番剧</option>
                     <option value="推流">推流</option>
                     <option value="动态漫">动态漫</option>
                 </select>
