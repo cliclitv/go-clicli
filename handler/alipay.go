@@ -9,14 +9,14 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
+	"github.com/cliclitv/go-clicli/db"
+	"github.com/julienschmidt/httprouter"
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
-	"github.com/julienschmidt/httprouter"
-	"strconv"
-	"github.com/cliclitv/go-clicli/db"
 )
 
 var publickey string = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApmDKNmbEQSBaijjZCX1tfPZtFD4MTnnNDuDQEeB3uNA48Qk4KmrMAo3LDDqvFTQ7MHLJcHzqpooUF9COYX65JEezW8CFuu1K79lfXnz0rgEK6mTQYM+SVsCt4U07ivqNaHRlnId/hF9odTUDSHGQYw2lUxXZY7HjAGRRqTmFwJ2gs/8uNPvKd9NccGB/++JuLN/JPHZmsAPuicVOIu2hIPAyHvw4qgG7zGWxD88Sm4xs/CyJsQLHBKhYVrI+YR9VoRKAjRLHuBhOEBFv6fVnrj30ovnoPAEP/4m/ycSg8Rt+uVKCU6eYSHBiCAIuM51+zBXHDlGEWwqQRPXNRw3hGwIDAQAB`
@@ -27,7 +27,7 @@ func Pay(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	order := r.URL.Query().Get("order")
 	price := r.URL.Query().Get("price")
 	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
-	p := `app_id=2021003130695981&biz_content={"subject":"CliCli超大会员","body":`+uid+`,"out_trade_no":`+order+`,"total_amount":`+price+`}&charset=UTF-8&method=alipay.trade.precreate&notify_url=https://www.clicli.cc/vip/callback&sign_type=RSA2&timestamp=` + ctime + "&version=1.0"
+	p := `app_id=2021003130695981&biz_content={"subject":"CliCli超大会员","body":` + uid + `,"out_trade_no":` + order + `,"total_amount":` + price + `}&charset=UTF-8&method=alipay.trade.precreate&notify_url=https://www.clicli.cc/vip/callback&sign_type=RSA2&timestamp=` + ctime + "&version=1.0"
 	p2 := `app_id=2021003130695981&biz_content=` + url.QueryEscape(`{"subject":"CliCli超大会员","body":`+uid+`,"out_trade_no":`+order+`,"total_amount":`+price+`}`) + `&charset=UTF-8&method=alipay.trade.precreate&notify_url=` + url.QueryEscape(`https://www.clicli.cc/vip/callback`) + `&sign_type=RSA2&timestamp=` + url.QueryEscape(ctime) + "&version=1.0"
 	fmt.Printf("p: %v\n", p)
 	sign := RsaSign(p, privatekey, crypto.SHA256)
@@ -42,8 +42,8 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	order := r.URL.Query().Get("order")
 	//2023011122001430791454534176
 	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
-	p := `app_id=2021003130695981&biz_content={"out_trade_no":`+order+`}&charset=UTF-8&method=alipay.trade.query&out_trade_no=999&sign_type=RSA2&timestamp=` + ctime + "&version=1.0"
-	p2 := `app_id=2021003130695981&biz_content={"out_trade_no":`+order+`}&charset=UTF-8&method=alipay.trade.query&out_trade_no=999&sign_type=RSA2&timestamp=` + url.QueryEscape(ctime) + "&version=1.0"
+	p := `app_id=2021003130695981&biz_content={"out_trade_no":` + order + `}&charset=UTF-8&method=alipay.trade.query&out_trade_no=999&sign_type=RSA2&timestamp=` + ctime + "&version=1.0"
+	p2 := `app_id=2021003130695981&biz_content={"out_trade_no":` + order + `}&charset=UTF-8&method=alipay.trade.query&out_trade_no=999&sign_type=RSA2&timestamp=` + url.QueryEscape(ctime) + "&version=1.0"
 	fmt.Printf("p: %v\n", p)
 	sign := RsaSign(p, privatekey, crypto.SHA256)
 	fmt.Printf("p: %v\n", sign)
@@ -55,24 +55,24 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
-	body:= r.Form.Get("body")
-	amount,_:= strconv.Atoi(r.Form.Get("total_amount"))
+	body := r.Form.Get("body")
+	amount, _ := strconv.Atoi(r.Form.Get("total_amount"))
 	fmt.Println(body)
 	fmt.Println(amount)
 	fmt.Println("充值回调")
 	uid, _ := strconv.Atoi(body)
-	user, err:= db.GetUser("", uid,"")
+	user, err := db.GetUser("", uid, "")
 
-	if err!=nil{
+	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
 
-	// ctime := time.Now().AddDate(0,1,0).In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
+	aamount := user.Time + amount*100
 
-	_, err2 := db.UpdateUser(user.Id, user.Name, "", user.Level, user.QQ, amount*100, user.Sign)
+	_, err2 := db.UpdateUser(user.Id, user.Name, "", user.Level, user.QQ, aamount, user.Sign)
 
-	if err2!=nil{
+	if err2 != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}

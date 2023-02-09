@@ -97,7 +97,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 	// ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
 
-	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, 0, ubody.Sign)
+	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Time, ubody.Sign)
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }
