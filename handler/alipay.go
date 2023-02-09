@@ -58,6 +58,7 @@ func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	body:= r.Form.Get("body")
 	amount,_:= strconv.Atoi(r.Form.Get("total_amount"))
 	fmt.Println(body)
+	fmt.Println(amount)
 	fmt.Println("充值回调")
 	uid, _ := strconv.Atoi(body)
 	user, err:= db.GetUser("", uid,"")

@@ -50,7 +50,7 @@ export default function Header() {
                     <li onClick={openWallet} style={{position:'relative'}}>
                     <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
-                            <h2>{parseInt(balance as any) / 1000000} 弯豆</h2>
+                            <h2>{user?.time} 弯豆</h2>
                             <li>UID {user?.id}</li>
                             <li onClick={() => push(`/search/uid:${(user || {}).id}`)}>我的投搞</li>
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
