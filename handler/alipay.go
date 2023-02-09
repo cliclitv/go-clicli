@@ -57,12 +57,10 @@ func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	body := r.Form.Get("body")
 	a := r.Form.Get("total_amount")
-	b := r.URL.Query().Get("total_amount")
-	amount, _ := strconv.Atoi(r.URL.Query().Get("total_amount"))
+	amount, _ := strconv.ParseFloat(a, 64)
 	// amount, _ := strconv.Atoi(r.URL.Query().Get("total_amount"))
 	fmt.Println(body)
 	fmt.Println(a)
-	fmt.Println(b)
 	fmt.Println("充值回调")
 	uid, _ := strconv.Atoi(body)
 	user, err := db.GetUser("", uid, "")
@@ -72,7 +70,9 @@ func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	aamount := user.Time + amount*100
+	aamount := user.Time + int(amount*100)
+
+	fmt.Println(aamount)
 
 	_, err2 := db.UpdateUser(user.Id, user.Name, "", user.Level, user.QQ, aamount, user.Sign)
 
