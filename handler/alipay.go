@@ -56,7 +56,7 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	body := r.Form.Get("body")
-	amount, _ := strconv.Atoi(r.Form.Get("total_amount"))
+	amount, _ := strconv.Atoi(r.URL.Query().Get("total_amount"))
 	fmt.Println(body)
 	fmt.Println(amount)
 	fmt.Println("充值回调")
