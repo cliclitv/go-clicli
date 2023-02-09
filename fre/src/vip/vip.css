@@ -13,3 +13,20 @@
 h1{
     padding: 20px;
 }
+
+ul li{
+    width: calc(50%-20px);
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--pink);
+    background: rgb(255, 43, 121,0.2);
+    margin: 20px;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+}
+
+ul .active{
+    background: var(--pink);
+    color: #fff;
+}

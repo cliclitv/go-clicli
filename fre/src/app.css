@@ -9,6 +9,7 @@ body {
     color: var(--color);
     background: url(https://catbox.moe/bgs/texture3.png);
     --theme: #946ce6;
+    --pink: rgb(255, 43, 121);
     --theme-bg: rgba(148, 108, 230, 0.1);
     --black: rgb(37, 37, 37);
     --whrite: #fff;

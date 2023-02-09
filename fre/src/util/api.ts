@@ -64,22 +64,22 @@ export function getUserB({ id, qq, name }) {
   return get(`https://www.clicli.cc/user?uid=${id || ""}&uname=${name || ""}&uqq=${qq || ""}`)
 }
 
-export function getDogeToken({fname, rname}){
+export function getDogeToken({ fname, rname }) {
   return get(`https://www.clicli.cc/doge?fname=${fname}&rname=${rname}`)
 }
 
-export function getTransfer({from, to}){
+export function getTransfer({ from, to }) {
   return get(`https://www.clicli.cc/eth/transfer?from=${from}&to=${to}`)
 }
 
-export function getBal(from){
+export function getBal(from) {
   return get(`https://www.clicli.cc/eth/balanceof?from=${from}`)
 }
 
-export function pay(price,order){
-  return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}&uid=${getUser().id}`)
+export function pay(price, order) {
+  return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}&uid=${(getUser() || {}).id || 2}`)
 }
 
-export function paycheck(tradeno){
+export function paycheck(tradeno) {
   return get(`https://www.clicli.cc/vip/paycheck?tradeno=${tradeno}`)
 }
