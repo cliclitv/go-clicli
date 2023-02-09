@@ -1,19 +1,19 @@
-import {h, useEffect, useRef} from 'fre'
+import { h, useEffect, useRef } from 'fre'
 import { pay, paycheck } from '../util/api'
 import { getMatrix, render, renderPath } from 'qr-code-generator-lib'
-import {isMobile} from '../util/avatar'
+import { isMobile } from '../util/avatar'
 
 import './vip.css'
 
 
 export default function Pay() {
-    const order = Math.floor(Math.random()*10000000000)
-    useEffect(()=>{
-        pay(1.0,order).then(res=>{
+    const order = Math.floor(Math.random() * 10000000000)
+    useEffect(() => {
+        pay(0.5, order).then(res => {
             q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), '#ff2b79')
             q2.current.href = res.alipay_trade_precreate_response.qr_code
         })
-    },[])
+    }, [])
     const q = useRef(null)
     const q2 = useRef(null)
 
