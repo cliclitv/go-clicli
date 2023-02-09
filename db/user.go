@@ -23,7 +23,7 @@ func CreateUser(name string, pwd string, level int, qq string, sign string) erro
 	return nil
 }
 
-func UpdateUser(id int, name string, pwd string, level int, qq string, time string, sign string) (*User, error) {
+func UpdateUser(id int, name string, pwd string, level int, qq string, time int, sign string) (*User, error) {
 	if pwd == "" { // 编辑状态
 		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,time=$4,sign=$5 WHERE id =$6")
 		if err != nil {
@@ -68,8 +68,8 @@ func GetUser(name string, id int, qq string) (*User, error) {
 	}
 	stmt, err := dbConn.Prepare(query)
 	
-	var level int
-	var sign, pwd, time string
+	var level, time int
+	var sign, pwd string
 	if name != "" {
 		err = stmt.QueryRow(name).Scan(&id, &name, &pwd, &level, &qq, &sign, &time)
 	} else if id != 0 {

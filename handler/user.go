@@ -9,7 +9,6 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-	"time"
 )
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -45,7 +44,7 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
-	
+
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
 		return
@@ -74,7 +73,7 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			User  *db.User `json:"user"`
 		}{Code: 200, Token: token, User: res})
 
-		if err != nil{
+		if err != nil {
 			fmt.Println(err)
 			return
 		}
@@ -96,9 +95,9 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 400, "参数解析失败")
 		return
 	}
-	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
+	// ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
 
-	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ctime, ubody.Sign)
+	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, 0, ubody.Sign)
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }

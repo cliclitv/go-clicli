@@ -29,7 +29,7 @@ type User struct {
 	QQ    string `json:"qq"`
 	Sign  string `json:"sign,omitempty"`
 	Level int    `json:"level"`
-	Time  string `json:"time,omitempty"`
+	Time  int `json:"time,omitempty"`
 }
 
 type Post struct {

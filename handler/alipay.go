@@ -56,6 +56,7 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	body:= r.Form.Get("body")
+	amount,_:= strconv.Atoi(r.Form.Get("total_amount"))
 	fmt.Println(body)
 	fmt.Println("充值回调")
 	uid, _ := strconv.Atoi(body)
@@ -66,9 +67,9 @@ func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	ctime := time.Now().AddDate(0,1,0).In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
+	// ctime := time.Now().AddDate(0,1,0).In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
 
-	_, err2 := db.UpdateUser(user.Id, user.Name, "", user.Level, user.QQ, ctime, user.Sign)
+	_, err2 := db.UpdateUser(user.Id, user.Name, "", user.Level, user.QQ, amount*100, user.Sign)
 
 	if err2!=nil{
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
