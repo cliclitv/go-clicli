@@ -46,7 +46,7 @@ export default function Header() {
                     <a href="https://app.clicli.cc" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>
                     <a href="#" onclick={()=>push('/login')}><li><i className="icon-font icon-denglu"></i>登录</li></a>
                     <li onClick={() => push('/upload/0')}><i className="icon-font icon-upload"></i>投稿</li>
-                    {/* <li onClick={() => push('/vip')}><i className="icon-font icon-dadou"></i>弯豆</li> */}
+                    <li onClick={() => push('/vip')}><i className="icon-font icon-dadou"></i>弯豆</li>
                     <li onClick={openWallet} style={{position:'relative'}}>
                     <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
