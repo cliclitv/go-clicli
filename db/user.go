@@ -9,13 +9,13 @@ import (
 
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
 	pwd = util.Cipher(pwd)
-	ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
+	time := 0
 	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign,time) VALUES ($1,$2,$3,$4,$5,$6)")
 	if err != nil {
 		return err
 	}
 
-	_, err = stmtIns.Exec(name, pwd, level, qq, sign, ctime)
+	_, err = stmtIns.Exec(name, pwd, level, qq, sign, time)
 	if err != nil {
 		return err
 	}
