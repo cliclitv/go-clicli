@@ -60,7 +60,7 @@ export default function Register({ id }) {
             return
         }
         setLoading(true)
-        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, time: "", sign: "" })
+        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, time: 0, sign: "" })
         setLoading(false)
         if(res.code === 200){
             alert("注册成功啦~")
