@@ -94,7 +94,7 @@ export default function Upload(props) {
     const tags = ['推荐', '原创', '授权转载', '正版', '独播', '漫画改', '小说改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '治愈',
         '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID', '影视', '竖屏',
-        '特摄', '真人剧', '原神', '绝区零', '星穹铁道', '明日方舟', '和平精英', '王者荣耀', '其它']
+        '特摄', '真人剧', '原神', '绝区零', '星穹铁道', '明日方舟', '和平精英', '王者荣耀', '阅读', '其它']
     return (
         <div className="upload">
             <h1>投稿</h1>
@@ -127,6 +127,7 @@ export default function Upload(props) {
                 </select>
                 <select value={post.sort} onInput={e => change('sort', e.target.value)}>
                     <option value="广播剧">广播剧</option>
+                    <option value="小说">小说</option>
                     <option value="番剧">番剧</option>
                     <option value="推流">推流</option>
                     <option value="动态漫">动态漫</option>
