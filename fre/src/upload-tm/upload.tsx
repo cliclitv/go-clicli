@@ -72,7 +72,7 @@ export default function Upload(props) {
     ['霹雳', '原神'],
     ['授权转载', '无版权转载']]
     return (
-        <div className="upload">
+        <div className="upload-tm">
             <h1>甜梦投稿<span>（会投稿到小说平台哦）</span></h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />

@@ -1,22 +1,22 @@
 @import url("//at.alicdn.com/t/font_1151392_5hwi3w2ygqu.css");
 
-.upload {
+.upload-tm {
     width: 800px;
     min-height: 200px;
     margin: 30px auto;
 }
 
-.upload h1{
+.upload-tm h1{
     color: var(--tm-theme);
 }
 
-.upload h1 span{
+.upload-tm h1 span{
     font-size: 14px;
     padding: 10px;
     color: #666;
 }
 
-.upload textarea {
+.upload-tm textarea {
     width: 100%;
     min-height: 200px;
     outline: none;
@@ -29,7 +29,7 @@
 }
 
 
-.upload section {
+.upload-tm section {
     padding: 10px;
     background: #fff;
     border-bottom: 2px solid #f2f2f2;
@@ -48,7 +48,7 @@
     background: #f2f2f2;
 }
 
-.upload .title input {
+.upload-tm .title input {
     padding: 10px 20px;
     border-radius: 18px;
     margin: 20px 0;
@@ -58,7 +58,7 @@
     background: #f2f2f2;
 }
 
-.upload .title {
+.upload-tm .title {
     width: 100%;
     box-sizing: border-box;
     margin: 10px 0;
@@ -117,7 +117,7 @@
     padding: 2px 5px;
     border-radius: 5px;
 }
-.upload-video{
+.upload-tm-video{
     padding: 10px;
     background: #f2f2f2;
     display: flex;
