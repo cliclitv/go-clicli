@@ -4,8 +4,6 @@ import './upload.css'
 
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
-    const [vid, setVid] = useState(0)
-    const [pre, setPre] = useState(0)
     const up = useRef(null)
     const user = getUser()
 
@@ -56,33 +54,6 @@ export default function Upload(props) {
         }
     }
 
-    async function uploadVideo(e) {
-        let file = up.current.files[0]
-        const data = await getDogeToken({
-            fname: file.name,
-            rname: post.title || "未命名"
-        })
-        const token = data.msg
-        console.log(token)
-
-        const uploader = new DogeUploader({
-            file,
-            token,
-            next(progress) {
-                setPre(Math.floor(progress.percent))
-                console.log(Math.floor(progress.percent))
-            },
-            error(err) {
-                alert('上传出错( ' + err.code + ' )：' + err.message + '')
-            },
-            complete(res) {
-                setVid(res.vid)
-                console.log('上传完成，视频 vid：' + res.vid)
-            }
-        })
-        uploader.upload()
-    }
-
     function uploadVideo2() {
         up.current.click()
     }
@@ -91,13 +62,18 @@ export default function Upload(props) {
         let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no');
         myWindow.focus();
     }
-    const tags = ['推荐', '个人原创', '授权转载', '正版', '独播', '漫画改', '小说改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔',
-        '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '治愈',
-        '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID', '影视', '竖屏',
-        '特摄', '真人剧', '原神', '绝区零', '星穹铁道', '明日方舟', '其它']
+    const tags = [["甜文", "虐文", "爽文", '狗血', '意识流'],
+    ['古代', '现代', '民国', '未来'],
+    ['HE', 'BE', 'OE'],
+    ['1v1', 'NP', '骨科', '年上', '年下', '受转攻', '直掰弯', '攻控', '受控'],
+    ['快穿', '悬疑', '破镜重圆', '强制爱', '先虐受后虐攻', '追妻'],
+    ['ABO', '生子', '哨兵', '支服'],
+    ['娱乐圈', '宫廷', '网游'],
+    ['霹雳', '原神'],
+    ['授权转载', '无版权转载']]
     return (
         <div className="upload">
-            <h1>视频投稿</h1>
+            <h1>甜梦投稿</h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
             </div>
@@ -108,13 +84,11 @@ export default function Upload(props) {
                 <i class="te te-image" onclick={() => window.md.image()}></i>
                 <i class="te te-link" onclick={() => window.md.link()}></i>
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
-                <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
             </section>
-            <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-            <textarea spellcheck="false" placeholder={`请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`} value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
+            <textarea spellcheck="false" placeholder="请输入文案，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
             <div className="tags">
                 <ul>
-                    {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                    {tags.flat().map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                         className={post.tag.indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>
@@ -126,10 +100,9 @@ export default function Upload(props) {
                     <option value="public">发布</option>
                 </select>
                 <select value={post.sort} onInput={e => change('sort', e.target.value)}>
-                    <option value="新番">新番</option>
-                    <option value="完结">完结</option>
-                    <option value="剧场版">剧场版</option>
-                    <option value="推流">推流</option>
+                    <option value="纯爱">纯爱</option>
+                    <option value="言情">言情</option>
+                    <option value="短篇">短篇</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
             </div>

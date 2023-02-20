@@ -9,6 +9,7 @@ const routes = {
     '/login': import('./login/login'),
     '/register': import('./login/register'),
     '/upload/:id': import('./upload/upload'),
+    '/publish/:id': import('./upload-tm/upload'),
     '/play/:gv': import('./play/play'),
     '/search/:k': import('./search/search'),
     '/user/:id': import('./login/register'),
