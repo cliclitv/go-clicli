@@ -3,12 +3,25 @@ import { getSuo } from "../util/avatar"
 import './list.css'
 import { h } from 'fre'
 
-export function ListA({ posts }) {
+export function ListA({ posts, editor }) {
+    function navigate(isNovel, id) {
+        if (isNovel) {
+            push(`/publish/${id}`)
+        } else {
+            push(`/upload/${id}`)
+        }
+    }
+
+    const novel = s => s === '纯爱' || s === '言情' || s === '短篇'
+
     return <section className="a">
         {posts && posts.length > 0 && posts.map(item => {
-            return <li onClick={() => push(`/play/gv${item.id}`)} key={item.id} >
+            return <li onClick={() => {
+                !editor && push(`/play/gv${item.id}`)
+            }} key={item.id} >
                 <div className="item">
                     <div className="cover">
+                        {editor && <div class='editor' onclick={() => navigate(novel(item.sort), item.id)}>编辑</div>}
                         <img src={getSuo(item.content)} />
                     </div>
                     <div className="title">{item.title}</div>
@@ -27,7 +40,7 @@ export function ListB({ posts }) {
                         <img src={getSuo(item.content)} />
                         <div className="title">{item.title}</div>
                     </div>
-                    
+
                 </div>
             </li>
         })}

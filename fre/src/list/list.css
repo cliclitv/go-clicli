@@ -29,6 +29,7 @@
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 5px 5px #dddade;
+    position: relative;
 
 }
 
@@ -72,4 +73,16 @@
     box-shadow: 5px 5px #dddade;
     overflow: hidden;
     position: relative;
+}
+
+.a .cover .editor{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    background: var(--theme);
+    z-index: 9;
 }

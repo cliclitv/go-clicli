@@ -2,7 +2,6 @@ import { h, useEffect, useState, useRef } from 'fre'
 import { getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
 import { getAv, getSuo } from '../util/avatar'
 import snarkdown from 'snarkdown'
-import { A, push } from '../use-route'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 
@@ -91,7 +90,6 @@ export default function Post({ gv }) {
                             return <li>{tag}</li>
                         })}
                         <li onclick={() => setShow(!show)}>展开详情 {show ? '⯅' : '⯆'}</li>
-                        <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>
                     </div>
                 </div>
                 {<article ref={a} style={{ display: (show || !oth) ? 'block' : 'none' }}></article>}
