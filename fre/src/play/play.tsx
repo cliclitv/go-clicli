@@ -4,6 +4,7 @@ import { getAv, getSuo } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
+import { push } from '../use-route'
 
 export default function Post({ gv }) {
     const id = getAv(gv)
@@ -30,24 +31,24 @@ export default function Post({ gv }) {
 
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         const root = document.querySelector('e-player')
         const video = root.shadowRoot.querySelector('#video')
         const img = document.querySelector('.image')
         console.log(img)
 
         video.addEventListener('play', function () { //播放开始执行的函数
-            img && img.setAttribute('style','animation-play-state: running;')
+            img && img.setAttribute('style', 'animation-play-state: running;')
         });
 
         video.addEventListener('pause', function () { //播放开始执行的函数
-            img && img.setAttribute('style','animation-play-state: paused;')
+            img && img.setAttribute('style', 'animation-play-state: paused;')
         });
 
         video.addEventListener('ended', function () { //播放开始执行的函数
-            img && img.setAttribute('style','animation-play-state: paused;')
+            img && img.setAttribute('style', 'animation-play-state: paused;')
         });
-    },[post.content])
+    }, [post.content])
 
     const changeid = (id) => {
         setPlay(videos[id][1])
@@ -67,7 +68,7 @@ export default function Post({ gv }) {
                 <div className="ep-wrap">
                     {post && post.sort === '广播剧' &&
                         <div className="poster">
-                            <img src={getSuo(post.content)} class="image"/>
+                            <img src={getSuo(post.content)} class="image" />
                         </div>
                     }
                     <Eplayer url={play}></Eplayer>
@@ -90,6 +91,7 @@ export default function Post({ gv }) {
                             return <li>{tag}</li>
                         })}
                         <li onclick={() => setShow(!show)}>展开详情 {show ? '⯅' : '⯆'}</li>
+                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
                     </div>
                 </div>
                 {<article ref={a} style={{ display: (show || !oth) ? 'block' : 'none' }}></article>}
