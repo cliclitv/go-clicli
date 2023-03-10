@@ -29,7 +29,7 @@ export default function Upload(props) {
     }
 
     function selectTag(item) {
-        if (post.tag.indexOf(item) > -1) {
+        if ((post.tag || '').indexOf(item) > -1) {
             setPost({
                 ...post,
                 tag: post.tag.replace(` ${item}`, ''),
@@ -115,7 +115,7 @@ export default function Upload(props) {
             <div className="tags">
                 <ul>
                     {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
-                        className={post.tag.indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
+                        className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>
             <div className="options">
