@@ -1,0 +1,59 @@
+.qrcode {
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.vip {
+    margin: 30px auto;
+    max-width: 700px;
+    text-align: center;
+}
+
+h1 {
+    padding: 20px;
+}
+
+.vip ul li {
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--pink);
+    background: rgb(255, 43, 121, 0.2);
+    margin: 15px;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.vip ul .active {
+    background: var(--pink);
+    color: #fff;
+}
+
+/* .vip input {
+    padding: 10px;
+    border: none;
+} */
+
+.vip .userinfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.vip .userinfo input {
+    border-radius: 19px;
+    padding: 10px;
+    border: 1px solid var(--pink);
+    flex: 1;
+}
+
+.vip p{
+    color: var(--pink);
+    padding-bottom: 10px;
+    font-weight: bold;
+    margin: 5px;
+}

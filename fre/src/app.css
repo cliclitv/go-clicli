@@ -18,7 +18,6 @@ body {
     --border: 0 1px 2px #ddd;
     --color: #333;
     --background: #fafafa
-
 }
 
 button {
@@ -31,11 +30,12 @@ button {
 }
 
 .icon {
-    width: 1em; height: 1em;
+    width: 1em;
+    height: 1em;
     vertical-align: -0.15em;
     fill: currentColor;
     overflow: hidden;
- }
+}
 
 a {
     color: var(--color);
@@ -68,10 +68,40 @@ header input::-webkit-input-placeholder {
     background: transparent !important;
 }
 
-input:disabled{
+h3 {
+    padding: 20px;
+}
+
+input:disabled {
     background-color: #f2f2f2;
 }
 
-li{
+li {
     list-style: none;
+}
+
+@media screen and (max-width: 600px) {
+    header .search input {
+        width: 100%;
+    }
+
+    header .search {
+        display: none;
+    }
+
+    header h1 {
+        flex: auto !important;
+    }
+
+    header {
+        height: auto !important;
+    }
+
+    header .flex {
+        flex-wrap: wrap;
+    }
+
+    .vip {
+        width: 100%;
+    }
 }

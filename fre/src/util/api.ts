@@ -76,8 +76,8 @@ export function getBal(from) {
   return get(`https://www.clicli.cc/eth/balanceof?from=${from}`)
 }
 
-export function pay(price, order) {
-  return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}&uid=${(getUser() || {}).id || 2}`)
+export function pay({price, order, uid}) {
+  return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}&uid=${uid}`)
 }
 
 export function paycheck(tradeno) {

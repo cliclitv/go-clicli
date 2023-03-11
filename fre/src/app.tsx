@@ -13,7 +13,7 @@ const routes = {
     '/play/:gv': import('./play/play'),
     '/search/:k': import('./search/search'),
     '/user/:id': import('./login/register'),
-    '/vip': import('./vip/vip'),
+    '/recharge': import('./recharge/recharge'),
     '/my/:id': import('./admin/admin'),
 }
 
