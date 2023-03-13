@@ -4,6 +4,10 @@ export function getPost(type, tag, page, pageSize, status?, uid?) {
   return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
 }
 
+export function getPostB(type, tag, page, pageSize, status?, uid?) {
+  return get(`https://www.clicli.cc/posts?status=${status}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
+}
+
 export function getRank() {
   return get('https://www.clicli.cc/rank')
 }

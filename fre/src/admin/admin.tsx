@@ -2,13 +2,13 @@ import './admin.css'
 import { h } from 'fre'
 
 import { h, useEffect, useState } from 'fre'
-import { getPost, getUser } from '../util/api'
+import { getPostB, getUser } from '../util/api'
 import { ListA } from '../list/list'
 
 export default function Home({ id }) {
     const [search, setSearch] = useState([])
     useEffect(() => {
-        getPost("", "", 1, 100, null, id).then(res => {
+        getPostB("", "", 1, 100, "", id).then(res => {
             setSearch(res.posts)
         })
     }, [])
