@@ -24,6 +24,11 @@ func GetPea(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
+	if ubody.From == ubody.To {
+		sendMsg(w, 500, "自己不能给自己投币")
+		return
+	}
+
 	if ubody.To == 0 {
 		// get pea
 
