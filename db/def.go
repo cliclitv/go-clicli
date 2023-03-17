@@ -5,6 +5,11 @@ type Pv struct {
 	Pv int `json:"pv"`
 }
 
+type Pea struct {
+	Uid  int `json:"uid"`
+	Pea int `json:"pea"`
+}
+
 type Play struct {
 	MType  string    `json:"mtype"`
 	Url string `json:"url"`

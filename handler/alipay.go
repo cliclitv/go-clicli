@@ -63,18 +63,19 @@ func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Println(a)
 	fmt.Println("充值回调")
 	uid, _ := strconv.Atoi(body)
-	user, err := db.GetUser("", uid, "")
+	
+	pea, err := db.GetPea(uid)
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
 
-	aamount := user.Time + int(amount*100)
+	aamount := pea.Pea + int(amount*100)
 
 	fmt.Println(aamount)
 
-	_, err2 := db.UpdateUser(user.Id, user.Name, "", user.Level, user.QQ, aamount, user.Sign)
+	_, err2 := db.ReplacePea(uid, aamount)
 
 	if err2 != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
