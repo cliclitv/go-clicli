@@ -24,6 +24,21 @@ func GetPea(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
+	if ubody.To == 0 {
+		// get pea
+
+		from, err := db.GetPea(ubody.From)
+
+		if err != nil{
+			sendMsg(w, 500, fmt.Sprintf("%s", err))
+			return
+		}
+
+		sendPeaResponse(w, from, 200)
+		return
+
+	}
+
 	from, err := db.GetPea(ubody.From)
 	to, err2 := db.GetPea(ubody.To)
 	if err != nil || err2 != nil {
@@ -35,7 +50,7 @@ func GetPea(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		db.ReplacePea(ubody.From,0)
 	}
 
-	if to == nil{
+	if to == nil {
 		db.ReplacePea(ubody.To,0)
 	}
 
