@@ -52,17 +52,18 @@ func ParseToken(str string) (*MyClaims, error) {
 func Auth(uid int, token string) error {
 	userClaims, err := ParseToken(token)
 	if err != nil {
-		return err
+		return errors.New("token已过期，请重新登录")
 	}
 
-	if userClaims.Level < 2 {
-		// 都要大于2
-		return errors.New("没有权限");
-	}
 	// 查找当前用户
 	user, err := db.GetUser("", uid, "")
 
-	fmt.Println(userClaims.Name)
+	if userClaims.Level < 2 || user.Level < 2 {
+		// 都要大于2
+		return errors.New("没有权限");
+	}
+
+	fmt.Println(userClaims.Level)
 
 	if err != nil {
 		return err
