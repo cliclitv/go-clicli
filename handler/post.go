@@ -39,6 +39,14 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
+	token := r.Header.Get("token")
+	err := Auth(pbody.Uid, token) // uid 为原作者 uid
+
+	if err!= nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+
 	if resp, err := db.UpdatePost(pint, pbody.Title, pbody.Content, pbody.Status, pbody.Sort, pbody.Tag, pbody.Time, pbody.Videos); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return

@@ -3,10 +3,9 @@ package handler
 import (
 	"errors"
 	jwt "github.com/golang-jwt/jwt/v4"
-	"github.com/julienschmidt/httprouter"
-	"net/http"
-	"strconv"
 	"time"
+	"fmt"
+	"github.com/cliclitv/go-clicli/db"
 )
 
 var Key = []byte("clicli")
@@ -50,28 +49,34 @@ func ParseToken(str string) (*MyClaims, error) {
 	return nil, errors.New("invalid token")
 }
 
-func Auth(h httprouter.Handle, level int) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		// 首先判断是否本人
-		id, _ := strconv.Atoi(p.ByName("id"))
-		token := r.Header.Get("token")
-
-		mc, err := ParseToken(token)
-
-		if err != nil {
-			sendMsg(w, 401, "token 失效")
-			return
-		}
-
-		if id == mc.Id {
-			h(w, r, p)
-			return
-		} else if mc.Level < level {
-			sendMsg(w, 401, "权限不足")
-			return
-		} else {
-			h(w, r, p)
-		}
-
+func Auth(uid int, token string) error {
+	userClaims, err := ParseToken(token)
+	if err != nil {
+		return err
 	}
+
+	if userClaims.Level < 2 {
+		// 都要大于2
+		return errors.New("没有权限");
+	}
+	// 查找当前用户
+	user, err := db.GetUser("", uid, "")
+
+	fmt.Println(userClaims.Name)
+
+	if err != nil {
+		return err
+	}
+
+	if user.Name == userClaims.Name {
+		// 本人编辑，ok
+		return nil
+	}
+
+	if userClaims.Level > user.Level {
+		// 编辑者权限 > 作者权限
+		return nil
+	}
+
+	return errors.New("权限不足")
 }

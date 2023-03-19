@@ -95,7 +95,14 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 400, "参数解析失败")
 		return
 	}
-	// ctime := time.Now().In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05")
+
+	token := r.Header.Get("token")
+	err := Auth(ubody.Id, token) // uid 为原作者 uid
+
+	if err!= nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
 
 	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Time, ubody.Sign)
 	sendUserResponse(w, resp, 200, "更新成功啦")
