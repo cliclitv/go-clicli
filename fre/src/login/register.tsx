@@ -48,7 +48,7 @@ export default function Register({ id }) {
     async function register() {
         if (id != null) {
             console.log('修改用户')
-            updateUser({ id: uid, name, qq, pwd, desc: "", level: level}).then(res => {
+            updateUser({ id: uid, name, qq, pwd, level: level}).then(res => {
                 if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }

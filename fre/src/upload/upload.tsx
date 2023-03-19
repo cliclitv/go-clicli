@@ -44,6 +44,10 @@ export default function Upload(props) {
     }
 
     function submit() {
+        if (!post.title || !post.content || !post.sort || !post.tag){
+            alert("都要填")
+            return
+        }
         if (props.id > 0) {
             updatePost(post as any).then(res => {
                 alert(res.msg || '成功啦~')
@@ -54,33 +58,6 @@ export default function Upload(props) {
                 alert(res.msg || '成功啦')
             })
         }
-    }
-
-    async function uploadVideo(e) {
-        let file = up.current.files[0]
-        const data = await getDogeToken({
-            fname: file.name,
-            rname: post.title || "未命名"
-        })
-        const token = data.msg
-        console.log(token)
-
-        const uploader = new DogeUploader({
-            file,
-            token,
-            next(progress) {
-                setPre(Math.floor(progress.percent))
-                console.log(Math.floor(progress.percent))
-            },
-            error(err) {
-                alert('上传出错( ' + err.code + ' )：' + err.message + '')
-            },
-            complete(res) {
-                setVid(res.vid)
-                console.log('上传完成，视频 vid：' + res.vid)
-            }
-        })
-        uploader.upload()
     }
 
     function uploadVideo2() {
