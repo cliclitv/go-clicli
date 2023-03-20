@@ -15,6 +15,7 @@ const routes = {
     '/user/:id': import('./login/register'),
     '/recharge': import('./recharge/recharge'),
     '/my/:id': import('./admin/admin'),
+    '/article/:id': import('./article/article'),
 }
 
 const App = () => {

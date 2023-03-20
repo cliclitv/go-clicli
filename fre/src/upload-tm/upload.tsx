@@ -1,21 +1,25 @@
 import { render, useState, h, useEffect, useRef } from "fre"
-import { addPost, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
+import { addPost, getArticles, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
 import './upload.css'
 
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
-    const up = useRef(null)
-    const user = getUser()
+    const [article, setArticle] = useState([])
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
         if (props.id > 0) {
             getPostDetail(props.id).then((res: any) => {
-                setPost(res.result)
+                getArticles(res.result.id).then(res2=>{
+                    setPost(res.result)
+                    setArticle(res2.articles)
+                })
+                
             })
         } else {
             // 新增
         }
+        
     }, [])
 
     function change(key, val) {
@@ -54,14 +58,6 @@ export default function Upload(props) {
         }
     }
 
-    function uploadVideo2() {
-        up.current.click()
-    }
-
-    const openWindow = (url) => {
-        let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no');
-        myWindow.focus();
-    }
     const tags = [["甜文", "虐文", "爽文", '狗血', '意识流'],
     ['古代', '现代', '民国', '未来'],
     ['HE', 'BE', 'OE'],
@@ -90,6 +86,11 @@ export default function Upload(props) {
                 <ul>
                     {tags.flat().map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                         className={post.tag.indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
+                </ul>
+            </div>
+            <div className="articles">
+                <ul>
+                    {(article||[]).map(item=><li>{item.title}</li>)}
                 </ul>
             </div>
             <div className="options">

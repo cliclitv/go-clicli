@@ -87,3 +87,7 @@ export function pay({price, order, uid}) {
 export function paycheck(tradeno) {
   return get(`https://www.clicli.cc/vip/paycheck?tradeno=${tradeno}`)
 }
+
+export function getArticles(pid) {
+  return get(`https://www.clicli.cc/articles?pid=${pid}&page=1&pageSize=1`)
+}
