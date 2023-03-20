@@ -58,7 +58,12 @@ func Auth(uid int, token string) error {
 	// 查找当前用户
 	user, err := db.GetUser("", uid, "")
 
-	if userClaims.Level < 2 || user.Level < 2 {
+	if user.Name == userClaims.Name {
+		// 本人编辑，ok
+		return nil
+	}
+
+	if userClaims.Level < 2 {
 		// 都要大于2
 		return errors.New("没有权限");
 	}
@@ -67,11 +72,6 @@ func Auth(uid int, token string) error {
 
 	if err != nil {
 		return err
-	}
-
-	if user.Name == userClaims.Name {
-		// 本人编辑，ok
-		return nil
 	}
 
 	if userClaims.Level > user.Level {

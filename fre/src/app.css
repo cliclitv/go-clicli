@@ -7,7 +7,9 @@ body {
     font-size: 14px;
     list-style: none;
     color: var(--color);
-    background: url(https://catbox.moe/bgs/texture3.png);
+    background: #fffcf8;
+    background-image: linear-gradient(#f1f1f1 1px, transparent 1px), linear-gradient(to right, #f1f1f1 1px, transparent 1px);
+    background-size: 32px 32px;
     --theme: #946ce6;
     --tm-theme: #F77649;
     --pink: rgb(255, 43, 121);
