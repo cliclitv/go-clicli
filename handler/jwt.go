@@ -74,10 +74,11 @@ func Auth(uid int, token string) error {
 		return err
 	}
 
-	if userClaims.Level > user.Level {
+	if userClaims.Level >= user.Level {
 		// 编辑者权限 > 作者权限
 		return nil
 	}
 
 	return errors.New("权限不足")
 }
+
