@@ -94,10 +94,7 @@ func GetPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	uid, _ := strconv.Atoi(r.URL.Query().Get("uid"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
-	if pageSize > 300 {
-		sendMsg(w, 401, "pageSize太大了")
-		return
-	}
+
 	resp, err := db.GetPosts(page, pageSize, status, sort, tag, uid)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))

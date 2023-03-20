@@ -68,11 +68,11 @@ type Article struct {
 	Id      int    `json:"id,omitempty"`
 	Oid     int    `json:"oid"`
 	Title   string `json:"title"`
-	Content string `json:"content"`
+	Content string `json:"content,omitempty"`
 	Time    string `json:"time"`
 	Pid     int    `json:"pid"`
 	Ptitle  string `json:"ptitle,omitempty"`
-	Bio     string `json:"bio"`
+	Bio     string `json:"bio,omitempty"`
 }
 
 type Articles struct {

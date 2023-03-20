@@ -26,7 +26,7 @@ func AddArticle(oid int, title string, content string, pid int, bio string) (*Ar
 func GetArticles(pid int, page int, pageSize int) ([]*Article, error) {
 	start := pageSize * (page - 1)
 
-	stmtOut, err := dbConn.Prepare(`SELECT articles.id,articles.oid,articles.title,articles.content,articles.time,articles.pid FROM articles WHERE articles.pid=$1 ORDER BY oid,uid limit $2,$3`)
+	stmtOut, err := dbConn.Prepare(`SELECT articles.id,articles.oid,articles.title,articles.time,articles.pid FROM articles WHERE articles.pid=$1 ORDER BY oid LIMIT $2 OFFSET $3`)
 
 	if err != nil {
 		return nil, err
@@ -34,16 +34,16 @@ func GetArticles(pid int, page int, pageSize int) ([]*Article, error) {
 
 	var res []*Article
 
-	rows, err := stmtOut.Query(pid, start, pageSize)
+	rows, err := stmtOut.Query(pid, pageSize, start)
 	if err != nil {
 		return res, err
 	}
 	defer stmtOut.Close()
 
 	for rows.Next() {
-		var id, oid, pid, uid int
-		var title, ctime string
-		if err := rows.Scan(&id, &oid, &title,  &ctime, &pid, &uid); err != nil {
+		var id, oid, pid int
+		var title, ctime  string
+		if err := rows.Scan(&id, &oid, &title, &ctime, &pid); err != nil {
 			return res, err
 		}
 
@@ -62,7 +62,7 @@ func GetArticle(id int) (*Article, error) {
 	var vid, oid, pid int
 	var title, content, ctime, ptitle, bio string
 
-	err = stmtOut.QueryRow(id).Scan(&vid, &oid, &title, &content, &ctime, &pid, &ptitle, &bio)
+	err = stmtOut.QueryRow(id).Scan(&vid, &oid, &title, &content, &ctime, &bio,&pid, &ptitle)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
