@@ -30,6 +30,27 @@ func sendPostResponse(w http.ResponseWriter, pRes *db.Post, sc int) {
 	io.WriteString(w, string(resStr))
 }
 
+func sendArticleResponse(w http.ResponseWriter, pRes *db.Article, sc int) {
+	w.WriteHeader(sc)
+	resStr, _ := json.Marshal(struct {
+		Code   int       `json:"code"`
+		Result *db.Article `json:"result"`
+	}{sc, pRes})
+
+	io.WriteString(w, string(resStr))
+}
+
+func sendArticlesResponse(w http.ResponseWriter, pRes *db.Articles, sc int) {
+	w.WriteHeader(sc)
+	resStr, _ := json.Marshal(struct {
+		Code int `json:"code"`
+		*db.Articles
+	}{sc, pRes})
+
+	io.WriteString(w, string(resStr))
+}
+
+
 func sendPostsResponse(w http.ResponseWriter, pRes *db.Posts, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {

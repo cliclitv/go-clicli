@@ -63,3 +63,18 @@ type Users struct {
 type Comments struct {
 	Comments []*Comment `json:"comments"`
 }
+
+type Article struct {
+	Id      int    `json:"id,omitempty"`
+	Oid     int    `json:"oid"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	Time    string `json:"time"`
+	Pid     int    `json:"pid"`
+	Ptitle  string `json:"ptitle,omitempty"`
+	Bio     string `json:"bio"`
+}
+
+type Articles struct {
+	Articles []*Article `json:"articles"`
+}

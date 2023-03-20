@@ -11,11 +11,20 @@ import (
 )
 
 func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+
 	req, _ := io.ReadAll(r.Body)
 	pbody := &db.Post{}
 
 	if err := json.Unmarshal(req, pbody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
+		return
+	}
+
+	token := r.Header.Get("token")
+	err := Auth(pbody.Uid, token) // uid 为原作者 uid
+
+	if err!= nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
 
