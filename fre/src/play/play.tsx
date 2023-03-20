@@ -31,33 +31,9 @@ export default function Post({ gv }) {
 
     }, [])
 
-    useEffect(() => {
-        const root = document.querySelector('e-player')
-        const video = root.shadowRoot.querySelector('#video')
-        const img = document.querySelector('.image')
-        console.log(img)
-
-        video.addEventListener('play', function () { //播放开始执行的函数
-            img && img.setAttribute('style', 'animation-play-state: running;')
-        });
-
-        video.addEventListener('pause', function () { //播放开始执行的函数
-            img && img.setAttribute('style', 'animation-play-state: paused;')
-        });
-
-        video.addEventListener('ended', function () { //播放开始执行的函数
-            img && img.setAttribute('style', 'animation-play-state: paused;')
-        });
-    }, [post.content])
 
     const changeid = (id) => {
         setPlay(videos[id][1])
-    }
-
-    const transfer = () => {
-        getTransfer({ from: getUser()?.id, to: post.uid }).then(res => {
-            alert(`${(res as any).msg}`)
-        })
     }
 
     const oth = (post.tag || "").indexOf('其它') < 0
@@ -66,11 +42,6 @@ export default function Post({ gv }) {
         <main>
             {oth ? (<div class="wrap player">
                 <div className="ep-wrap">
-                    {post && post.sort === '广播剧' &&
-                        <div className="poster">
-                            <img src={getSuo(post.content)} class="image" />
-                        </div>
-                    }
                     <Eplayer url={play}></Eplayer>
                 </div>
                 <div className="p">
