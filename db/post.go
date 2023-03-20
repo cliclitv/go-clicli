@@ -75,7 +75,7 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	}
 	defer stmt.Close()
 
-	res := &Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Utime: utime}
+	res := &Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
 
 	return res, nil
 }
