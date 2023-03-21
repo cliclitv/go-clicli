@@ -1,25 +1,26 @@
 import { render, useState, h, useEffect, useRef } from "fre"
+import { push } from "../use-route"
 import { addPost, getArticles, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
 import './upload.css'
 
 export default function Upload(props) {
-    const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
+    const [post, setPost] = useState({ id: 0, title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
     const [article, setArticle] = useState([])
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
         if (props.id > 0) {
             getPostDetail(props.id).then((res: any) => {
-                getArticles(res.result.id).then(res2=>{
+                getArticles(res.result.id).then(res2 => {
                     setPost(res.result)
                     setArticle(res2.articles)
                 })
-                
+
             })
         } else {
             // 新增
         }
-        
+
     }, [])
 
     function change(key, val) {
@@ -69,7 +70,7 @@ export default function Upload(props) {
     ['授权转载', '无版权转载']]
     return (
         <div className="upload-tm">
-            <h1>甜梦投稿<span>（会投稿到小说平台哦）</span></h1>
+            <h1>甜梦投稿</h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
             </div>
@@ -90,7 +91,8 @@ export default function Upload(props) {
             </div>
             <div className="articles">
                 <ul>
-                    {(article||[]).map(item=><li>{item.title}</li>)}
+                    {(article || []).map(item => <li onclick={() => push(`/article/${item.id}`)}>{item.title}</li>)}
+                    <li onClick={() => push(`/add-article/${post.id}`)}>增加章节</li>
                 </ul>
             </div>
             <div className="options">

@@ -88,6 +88,7 @@
     border: none;
     width: 100px;
     cursor: pointer;
+    margin: 20px 0;
 }
 
 .options select {
@@ -109,6 +110,12 @@
 .articles li {
     display: inline-block;
     padding: 10px 30px;
-    border: 1px solid var(--tm-theme);
-    background: #f776492b;
+    /* border: 1px solid var(--tm-theme); */
+    background: #f2f2f2;
+    cursor: pointer;
+    margin: 10px;
+    color: var(--tm-theme);
+    border-radius: 5px;
+    border: 1px solid #fff;
+
 }

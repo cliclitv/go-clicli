@@ -16,6 +16,7 @@ const routes = {
     '/recharge': import('./recharge/recharge'),
     '/my/:id': import('./admin/admin'),
     '/article/:id': import('./tm-article/article'),
+    '/add-article/:pid': import('./tm-article/article'),
 }
 
 const App = () => {

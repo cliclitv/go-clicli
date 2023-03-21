@@ -80,7 +80,7 @@ export function getBal(from) {
   return get(`https://www.clicli.cc/eth/balanceof?from=${from}`)
 }
 
-export function pay({price, order, uid}) {
+export function pay({ price, order, uid }) {
   return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}&uid=${uid}`)
 }
 
@@ -89,17 +89,27 @@ export function paycheck(tradeno) {
 }
 
 export function getArticles(pid) {
-  return get(`https://www.clicli.cc/articles?pid=${pid}&page=1&pageSize=1`)
+  return get(`https://www.clicli.cc/articles?pid=${pid}&page=1&pageSize=200`)
 }
 
 export function getArticle(pid) {
   return get(`https://www.clicli.cc/article/${pid}`)
 }
 
-export function addArticle(data) {
-  return post(`https://www.clicli.cc/article/add`,data)
+export function addArticle({ pid, oid, title, content, bio }) {
+  return post(`https://www.clicli.cc/article/add`, {
+    pid: parseInt(pid),
+    oid: parseInt(oid),
+    content,
+    title, bio
+  })
 }
 
-export function updateArticle(data) {
-  return post(`https://www.clicli.cc/article/update`,data)
+export function updateArticle({ pid, oid, title, content, bio, id }) {
+  return post(`https://www.clicli.cc/article/update/${id}`, {
+    pid: parseInt(pid),
+    oid: parseInt(oid),
+    content,
+    title, bio
+  })
 }

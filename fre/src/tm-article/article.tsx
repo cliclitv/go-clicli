@@ -4,17 +4,16 @@ import { addArticle, addPost, getArticle, updateArticle, updatePost } from "../u
 
 export default function Upload(props) {
 
-    const [article, setArticle] = useState({ title: "", oid: 0, pid: 0, content: "", bio: "" })
+    const [article, setArticle] = useState({ id:props.id||0, pid: props.pid||0, title: "", oid: 0, content: "", bio: "" })
+
+    console.log(article)
 
     useEffect(() => {
         if (props.id > 0) {
             getArticle(props.id).then(res => {
                 setArticle(res.result)
             })
-        } else {
-            // 新增
         }
-
     }, [])
 
     function change(key, val) {
@@ -40,13 +39,13 @@ export default function Upload(props) {
         <div className="upload-tm">
             <h1>更新章节<span></span></h1>
             <div className="title">
-                <input type="text" placeholder="请输入序号" value={article.oid} onInput={e => change('title', e.target.value)} />
+                <input type="text" placeholder="请输入序号" value={article.oid} onInput={e => change('oid', e.target.value)} />
             </div>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={article.title} onInput={e => change('title', e.target.value)} />
             </div>
             <textarea spellcheck="false" placeholder="请输入更新内容" value={article.content} onInput={e => change('content', e.target.value)}></textarea>
-            <textarea spellcheck="false" placeholder="请输入作者有话说" value={article.bio} onInput={e => change('content', e.target.value)}></textarea>
+            <textarea spellcheck="false" placeholder="请输入作者有话说" value={article.bio} onInput={e => change('bio', e.target.value)}></textarea>
 
 
             <div className="submit" onClick={submit}>
