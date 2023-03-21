@@ -74,6 +74,18 @@ func GetArticle(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 }
 
+func GetArticleByOid(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
+	oid, _ := strconv.Atoi(r.URL.Query().Get("oid"))
+	resp, err := db.GetArticleByOid(pid,oid)
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	} else {
+		sendArticleResponse(w, resp, 200)
+	}
+}
+
 func DeleteArticle(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id, _ := strconv.Atoi(r.URL.Query().Get("id"))
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))

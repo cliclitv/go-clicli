@@ -75,6 +75,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/article/add", handler.AddArticle)
 	router.POST("/article/update/:id", handler.UpdateArticle)
 	router.GET("/article/:id", handler.GetArticle)
+	router.GET("/article", handler.GetArticleByOid)
 	router.GET("/articles", handler.GetArticles)
 
 	fsys, _ := fs.Sub(embededFiles, "fre/dist")

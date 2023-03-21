@@ -76,6 +76,28 @@ func GetArticle(id int) (*Article, error) {
 	return res, nil
 }
 
+func GetArticleByOid(pid int, oid int) (*Article, error) {
+	stmtOut, err := dbConn.Prepare(`SELECT articles.id,articles.oid,articles.title,articles.content,articles.time, articles.bio, posts.id,posts.title FROM articles INNER JOIN posts ON articles.pid=posts.id WHERE (articles.pid=$1 AND articles.oid=$2)`)
+	if err != nil {
+		return nil, err
+	}
+	var vid int
+	var title, content, ctime, ptitle, bio string
+
+	err = stmtOut.QueryRow(pid, oid).Scan(&vid, &oid, &title, &content, &ctime, &bio,&pid, &ptitle)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
+	}
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	defer stmtOut.Close()
+
+	res := &Article{Id: vid, Oid: oid, Title: title, Content: content, Time: ctime, Pid: pid, Ptitle: ptitle, Bio: bio}
+
+	return res, nil
+}
+
 func UpdateArticle(id int, oid int, title string, content string, pid int, bio string) (*Article, error) {
 	t := time.Now()
 	ctime := t.Format("2006-01-02 15:04")
