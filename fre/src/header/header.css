@@ -121,3 +121,8 @@ footer p{
     width: 100%;
     justify-content: center;
 }
+
+h1 span{
+    color: var(--tm-theme);
+    font-size: 40px;
+}
