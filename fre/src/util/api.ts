@@ -91,3 +91,15 @@ export function paycheck(tradeno) {
 export function getArticles(pid) {
   return get(`https://www.clicli.cc/articles?pid=${pid}&page=1&pageSize=1`)
 }
+
+export function getArticle(pid) {
+  return get(`https://www.clicli.cc/article/${pid}`)
+}
+
+export function addArticle(data) {
+  return post(`https://www.clicli.cc/article/add`,data)
+}
+
+export function updateArticle(data) {
+  return post(`https://www.clicli.cc/article/update`,data)
+}
