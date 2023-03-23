@@ -86,7 +86,7 @@ export default function Upload(props) {
             <div className="tags">
                 <ul>
                     {tags.flat().map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
-                        className={post.tag.indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
+                        className={(post.tag || []).indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>
             <div className="articles">

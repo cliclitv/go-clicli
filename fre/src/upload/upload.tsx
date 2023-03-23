@@ -60,10 +60,6 @@ export default function Upload(props) {
         }
     }
 
-    function uploadVideo2() {
-        up.current.click()
-    }
-
     const openWindow = (url) => {
         let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no');
         myWindow.focus();
@@ -107,6 +103,7 @@ export default function Upload(props) {
                     <option value="完结">完结</option>
                     <option value="剧场版">剧场版</option>
                     <option value="推流">推流</option>
+                    <option value="原创">原创</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
             </div>
