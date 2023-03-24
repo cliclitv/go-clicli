@@ -19,8 +19,7 @@ type middleWareHandler struct {
 	r *httprouter.Router
 }
 
-var whiteOrigins = [5]string{
-	"https://admin.clicli.cc",
+var whiteOrigins = [6]string{
 	"https://www.clicli.cc",
 	"https://clicli.cc",
 	"http://localhost:3000",
