@@ -24,6 +24,9 @@ var whiteOrigins = [5]string{
 	"https://www.clicli.cc",
 	"https://clicli.cc",
 	"http://localhost:3000",
+	"https://cdn.clicli.cc",
+	"https://www.cli.plus",
+	"https://clicdn.deno.dev"
 }
 
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
