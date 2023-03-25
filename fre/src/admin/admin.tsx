@@ -8,7 +8,7 @@ import { ListA } from '../list/list'
 export default function Home({ id }) {
     const [search, setSearch] = useState([])
     useEffect(() => {
-        getPostB("", "", 1, 100, "", id).then(res => {
+        getPostB("", "", 1, 200, "", id).then(res => {
             setSearch(res.posts)
         })
     }, [])
