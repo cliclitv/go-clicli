@@ -82,28 +82,3 @@ li {
     list-style: none;
 }
 
-@media screen and (max-width: 600px) {
-    header .search input {
-        width: 100%;
-    }
-
-    header .search {
-        display: none;
-    }
-
-    header h1 {
-        flex: auto !important;
-    }
-
-    header {
-        height: auto !important;
-    }
-
-    header .flex {
-        flex-wrap: wrap;
-    }
-
-    .vip {
-        width: 100%;
-    }
-}
