@@ -1,7 +1,26 @@
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
 
     .ep-wrap2 {
         display: none;
+    }
+
+    .ep-wrap {
+        width: 100%!important;
+        border-radius: 0px!important;
+        height: 57%!important;
+    }
+
+    .p ul{
+       width: 100%!important;
+       height: auto!important; 
+    }
+
+    .player.wrap{
+        flex-wrap: wrap;
+    }
+
+    .info {
+        width: 100%!important;
     }
 
     .imglist {
@@ -9,23 +28,23 @@
     }
 
     .wrap {
-        width: 100%!important;
+        width: 100% !important;
     }
 
-    .a li{
-        width: 50%;
-    }
-
-    .b li{
+    .a li {
         width: 50%!important;
     }
 
+    .b li {
+        width: 50% !important;
+    }
+
     header .search input {
-        width: 100%!important;
+        width: 100% !important;
     }
 
     header .search {
-       margin-right: 100px;
+        margin-right: 100px;
     }
 
     header h1 {
@@ -42,5 +61,20 @@
 
     .vip {
         width: 100%;
+    }
+
+    article {
+        width: 100%!important;
+        box-sizing: border-box;
+    }
+
+    .upload{
+        width: 100%!important;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .upload .title input{
+        width: 100%!important;
     }
 }
