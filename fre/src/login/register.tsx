@@ -12,7 +12,7 @@ export default function Register({ id }) {
     const [loading, setLoading] = useState(false)
     const [level, setLevel] = useState(0)
     const [uid, setUid] = useState(0)
-    const [time, setTime] = useState(null)
+    const [sign, setSign] = useState(null)
 
     useEffect(() => {
         if (id) {
@@ -22,7 +22,7 @@ export default function Register({ id }) {
                 setQQ(user.result.qq)
                 setUid(user.result.id)
                 setLevel(user.result.level)
-                setTime(user.result.time)
+                setSign(user.result.sign)
             })
         }
 
@@ -45,10 +45,14 @@ export default function Register({ id }) {
         setLevel(v)
     }
 
+    function changeSign(v) {
+        setSign(v)
+    }
+
     async function register() {
         if (id != null) {
             console.log('修改用户')
-            updateUser({ id: uid, name, qq, pwd, level: level}).then(res => {
+            updateUser({ id: uid, name, qq, pwd, level: level, sign: sign}).then(res => {
                 if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }
@@ -60,7 +64,7 @@ export default function Register({ id }) {
             return
         }
         setLoading(true)
-        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, time: 0, sign: "" })
+        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, time: 0, sign: "这个人很懒，什么都没有留下~" })
         setLoading(false)
         if(res.code === 200){
             alert("注册成功啦~")
@@ -77,6 +81,8 @@ export default function Register({ id }) {
         <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} value={qq} /></li>
         <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} value={name} /></li>
         <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => changePwd(e.target.value)} /></li>
+        <li><input type="text" placeholder="签名" onInput={(e) => changeSign(e.target.value)} value={sign} /></li>
+
         {id && <select value={level} onInput={e => changeLevel(e.target.value)}>
             <option value="1">游客</option>
             <option value="2">作者</option>
