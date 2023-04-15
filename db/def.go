@@ -10,6 +10,16 @@ type Pea struct {
 	Pea int `json:"pea"`
 }
 
+type Fan struct {
+	Uid  int `json:"uid"`
+	Follow int `json:"follow"`
+}
+
+type FanCount struct {
+	Following  int `json:"following"`
+	Followed int `json:"followed"`
+}
+
 type Play struct {
 	MType  string    `json:"mtype"`
 	Url string `json:"url"`
