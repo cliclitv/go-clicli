@@ -129,7 +129,7 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Time: resp.Time}
+	res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Time: resp.Time, Sign: resp.Sign}
 	sendUserResponse(w, res, 200, "")
 
 }
