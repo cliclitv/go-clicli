@@ -5,11 +5,11 @@ import (
 )
 
 func GetFanCount(uid int) (*FanCount, error) {
-	stmtCount, err := dbConn.Prepare("SELECT Count(*) FROM fan WHERE uid = $1")
-	stmtCount, err2 := dbConn.Prepare("SELECT Count(*) FROM fan WHERE follow = $1")
+	stmtCount, err := dbConn.Prepare("SELECT COUNT(*) FROM fan WHERE uid = $1")
+	stmtCount2, err2 := dbConn.Prepare("SELECT COUNT(*) FROM fan WHERE follow = $1")
 	var following, followed int
 	err = stmtCount.QueryRow(uid).Scan(&following)
-	err2 = stmtCount.QueryRow(uid).Scan(&followed)
+	err2 = stmtCount2.QueryRow(uid).Scan(&followed)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -25,27 +25,43 @@ func GetFanCount(uid int) (*FanCount, error) {
 	return res, nil
 }
 
-func Follow(uid int, follow int) (*Fan, error) {
-	stmtIns, err := dbConn.Prepare("INSERT INTO up (uid,follow) VALUES ($1,$2) ON conflict(uid) DO UPDATE SET follow=$3")
+func CheckFans(from int, to int) (int, error) {
+	stmt, err := dbConn.Prepare("SELECT COUNT(*) FROM fan WHERE (uid = $1 AND follow = $2)")
+	if err != nil {
+		return 0, err
+	}
+	var count int
+	err = stmt.QueryRow(from, to).Scan(&count)
+	if err != nil {
+		return 0, err
+	}
+	defer stmt.Close()
+	
+	return count, nil
+}
+
+
+func Follow(from int, to int) (*Fan, error) {
+	stmtIns, err := dbConn.Prepare("INSERT INTO fan (uid,follow) VALUES ($1,$2)")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmtIns.Exec(uid, follow,follow)
+	_, err = stmtIns.Exec(from, to)
 	if err != nil {
 		return nil, err
 	}
 	defer stmtIns.Close()
 
-	res := &Fan{Uid: uid, Follow: follow}
+	res := &Fan{From: from, To: to}
 	return res, nil
 }
 
-func Unfollow(uid int, follow int) error {
-	stmtDel, err := dbConn.Prepare("DELETE FROM users WHERE uid =$1 & follow = $2")
+func Unfollow(from int, to int) error {
+	stmtDel, err := dbConn.Prepare("DELETE FROM fan WHERE uid =$1 AND follow = $2")
 	if err != nil {
 		return err
 	}
-	_, err = stmtDel.Exec(uid, follow)
+	_, err = stmtDel.Exec(from, to)
 	if err != nil {
 		return err
 	}

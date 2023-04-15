@@ -11,8 +11,8 @@ type Pea struct {
 }
 
 type Fan struct {
-	Uid  int `json:"uid"`
-	Follow int `json:"follow"`
+	From  int `json:"uid"`
+	To int `json:"follow"`
 }
 
 type FanCount struct {
