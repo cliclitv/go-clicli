@@ -32,21 +32,23 @@ func Follow(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 	}
 
-	if count == 0 {
-		// 两个人没有关系
-		_, err:= db.Follow(ubody.From, ubody.To)
-		
-		if err!= nil{
-			sendMsg(w, 500, fmt.Sprintf("%s", err))
-		}
-	}else{
-		err:= db.Unfollow(ubody.From, ubody.To)
-		
-		if err!= nil{
-			sendMsg(w, 500, fmt.Sprintf("%s", err))
+	if (ubody.Check == false){
+		if count == 0 {
+			// 两个人没有关系
+			_, err:= db.Follow(ubody.From, ubody.To)
+			
+			if err!= nil{
+				sendMsg(w, 500, fmt.Sprintf("%s", err))
+			}
+		}else{
+			err:= db.Unfollow(ubody.From, ubody.To)
+			
+			if err!= nil{
+				sendMsg(w, 500, fmt.Sprintf("%s", err))
+			}
 		}
 	}
-	sendMsg(w, 200, fmt.Sprintf("%s", count))
+	sendMsg(w, 200, fmt.Sprintf("%d", count))
 
 }
 

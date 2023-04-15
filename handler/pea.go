@@ -13,6 +13,7 @@ import (
 type Fstruct struct  {
 	From  int `json:"from"`
 	To int `json:"to"`
+	Check bool `json:"check,omitempty"`
 }
 
 func GetPea(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
