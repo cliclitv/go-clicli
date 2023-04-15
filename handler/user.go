@@ -66,12 +66,11 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			return
 		}
 
-		res := &db.User{Id: resp.Id, Name: resp.Name, Level: resp.Level, QQ: resp.QQ, Time: resp.Time}
 		resStr, err := json.Marshal(struct {
 			Code  int      `json:"code"`
 			Token string   `json:"token"`
 			User  *db.User `json:"user"`
-		}{Code: 200, Token: token, User: res})
+		}{Code: 200, Token: token, User: resp})
 
 		if err != nil {
 			fmt.Println(err)
