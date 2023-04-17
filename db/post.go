@@ -119,7 +119,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 
-	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v",query, len(slice)+1, len(slice)+2)
+	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v",query, len(slice)+1, len(slice)+2)
 
 	slice = append(slice,pageSize,start)
 
@@ -139,13 +139,12 @@ if err2 != nil {
 
 	for rows.Next() {
 		var id, uid int
-		var title, content, status, sort, tag, ctime, uname, uqq string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &uid, &uname, &uqq); err != nil {
+		var title, content, status, sort, tag, ctime, uname, uqq, videos string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime,&videos, &uid, &uname, &uqq); err != nil {
 			log.Println(err)
-			log.Println("2")
 			return res, err
 		}
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos,Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
