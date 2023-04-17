@@ -19,11 +19,6 @@ func Follow(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	if ubody.From == ubody.To {
-		sendMsg(w, 500, "自己不能关注自己")
-		return
-	}
-
 	// 先查询状态
 	count,err := db.CheckFans(ubody.From, ubody.To)
 
@@ -33,6 +28,10 @@ func Follow(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	if (ubody.Check == false){
+		if ubody.From == ubody.To {
+			sendMsg(w, 500, "自己不能关注自己")
+			return
+		}
 		if count == 0 {
 			// 两个人没有关系
 			_, err:= db.Follow(ubody.From, ubody.To)
