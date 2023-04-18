@@ -174,7 +174,7 @@ func SearchPosts(key string) ([]*Post, error) {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime,Videos:videos, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
@@ -182,7 +182,7 @@ func SearchPosts(key string) ([]*Post, error) {
 }
 
 func GetRank() ([]*Post, error) {
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, users.id, users.name, users.qq FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 10")
 
 	var res []*Post
 
@@ -196,13 +196,13 @@ func GetRank() ([]*Post, error) {
 	defer stmt.Close()
 
 	for rows.Next() {
-		var id int
-		var title, content, status, sort, tag, ctime, videos string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos); err != nil {
+		var id, uid int
+		var title, content, status, sort, tag, ctime, videos, uname, uqq string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos,&uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos,Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
