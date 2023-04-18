@@ -91,6 +91,7 @@ func RegisterHandler() *httprouter.Router {
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(html))
 	})
+	
 
 	return router
 }
