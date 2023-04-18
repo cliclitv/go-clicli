@@ -154,7 +154,7 @@ if err2 != nil {
 
 func SearchPosts(key string) ([]*Post, error) {
 	key = string("%" + key + "%")
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
 
 	var res []*Post
 
@@ -169,8 +169,8 @@ func SearchPosts(key string) ([]*Post, error) {
 
 	for rows.Next() {
 		var id, uid int
-		var title, content, status, sort, tag, ctime, uname, uqq string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &uid, &uname, &uqq); err != nil {
+		var title, content, status, sort, tag, ctime, uname, uqq,videos string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
@@ -182,7 +182,7 @@ func SearchPosts(key string) ([]*Post, error) {
 }
 
 func GetRank() ([]*Post, error) {
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 10")
 
 	var res []*Post
 
@@ -197,8 +197,8 @@ func GetRank() ([]*Post, error) {
 
 	for rows.Next() {
 		var id int
-		var title, content, status, sort, tag, ctime string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime); err != nil {
+		var title, content, status, sort, tag, ctime, videos string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos); err != nil {
 			return res, err
 		}
 
