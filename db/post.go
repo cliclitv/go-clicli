@@ -175,7 +175,7 @@ func SearchPosts(key string) ([]*Post, error) {
 }
 
 func FollowPosts(fid int) ([]*Post, error) {
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.uid in (SELECT fan.follow FROM fan WHERE fan.uid=$1) ORDER BY posts.time DESC LIMIT 100")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.uid in (SELECT fan.follow FROM fan WHERE fan.uid=$1) ORDER BY posts.time DESC LIMIT 40")
 
 	var res []*Post
 
