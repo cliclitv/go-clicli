@@ -86,12 +86,12 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	var query string
 	var slice []interface{}
-	if status != "" && status != "nowait" {
+	if status != "" {
 		slice = append(slice, status)
 		query += fmt.Sprintf(" AND posts.status =$%d", len(slice))
 	}
 
-	if sort != "" && sort != "bgm" {
+	if sort != "" {
 		slice = append(slice, sort)
 		query += fmt.Sprintf(" AND posts.sort =$%d", len(slice))
 	}
@@ -99,13 +99,6 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	if uid != 0 {
 		slice = append(slice, uid)
 		query += fmt.Sprintf(" AND posts.uid =$%d", len(slice))
-	}
-
-	if sort == "bgm" {
-		query += ` AND NOT posts.sort='原创'`
-	}
-	if status == "nowait" {
-		query += ` AND NOT posts.status='wait'`
 	}
 
 	if len(tags) != 0 {
@@ -159,6 +152,34 @@ func SearchPosts(key string) ([]*Post, error) {
 	var res []*Post
 
 	rows, err := stmt.Query(key, key)
+	if err != nil {
+		return res, err
+	}
+	
+	defer rows.Close()
+
+	defer stmt.Close()
+
+	for rows.Next() {
+		var id, uid int
+		var title, content, status, sort, tag, ctime, uname, uqq,videos string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
+			return res, err
+		}
+
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime,Videos:videos, Uid: uid, Uname: uname, Uqq: uqq}
+		res = append(res, c)
+	}
+
+	return res, nil
+}
+
+func FollowPosts(fid int) ([]*Post, error) {
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.uid in (SELECT fan.follow FROM fan WHERE fan.uid=$1) ORDER BY posts.time DESC LIMIT 100")
+
+	var res []*Post
+
+	rows, err := stmt.Query(fid)
 	if err != nil {
 		return res, err
 	}

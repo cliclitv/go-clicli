@@ -98,7 +98,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	token := r.Header.Get("token")
 	err := Auth(pint, token, 1) // uid 为原作者 uid
 
-	if err!= nil {
+	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}

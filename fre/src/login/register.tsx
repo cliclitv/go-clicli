@@ -2,7 +2,7 @@ import { h, useState, useEffect } from 'fre'
 import { A, push } from '../use-route'
 import { post } from '../util/post'
 import './login.css'
-import { getUserB, updateUser } from '../util/api'
+import { getUser, getUserB, updateUser } from '../util/api'
 
 export default function Register({ id }) {
 
@@ -52,7 +52,7 @@ export default function Register({ id }) {
     async function register() {
         if (id != null) {
             console.log('修改用户')
-            updateUser({ id: uid, name, qq, pwd, level: level, sign: sign}).then(res => {
+            updateUser({ id: uid, name, qq, pwd, level: level, sign: sign }).then(res => {
                 if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }
@@ -66,9 +66,9 @@ export default function Register({ id }) {
         setLoading(true)
         const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, time: 0, sign: "这个人很懒，什么都没有留下~" })
         setLoading(false)
-        if(res.code === 200){
+        if (res.code === 200) {
             alert("注册成功啦~")
-        }else{
+        } else {
             alert(res.msg)
         }
     }
@@ -83,7 +83,7 @@ export default function Register({ id }) {
         <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => changePwd(e.target.value)} /></li>
         <li><input type="text" placeholder="签名" onInput={(e) => changeSign(e.target.value)} value={sign} /></li>
 
-        {id && <select value={level} onInput={e => changeLevel(e.target.value)}>
+        {id && getUser().level > 3 && <select value={level} onInput={e => changeLevel(e.target.value)}>
             <option value="1">游客</option>
             <option value="2">作者</option>
             <option value="3">审核</option>

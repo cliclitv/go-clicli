@@ -119,6 +119,20 @@ func SearchPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 }
 
+func FollowPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fid, _ := strconv.Atoi(r.URL.Query().Get("fid"))
+
+	resp, err := db.FollowPosts(fid)
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	} else {
+		res := &db.Posts{Posts: resp}
+		sendPostsResponse(w, res, 200)
+	}
+
+}
+
 func GetRank(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	resp, err := db.GetRank()
 	if err != nil {
