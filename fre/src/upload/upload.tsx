@@ -2,6 +2,8 @@ import { render, useState, h, useEffect, useRef } from "fre"
 import { addPost, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
 import './upload.css'
 
+let lock = false;
+
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
     const [vid, setVid] = useState(0)
@@ -43,19 +45,27 @@ export default function Upload(props) {
 
     }
 
+
     function submit() {
-        if (!post.title || !post.content || !post.sort || !post.tag){
+        if (lock) {
+            return
+        }
+        if (!post.title || !post.content || !post.sort || !post.tag) {
             alert("都要填")
             return
         }
+        lock = true
         if (props.id > 0) {
             updatePost(post as any).then(res => {
+                lock = false
                 alert(res.msg || '成功啦~')
             })
         } else {
             console.log(post)
             addPost(post as any).then(res => {
-                alert(res.msg || '成功啦')
+                lock = false
+                alert(res.msg + 'gv号：' res.result.id)
+
             })
         }
     }
