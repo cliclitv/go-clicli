@@ -58,7 +58,7 @@ export default function Upload(props) {
         if (props.id > 0) {
             updatePost(post as any).then(res => {
                 lock = false
-                alert(res.msg || '成功啦~')
+                alert(res.msg + ' gv号：' + res.result.id)
             })
         } else {
             console.log(post)
