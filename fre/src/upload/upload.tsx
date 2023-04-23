@@ -64,7 +64,7 @@ export default function Upload(props) {
             console.log(post)
             addPost(post as any).then(res => {
                 lock = false
-                alert(res.msg + 'gv号：' res.result.id)
+                alert(res.msg + ' gv号：' + res.result.id)
 
             })
         }
