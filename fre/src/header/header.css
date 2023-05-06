@@ -107,6 +107,36 @@ footer {
     overflow: hidden;
 }
 
+footer a{
+    display: block;
+}
+
+footer h1 {
+    color: var(--theme);
+}
+
+footer ul {
+    /* display: flex; */
+    padding-bottom: 30px;
+}
+
+footer ul li {
+    text-align: center;
+    padding: 15px 30px;
+    background: rgba(148, 108, 230, 0.2);
+    display: inline-block;
+    margin: 20px auto;
+    border-radius: 4px;
+    transition: 0.5s;
+    color: var(--theme);
+    cursor: pointer;
+}
+
+footer ul li:hover {
+    background: #7e5fd9;
+    color: #fff;
+}
+
 .icon-dadou {
     color: #ffc100;
 }
@@ -115,14 +145,14 @@ footer img {
     width: 100px;
 }
 
-footer p{
+footer p {
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: center;
 }
 
-h1 span{
+h1 span {
     color: var(--tm-theme);
     font-size: 40px;
 }

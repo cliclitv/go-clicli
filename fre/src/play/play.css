@@ -3,6 +3,9 @@
     margin: 0 auto;
     display: flex;
     margin-top: 20px;
+    box-shadow: 2px 2px 10px #b3a5de;
+    border: 1px solid #7e5fd9;
+
 }
 
 .ep-wrap {
@@ -84,9 +87,9 @@
     flex: 1;
 }
 
-.xiangqing p{
+.xiangqing p {
     font-size: 36px;
-    color: #946ce6!important;
+    color: #946ce6 !important;
     padding: 0;
     cursor: pointer;
     padding-right: 20px;
@@ -96,17 +99,17 @@
     padding-bottom: 20px;
 }
 
-.avatar-wrap{
+.avatar-wrap {
     display: flex;
     align-items: center;
     width: 360px;
 }
 
-.avatar-wrap .avatar{
+.avatar-wrap .avatar {
     flex: 1;
 }
 
-.avatar-wrap li{
+.avatar-wrap li {
     cursor: pointer;
     font-size: 16px;
     color: var(--theme);
