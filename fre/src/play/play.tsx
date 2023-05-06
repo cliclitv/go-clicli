@@ -33,9 +33,10 @@ export default function Post({ gv }) {
     }, [])
 
 
-    const changeid = (id) => {
-        setPlay(videos[id][1])
-        setId(id)
+    const changeid = (i) => {
+        setPlay(videos[i][1])
+        getPv(id)
+        setId(i)
     }
 
     const oth = (post.tag || "").indexOf('其它') < 0
@@ -93,6 +94,7 @@ export function Eplayer(props) {
             const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
             t.current.setAttribute('type', type)
             t.current.setAttribute('src', res.result.url)
+            t.current.shadowRoot.querySelector('video').play()
         })
     }, [props.url])
 

@@ -3,14 +3,13 @@
     margin: 0 auto;
     display: flex;
     margin-top: 20px;
-    box-shadow: 2px 2px 10px #b3a5de;
-    border: 1px solid #7e5fd9;
+    box-shadow: 0 1px 8px rgba(0,0,0,.1);
 
 }
 
 .ep-wrap {
     width: 1000px;
-    border-radius: 10px 0 0 10px;
+    border-radius: 5px 0 0 5px;
     height: 562.5px;
     overflow: hidden;
     position: relative
@@ -18,7 +17,7 @@
 
 .player {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .p {
