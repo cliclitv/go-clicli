@@ -21,6 +21,14 @@
 .p {
     padding: 0 10px;
     box-sizing: border-box;
+    width: 360px;
+    position: relative;
+
+}
+
+.p h1 {
+    padding: 0 10px;
+    font-size: 20px !important;
 
 }
 
@@ -31,32 +39,78 @@
 
 .p ul li {
     line-height: 40px;
-    text-align: center;
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+    border-radius: 5px;
     background: var(--theme-bg);
     color: var(--theme);
     margin: 10px;
     cursor: pointer;
+    padding: 0 10px;
 }
+
+.p ul .active {
+    background: #b692ff;
+    color: #fff;
+}
+
 
 .p ul {
     width: 360px;
     overflow: scroll;
-    height: 480px;
+    height: 400px;
 }
 
 .p .info {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
+    padding: 0;
+    margin: 0;
 }
 
-article {
-    width: 600px;
-    padding: 20px;
+.article {
+    width: 340px;
+    padding: 0 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 560px;
+    overflow: scroll;
+    background: #fff;
+}
+
+.xiangqing {
+    display: flex;
+    align-items: center;
+}
+
+.xiangqing li {
+    flex: 1;
+}
+
+.xiangqing p{
+    font-size: 36px;
+    color: #946ce6!important;
+    padding: 0;
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+.article h1 {
+    padding-bottom: 20px;
+}
+
+.avatar-wrap{
+    display: flex;
+    align-items: center;
+    width: 360px;
+}
+
+.avatar-wrap .avatar{
+    flex: 1;
+}
+
+.avatar-wrap li{
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--theme);
+    padding-right: 10px;
 }
 
 article img[alt=suo] {
@@ -131,8 +185,7 @@ article a {
 }
 
 .info .tag {
-    display: flex;
-    align-items: center;
+    display: inline-block;
 }
 
 .info .tags li {
@@ -179,7 +232,7 @@ article a {
     left: 50%;
     transform: translate(-50%, -50%);
     background-image: url(https://p5.music.126.net/obj/wo3DlcOGw6DClTvDisK1/4602256867/5855/63fb/325b/d7e4e3a244701ee85fecb5d4f6b5bd57.png?imageView=&quality=75&thumbnail=200y200);
-    
+
 }
 
 .poster img {
@@ -192,9 +245,7 @@ article a {
     animation-play-state: paused;
 }
 
-.poster:before {
-    
-}
+.poster:before {}
 
 @keyframes rotate {
     0% {

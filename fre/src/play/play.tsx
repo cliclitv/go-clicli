@@ -14,6 +14,7 @@ export default function Post({ gv }) {
     const [pv, setPv] = useState("")
     const a = useRef({} as any)
     const [show, setShow] = useState(false)
+    const [idx, setId] = useState(0)
 
     useEffect(() => {
         const p1 = getPostDetail(id)
@@ -34,6 +35,7 @@ export default function Post({ gv }) {
 
     const changeid = (id) => {
         setPlay(videos[id][1])
+        setId(id)
     }
 
     const oth = (post.tag || "").indexOf('其它') < 0
@@ -45,29 +47,37 @@ export default function Post({ gv }) {
                     <Eplayer url={play}></Eplayer>
                 </div>
                 <div className="p">
-                    <Avatar uqq={post.uqq} uname={post.uname} utime={post.utime} />
+                    <div className="info">
+                        <div>
+                            <div class='avatar-wrap'> <Avatar uqq={post.uqq} /> <li onclick={() => setShow(!show)}>详情{' >'}</li></div>
+
+                            <h1>{post.title}                             <span>{pv} ℃</span>
+                            </h1>
+                        </div>
+                        <div className="tag">
+                            <div className="tags">
+                                {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
+                                    return <li>{tag}</li>
+                                })}
+                                {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
+                            </div>
+                        </div>
+                        {<div class='article' style={{ display: (show || !oth) ? 'block' : 'none' }}>
+                            <div class='xiangqing'>
+                                <li>详情</li><p onClick={() => setShow(false)}>×</p>
+                            </div>
+                            <article ref={a}></article>
+                        </div>}
+
+                    </div>
                     <ul>
                         {videos.map((name, index) => {
-                            return <li onClick={() => changeid(index)}>{index + 1}</li>
+                            return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
                         })}
                     </ul>
                 </div>
             </div>) : <div></div>}
-            <div className="info">
-                <h1>{post.title}</h1>
-                <div className="tag">
-                    <p>{pv} ℃</p>
-                    <div className="tags">
-                        {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
-                            return <li>{tag}</li>
-                        })}
-                        <li onclick={() => setShow(!show)}>展开详情 {show ? '⯅' : '⯆'}</li>
-                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
-                    </div>
-                </div>
-                {<article ref={a} style={{ display: (show || !oth) ? 'block' : 'none' }}></article>}
 
-            </div>
         </main>
     )
 }
