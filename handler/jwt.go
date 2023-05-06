@@ -2,10 +2,11 @@ package handler
 
 import (
 	"errors"
-	jwt "github.com/golang-jwt/jwt/v4"
-	"time"
 	"fmt"
+	"time"
+
 	"github.com/cliclitv/go-clicli/db"
+	jwt "github.com/golang-jwt/jwt/v4"
 )
 
 var Key = []byte("clicli")
@@ -60,7 +61,7 @@ func Auth(uid int, token string, level int) error {
 
 	if userClaims.Level < level {
 		// 都要大于2
-		return errors.New("没有权限");
+		return errors.New("没有权限")
 	}
 
 	if user.Name == userClaims.Name {
@@ -74,11 +75,17 @@ func Auth(uid int, token string, level int) error {
 		return err
 	}
 
-	if userClaims.Level >= user.Level {
-		// 编辑者权限 > 作者权限
-		return nil
+	if level == 1 {
+		if userClaims.Level >= user.Level {
+			// 编辑者权限 > 作者权限
+			return nil
+		}
+	} else {
+		if userClaims.Level >= 3 {
+			// 编辑者权限 > 作者权限
+			return nil
+		}
 	}
 
 	return errors.New("权限不足")
 }
-
