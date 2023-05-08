@@ -25,7 +25,8 @@
     box-sizing: border-box;
     width: 360px;
     position: relative;
-
+    width: 562px;
+    overflow: scroll;
 }
 
 .p h1 {
@@ -57,8 +58,6 @@
 
 .p ul {
     width: 360px;
-    overflow: scroll;
-    height: 400px;
 }
 
 .p .info {
