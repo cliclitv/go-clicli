@@ -60,6 +60,8 @@
 
 .tags {
     margin: 10px 0;
+    width: 360px;
+    display: inline-block;
 }
 
 .tags li {
