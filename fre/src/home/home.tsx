@@ -24,8 +24,6 @@ export default function Home() {
         })
     }, [])
 
-    console.log(recommend)
-
     useEffect(() => {
         recommend.length > 0 && getPostDetail(recommend[index].id).then(res => {
             const videos = res.result.videos
