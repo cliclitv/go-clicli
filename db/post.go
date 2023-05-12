@@ -58,15 +58,15 @@ func DeletePost(id int) error {
 
 func GetPost(id int) (*Post, error) {
 	fmt.Println(id)
-	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq,users.time FROM posts 
+	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts 
 INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	if err != nil {
 		return nil, err
 	}
 	var pid, uid int
-	var title, content, status, sort, tag, ctime, uname, uqq,utime, videos string
+	var title, content, status, sort, tag, ctime, uname, uqq, videos string
 
-	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq, &utime)
+	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
