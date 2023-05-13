@@ -27,10 +27,17 @@ export default function Post({ gv }) {
                 setPlay(videos[0][1])
             }
             setPv((res2 as any).result.pv)
-            a.current.innerHTML = snarkdown((res1 as any).result.content)
+            // a.current.innerHTML = snarkdown((res1 as any).result.content)
         })
 
     }, [])
+
+    useEffect(() => {
+        const a = document.querySelector('article')
+        if (post.content) {
+            a.innerHTML = snarkdown(post?.content)
+        }
+    }, [post])
 
 
     const changeid = (i) => {
@@ -40,7 +47,6 @@ export default function Post({ gv }) {
     }
 
     const oth = (post.tag || "").indexOf('其它') < 0
-
     return (
         <main>
             {oth ? (<div class="wrap player">
@@ -52,7 +58,7 @@ export default function Post({ gv }) {
                         <div>
                             <div class='avatar-wrap'> <Avatar uqq={post.uqq} /> <li onclick={() => setShow(!show)}>详情{' >'}</li></div>
 
-                            <h1>{post.title}                             <span>{pv} ℃</span>
+                            <h1>{post.title}<span>{pv} ℃</span>
                             </h1>
                         </div>
                         <div className="tag">
@@ -77,7 +83,17 @@ export default function Post({ gv }) {
                         })}
                     </ul>
                 </div>
-            </div>) : <div></div>}
+            </div>) : (
+
+                <div class='article2'>
+                    <div>
+                        <Avatar uqq={post.uqq} />
+                        <h1>{post.title}</h1>
+                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
+                    </div>
+                    <article></article>
+                </div>
+            )}
 
         </main>
     )
@@ -94,7 +110,8 @@ export function Eplayer(props) {
             const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
             t.current.setAttribute('type', type)
             t.current.setAttribute('src', res.result.url)
-            t.current.shadowRoot.querySelector('video').play()
+            // t.current?.shadowRoot?.querySelector('video')?.play()
+
         })
     }, [props.url])
 

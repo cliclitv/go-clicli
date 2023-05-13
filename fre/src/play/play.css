@@ -3,7 +3,7 @@
     margin: 0 auto;
     display: flex;
     margin-top: 20px;
-    box-shadow: 0 1px 8px rgba(0,0,0,.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .1);
 
 }
 
@@ -256,4 +256,20 @@ article a {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.article2 {
+    padding: 30px;
+    background: #fff;
+    border-radius: 4px;
+    width: 960px;
+    margin: 20px auto;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .1);
+}
+
+.article2 div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
