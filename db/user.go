@@ -8,7 +8,7 @@ import (
 
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
 	pwd = util.Cipher(pwd)
-	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign) VALUES ($1,$2,$3,$4)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO users (name,pwd,level,qq,sign) VALUES ($1,$2,$3,$4,$5)")
 	if err != nil {
 		return err
 	}
