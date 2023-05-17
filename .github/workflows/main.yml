@@ -12,8 +12,6 @@ jobs:
           yarn
           yarn build
           cd ../
-      - name: build tm
-      - run: |
           cd tm
           yarn
           yarn build
