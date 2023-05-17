@@ -101,15 +101,16 @@ func RegisterHandler() *httprouter.Router {
 	router.ServeFiles("/assets2/*filepath", http.FS(fsys2))
 
 	// router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
-	// router.Handler("GET", "/tm", http.FileServer(http.FS(fsys2)))	
+	// router.Handler("GET", "/tm", http.FileServer(http.FS(fsys2)))
 
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		origin := r.Host
-		fmt.Println(origin)
-		if origin == "www.clicli.cc" || origin == "localhost:4000" {
-			w.Write([]byte(cli_index))
-		} else {
+		host := r.Host
+		fmt.Println(host)
+		if host == "www.tm0.net" {
 			w.Write([]byte(tm_index))
+
+		} else {
+			w.Write([]byte(cli_index))
 		}
 
 	})
