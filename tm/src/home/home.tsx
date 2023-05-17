@@ -40,7 +40,7 @@ export default function Home() {
             <div class="wrap home">
                 <div className="left">
                     <div className="swiper">
-                        <img src={getSuo(tip.content)} alt="" />
+                        <img src={getSuo(tip.content)} />
                         <p>{tip.title}</p>
                     </div>
                     <h1>短篇强推</h1>

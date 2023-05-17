@@ -11,7 +11,7 @@ export function getAvatar(avatar) {
 }
 
 export function getSuo(content) {
-  if (!content) return ""
+  if (!content) return "https://ae01.alicdn.com/kf/U6751d35799cc4d06965aa7b1879e0fc6i.jpg"
   let m = content.match(/suo(.+?)\)/i)
   return m ? m[1].slice(2) : 'https://cdn-us.imgs.moe/2023/02/27/63fcb180cbb30.jpg'
 }
