@@ -6,13 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: build fe
       - uses: actions/checkout@v3
       - run: |
           cd fre
           yarn
           yarn build
-          cd ../
-          cd tm
+          cd ../tm
           yarn
           yarn build
           cd ../
