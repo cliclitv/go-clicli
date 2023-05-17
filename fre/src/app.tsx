@@ -10,14 +10,11 @@ const routes = {
     '/login': import('./login/login'),
     '/register': import('./login/register'),
     '/upload/:id': import('./upload/upload'),
-    '/publish/:id': import('./tm-upload/upload'),
     '/play/:gv': import('./play/play'),
     '/search/:k': import('./search/search'),
     '/user/:id': import('./login/register'),
     '/recharge': import('./recharge/recharge'),
     '/my/:id': import('./admin/admin'),
-    '/article/:id': import('./tm-article/article'),
-    '/add-article/:pid': import('./tm-article/article'),
 }
 
 const App = () => {
