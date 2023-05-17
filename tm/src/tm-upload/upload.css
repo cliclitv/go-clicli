@@ -97,6 +97,12 @@
     background: #f2f2f2;
 }
 
+.options input{
+    border: none;
+    background: #f2f2f2;
+    padding: 2px 5px;
+}
+
 .upload-tm-video {
     padding: 10px;
     background: #f2f2f2;
