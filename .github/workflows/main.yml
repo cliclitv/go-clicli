@@ -12,6 +12,11 @@ jobs:
           yarn
           yarn build
           cd ../
+      - name: build tm
+          cd tm
+          yarn
+          yarn build
+          cd ../
       
       - name: Set up Go
         uses: actions/setup-go@v3
