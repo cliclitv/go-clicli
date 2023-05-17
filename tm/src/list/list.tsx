@@ -17,7 +17,7 @@ export function ListA({ posts, editor }) {
     return <section className="a">
         {posts && posts.length > 0 && posts.map(item => {
             return <li onClick={() => {
-                !editor && push(`/play/gv${item.id}`)
+                !editor && push(`/book/tm${item.id}`)
             }} key={item.id} >
                 <div className="item">
                     <div className="cover">
@@ -35,7 +35,7 @@ export function ListA({ posts, editor }) {
 export function ListB({ posts }) {
     return <section className="b">
         {posts && posts.length > 0 && posts.map(item => {
-            return <li onClick={() => push(`/play/gv${item.id}`)} key={item.id} >
+            return <li onClick={() => push(`/book/tm${item.id}`)} key={item.id} >
                 <div className="item">
                     <div className="cover">
                         <img src={getSuo(item.content)} />

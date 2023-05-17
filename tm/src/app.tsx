@@ -11,6 +11,7 @@ const routes = {
     '/register': import('./login/register'),
     '/publish/:id': import('./tm-upload/upload'),
     '/search/:k': import('./search/search'),
+    '/book/:pid':import('./book/book'),
     '/user/:id': import('./login/register'),
     '/recharge': import('./recharge/recharge'),
     '/my/:id': import('./admin/admin'),
