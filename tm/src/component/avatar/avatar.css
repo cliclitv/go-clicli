@@ -1,0 +1,28 @@
+.avatar {
+    margin: 20px 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.avatar p {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.avatar img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    /* margin-right: 20px; */
+}
+
+.avatar b{
+    display: block;
+    position: absolute;
+    background-size: cover;
+    height: 60px;
+    width: 60px;
+    left: -10px;
+    bottom: -8px;
+}

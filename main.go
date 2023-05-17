@@ -5,27 +5,36 @@ import (
 	"fmt"
 	"io/fs"
 	"net/http"
+
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 )
 
 //go:embed fre/dist
-var embededFiles embed.FS
+var cli_files embed.FS
+
+//go:embed tm/dist
+var tm_files embed.FS
 
 //go:embed fre/dist/index.html
-var html string
+var cli_index string
+
+//go:embed tm/dist/index.html
+var tm_index string
 
 type middleWareHandler struct {
 	r *httprouter.Router
 }
 
-var whiteOrigins = [6]string{
+var whiteOrigins = [8]string{
 	"https://www.clicli.cc",
 	"https://clicli.cc",
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
 	"https://www.cli.plus",
-	"https://clicdn.deno.dev",
+	"https://www.tm0.net",
+	"http://localhost:4000",
+	"http://localhost:6000",
 }
 
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
@@ -85,14 +94,25 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/article", handler.GetArticleByOid)
 	router.GET("/articles", handler.GetArticles)
 
-	fsys, _ := fs.Sub(embededFiles, "fre/dist")
+	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
-	router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
+
+	fsys2, _ := fs.Sub(tm_files, "tm/dist")
+	router.ServeFiles("/assets2/*filepath", http.FS(fsys2))
+
+	// router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
+	// router.Handler("GET", "/tm", http.FileServer(http.FS(fsys2)))	
 
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(html))
+		origin := r.Host
+		fmt.Println(origin)
+		if origin == "www.clicli.cc" || origin == "localhost:4000" {
+			w.Write([]byte(cli_index))
+		} else {
+			w.Write([]byte(tm_index))
+		}
+
 	})
-	
 
 	return router
 }

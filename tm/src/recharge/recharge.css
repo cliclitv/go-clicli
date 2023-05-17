@@ -1,0 +1,56 @@
+.qrcode {
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.vip {
+    margin: 30px auto;
+    max-width: 700px;
+    text-align: center;
+}
+
+
+.vip ul li {
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--cyan);
+    background: #FFDACD;
+    margin: 15px;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.vip ul .active {
+    background: var(--cyan);
+    color: #fff;
+}
+
+/* .vip input {
+    padding: 10px;
+    border: none;
+} */
+
+.vip .userinfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.vip .userinfo input {
+    border-radius: 19px;
+    padding: 10px;
+    border: 1px solid var(--cyan);
+    flex: 1;
+}
+
+.vip p{
+    color: var(--cyan);
+    padding-bottom: 10px;
+    font-weight: bold;
+    margin: 5px;
+}
