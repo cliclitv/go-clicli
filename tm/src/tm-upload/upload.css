@@ -8,6 +8,7 @@
 
 .upload-tm h1 {
     color: var(--tm-theme);
+    padding: 10px;
 }
 
 .upload-tm h1 span {
@@ -26,14 +27,13 @@
     resize: vertical;
     font-size: 16px;
     line-height: 20px;
+    background: #f2f2f2;
 }
 
 
 .upload-tm section {
     padding: 10px;
-    background: #fff;
-    border-bottom: 2px solid #f2f2f2;
-    border-radius: 10px 10px 0 0;
+    background: #f2f2f2;
 }
 
 .te {
@@ -46,8 +46,6 @@
 
 .upload-tm .title input {
     padding: 10px 20px;
-    border-radius: 18px;
-    margin: 20px 0;
     border: none;
     width: 800px;
     box-sizing: border-box;
@@ -110,12 +108,10 @@
 .articles li {
     display: inline-block;
     padding: 10px 30px;
+    box-sizing: border-box;
     /* border: 1px solid var(--tm-theme); */
     background: #f2f2f2;
     cursor: pointer;
-    margin: 10px;
     color: var(--tm-theme);
-    border-radius: 5px;
-    border: 1px solid #fff;
-
+    margin: 5px;
 }

@@ -91,7 +91,7 @@ export default function Upload(props) {
             </div>
             <div className="articles">
                 <ul>
-                    {(article || []).map(item => <li onclick={() => push(`/article/${item.id}`)}>{item.title}</li>)}
+                    {(article || []).map((item) => <li onclick={() => push(`/article/${item.id}`)}>{item.oid}. {item.title}</li>)}
                     {props.id > 0 && <li onClick={() => push(`/add-article/${post.id}`)}>增加章节</li>}
                 </ul>
             </div>
