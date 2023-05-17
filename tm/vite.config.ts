@@ -8,7 +8,7 @@ export default ({ mode }) => {
       assetsDir: '',
     },
     server: {
-      port: 6000
+      port: 3000
     },
     esbuild: {
       jsxFactory: 'h',
