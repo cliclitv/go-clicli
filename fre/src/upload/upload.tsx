@@ -23,7 +23,6 @@ export default function Upload(props) {
     }, [])
 
     function change(key, val) {
-        console.log(key, val)
         setPost({
             ...post,
             [key as any]: val,
