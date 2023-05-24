@@ -36,7 +36,6 @@ export default function Header() {
 
     return (
         <header>
-
             <div className="wrap flex">
                 <h1 onclick={() => push('/')}>clicli!</h1>
                 <div className="search">
