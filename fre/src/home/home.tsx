@@ -5,7 +5,7 @@ import { ListB } from '../list/list'
 import './home.css'
 import { buildVideos, Eplayer } from '../play/play'
 import { getSuo } from '../util/avatar'
-import Swiper from '../../swiper/swiper.tsx'
+import Swiper from '../swiper/swiper.tsx'
 
 export default function Home() {
     const [recommend, setRecommend] = useState([])

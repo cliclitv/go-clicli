@@ -2,8 +2,8 @@ import { h, useEffect, useState } from 'fre'
 import BlazeSlider from 'blaze-slider'
 import 'blaze-slider/dist/blaze.css'
 import './swiper.css'
-import { getPost } from '../src/util/api'
-import { getSuo } from '../src/util/avatar'
+import { getPost } from '../util/api'
+import { getSuo } from '../util/avatar'
 
 export default function Swiper() {
     const [list, setList] = useState([])
@@ -16,6 +16,8 @@ export default function Swiper() {
             setList(res.posts)
         })
     }, [])
+    const a = list.slice(0,3);
+    const b = list.slice(3,6)
     return (
         <div class="blaze-slider">
             <div class="blaze-container">
@@ -23,14 +25,14 @@ export default function Swiper() {
                     <div class="blaze-track">
                         <div>
                             <ul>
-                                {list.splice(0,3).map(item=>{
+                                {a.map(item=>{
                                     return <li><img src={getSuo(item.content)} /><p>{item.title}</p></li>
                                 })}
                             </ul>
                         </div>
                         <div>
                             <ul>
-                            {list.splice(0,3).map(item=>{
+                            {b.map(item=>{
                                     return <li><img src={getSuo(item.content)} /><p>{item.title}</p></li>
                                 })}
                             </ul>
