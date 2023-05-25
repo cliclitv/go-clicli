@@ -1,0 +1,80 @@
+.comment {
+    width: 800px;
+    margin: 10px auto;
+
+}
+
+.comment-item {
+    background: var(--theme-bg);
+    border-radius: 30px;
+    border: 2px dashed #cdb4ff;
+    box-sizing: border-box;
+    margin: 20px;
+    box-shadow: 3px 3px #dddade inset;
+    padding: 10px;
+}
+
+.comment h1 span {
+    background: #0000;
+    color: #333;
+    padding: 0;
+    position: relative;
+    top: -5px;
+}
+
+.comment h1 {
+    font-weight: normal;
+}
+
+.comment-item li {
+    display: flex;
+    align-items: center;
+}
+
+.comment-item time {
+    color: #888;
+}
+
+.comment-item p {
+    font-size: 16px;
+    color: var(--theme);
+    padding: 10px;
+}
+
+.comment-input {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    position: relative;
+}
+
+.comment-input input {
+    background: var(--theme-bg);
+    color: var(--pink);
+    height: 46px;
+    border: 0px;
+    border-radius: 30px;
+    padding: 0 10px;
+    flex: 1;
+}
+
+.comment-input button {
+    position: absolute;
+    right: 10px;
+    top: 21px;
+}
+
+.rate ul {
+    display: flex;
+    justify-content: center;
+}
+
+.comment-item ul {
+    display: flex;
+}
+
+.rate .icon-star {
+    font-size: 40px;
+    color: var(--theme);
+    cursor: pointer;
+}

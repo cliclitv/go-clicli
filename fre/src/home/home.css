@@ -4,15 +4,6 @@
     /* display: flex; */
 }
 
-.ep-wrap2 {
-    width: 1300px;
-    border-radius: 10px;
-    height: 731.3px;
-    overflow: hidden;
-    margin: 20px auto;
-    box-shadow: 5px 5px #dddade;
-}
-
 .home h1 {
     font-size: 30px;
     text-align: center;

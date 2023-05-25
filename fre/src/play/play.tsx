@@ -5,6 +5,7 @@ import snarkdown from 'snarkdown'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
+import Comment from '../comment/comment'
 
 export default function Post({ gv }) {
     const id = getAv(gv)
@@ -94,6 +95,8 @@ export default function Post({ gv }) {
                     <article></article>
                 </div>
             )}
+
+            {post.id && <Comment post={post}/>}
 
         </main>
     )

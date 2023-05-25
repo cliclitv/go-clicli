@@ -4,21 +4,22 @@ import { h, useEffect, useState } from 'fre'
 import './swiper.css'
 import { getPost } from '../util/api'
 import { getSuo } from '../util/avatar'
+import { push } from '../use-route'
 
 export default function Swiper() {
-    const [list, setList] = useState([])
+    const [list1, setList1] = useState([])
+    const [list2, setList2] = useState([])
     useEffect(() => {
-        const el = document.querySelector('.blaze-slider')
-        new window.BlazeSlider(el as any)
-    }, [])
-    useEffect(() => {
+
         getPost('', '独播', 1, 6).then((res: any) => {
-            setList(res.posts)
+            setList1(res.posts.slice(0,3))
+            setList2(res.posts.slice(3,6))
+            setTimeout(()=>{
+                const el = document.querySelector('.blaze-slider')
+                new window.BlazeSlider(el as any)
+            })
         })
     }, [])
-    const a = list.slice(0,3);
-    const b = list.slice(3,6)
-    console.log(a,b)
     return (
         <div class="blaze-slider">
             <div class="blaze-container">
@@ -26,15 +27,15 @@ export default function Swiper() {
                     <div class="blaze-track">
                         <div>
                             <ul>
-                                {a.map(item=>{
-                                    return <li><img src={getSuo(item.content)} /><p>{item.title}</p></li>
+                                {list1.map(item=>{
+                                    return <li key={item.id}><img src={getSuo(item.content)} onClick={() => push(`/play/gv${item.id}`)}/><p>{item.title}</p></li>
                                 })}
                             </ul>
                         </div>
                         <div>
                             <ul>
-                            {b.map(item=>{
-                                    return <li><img src={getSuo(item.content)} /><p>{item.title}</p></li>
+                            {list2.map(item=>{
+                                    return <li key={item.id}><img src={getSuo(item.content)} onClick={() => push(`/play/gv${item.id}`)}/><p>{item.title}</p></li>
                                 })}
                             </ul>
                         </div>
