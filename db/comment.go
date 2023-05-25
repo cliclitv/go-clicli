@@ -26,14 +26,8 @@ func GetComments(pid int, uid int, page int, pageSize int) ([]*Comment, error) {
 	start := pageSize * (page - 1)
 	var query string
 
-	if pid == 0 && uid == 0 {
-		// 查找所有评论
-		query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq,posts.title,posts.id FROM comments INNER JOIN users ON comments.uid = users.id LEFT JOIN posts ON comments.pid = posts.id 
-		WHERE comments.pid=$1 OR comments.uid =$2 OR 1=1 ORDER BY time DESC LIMIT $3 OFFSET $4`
-	} else {
-		query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
+	query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.pid=$1 OR comments.uid =$2 ORDER BY time DESC LIMIT $3 OFFSET $4`
-	}
 
 	stmtOut, err := dbConn.Prepare(query)
 
@@ -58,6 +52,42 @@ func GetComments(pid int, uid int, page int, pageSize int) ([]*Comment, error) {
 		}
 
 		c := &Comment{Id: id, Rate: rate, Content: content, Time: ctime, Pid: pid, Uid: uid, Uname: uname, Uqq: uqq}
+		res = append(res, c)
+	}
+	return res, nil
+
+}
+
+func GetAllComments(page int, pageSize int) ([]*Comment, error) {
+	start := pageSize * (page - 1)
+	var query string
+
+	query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq,posts.title,posts.content FROM comments INNER JOIN users ON comments.uid = users.id LEFT JOIN posts ON comments.pid = posts.id 
+		WHERE comments.pid=$1 OR comments.uid =$2 OR 1=1 ORDER BY time DESC LIMIT $3 OFFSET $4`
+
+	stmtOut, err := dbConn.Prepare(query)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var res []*Comment
+
+	rows, err := stmtOut.Query(pageSize, start)
+	if err != nil {
+		return res, err
+	}
+	defer stmtOut.Close()
+	defer rows.Close()
+
+	for rows.Next() {
+		var id, pid, uid, rate int
+		var content, ctime, uname, uqq, ptitle, pcontent string
+		if err := rows.Scan(&id, &rate, &content, &ctime, &pid, &uid, &uname, &uqq, &ptitle, &pcontent); err != nil {
+			return res, err
+		}
+
+		c := &Comment{Id: id, Rate: rate, Content: content, Time: ctime, Pid: pid, Uid: uid, Uname: uname, Uqq: uqq, Ptitle: ptitle, Pcontent: pcontent}
 		res = append(res, c)
 	}
 	return res, nil

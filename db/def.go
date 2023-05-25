@@ -1,40 +1,41 @@
 package db
 
 type Pv struct {
-	Pid  int `json:"pid"`
-	Pv int `json:"pv"`
+	Pid int `json:"pid"`
+	Pv  int `json:"pv"`
 }
 
 type Pea struct {
-	Uid  int `json:"uid"`
+	Uid int `json:"uid"`
 	Pea int `json:"pea"`
 }
 
 type Fan struct {
-	From  int `json:"uid"`
-	To int `json:"follow"`
+	From int `json:"uid"`
+	To   int `json:"follow"`
 }
 
 type FanCount struct {
-	Following  int `json:"following"`
-	Followed int `json:"followed"`
+	Following int `json:"following"`
+	Followed  int `json:"followed"`
 }
 
 type Play struct {
-	MType  string    `json:"mtype"`
-	Url string `json:"url"`
+	MType string `json:"mtype"`
+	Url   string `json:"url"`
 }
 
 type Comment struct {
-	Id      int    `json:"id,omitempty"`
-	Rate    int    `json:"rate"`
-	Content string `json:"content"`
-	Time    string `json:"time"`
-	Pid     int    `json:"pid"`
-	Ptitle  string `json:"ptitle,omitempty"`
-	Uid     int    `json:"uid"`
-	Uname   string `json:"uname,omitempty"`
-	Uqq     string `json:"uqq,omitempty"`
+	Id       int    `json:"id,omitempty"`
+	Rate     int    `json:"rate"`
+	Content  string `json:"content"`
+	Time     string `json:"time"`
+	Pid      int    `json:"pid"`
+	Ptitle   string `json:"ptitle,omitempty"`
+	Uid      int    `json:"uid"`
+	Uname    string `json:"uname,omitempty"`
+	Uqq      string `json:"uqq,omitempty"`
+	Pcontent string `json:"pcontent,omitempty"`
 }
 
 type User struct {
