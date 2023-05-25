@@ -24,9 +24,18 @@ func AddComment(rate int, content string, pid int, uid int) (*Comment, error) {
 
 func GetComments(pid int, uid int, page int, pageSize int) ([]*Comment, error) {
 	start := pageSize * (page - 1)
+	var query string
 
-	stmtOut, err := dbConn.Prepare(`SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
-WHERE comments.pid=$1 OR comments.uid =$2 ORDER BY time DESC LIMIT $3 OFFSET $4`)
+	if pid == 0 && uid == 0 {
+		// 查找所有评论
+		query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq,posts.title,posts.id FROM comments INNER JOIN users ON comments.uid = users.id LEFT JOIN posts ON comments.pid = posts.id 
+		WHERE comments.pid=$1 OR comments.uid =$2 OR 1=1 ORDER BY time DESC LIMIT $3 OFFSET $4`
+	} else {
+		query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
+		WHERE comments.pid=$1 OR comments.uid =$2 ORDER BY time DESC LIMIT $3 OFFSET $4`
+	}
+
+	stmtOut, err := dbConn.Prepare(query)
 
 	if err != nil {
 		return nil, err
