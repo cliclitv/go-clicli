@@ -1,19 +1,20 @@
 import { h, useEffect, useState } from 'fre'
-import { getPost, getPostDetail, getRank } from '../util/api'
+import { getComments, getPost, getPostDetail, getRank } from '../util/api'
 import { ListA } from '../list/list'
 import { ListB } from '../list/list'
 import './home.css'
-import { buildVideos, Eplayer } from '../play/play'
-import { getSuo } from '../util/avatar'
+import Comment from '../comment/comment'
 import Swiper from '../swiper/swiper.tsx'
 
 export default function Home() {
     const [recommend, setRecommend] = useState([])
     const [index, setIndex] = useState(0)
-    const [ugc, setUgc] = useState([])
+    const [comments, setComments] = useState([])
     const [rank, setRank] = useState([])
     useEffect(() => {
-
+        getComments(0).then(res => {
+            setComments(res.comments)
+        })
         getRank().then((res2: any) => {
             setRank(res2.posts.splice(0, 8))
         })
@@ -42,9 +43,12 @@ export default function Home() {
                     </ul>
                 </nav>
                 <ListA posts={recommend} />
-
                 <h1>番剧，慢慢做...</h1>
                 <ListB posts={rank} />
+                <h1>推番君</h1>
+                <div className="tuifanjun">
+                    <Comment post={{ pid: 0 }}></Comment>
+                </div>
             </div>
         </div>
     )

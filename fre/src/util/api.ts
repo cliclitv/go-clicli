@@ -141,7 +141,6 @@ export function updateArticle({ pid, oid, title, content, bio, id }) {
 }
 
 export function getComments(pid) {
-  console.log(pid)
   return get(`https://www.clicli.cc/comments?pid=${pid}&page=1&pageSize=1000`)
 }
 
