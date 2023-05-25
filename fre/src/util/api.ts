@@ -140,8 +140,8 @@ export function updateArticle({ pid, oid, title, content, bio, id }) {
   })
 }
 
-export function getComments(pid) {
-  return get(`https://www.clicli.cc/comments?pid=${pid}&page=1&pageSize=1000`)
+export function getComments(pid, page, pageSize) {
+  return get(`https://www.clicli.cc/comments?pid=${pid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
 }
 
 export function addComment({ pid, uid, rate, content }) {

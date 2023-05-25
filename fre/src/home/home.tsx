@@ -1,10 +1,11 @@
 import { h, useEffect, useState } from 'fre'
 import { getComments, getPost, getPostDetail, getRank } from '../util/api'
-import { ListA } from '../list/list'
-import { ListB } from '../list/list'
+import { ListA, ListB } from '../list/list'
 import './home.css'
-import Comment from '../comment/comment'
+import Avatar from '../component/avatar/avatar'
 import Swiper from '../swiper/swiper.tsx'
+import { push } from '../use-route'
+import { getSuo } from '../util/avatar'
 
 export default function Home() {
     const [recommend, setRecommend] = useState([])
@@ -12,14 +13,11 @@ export default function Home() {
     const [comments, setComments] = useState([])
     const [rank, setRank] = useState([])
     useEffect(() => {
-        getComments(0).then(res => {
+        getComments(0,1,6).then(res => {
             setComments(res.comments)
         })
         getRank().then((res2: any) => {
             setRank(res2.posts.splice(0, 8))
-        })
-        getPost('', '原创', 1, 12).then((res: any) => {
-            setUgc(res.posts)
         })
     }, [])
 
@@ -47,7 +45,34 @@ export default function Home() {
                 <ListB posts={rank} />
                 <h1>推番君</h1>
                 <div className="tuifanjun">
-                    <Comment post={{ pid: 0 }}></Comment>
+                    {comments.map(item => {
+                        return <div class='comment-wrap'>
+
+
+                            <div className="comment-item">
+                                <div className="b">
+                                    <li onClick={() => push(`/play/gv${item.pid}`)} key={item.id} >
+                                        <div className="item">
+                                            <div className="cover">
+                                                <img src={getSuo(item.pcontent)} />
+                                                <div className="title">{item.ptitle}</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </div>
+                                <div>
+                                    <li><Avatar uqq={item.uqq} uname={item.uname}></Avatar><time>{item.time}</time></li>
+                                    <p><span>
+                                        <ul>{Array(5).fill(0).map((ite, idx) => {
+                                            return <li class={item.rate > idx ? 'icon-font icon-star-fill' : 'icon-font icon-star'}></li>
+                                        })}
+                                        </ul></span>{item.content}</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    })}
                 </div>
             </div>
         </div>

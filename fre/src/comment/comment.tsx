@@ -1,4 +1,4 @@
-import { h, useEffect, useState } from 'fre'
+import { h, useEffect, useState, Fragment } from 'fre'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import { addComment, getComments, getUser } from '../util/api'
@@ -26,7 +26,6 @@ export default function Comment({ post }) {
     const [rate2, setRate2] = useState(0)
 
     const [rate, setRate] = useState(5)
-    console.log(post.id)
     useEffect(() => {
         getComments(post.id).then(res => {
             setComments(res.comments)

@@ -25,7 +25,7 @@ nav ul {
     font-size: 16px;
 }
 
-nav ul li{
+nav ul li {
     padding: 0 20px;
     box-sizing: border-box;
     color: var(--theme);
@@ -33,19 +33,19 @@ nav ul li{
     position: relative
 }
 
-nav ul li.active{
+nav ul li.active {
     font-weight: bold;
     font-size: 18px;
-    text-decoration:underline
+    text-decoration: underline
 }
 
-nav ul li:hover{
+nav ul li:hover {
     font-weight: bold;
     font-size: 18px;
-    text-decoration:underline
+    text-decoration: underline
 }
 
-nav ul li::before{
+nav ul li::before {
     position: absolute;
     right: 0px;
     top: -10px;
@@ -60,10 +60,35 @@ nav ul li::before{
     justify-content: center;
 }
 
-nav ul li:nth-child(3)::before{
+nav ul li:nth-child(3)::before {
     content: '+2';
 }
 
-nav ul li:nth-child(2)::before{
+nav ul li:nth-child(2)::before {
     content: '+4';
+}
+
+.tuifanjun .comment-wrap {
+    width: 50%;
+    display: inline-block;
+    vertical-align: text-top;
+}
+.tuifanjun .comment-item{
+    display: flex;
+    align-items: center;
+}
+
+.tuifanjun .b li {
+    width: 130px!important;
+}
+
+.tuifanjun .b .cover, .tuifanjun .b .cover img{
+    height: 160px;
+}
+.tuifanjun .b{
+    margin: 0;
+}
+
+.tuifanjun{
+    padding-top: 20px;
 }
