@@ -63,7 +63,7 @@ func GetAllComments(page int, pageSize int) ([]*Comment, error) {
 	var query string
 
 	query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,users.id,users.name,users.qq,posts.title,posts.content FROM comments INNER JOIN users ON comments.uid = users.id LEFT JOIN posts ON comments.pid = posts.id 
-		WHERE  comments.rate>4 ORDER BY time DESC LIMIT $3 OFFSET $4`
+		WHERE  comments.rate>4 ORDER BY time DESC LIMIT $1 OFFSET $2`
 
 	stmtOut, err := dbConn.Prepare(query)
 
