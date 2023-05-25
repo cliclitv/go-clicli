@@ -6,8 +6,6 @@ let lock = false;
 
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
-    const [vid, setVid] = useState(0)
-    const [pre, setPre] = useState(0)
     const up = useRef(null)
     const user = getUser()
 
@@ -78,7 +76,7 @@ export default function Upload(props) {
         '影视', '特摄', '真人剧', '其它']
     const gametags = [
         '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
-        '原神', '星穹铁道', '崩坏三', '明日方舟', '绝区零', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约','我的世界', '其它原创'
+        '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其它原创'
     ]
     return (
         <div className="upload">

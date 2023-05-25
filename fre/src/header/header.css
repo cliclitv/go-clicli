@@ -20,6 +20,8 @@ header h1 {
     flex: 1;
     color: var(--theme);
     font-size: 45px;
+    display: flex;
+    align-items: flex-end;
 }
 
 header .search input {
@@ -153,6 +155,10 @@ footer p {
 }
 
 h1 span {
-    color: var(--tm-theme);
-    font-size: 40px;
+    font-size: 25px;
+    padding: 2px 10px;
+    background: var(--theme);
+    color: #fff;
+    border-radius: 100px;
+    margin: 10px;
 }

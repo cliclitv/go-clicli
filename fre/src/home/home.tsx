@@ -35,14 +35,6 @@ export default function Home() {
     return (
         <div>
             <div class="wrap home">
-                <div className="ep-wrap2">
-                    <Eplayer url={play}></Eplayer>
-                </div>
-                <ul class="imglist">
-                    {recommend.map((item, i) => {
-                        return <li class={i === index ? 'active' : ''} onclick={() => setIndex(i)}><img src={getSuo(item.content)} /></li>
-                    })}
-                </ul>
 
                 <h1>原创，努力做！</h1>
                 <ListA posts={ugc} />

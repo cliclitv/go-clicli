@@ -75,7 +75,7 @@
 .b .cover,
 .b .cover img {
     width: 100%;
-    height: 210px;
+    height: 195px;
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 5px 5px #dddade;
