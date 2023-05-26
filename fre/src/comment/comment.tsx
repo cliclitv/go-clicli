@@ -64,7 +64,7 @@ export default function Comment({ post }) {
     }
     const user = getUser() || {}
     return <div class="comment">
-        <h1>#推语<span>{comments.length}</span></h1>
+        <h1>#推语<span>{comments?.length}</span></h1>
         <div className="rate">
             <ul>
                 <li class='icon-font icon-star'></li>
