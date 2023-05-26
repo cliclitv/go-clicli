@@ -80,7 +80,7 @@ export default function Comment({ post }) {
             {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
         </div>
 
-        {comments.map(item => {
+        {comments&&comments.map(item => {
             return <div className="comment-item">
                 <li><Avatar uqq={item.uqq} uname={item.uname}></Avatar><time>{item.time}</time></li>
                 <p><span>
