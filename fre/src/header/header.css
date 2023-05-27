@@ -111,6 +111,7 @@ footer {
 
 footer a{
     display: block;
+    padding: 10px;
 }
 
 footer h1 {
