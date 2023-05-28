@@ -8,7 +8,6 @@ import Avatar from "../component/avatar/avatar"
 export default function Header() {
     const [key, setKey] = useState("")
     const [bal, setBal] = useState(false)
-    const [balance, setBalance] = useState(0)
 
     let user = getUser() || {}
     const keydown = (e) => {
@@ -16,14 +15,6 @@ export default function Header() {
             push(`/search/${key}`)
         }
     }
-
-    useEffect(() => {
-        if (bal) {
-            getBal(user.id).then(res => {
-                setBalance(res.msg)
-            })
-        }
-    }, [bal])
 
 
     const changeKey = (key) => {

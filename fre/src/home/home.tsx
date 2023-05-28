@@ -13,11 +13,9 @@ export default function Home() {
     const [comments, setComments] = useState([])
     const [rank, setRank] = useState([])
     useEffect(() => {
-        getComments(0,1,6).then(res => {
-            setComments(res.comments)
-        })
-        getRank().then((res2: any) => {
-            setRank(res2.posts.splice(0, 8))
+        Promise.all([getComments(0, 1, 6), getRank()]).then(resA => {
+            setComments(resA[0].comments)
+            setRank(resA[1].posts)
         })
     }, [])
 
@@ -34,7 +32,7 @@ export default function Home() {
     return (
         <div>
             <div class="wrap home">
-                <Swiper></Swiper>
+                {comments && rank && recommend && <Swiper/>}
                 <nav>
                     <ul>
                         {gametags.map((g, i) => <li class={index === i ? 'active' : ''} onclick={() => setIndex(i)}>{g}</li>)}
@@ -45,7 +43,7 @@ export default function Home() {
                 <ListB posts={rank} />
                 <h1>推番君</h1>
                 <div className="tuifanjun">
-                    {comments.map(item => {
+                    {comments && comments.map(item => {
                         return <div class='comment-wrap'>
 
 
