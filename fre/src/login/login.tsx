@@ -24,7 +24,6 @@ export default function Login() {
             } else {
                 alert(res.msg)
             }
-
         })
     }
     return <div class="login">
