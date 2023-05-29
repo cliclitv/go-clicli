@@ -4,6 +4,11 @@ import { post } from '../util/post'
 import './login.css'
 import { getUser, getUserB, updateUser } from '../util/api'
 
+export function logout() {
+    localStorage.clear()
+    window.location.href = 'https://www.clicli.cc'
+}
+
 export default function Register({ id }) {
 
     const [name, setName] = useState(null)
@@ -71,10 +76,6 @@ export default function Register({ id }) {
         } else {
             alert(res.msg)
         }
-    }
-    function logout() {
-        localStorage.clear()
-        window.location.href = 'https://www.clicli.cc'
     }
     return <div class="login">
         <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
