@@ -80,6 +80,17 @@ export default function Post({ gv }) {
                     </div>
                     <ul>
                         {videos.map((name, index) => {
+                            if (name[1].indexOf('v.qq.com') > -1) {
+                                return <a href={name[1]} target="_blank"><li class={'active qq'}>{`P${index + 1}. 腾讯正版`}</li></a>
+                            }
+
+                            if (name[1].indexOf('iqiyi') > -1) {
+                                return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. 爱奇艺正版`}</li></a>
+                            }
+
+                            if (name[1].indexOf('bilibili') > -1) {
+                                return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. bilibili正版`}</li></a>
+                            }
                             return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
                         })}
                     </ul>
@@ -96,7 +107,7 @@ export default function Post({ gv }) {
                 </div>
             )}
 
-            {post.id && <Comment post={post}/>}
+            {post.id && <Comment post={post} />}
 
         </main>
     )

@@ -21,7 +21,7 @@ export default function Login() {
                 window.localStorage.setItem('token', res.token)
                 window.localStorage.setItem('user', JSON.stringify(res.user))
                 setTimeout(() => {
-                    push('https://www.clicli.cc')
+                    push('/')
                 }, 20)
             } else {
                 alert(res.msg)

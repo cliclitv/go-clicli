@@ -46,7 +46,7 @@ export default function Header() {
                     <a href="https://app.tm0.net" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>
                     {user.id == null ? <a href="#" onclick={() => push('/login')}><li><i className="icon-font icon-denglu"></i>登录</li></a>:<a></a>}
                     <li onClick={() => push('/recharge')}><i className="icon-font icon-dadou"></i>弯豆</li>
-                    <li onClick={openWallet} style={{ position: 'relative' }}>
+                    <ul onClick={openWallet} style={{ position: 'relative' }}>
                         <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                         <div className="wallet" style={{ display: bal ? 'block' : 'none' }}>
                             <li>UID {user?.id}</li>
@@ -54,7 +54,7 @@ export default function Header() {
                             <li onClick={() => push(`/my/${(user || {}).id}`)}>我的投搞</li>
                             <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
                         </div>
-                    </li>
+                    </ul>
 
                 </div>
             </div>

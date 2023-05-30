@@ -113,6 +113,21 @@
     padding-right: 10px;
 }
 
+.qq {
+    background: #fb7600 !important;
+    color: #fff !important;
+}
+
+.iqiyi {
+    background: #00fb71 !important;
+    color: #fff !important;
+}
+
+.bilibili {
+    background: #00fb71 !important;
+    color: #fff !important;
+}
+
 article img[alt=suo] {
     width: 100%;
     border-radius: 2px;
