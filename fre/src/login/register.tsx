@@ -84,7 +84,7 @@ export default function Register({ id }) {
         <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => changePwd(e.target.value)} /></li>
         <li><input type="text" placeholder="签名" onInput={(e) => changeSign(e.target.value)} value={sign} /></li>
 
-        {id && getUser().level > 3 && <select value={level} onInput={e => changeLevel(e.target.value)}>
+        {id && level > 3 && <select value={level} onInput={e => changeLevel(e.target.value)}>
             <option value="1">游客</option>
             <option value="2">作者</option>
             <option value="3">审核</option>
