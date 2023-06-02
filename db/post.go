@@ -203,7 +203,7 @@ func FollowPosts(fid int) ([]*Post, error) {
 }
 
 func GetRank() ([]*Post, error) {
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 16")
 
 	var res []*Post
 
