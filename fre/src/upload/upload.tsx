@@ -1,4 +1,5 @@
 import { render, useState, h, useEffect, useRef } from "fre"
+import { push } from "../use-route";
 import { addPost, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
 import './upload.css'
 
@@ -61,8 +62,8 @@ export default function Upload(props) {
             console.log(post)
             addPost(post as any).then(res => {
                 lock = false
-                alert((res.msg || '搞定^_^') + ' gv' + res.result.id)
-
+                alert((res.msg || '搞定^_^'))
+                push(`/my/${getUser().id}`)
             })
         }
     }
