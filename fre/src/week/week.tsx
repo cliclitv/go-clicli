@@ -17,7 +17,9 @@ export default function WeekList() {
                 ret[day] = ret[day] || []
                 ret[day].push(item)
             })
-            setPosts(ret as any)
+            setTimeout(() => {
+                setPosts(ret as any)
+            }, 500);
         })
     }, [])
     const map = {
