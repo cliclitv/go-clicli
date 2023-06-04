@@ -71,7 +71,7 @@ export default function Upload(props) {
         let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no');
         myWindow.focus();
     }
-    const tags = ['推荐', '个人原创', '授权转载', '正版', '独播', '漫画改', '小说改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔',
+    const tags = ['推荐', '个人原创', '授权转载', '正版', '独播', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '治愈',
         '影视', '特摄', '真人剧', '其它']
     const gametags = [
