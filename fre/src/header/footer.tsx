@@ -10,7 +10,7 @@ export default function Footer(props) {
         <div>
             
         </div>
-        <p>© 2018 - 2023 clicli.cc & CliCli Team <a href="https://github.com/cliclitv" class='github'>Github</a>CDN 由<a href="https://cloudflare.com
+        <p>© 2018 - 2023 clicli.cc & admin@clicli.us <a href="https://github.com/cliclitv" class='github'>Github</a>CDN 由<a href="https://cloudflare.com
 "><img src="https://cdn-us.imgs.moe/2023/05/27/64721956ba019.png" alt="" /></a>赞助</p>
     </footer>
 }
