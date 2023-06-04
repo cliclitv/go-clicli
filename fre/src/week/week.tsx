@@ -17,6 +17,7 @@ export default function WeekList() {
                 ret[day] = ret[day] || []
                 ret[day].push(item)
             })
+            console.log(123)
             setTimeout(() => {
                 setPosts(ret as any)
             }, 500);

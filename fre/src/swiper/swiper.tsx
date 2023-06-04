@@ -9,7 +9,6 @@ import { push } from '../use-route'
 export default function Swiper() {
     const [list, setList] = useState([])
     useEffect(() => {
-        console.log(456)
         getPost('', '独播', 1, 6).then((res: any) => {
             setTimeout(() => {
                 setList(res.posts)
