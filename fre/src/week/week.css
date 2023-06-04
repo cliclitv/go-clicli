@@ -1,0 +1,14 @@
+.week-list ul button {
+    background: var(--theme-bg);
+    color: var(--theme);
+    margin: 10px;
+}
+
+.week-list ul {
+    text-align: center;
+}
+
+.week-list ul .active {
+    font-weight: bold;
+    background-color: rgba(148, 108, 230, 0.3);
+}

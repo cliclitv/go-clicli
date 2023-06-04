@@ -6,6 +6,7 @@ import Avatar from '../component/avatar/avatar'
 import Swiper from '../swiper/swiper.tsx'
 import { push } from '../use-route'
 import { getSuo } from '../util/avatar'
+import Week from '../week/week'
 
 export default function Home() {
     const [recommend, setRecommend] = useState([])
@@ -39,14 +40,13 @@ export default function Home() {
                     </ul>
                 </nav>
                 <ListA posts={recommend} />
-                <h1>番剧，慢慢做...</h1>
+                <Week></Week>
+                <h1>旧番，慢慢做...</h1>
                 <ListB posts={rank} />
                 <h1>推番君</h1>
                 <div className="tuifanjun">
                     {comments && comments.map(item => {
                         return <div class='comment-wrap'>
-
-
                             <div className="comment-item">
                                 <div className="b">
                                     <li onClick={() => push(`/play/gv${item.pid}`)} key={item.id} >
