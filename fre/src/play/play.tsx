@@ -83,11 +83,9 @@ export default function Post({ gv }) {
                             if (name[1].indexOf('v.qq.com') > -1) {
                                 return <a href={name[1]} target="_blank"><li class={'active qq'}>{`P${index + 1}. 腾讯正版`}</li></a>
                             }
-
                             if (name[1].indexOf('iqiyi') > -1) {
                                 return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. 爱奇艺正版`}</li></a>
                             }
-
                             if (name[1].indexOf('bilibili') > -1) {
                                 return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. bilibili正版`}</li></a>
                             }
@@ -103,7 +101,11 @@ export default function Post({ gv }) {
                         <h1>{post.title}</h1>
                         {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
                     </div>
+                    <div>
                     <article></article>
+
+                    </div>
+                    {/* <article>{post.content}</article> */}
                 </div>
             )}
 
