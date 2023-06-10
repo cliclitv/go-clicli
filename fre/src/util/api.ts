@@ -28,7 +28,7 @@ export function getSearch(key) {
   return get(`https://www.clicli.cc/search/posts?key=${key}`)
 }
 
-function replaceContent(c) {
+function replaceContent(c = '') {
   return c.replace(/vip.ffzyread.com/g, 'cdn2.deno.dev/read/2000')
     .replace(/vip.ffzyread1.com/g, 'cdn2.deno.dev/read1/2000')
     .replace(/vip.ffzy-play2.com/g, 'cdn2.deno.dev/2/2000')

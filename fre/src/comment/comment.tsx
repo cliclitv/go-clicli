@@ -13,7 +13,7 @@ function setRateDom(index, node) {
     }
 }
 
-function computed(arr) {
+function computed(arr = []) {
     let sum = arr.map(i => i.rate).reduce((pre, curr) => {
         return pre + curr
     })
