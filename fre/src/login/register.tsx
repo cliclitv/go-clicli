@@ -21,7 +21,6 @@ export default function Register({ id }) {
 
     useEffect(() => {
         if (id) {
-            console.log('编辑用户')
             getUserB({ qq: id } as any).then((user: any) => {
                 setName(user.result.name)
                 setQQ(user.result.qq)
@@ -77,6 +76,7 @@ export default function Register({ id }) {
             alert(res.msg)
         }
     }
+    console.log(level)
     return <div class="login">
         <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
         <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} value={qq} /></li>
@@ -84,7 +84,7 @@ export default function Register({ id }) {
         <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => changePwd(e.target.value)} /></li>
         <li><input type="text" placeholder="签名(可不填)" onInput={(e) => changeSign(e.target.value)} value={sign} /></li>
 
-        {id && level > 3 && <select value={level} onInput={e => changeLevel(e.target.value)}>
+        {id && getUser().level >= 3 && <select value={level} onInput={e => changeLevel(e.target.value)}>
             <option value="1">游客</option>
             <option value="2">作者</option>
             <option value="3">审核</option>

@@ -2,10 +2,10 @@ package db
 
 import (
 	"database/sql"
-	"strings"
-	"time"
 	"fmt"
 	"log"
+	"strings"
+	"time"
 )
 
 func AddPost(title string, content string, status string, sort string, tag string, uid int, videos string) (*Post, error) {
@@ -106,38 +106,38 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		for i := 0; i < len(tags); i++ {
 			key := string("%" + tags[i] + "%")
 			slice = append(slice, key)
-			query += fmt.Sprintf(" OR posts.tag LIKE $%d",len(slice))
+			query += fmt.Sprintf(" OR posts.tag LIKE $%d", len(slice))
 		}
 		query += `)`
 	}
 
+	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
 
-	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v",query, len(slice)+1, len(slice)+2)
-
-	slice = append(slice,pageSize,start)
+	slice = append(slice, pageSize, start)
 
 	stmt, err := dbConn.Prepare(sqlRaw)
 
-        if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	rows, err2 := stmt.Query(slice...)
-if err2 != nil {
+	if err2 != nil {
 		return nil, err2
 	}
-        defer rows.Close()
+	defer rows.Close()
 	defer stmt.Close()
+
 
 	var res []*Post
 
 	for rows.Next() {
 		var id, uid int
 		var title, content, status, sort, tag, ctime, uname, uqq, videos string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime,&videos, &uid, &uname, &uqq); err != nil {
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
 			log.Println(err)
 			return res, err
 		}
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos,Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
@@ -155,19 +155,19 @@ func SearchPosts(key string) ([]*Post, error) {
 	if err != nil {
 		return res, err
 	}
-	
+
 	defer rows.Close()
 
 	defer stmt.Close()
 
 	for rows.Next() {
 		var id, uid int
-		var title, content, status, sort, tag, ctime, uname, uqq,videos string
+		var title, content, status, sort, tag, ctime, uname, uqq, videos string
 		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime,Videos:videos, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
@@ -183,19 +183,19 @@ func FollowPosts(fid int) ([]*Post, error) {
 	if err != nil {
 		return res, err
 	}
-	
+
 	defer rows.Close()
 
 	defer stmt.Close()
 
 	for rows.Next() {
 		var id, uid int
-		var title, content, status, sort, tag, ctime, uname, uqq,videos string
+		var title, content, status, sort, tag, ctime, uname, uqq, videos string
 		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime,Videos:videos, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 
@@ -211,7 +211,7 @@ func GetRank() ([]*Post, error) {
 	if err != nil {
 		return res, err
 	}
-	
+
 	defer rows.Close()
 
 	defer stmt.Close()
