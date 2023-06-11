@@ -49,6 +49,7 @@ function replaceContent(c = '') {
     .replace(/vip.ffzy-online7.com/g, 'cdn2.deno.dev/07/2000')
     .replace(/vip.ffzy-online8.com/g, 'cdn2.deno.dev/08/2000')
     .replace(/vip.ffzy-online9.com/g, 'cdn2.deno.dev/09/2000')
+    .replace(/tb-binary.cdn.bcebos.com\/TbGame/g, 'bos.nj.bpc.baidu.com/tieba-movideo')
 
 }
 
