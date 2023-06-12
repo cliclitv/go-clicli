@@ -13,8 +13,6 @@ export default function Register({ id }) {
 
     const [user, setUser] = useState({} as any)
 
-    const [loading, setLoading] = useState(false)
-
     useEffect(() => {
         if (id) {
             getUserB({ qq: id } as any).then((user: any) => {
@@ -23,9 +21,6 @@ export default function Register({ id }) {
         }
 
     }, [])
-
-    console.log(888)
-
 
     function change(key, val) {
         setUser({
@@ -49,15 +44,15 @@ export default function Register({ id }) {
             alert('全都得填::>_<::')
             return
         }
-        setLoading(true)
         const res = await post("https://www.clicli.cc/user/register", { name: user.name, pwd: user.pwd, qq: user.qq, time: 0, sign: "这个人很懒，什么都没有留下~" }) as any
-        setLoading(false)
         if (res.code === 200) {
             alert("注册成功啦~")
         } else {
             alert(res.msg)
         }
     }
+
+    console.log(888)
     return <div class="login">
         <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
         <li><input type="text" placeholder="QQ" onInput={(e) => change('qq', e.target.value)} value={user.qq} /></li>
@@ -71,7 +66,7 @@ export default function Register({ id }) {
             <option value="3">审核</option>
             <option value="4">管理</option>
         </select>}
-        <li><button onClick={register} disabled={loading}>{loading ? '少年注册中...' : id ? '修改' : '注册'}</button></li>
+        <li><button onClick={register}>{id ? '修改' : '注册'}</button></li>
         {id && <li><button onClick={logout} style={{ background: '#ff2b79' }}>退出登陆</button></li>}
         {!id && <li><A href="/login">登录</A></li>}
     </div>
