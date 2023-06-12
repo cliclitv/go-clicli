@@ -95,9 +95,9 @@ export function push(url) {
 }
 
 
-window.addEventListener('popstate', () => {
+window.addEventListener('popstate', (e) => {
   perfrom(routeStack)
-  console.log(999)
+  console.log(e)
 })
 
 function isModifiedEvent(event) {
