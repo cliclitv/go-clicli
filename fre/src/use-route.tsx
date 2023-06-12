@@ -58,16 +58,15 @@ function perfrom(stack) {
     props
   })
 
-
   if (typeof component.then === 'function') {
     component.then(res => {
       routesCache[path] = res.default
-      
       setter(Symbol())
     })
 
-  } else {
-    // setter(Symbol())
+  } else if (currentPath != '/register') {
+    console.log(123)
+    setter(Symbol())
   }
 
 }
