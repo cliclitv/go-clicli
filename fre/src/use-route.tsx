@@ -4,10 +4,11 @@ import { getUser } from './util/api'
 let pathCache = {}
 let routesCache = null
 let routeStack = null
+const cache = new Map()
 
 export function useRoutes(routes) {
 
-  const setter = useState('')[1]
+  const [path, setter] = useState('')
 
   let stack = {
     routes: Object.entries(routesCache || routes),
@@ -22,7 +23,14 @@ export function useRoutes(routes) {
 
   perfrom(routeStack)
 
-  return typeof stack.component.then === 'function' ? null : h(stack.component, stack.props)
+
+
+  if (cache.get(path) == null) {
+    let vdom = h(stack.component, stack.props)
+    cache.set(path, vdom)
+  }
+
+  return typeof stack.component.then === 'function' ? null : cache.get(path)
 }
 
 
