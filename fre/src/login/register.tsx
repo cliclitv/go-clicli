@@ -18,10 +18,11 @@ export default function Register({ id }) {
     useEffect(() => {
         if (id) {
             getUserB({ qq: id } as any).then((user: any) => {
+                console.log(123)
                 setUser(user.result)
             })
         }
-
+        console.log(999)
     }, [])
 
 
