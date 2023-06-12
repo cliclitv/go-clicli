@@ -24,6 +24,8 @@ export default function Register({ id }) {
 
     }, [])
 
+    console.log(888)
+
 
     function change(key, val) {
         setUser({
