@@ -11,64 +11,44 @@ export function logout() {
 
 export default function Register({ id }) {
 
-    const [name, setName] = useState(null)
-    const [pwd, setPwd] = useState(null)
-    const [qq, setQQ] = useState(null)
+    const [user, setUser] = useState({} as any)
+
     const [loading, setLoading] = useState(false)
-    const [level, setLevel] = useState(0)
-    const [uid, setUid] = useState(0)
-    const [sign, setSign] = useState(null)
 
     useEffect(() => {
-        // if (id) {
-        //     getUserB({ qq: id } as any).then((user: any) => {
-        //         setName(user.result.name)
-        //         setQQ(user.result.qq)
-        //         setUid(user.result.id)
-        //         setLevel(user.result.level)
-        //         setSign(user.result.sign)
-        //     })
-        // }
+        if (id) {
+            getUserB({ qq: id } as any).then((user: any) => {
+                setUser(user.result)
+            })
+        }
 
     }, [])
 
 
-    function changeName(v) {
-        setName(v)
+    function change(key, val) {
+        setUser({
+            ...post,
+            [key as any]: val,
+        } as any)
     }
 
-    function changePwd(v) {
-        setPwd(v)
-    }
-
-    function changeQQ(v) {
-        setQQ(v)
-    }
-
-    function changeLevel(v) {
-        setLevel(v)
-    }
-
-    function changeSign(v) {
-        setSign(v)
-    }
 
     async function register() {
         if (id != null) {
             console.log('修改用户')
-            updateUser({ id: uid, name, qq, pwd, level: level, sign: sign }).then(res => {
+            updateUser(user as any).then(res => {
                 if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }
             })
             return
         }
-        if (!name || !qq || !pwd) {
+        if (!user.name || !user.qq || !user.pwd) {
             alert('全都得填::>_<::')
             return
         }
         setLoading(true)
-        const res = await post("https://www.clicli.cc/user/register", { name, pwd, qq, time: 0, sign: "这个人很懒，什么都没有留下~" })
+        const res = await post("https://www.clicli.cc/user/register", { name: user.name, pwd: user.pwd, qq: user.qq, time: 0, sign: "这个人很懒，什么都没有留下~" }) as any
         setLoading(false)
         if (res.code === 200) {
             alert("注册成功啦~")
@@ -76,15 +56,14 @@ export default function Register({ id }) {
             alert(res.msg)
         }
     }
-    console.log(level)
     return <div class="login">
         <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
-        <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} value={qq} /></li>
-        <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} value={name} /></li>
-        <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => changePwd(e.target.value)} /></li>
-        <li><input type="text" placeholder="签名(可不填)" onInput={(e) => changeSign(e.target.value)} value={sign} /></li>
+        <li><input type="text" placeholder="QQ" onInput={(e) => change('qq', e.target.value)} value={user.qq} /></li>
+        <li><input type="text" placeholder="昵称" onInput={(e) => change('name', e.target.value)} value={user.name} /></li>
+        <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => change('pwd', e.target.value)} /></li>
+        <li><input type="text" placeholder="签名(可不填)" onInput={(e) => change('sign', e.target.value)} value={user.sign} /></li>
 
-        {id && getUser().level >= 3 && <select value={level} onInput={e => changeLevel(e.target.value)}>
+        {id && getUser().level >= 3 && <select value={user.level} onInput={e => change('level', e.target.value)}>
             <option value="1">游客</option>
             <option value="2">作者</option>
             <option value="3">审核</option>
