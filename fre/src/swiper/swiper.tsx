@@ -16,7 +16,7 @@ export default function Swiper() {
                     const el = document.querySelector('.blaze-slider')
                     new window.BlazeSlider(el as any)
                 }
-            }, 500)
+            }, 1000)
         })
     }, [])
 
