@@ -7,7 +7,7 @@ let routeStack = null
 
 export function useRoutes(routes) {
 
-  const setter = useState('/')[1]
+  const setter = useState('')[1]
 
   let stack = {
     routes: Object.entries(routesCache || routes),
