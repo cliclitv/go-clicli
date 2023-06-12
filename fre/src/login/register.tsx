@@ -27,7 +27,7 @@ export default function Register({ id }) {
 
     function change(key, val) {
         setUser({
-            ...post,
+            ...user,
             [key as any]: val,
         } as any)
     }
