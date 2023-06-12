@@ -20,15 +20,15 @@ export default function Register({ id }) {
     const [sign, setSign] = useState(null)
 
     useEffect(() => {
-        if (id) {
-            getUserB({ qq: id } as any).then((user: any) => {
-                setName(user.result.name)
-                setQQ(user.result.qq)
-                setUid(user.result.id)
-                setLevel(user.result.level)
-                setSign(user.result.sign)
-            })
-        }
+        // if (id) {
+        //     getUserB({ qq: id } as any).then((user: any) => {
+        //         setName(user.result.name)
+        //         setQQ(user.result.qq)
+        //         setUid(user.result.id)
+        //         setLevel(user.result.level)
+        //         setSign(user.result.sign)
+        //     })
+        // }
 
     }, [])
 
