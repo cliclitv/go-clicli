@@ -64,7 +64,7 @@ function perfrom(stack) {
       setter(Symbol())
     })
 
-  } else if (currentPath != '/register') {
+  } else if (currentPath != '/register' || !currentPath.includes('/user')) {
     console.log(123)
     setter(Symbol())
   }
