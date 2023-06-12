@@ -65,7 +65,7 @@ function perfrom(stack) {
     })
 
   } else {
-    console.log(stack)
+    console.log(222222)
     routesCache[path] = component
     setter(path)
   }
@@ -95,7 +95,10 @@ export function push(url) {
 }
 
 
-window.addEventListener('popstate', () => perfrom(routeStack))
+window.addEventListener('popstate', () => {
+  perfrom(routeStack)
+  console.log(999)
+})
 
 function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
