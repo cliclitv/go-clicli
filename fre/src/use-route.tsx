@@ -7,7 +7,7 @@ let routeStack = null
 
 export function useRoutes(routes) {
 
-  const setter = useState(Date.now())[1]
+  const setter = useState('/')[1]
 
   let stack = {
     routes: Object.entries(routesCache || routes),
@@ -51,6 +51,8 @@ function perfrom(stack) {
     break
   }
 
+  console.log(path)
+
 
   Object.assign(stack, {
     path,
@@ -65,7 +67,6 @@ function perfrom(stack) {
     })
 
   } else {
-    console.log(222222)
     routesCache[path] = component
     setter(path)
   }
@@ -90,6 +91,7 @@ function pathSlice(path) {
 }
 
 export function push(url) {
+  console.log(1111)
   window.history.pushState(null, null, url)
   perfrom(routeStack)
 }
@@ -97,7 +99,6 @@ export function push(url) {
 
 window.addEventListener('popstate', (e) => {
   perfrom(routeStack)
-  console.log(e)
 })
 
 function isModifiedEvent(event) {
