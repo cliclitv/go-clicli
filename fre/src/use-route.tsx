@@ -99,7 +99,6 @@ function pathSlice(path) {
 }
 
 export function push(url) {
-  console.log(1111)
   window.history.pushState(null, null, url)
   perfrom(routeStack)
 }

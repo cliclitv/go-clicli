@@ -6,7 +6,7 @@ import { getUser, getUserB, updateUser } from '../util/api'
 
 export function logout() {
     localStorage.clear()
-    window.location.href = 'https://www.clicli.cc'
+    window.location.href = '/login'
 }
 
 export default function Register({ id }) {

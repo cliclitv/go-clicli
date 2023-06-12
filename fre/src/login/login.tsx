@@ -20,7 +20,7 @@ export default function Login() {
             if (res.code === 200) {
                 window.localStorage.setItem('token', res.token)
                 window.localStorage.setItem('user', JSON.stringify(res.user))
-                push('/')
+                window.location.href = '/'
             } else {
                 alert(res.msg)
             }

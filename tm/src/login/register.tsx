@@ -74,7 +74,7 @@ export default function Register({ id }) {
     }
     function logout() {
         localStorage.clear()
-        window.location.href = 'https://www.tm0.net'
+        window.location.href = '/login'
     }
     return <div class="login">
         <li><h1>甜梦.{id ? '个人中心' : '注册'}</h1></li>
