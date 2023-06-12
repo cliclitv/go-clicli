@@ -11,9 +11,10 @@ export function post(url, params) {
             return res.json()
         }).then(data => {
             resolve(data)
-        })
+        }).catch(e => console.log(e))
     })
 }
+
 
 export function get(url) {
     return new Promise(resolve => {
@@ -21,6 +22,6 @@ export function get(url) {
             return res.json()
         }).then(data => {
             resolve(data)
-        })
+        }).catch(e => console.log(e))
     })
 }
