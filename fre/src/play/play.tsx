@@ -102,7 +102,7 @@ export default function Post({ gv }) {
                         {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
                     </div>
                     <div>
-                    <article></article>
+                        <article></article>
 
                     </div>
                     {/* <article>{post.content}</article> */}
@@ -124,8 +124,10 @@ export function Eplayer(props) {
     useEffect(() => {
         getPlayUrl(props.url).then((res: any) => {
             const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
-            t.current.setAttribute('type', type)
-            t.current.setAttribute('src', res.result.url)
+            if (t.current) {
+                t.current.setAttribute('type', type)
+                t.current.setAttribute('src', res.result.url)
+            }
             // t.current?.shadowRoot?.querySelector('video')?.play()
 
         })

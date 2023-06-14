@@ -19,6 +19,7 @@ const routes = {
 
 const App = () => {
     let route = useRoutes(routes)
+    console.log(route)
     return <div>
         <Header />
         <div>{route}</div>

@@ -25,12 +25,9 @@ export function useRoutes(routes) {
 
 
 
-  if (cache.get(path) == null) {
     let vdom = h(stack.component, stack.props)
-    cache.set(path, vdom)
-  }
 
-  return typeof stack.component.then === 'function' ? null : cache.get(path)
+  return typeof stack.component.then === 'function' ? null : vdom
 }
 
 
