@@ -7,7 +7,6 @@ let lock = false;
 
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
-    const up = useRef(null)
     const user = getUser()
 
     useEffect(() => {
@@ -74,7 +73,7 @@ export default function Upload(props) {
     }
     const tags = ['推荐', '个人原创', '授权转载', '剧场版', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔', '治愈',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番',
-     '特摄', '真人剧', '其它']
+        '特摄', '真人剧', '其它']
     const gametags = [
         '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
         '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其他原创', '小程序'
@@ -102,7 +101,7 @@ export default function Upload(props) {
                     <option value="wait" selected={post.status === 'wait'}>待审核</option>
                     <option value="remove" selected={post.status === 'remove'}>待删除</option>
                     <option value="under" selected={post.status === 'under'}>已下架</option>
-                    <option value="public" selected={post.status === 'public'}>发布</option>
+                    {user.level > 2 && <option value="public" selected={post.status === 'public'}>发布</option>}
                 </select>
                 <select onInput={e => change('sort', e.target.value)}>
                     <option value="新番" selected={post.sort === '新番'}>新番</option>
