@@ -12,7 +12,7 @@ export function ListA({ posts, editor }) {
         }
     }
 
-    const novel = s => s === '纯爱' || s === '言情' || s === '短篇'
+    const novel = s => s === '纯爱' || s === '言情' || s === '短篇' || s === '半次元'
 
     return <section className="a">
         {posts && posts.length > 0 && posts.map(item => {
