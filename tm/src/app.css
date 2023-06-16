@@ -10,13 +10,14 @@ body {
     --theme: #F77649;
     --tm-theme: #F77649;
     --cyan: #00b8ac;
-    --theme-bg:  rgba(228, 116, 30, 0.1);
+    --theme-bg: rgba(228, 116, 30, 0.1);
     --tm-theme-bg: rgba(228, 116, 30, 0.1);
     --black: rgb(37, 37, 37);
     --whrite: #fff;
     --border: 0 1px 2px #ddd;
     --color: #333;
-    --background: #fafafa
+    --background: #fafafa;
+    background: #f5f5fa
 }
 
 button {
@@ -51,8 +52,7 @@ header input::-webkit-input-placeholder {
 
 }
 
-::-webkit-scrollbar {
-}
+::-webkit-scrollbar {}
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px !important;
@@ -77,4 +77,3 @@ input:disabled {
 li {
     list-style: none;
 }
-

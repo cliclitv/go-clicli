@@ -5,6 +5,7 @@ import { ListB } from '../list/list'
 import './home.css'
 import { getSuo, getBio } from '../util/avatar'
 import { post } from '../util/post'
+import { push } from '../use-route'
 
 export default function Home() {
     const [recommend, setRecommend] = useState([])
@@ -57,7 +58,7 @@ export default function Home() {
                     <h1>畅销热追</h1>
                     <ul>
                         {recommend.map(item => {
-                            return <li>
+                            return <li onclick={()=>push(`/book/tm${item.id}`)}>
                                 <div>
                                     <b>{item.sort} ·</b>
                                     <h2>{item.title}</h2>
