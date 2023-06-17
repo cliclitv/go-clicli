@@ -32,7 +32,7 @@ var whiteOrigins = [9]string{
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
 	"https://www.cli.plus",
-	"https://www.acgzone.cc",
+	"https://fanfic.com.cn",
 	"http://localhost:4000",
 	"http://localhost:6000",
 }
@@ -103,7 +103,7 @@ func RegisterHandler() *httprouter.Router {
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		host := r.Host
 		fmt.Println(host)
-		if host == "www.tm0.net" || host == "www.acgzone.cc" {
+		if host == "www.tm0.net" || host == "fanfic.com.cn" {
 			w.Write([]byte(tm_index))
 
 		} else {

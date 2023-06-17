@@ -30,15 +30,15 @@ export default function Home() {
 
     return (
         <main class="wrap main">
-            <h1>和邪区</h1>
-            <h2>曾经的毛站，现在的半次元平替</h2>
+            <h1>Fanfic</h1>
+            <h2>先定个小目标，半次元平替</h2>
             <div>
                 {/* <img src="https://cdn-us.imgs.moe/2023/06/17/648d4af9bc8be.png" alt="" class="logo" /> */}
                 <img src="https://cdn-us.imgs.moe/2023/06/17/648d5c210f99c.png" alt="" />
             </div>
             <a href="https://npm.elemecdn.com/bcy-app@latest/web/app-release.apk"><button>下载</button></a>
             <div>投稿 & 数据迁移请加群：863417519</div>
-            <div>发布页地址：https://bcy.acgzone.cc</div>
+            <div>发布页地址：https://fanfic.com.cn</div>
         </main>
     )
 }
