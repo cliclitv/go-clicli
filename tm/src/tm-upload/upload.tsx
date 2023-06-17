@@ -106,7 +106,7 @@ export default function Upload(props) {
                     <option value="纯爱">纯爱</option>
                     <option value="言情">言情</option>
                     <option value="短篇">短篇</option>
-                    <option value="短篇">半次元</option>
+                    <option value="半次元">半次元</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
             </div>
