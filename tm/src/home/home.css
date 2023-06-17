@@ -137,7 +137,7 @@ nav li.active {
 .main {
     display: block!important;
     text-align: center;
-    margin: 50px 0;
+    margin: 50px auto;
 }
 
 .main img {
