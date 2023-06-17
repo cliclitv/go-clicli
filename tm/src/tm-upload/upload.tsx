@@ -68,10 +68,10 @@ export default function Upload(props) {
     // ['娱乐圈', '宫廷', '网游'],
     // ['霹雳', '原神'],
     // ['授权转载', '无版权转载']]
-    const tags = ['绘画','小说','Cos']
+    const tags = ['推荐','绘画','小说','Cos']
     return (
         <div className="upload-tm">
-            <h1>小说投稿</h1>
+            <h1>合集投稿</h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
             </div>
@@ -86,7 +86,7 @@ export default function Upload(props) {
             <textarea spellcheck="false" placeholder="请输入文案，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
             <div className="tags">
                 <ul>
-                    {tags.flat().map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                    {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                         className={(post.tag || []).indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>
@@ -104,9 +104,7 @@ export default function Upload(props) {
                     <option value="public">发布</option>
                 </select>
                 <select value={post.sort} onInput={e => change('sort', e.target.value)}>
-                    {/* <option value="纯爱">纯爱</option>
-                    <option value="言情">言情</option>
-                    <option value="短篇">短篇</option> */}
+                <option value="原创">原创</option>
                     <option value="半次元">半次元</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
