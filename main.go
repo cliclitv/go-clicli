@@ -32,8 +32,7 @@ var whiteOrigins = [9]string{
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
 	"https://www.cli.plus",
-	"https://www.tm0.net",
-	"https://bcy.acgzone.cc",
+	"https://www.acgzone.cc",
 	"http://localhost:4000",
 	"http://localhost:6000",
 }

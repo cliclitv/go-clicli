@@ -1,7 +1,6 @@
-import { render, useState, h, useEffect } from "fre"
+import { render, useState, h } from "fre"
 import { push } from '../use-route'
 import { getUser, getBal } from "../util/api"
-import { getAvatar } from "../util/avatar"
 import './header.css'
 import Avatar from "../component/avatar/avatar"
 
@@ -16,14 +15,6 @@ export default function Header() {
             push(`/search/${key}`)
         }
     }
-
-    useEffect(() => {
-        if (bal) {
-            getBal(user.id).then(res => {
-                setBalance(res.msg)
-            })
-        }
-    }, [bal])
 
 
     const changeKey = (key) => {
