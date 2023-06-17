@@ -59,15 +59,16 @@ export default function Upload(props) {
         }
     }
 
-    const tags = [["甜文", "虐文", "爽文", '狗血', '意识流'],
-    ['古代', '现代', '民国', '未来'],
-    ['HE', 'BE', 'OE'],
-    ['1v1', 'NP', '骨科', '年上', '年下', '受转攻', '直掰弯', '攻控', '受控'],
-    ['快穿', '悬疑', '破镜重圆', '强制爱', '先虐受后虐攻', '追妻'],
-    ['ABO', '生子', '哨兵', '支服'],
-    ['娱乐圈', '宫廷', '网游'],
-    ['霹雳', '原神'],
-    ['授权转载', '无版权转载']]
+    // const tags = [["甜文", "虐文", "爽文", '狗血', '意识流'],
+    // ['古代', '现代', '民国', '未来'],
+    // ['HE', 'BE', 'OE'],
+    // ['1v1', 'NP', '骨科', '年上', '年下', '受转攻', '直掰弯', '攻控', '受控'],
+    // ['快穿', '悬疑', '破镜重圆', '强制爱', '先虐受后虐攻', '追妻'],
+    // ['ABO', '生子', '哨兵', '支服'],
+    // ['娱乐圈', '宫廷', '网游'],
+    // ['霹雳', '原神'],
+    // ['授权转载', '无版权转载']]
+    const tags = ['绘画','小说','Cos']
     return (
         <div className="upload-tm">
             <h1>小说投稿</h1>
@@ -103,9 +104,9 @@ export default function Upload(props) {
                     <option value="public">发布</option>
                 </select>
                 <select value={post.sort} onInput={e => change('sort', e.target.value)}>
-                    <option value="纯爱">纯爱</option>
+                    {/* <option value="纯爱">纯爱</option>
                     <option value="言情">言情</option>
-                    <option value="短篇">短篇</option>
+                    <option value="短篇">短篇</option> */}
                     <option value="半次元">半次元</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
