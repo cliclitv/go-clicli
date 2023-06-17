@@ -100,13 +100,10 @@ func RegisterHandler() *httprouter.Router {
 	fsys2, _ := fs.Sub(tm_files, "tm/dist")
 	router.ServeFiles("/assets2/*filepath", http.FS(fsys2))
 
-	// router.Handler("GET", "/", http.FileServer(http.FS(fsys)))
-	// router.Handler("GET", "/tm", http.FileServer(http.FS(fsys2)))
-
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		host := r.Host
 		fmt.Println(host)
-		if host == "www.tm0.net" {
+		if host == "www.tm0.net" || host == "www.acgzone.cc" {
 			w.Write([]byte(tm_index))
 
 		} else {

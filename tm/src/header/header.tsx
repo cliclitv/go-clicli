@@ -31,7 +31,7 @@ export default function Header() {
             <div className="wrap flex">
                 <div className="logo-wrap"><div class="logo" onclick={() => push('/')}></div></div>
                 <div className="search">
-                    <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
+                    {/* <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} /> */}
                 </div>
                 <div className="biu">
                     <a href="https://app.tm0.net" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>

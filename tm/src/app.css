@@ -7,11 +7,11 @@ body {
     font-size: 14px;
     list-style: none;
     color: var(--color);
-    --theme: #F77649;
-    --tm-theme: #F77649;
-    --cyan: #00b8ac;
-    --theme-bg: rgba(228, 116, 30, 0.1);
-    --tm-theme-bg: rgba(228, 116, 30, 0.1);
+    --theme: #fa4b8b;
+    --tm-theme: #fa4b8b;
+    --cyan: #4a7dff;
+    --theme-bg: rgba(228, 30, 132, 0.1);
+    --tm-theme-bg: rgba(228, 30, 113, 0.1);
     --black: rgb(37, 37, 37);
     --whrite: #fff;
     --border: 0 1px 2px #ddd;
