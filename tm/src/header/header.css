@@ -6,11 +6,12 @@ header {
 }
 
 .logo {
-    background: url(https://cdn-us.imgs.moe/2023/05/17/6464ee8220a64.png);
-    width: 100px;
-    height: 50px;
+    background: url(https://cdn-us.imgs.moe/2023/06/17/648d9e447a796.png);
+    width: 70px;
+    height: 70px;
     background-size: cover;
     margin: 10px 20px;
+    border-radius: 20px;
 }
 
 .logo-wrap {

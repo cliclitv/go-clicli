@@ -133,3 +133,40 @@ nav li.active {
     padding: 10px;
     font-size: 18px;
 }
+
+main {
+    display: block!important;
+    text-align: center;
+    margin: 50px;
+}
+
+main img {
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px #eee;
+    width: 180px;
+}
+
+main div img {
+    margin: 20px;
+
+}
+
+main .logo {
+    border-radius: 50%
+}
+
+main button {
+    border-radius: 10px;
+    color: #fff;
+    background: #fa4b8b;
+    border: none;
+    padding: 10px 50px;
+    margin: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+main h1 {
+    color: #83a6ff;
+}

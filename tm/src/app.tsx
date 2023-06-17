@@ -24,7 +24,7 @@ const App = () => {
     return <div>
         <Header />
         <div>{route}</div>
-        <Footer />
+        {/* <Footer /> */}
     </div>
 }
 

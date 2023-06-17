@@ -71,7 +71,7 @@ export default function Upload(props) {
     const tags = ['推荐','绘画','小说','Cos']
     return (
         <div className="upload-tm">
-            <h1>小说投稿</h1>
+            <h1>合集投稿</h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
             </div>

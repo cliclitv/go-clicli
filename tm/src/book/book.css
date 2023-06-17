@@ -29,7 +29,7 @@ main {
 .right section li {
     list-style: none;
     padding: 3px 10px;
-    background: #FFDACD;
+    background: var(--tm-theme-bg);
     color: var(--tm-theme);
     border-radius: 5px;
     margin: 5px;
