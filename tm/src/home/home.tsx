@@ -29,7 +29,7 @@ export default function Home() {
 
 
     return (
-        <main class="wrap">
+        <main class="wrap main">
             <h1>和邪区</h1>
             <h2>曾经的毛站，现在的半次元平替</h2>
             <div>

@@ -55,6 +55,7 @@ export default function Upload(props) {
             console.log(post)
             addPost(post as any).then(res => {
                 alert(res.msg || '成功啦')
+                push(`/my/${getUser().id}`)
             })
         }
     }
