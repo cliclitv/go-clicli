@@ -35,6 +35,14 @@
         width: 50%!important;
     }
 
+    .upload-tm .title input{
+        width: 100%!important;
+    }
+    
+    .upload-tm{
+        width: 100%!important;
+    }
+
     .b li {
         width: 50% !important;
     }
@@ -44,6 +52,7 @@
     }
 
     header .search {
+        display: none;
         margin-right: 100px;
     }
 
