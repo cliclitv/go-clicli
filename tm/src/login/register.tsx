@@ -77,7 +77,7 @@ export default function Register({ id }) {
         window.location.href = '/login'
     }
     return <div class="login">
-        <li><h1>甜梦.{id ? '个人中心' : '注册'}</h1></li>
+        <li><h1>{id ? '个人中心' : '注册'}</h1></li>
         <li><input type="text" placeholder="QQ" onInput={(e) => changeQQ(e.target.value)} value={qq} /></li>
         <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} value={name} /></li>
         <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => changePwd(e.target.value)} /></li>
