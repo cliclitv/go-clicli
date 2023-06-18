@@ -32,15 +32,15 @@ export default function Upload(props) {
     }
 
     function selectTag(item) {
-        if (post.tag.indexOf(item) > -1) {
+        if (post?.tag?.indexOf(item) > -1) {
             setPost({
                 ...post,
-                tag: post.tag.replace(` ${item}`, ''),
+                tag: (post.tag||'').replace(` ${item}`, ''),
             })
         } else {
             setPost({
                 ...post,
-                tag: post.tag + ' ' + item,
+                tag: (post.tag||'') + ' ' + item,
             })
         }
 
@@ -88,13 +88,13 @@ export default function Upload(props) {
             <div className="tags">
                 <ul>
                     {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
-                        className={(post.tag || []).indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
+                        className={(post?.tag || []).indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>
             <div className="articles">
                 <ul>
                     {(article || []).map((item) => <li onclick={() => push(`/article/${item.id}`)}>{item.oid}. {item.title}</li>)}
-                    {props.id > 0 && <li onClick={() => push(`/add-article/${post.id}`)}>增加章节</li>}
+                    {props.id > 0 && <li onClick={() => push(`/add-article/${post.id}`)}>增加分集</li>}
                 </ul>
             </div>
             <div className="options">

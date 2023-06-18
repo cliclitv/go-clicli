@@ -37,7 +37,7 @@ export default function Upload(props) {
     }
     return (
         <div className="upload-tm">
-            <h1>更新文章</h1>
+            <h1>更新分集</h1>
             <div className="title">
                 <input type="text" placeholder="请输入序号" value={article.oid} onInput={e => change('oid', e.target.value)} />
             </div>
