@@ -35,12 +35,12 @@ export default function Upload(props) {
         if (post?.tag?.indexOf(item) > -1) {
             setPost({
                 ...post,
-                tag: (post.tag||'').replace(` ${item}`, ''),
+                tag: (post.tag || '').replace(` ${item}`, ''),
             })
         } else {
             setPost({
                 ...post,
-                tag: (post.tag||'') + ' ' + item,
+                tag: (post.tag || '') + ' ' + item,
             })
         }
 
@@ -69,7 +69,7 @@ export default function Upload(props) {
     // ['娱乐圈', '宫廷', '网游'],
     // ['霹雳', '原神'],
     // ['授权转载', '无版权转载']]
-    const tags = ['推荐','绘画','小说','Cos']
+    const tags = ['Recommend', '绘画', '小说', 'Cos']
     return (
         <div className="upload-tm">
             <h1>合集投稿</h1>
@@ -105,7 +105,7 @@ export default function Upload(props) {
                     <option value="public">发布</option>
                 </select>
                 <select value={post.sort} onInput={e => change('sort', e.target.value)}>
-                <option value="原创">原创</option>
+                    <option value="原创">原创</option>
                     <option value="半次元">半次元</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
