@@ -40,3 +40,11 @@ export default function shouldVIP(time) {
 
   return ttt >= Date.now()
 }
+
+
+export function getUid(){
+  const search = window.location.search
+  const [u, id] = search.split('=')
+  console.log(id)
+  return id;
+}

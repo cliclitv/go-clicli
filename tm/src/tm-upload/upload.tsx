@@ -1,19 +1,20 @@
 import { render, useState, h, useEffect, useRef } from "fre"
 import { push } from "../use-route"
-import { addPost, getArticles, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
+import { addPost, getNotes, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
+import { getUid } from "../util/avatar"
 import './upload.css'
 
 export default function Upload(props) {
     const [post, setPost] = useState({ id: 0, title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
-    const [article, setArticle] = useState([])
+    const [note, setNote] = useState([])
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
         if (props.id > 0) {
             getPostDetail(props.id).then((res: any) => {
-                getArticles(res.result.id).then(res2 => {
+                getNotes(res.result.id).then(res2 => {
                     setPost(res.result)
-                    setArticle(res2.articles)
+                    setNote(res2.notes)
                 })
 
             })
@@ -91,10 +92,10 @@ export default function Upload(props) {
                         className={(post?.tag || []).indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>
-            <div className="articles">
+            <div className="notes">
                 <ul>
-                    {(article || []).map((item) => <li onclick={() => push(`/article/${item.id}`)}>{item.oid}. {item.title}</li>)}
-                    {props.id > 0 && <li onClick={() => push(`/add-article/${post.id}`)}>增加分集</li>}
+                    {(note || []).map((item) => <li onclick={() => push(`/note/${item.id}`)}>{item.oid}. {item.title}</li>)}
+                    {props.id > 0 && <li onClick={() => push(`/add-note/${post.id}`)}>增加分集</li>}
                 </ul>
             </div>
             <div className="options">

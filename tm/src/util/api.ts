@@ -84,25 +84,27 @@ export function paycheck(tradeno) {
   return get(`https://www.clicli.cc/vip/paycheck?tradeno=${tradeno}`)
 }
 
-export function getArticles(pid) {
-  return get(`https://www.clicli.cc/articles?pid=${pid}&page=1&pageSize=200`)
+export function getNotes(pid) {
+  return get(`https://www.clicli.cc/notes?pid=${pid}&page=1&pageSize=200`)
 }
 
-export function getArticle(pid) {
-  return get(`https://www.clicli.cc/article/${pid}`)
+export function getNote(pid) {
+  return get(`https://www.clicli.cc/note/${pid}`)
 }
 
-export function addArticle({ pid, oid, title, content, bio }) {
-  return post(`https://www.clicli.cc/article/add`, {
+export function addNote({ pid, oid, title, content, tag,uid }) {
+  return post(`https://www.clicli.cc/note/add`, {
     pid: parseInt(pid),
-    oid: parseInt(oid),
+    oid: parseInt(oid) || 0,
     content,
-    title, bio
+    title, 
+    uid,
+    tag
   })
 }
 
-export function updateArticle({ pid, oid, title, content, bio, id }) {
-  return post(`https://www.clicli.cc/article/update/${id}`, {
+export function updateNote({ pid, oid, title, content, bio, id }) {
+  return post(`https://www.clicli.cc/note/update/${id}`, {
     pid: parseInt(pid),
     oid: parseInt(oid),
     content,

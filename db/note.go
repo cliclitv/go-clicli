@@ -8,17 +8,17 @@ import (
 func AddNote(oid int, title string, content string, pid int, uid int, tag string) (*Note, error) {
 	t := time.Now()
 	ctime := t.Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO Notes (oid,title,content,time,pid,uid,tag) VALUES ($1,$2,$3,$4,$5,$6,$7)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO notes (oid,title,content,time,pid,uid,tag) VALUES ($1,$2,$3,$4,$5,$6,$7)")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmtIns.Exec(oid, title, content, ctime, pid, tag)
+	_, err = stmtIns.Exec(oid, title, content, ctime, pid, uid, tag)
 	if err != nil {
 		return nil, err
 	}
 	defer stmtIns.Close()
 
-	res := &Note{Oid: oid, Title: title, Content: content, Time: ctime,  Pid: pid, Tag: tag}
+	res := &Note{Oid: oid, Title: title, Content: content, Time: ctime, Pid: pid, Tag: tag, Uid: uid}
 	defer stmtIns.Close()
 	return res, err
 }
@@ -42,7 +42,7 @@ func GetNotes(pid int, page int, pageSize int) ([]*Note, error) {
 
 	for rows.Next() {
 		var id, oid, pid int
-		var title, ctime  string
+		var title, ctime string
 		if err := rows.Scan(&id, &oid, &title, &ctime, &pid); err != nil {
 			return res, err
 		}
@@ -62,7 +62,7 @@ func GetNote(id int) (*Note, error) {
 	var vid, oid, pid int
 	var title, content, ctime, ptitle, tag string
 
-	err = stmtOut.QueryRow(id).Scan(&vid, &oid, &title, &content, &ctime, &tag,&pid, &ptitle)
+	err = stmtOut.QueryRow(id).Scan(&vid, &oid, &title, &content, &ctime, &tag, &pid, &ptitle)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func GetNoteByOid(pid int, oid int) (*Note, error) {
 	var vid int
 	var title, content, ctime, ptitle, tag string
 
-	err = stmtOut.QueryRow(pid, oid).Scan(&vid, &oid, &title, &content, &ctime, &tag,&pid, &ptitle)
+	err = stmtOut.QueryRow(pid, oid).Scan(&vid, &oid, &title, &content, &ctime, &tag, &pid, &ptitle)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}

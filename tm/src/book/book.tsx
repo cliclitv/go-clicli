@@ -1,6 +1,6 @@
 import { h, useEffect, useState, useRef } from 'fre'
 import snarkdown from 'snarkdown'
-import { getArticle, getArticles, getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
+import { getNote, getNotes, getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
 import { getAv, getSuo } from '../util/avatar'
 import './book.css'
 import Avatar from '../component/avatar/avatar'
@@ -8,8 +8,8 @@ import Avatar from '../component/avatar/avatar'
 export default function Post({ pid }) {
     const id = getAv(pid)
     const [post, setPost] = useState({} as any)
-    const [articles, setArticles] = useState([])
-    const [article, setArticle] = useState({})
+    const [notes, setNotes] = useState([])
+    const [note, setNote] = useState({})
     const [index, setIndex] = useState(0)
     const [pv, setPv] = useState(0)
     console.log(123)
@@ -18,11 +18,11 @@ export default function Post({ pid }) {
         const p1 = getPostDetail(id)
         const p2 = getPv(id)
         Promise.all([p1, p2]).then(([res1, res2]) => {
-            getArticles(res1.result.id).then(res3 => {
+            getNotes(res1.result.id).then(res3 => {
                 setPost((res1 as any).result)
-                setArticles(res3.articles)
-                getArticle(res3.articles[index].id).then(res => {
-                    setArticle(res.result)
+                setNotes(res3.notes)
+                getNote(res3.notes[index].id).then(res => {
+                    setNote(res.result)
                 })
             })
             setPv((res2 as any).result.pv)
@@ -31,17 +31,17 @@ export default function Post({ pid }) {
     }, [])
 
     useEffect(() => {
-        const a = document.querySelector('article')
-        if (article.content) {
-            a.innerHTML = snarkdown(article?.content)
+        const a = document.querySelector('note')
+        if (note.content) {
+            a.innerHTML = snarkdown(note?.content)
         }
-    }, [article])
+    }, [note])
 
     useEffect(() => {
-        console.log(articles[index])
-        if (articles[index] != null) {
-            getArticle(articles[index].id).then(res => {
-                setArticle(res.result)
+        console.log(notes[index])
+        if (notes[index] != null) {
+            getNote(notes[index].id).then(res => {
+                setNote(res.result)
             })
         }
     }, [index])
@@ -51,10 +51,10 @@ export default function Post({ pid }) {
     return (
         <main class="wrap">
             <div className="left2">
-                <h1>{article.title}</h1>
-                <article></article>
+                <h1>{note.title}</h1>
+                <note></note>
                 <p><b>作者有话说：</b>
-                    <li>{article.bio}</li></p>
+                    <li>{note.bio}</li></p>
             </div>
             <div className="right">
                 <div className="bio">
@@ -62,7 +62,7 @@ export default function Post({ pid }) {
                 </div>
                 <section>
                     <ul>{
-                        articles.map((a, i) => <li class={index === i ? 'active' : ''} onclick={() => setIndex(i)}>{a.title}</li>)}</ul>
+                        notes.map((a, i) => <li class={index === i ? 'active' : ''} onclick={() => setIndex(i)}>{a.title}</li>)}</ul>
                 </section>
             </div>
         </main>

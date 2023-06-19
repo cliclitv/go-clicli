@@ -4,12 +4,9 @@ import './list.css'
 import { h } from 'fre'
 
 export function ListA({ posts, editor }) {
-    function navigate(isNovel, id) {
-        if (isNovel) {
-            push(`/publish/${id}`)
-        } else {
-            push(`/upload/${id}`)
-        }
+    function navigate(id) {
+        console.log(id)
+        push(`/upload/${id}` + window.location.search)
     }
 
     const novel = s => s === '纯爱' || s === '言情' || s === '短篇' || s === '半次元'
@@ -21,7 +18,7 @@ export function ListA({ posts, editor }) {
             }} key={item.id} >
                 <div className="item">
                     <div className="cover">
-                        {editor && <div class='editor' onclick={() => navigate(novel(item.sort), item.id)}>编辑</div>}
+                        {editor && <div class='editor' onclick={() => navigate(item.id)}>编辑</div>}
                         <img src={getSuo(item.content)} />
                     </div>
                     <div className="title">{item.title}</div>
