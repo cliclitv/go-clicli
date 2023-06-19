@@ -88,11 +88,11 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/vip/paycheck", handler.Check)
 	router.POST("/vip/callback", handler.Callback)
 
-	router.POST("/article/add", handler.AddArticle)
-	router.POST("/article/update/:id", handler.UpdateArticle)
-	router.GET("/article/:id", handler.GetArticle)
-	router.GET("/article", handler.GetArticleByOid)
-	router.GET("/articles", handler.GetArticles)
+	router.POST("/note/add", handler.AddNote)
+	router.POST("/note/update/:id", handler.UpdateNote)
+	router.GET("/note/:id", handler.GetNote)
+	router.GET("/note", handler.GetNoteByOid)
+	router.GET("/notes", handler.GetNotes)
 
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))

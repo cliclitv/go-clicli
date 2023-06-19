@@ -30,21 +30,21 @@ func sendPostResponse(w http.ResponseWriter, pRes *db.Post, sc int) {
 	io.WriteString(w, string(resStr))
 }
 
-func sendArticleResponse(w http.ResponseWriter, pRes *db.Article, sc int) {
+func sendNoteResponse(w http.ResponseWriter, pRes *db.Note, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code   int       `json:"code"`
-		Result *db.Article `json:"result"`
+		Result *db.Note `json:"result"`
 	}{sc, pRes})
 
 	io.WriteString(w, string(resStr))
 }
 
-func sendArticlesResponse(w http.ResponseWriter, pRes *db.Articles, sc int) {
+func sendNotesResponse(w http.ResponseWriter, pRes *db.Notes, sc int) {
 	w.WriteHeader(sc)
 	resStr, _ := json.Marshal(struct {
 		Code int `json:"code"`
-		*db.Articles
+		*db.Notes
 	}{sc, pRes})
 
 	io.WriteString(w, string(resStr))

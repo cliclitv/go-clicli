@@ -73,17 +73,19 @@ type Comments struct {
 	Comments []*Comment `json:"comments"`
 }
 
-type Article struct {
+type Note struct {
 	Id      int    `json:"id,omitempty"`
 	Oid     int    `json:"oid"`
 	Title   string `json:"title"`
 	Content string `json:"content,omitempty"`
 	Time    string `json:"time"`
 	Pid     int    `json:"pid"`
+	Uid     int    `json:"uid"`
 	Ptitle  string `json:"ptitle,omitempty"`
+	Tag     string `json:"tag,omitempty"`
 	Bio     string `json:"bio,omitempty"`
 }
 
-type Articles struct {
-	Articles []*Article `json:"articles"`
+type Notes struct {
+	Notes []*Note `json:"notes"`
 }

@@ -10,87 +10,87 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func AddArticle(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func AddNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	req, _ := ioutil.ReadAll(r.Body)
-	body := &db.Article{}
+	body := &db.Note{}
 
 	if err := json.Unmarshal(req, body); err != nil {
 		sendMsg(w, 401, "参数解析失败")
 		return
 	}
 
-	if resp, err := db.AddArticle(body.Oid, body.Title, body.Content, body.Pid, body.Bio); err != nil {
+	if resp, err := db.AddNote(body.Oid, body.Title, body.Content, body.Pid, body.Uid,body.Bio); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		sendArticleResponse(w, resp, 200)
+		sendNoteResponse(w, resp, 200)
 	}
 
 }
 
-func UpdateArticle(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func UpdateNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 	vid, _ := strconv.Atoi(id)
 	req, _ := ioutil.ReadAll(r.Body)
-	body := &db.Article{}
+	body := &db.Note{}
 
 	if err := json.Unmarshal(req, body); err != nil {
 		sendMsg(w, 401, "参数解析失败")
 		return
 	}
 
-	if resp, err := db.UpdateArticle(vid, body.Oid, body.Title, body.Content, body.Pid, body.Bio); err != nil {
+	if resp, err := db.UpdateNote(vid, body.Oid, body.Title, body.Content, body.Pid, body.Bio); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		sendArticleResponse(w, resp, 200)
+		sendNoteResponse(w, resp, 200)
 	}
 
 }
 
-func GetArticles(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func GetNotes(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
-	resp, err := db.GetArticles(pid, page, pageSize)
+	resp, err := db.GetNotes(pid, page, pageSize)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		res := &db.Articles{Articles: resp}
-		sendArticlesResponse(w, res, 200)
+		res := &db.Notes{Notes: resp}
+		sendNotesResponse(w, res, 200)
 	}
 }
 
-func GetArticle(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func GetNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	vid, _ := strconv.Atoi(p.ByName("id"))
-	resp, err := db.GetArticle(vid)
+	resp, err := db.GetNote(vid)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		sendArticleResponse(w, resp, 200)
+		sendNoteResponse(w, resp, 200)
 	}
 }
 
-func GetArticleByOid(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func GetNoteByOid(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
 	oid, _ := strconv.Atoi(r.URL.Query().Get("oid"))
-	resp, err := db.GetArticleByOid(pid,oid)
+	resp, err := db.GetNoteByOid(pid,oid)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		sendArticleResponse(w, resp, 200)
+		sendNoteResponse(w, resp, 200)
 	}
 }
 
-func DeleteArticle(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func DeleteNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id, _ := strconv.Atoi(r.URL.Query().Get("id"))
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
 
-	err := db.DeleteArticle(id, pid)
+	err := db.DeleteNote(id, pid)
 	if err != nil {
 		sendMsg(w, 401, "数据库错误")
 		return
