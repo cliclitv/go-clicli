@@ -88,6 +88,7 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 	if err != nil {
 		return res, err
 	}
+	defer rows.Close()
 	defer stmtOut.Close()
 
 	for rows.Next() {
