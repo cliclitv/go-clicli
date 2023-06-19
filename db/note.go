@@ -9,16 +9,27 @@ import (
 )
 
 func getSuo(text string) string {
-	var reg = regexp.MustCompile(`suo]([^ ]*)`) // 查找以空格开头，到行尾结束，中间不包含空格字符串
-	var a = reg.FindAllString(text, -1)[0]
-	var b = a[5 : len(a)-1]
-	return b
+	var reg = regexp.MustCompile(`suo(.+?)\)`) // 查找以空格开头，到行尾结束，中间不包含空格字符串
+	var a = reg.FindAllString(text, -1)
+	if len(a) > 0 {
+		var aa = a[0]
+		if len(aa) > 0 {
+			return aa[5:len(aa)-1]
+		} else {
+			return ""
+		}
+
+	} else {
+		return ""
+	}
+
 }
 
 func AddNote(oid int, title string, content string, pid int, uid int, tag string) (*Note, error) {
 	t := time.Now()
 	ctime := t.Format("2006-01-02 15:04")
 	var info = getSuo(content)
+	// fmt.Println(info)
 	stmtIns, err := dbConn.Prepare("INSERT INTO notes (oid,title,content,time,pid,uid,tag,info) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)")
 	if err != nil {
 		return nil, err
