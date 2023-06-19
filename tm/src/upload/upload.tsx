@@ -5,14 +5,9 @@ import { getUid } from "../util/avatar"
 import './upload.css'
 
 export default function Upload(props) {
-    const [note, setNote] = useState({ id: 0, title: "", uid: getUid, pid: 4, sort: "半次元", time: "", content: "", tag: "" })
+    const [note, setNote] = useState({ id: 0, title: "", uid: getUid(), pid: 4, time: "", content: "", tag: "" })
 
     useEffect(() => {
-        const uid = getUid()
-        console.log(uid)
-        if (uid) {
-            document.querySelector('header').style.display = 'none'
-        }
         // 监听 change 事件
 
         document.querySelector('#file').addEventListener('change', event => {
@@ -41,7 +36,6 @@ export default function Upload(props) {
     function uploadImage(e) {
         const file = e.target.files[0]
 
-        console.log(file)
 
         const formData = new FormData()
         // formData.append('file', file)
@@ -126,7 +120,7 @@ export default function Upload(props) {
                 <i class="te te-link" onclick={() => window.md.link()}></i>
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>
-            <textarea spellcheck="false" placeholder="请输入文案，支持 markdown 语法" value={note.content} onInput={e => change('content', e.target.value)}></textarea>
+            <textarea spellcheck="false" placeholder="请输入正文，支持 markdown 语法" value={note.content} onInput={e => change('content', e.target.value)}></textarea>
             <div className="tags">
                 <ul>
                     {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}

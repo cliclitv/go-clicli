@@ -4,6 +4,7 @@ import './app.css'
 import './m.css'
 import Header from "./header/header"
 import Footer from './header/footer'
+import { getUid } from "./util/avatar"
 
 const routes = {
     '/': import('./home/home'),
@@ -22,8 +23,9 @@ const routes = {
 
 const App = () => {
     let route = useRoutes(routes)
+    const uid = getUid()
     return <div>
-        <Header />
+        {!uid && <Header />}
         <div>{route}</div>
         {/* <Footer /> */}
     </div>
