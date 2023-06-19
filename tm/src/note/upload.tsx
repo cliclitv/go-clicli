@@ -1,11 +1,11 @@
 import { render, useState, h, useEffect, useRef } from "fre"
 import { push } from "../use-route"
-import { addNote,  getUser, updateNote } from "../util/api"
+import { addNote,  getNote,  getUser, updateNote } from "../util/api"
 import { getUid } from "../util/avatar"
 import './upload.css'
 
 export default function Upload(props) {
-    const [note, setNote] = useState({ id: 0, title: "", uid: getUid(), pid: 4, time: "", content: "", tag: "" })
+    const [note, setNote] = useState({ id: 0, title: "", uid: getUid(), pid: 30, time: "", content: "", tag: "" })
 
     useEffect(() => {
         // 监听 change 事件
@@ -19,6 +19,10 @@ export default function Upload(props) {
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
         if (props.id > 0) {
+
+            getNote(props.id).then(res=>{
+                setNote(res.result)
+            })
 
         } else {
             // 新增
@@ -91,9 +95,6 @@ export default function Upload(props) {
         }
     }
 
-    function uploadFile(e) {
-        // window.md.image()
-    }
 
     // const tags = [["甜文", "虐文", "爽文", '狗血', '意识流'],
     // ['古代', '现代', '民国', '未来'],

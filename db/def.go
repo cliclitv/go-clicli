@@ -83,7 +83,6 @@ type Note struct {
 	Uid     int    `json:"uid"`
 	Ptitle  string `json:"ptitle,omitempty"`
 	Tag     string `json:"tag,omitempty"`
-	Bio     string `json:"bio,omitempty"`
 }
 
 type Notes struct {
