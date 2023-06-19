@@ -16,7 +16,7 @@ func AddNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	body := &db.Note{}
 
 	if err := json.Unmarshal(req, body); err != nil {
-		sendMsg(w, 401, "参数解析失败")
+		sendMsg(w, 401, fmt.Sprintf("%s", err))
 		return
 	}
 
@@ -50,10 +50,12 @@ func UpdateNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func GetNotes(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	tag := r.URL.Query().Get("tag")
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
+	uid, _ := strconv.Atoi(r.URL.Query().Get("uid"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
-	resp, err := db.GetNotes(pid, page, pageSize)
+	resp, err := db.GetNotes(pid, uid,tag,page, pageSize)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
@@ -74,17 +76,17 @@ func GetNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 }
 
-func GetNoteByOid(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
-	oid, _ := strconv.Atoi(r.URL.Query().Get("oid"))
-	resp, err := db.GetNoteByOid(pid,oid)
-	if err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
-	} else {
-		sendNoteResponse(w, resp, 200)
-	}
-}
+// func GetNoteByOid(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+// 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
+// 	oid, _ := strconv.Atoi(r.URL.Query().Get("oid"))
+// 	resp, err := db.GetNoteByOid(pid,oid)
+// 	if err != nil {
+// 		sendMsg(w, 500, fmt.Sprintf("%s", err))
+// 		return
+// 	} else {
+// 		sendNoteResponse(w, resp, 200)
+// 	}
+// }
 
 func DeleteNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id, _ := strconv.Atoi(r.URL.Query().Get("id"))

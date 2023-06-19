@@ -91,7 +91,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/note/add", handler.AddNote)
 	router.POST("/note/update/:id", handler.UpdateNote)
 	router.GET("/note/:id", handler.GetNote)
-	router.GET("/note", handler.GetNoteByOid)
+	// router.GET("/note", handler.GetNoteByOid)
 	router.GET("/notes", handler.GetNotes)
 
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
