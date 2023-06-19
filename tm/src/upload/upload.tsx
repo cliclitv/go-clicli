@@ -50,7 +50,7 @@ export default function Upload(props) {
         // formData.append('album_id',0 )
 
 
-        formData.append('businessType', 'yk_community_note')
+        formData.append('businessType', 'yk_community_post')
         formData.append('appKey', '110')
         formData.append('apiSig', 'helloYouku')
         formData.append('callId', '1687164992861')
@@ -61,7 +61,7 @@ export default function Upload(props) {
 
         fetch('https://bcy-upload.deno.dev/proxy', {
             body: formData,
-            method: 'NOTE'
+            method: 'POST',
         }).then(res => res.json()).then(data => {
             console.log(data)
             md.image(data.model.data)
