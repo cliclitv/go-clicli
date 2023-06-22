@@ -80,11 +80,11 @@ type Note struct {
 	Content string `json:"content,omitempty"`
 	Time    string `json:"time"`
 	Pid     int    `json:"pid"`
-	Uid     int    `json:"uid"`
-	Uname   string `json:"uname"`
-	Uqq     string `json:"uqq"`
+	Uid     int    `json:"uid,omitempty"`
+	Uname   string `json:"uname,omitempty"`
+	Uqq     string `json:"uqq,omitempty"`
 	Tag     string `json:"tag,omitempty"`
-	Info    string `json:"info"`
+	Info    string `json:"info,omitempty"`
 }
 
 type Notes struct {

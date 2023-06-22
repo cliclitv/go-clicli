@@ -108,14 +108,14 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 }
 
 func GetNote(id int) (*Note, error) {
-	stmtOut, err := dbConn.Prepare(`SELECT notes.id,notes.oid,notes.title,notes.content,notes.time, notes.tag,notes.info, users.id,users.name, users.qq FROM notes INNER JOIN users ON notes.uid=users.id WHERE notes.id = $1`)
+	stmtOut, err := dbConn.Prepare(`SELECT notes.id,notes.oid,notes.title,notes.content,notes.time,notes.pid FROM notes WHERE notes.id = $1`)
 	if err != nil {
 		return nil, err
 	}
-	var vid, oid, uid int
-	var title, content, ctime, uname, uqq, tag string
+	var vid, oid,pid int
+	var title, content, ctime string
 
-	err = stmtOut.QueryRow(id).Scan(&vid, &oid, &title, &content, &ctime, &tag, &uid, &uname, &uqq)
+	err = stmtOut.QueryRow(id).Scan(&vid, &oid, &title, &content, &ctime,&pid)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func GetNote(id int) (*Note, error) {
 	}
 	defer stmtOut.Close()
 
-	res := &Note{Id: vid, Oid: oid, Title: title, Content: content, Time: ctime, Tag: tag, Uid: uid, Uname: uname, Uqq: uqq}
+	res := &Note{Id: vid, Oid: oid, Title: title, Content: content, Time: ctime,Pid: pid}
 
 	return res, nil
 }
