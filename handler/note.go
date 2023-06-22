@@ -20,7 +20,7 @@ func AddNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	if resp, err := db.AddNote(body.Oid, body.Title, body.Content, body.Pid, body.Uid,body.Tag); err != nil {
+	if resp, err := db.AddNote(body.Title, body.Content, body.Pid, body.Uid,body.Tag); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
@@ -40,7 +40,7 @@ func UpdateNote(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	if resp, err := db.UpdateNote(vid, body.Oid, body.Title, body.Content, body.Pid, body.Tag); err != nil {
+	if resp, err := db.UpdateNote(vid, body.Title, body.Content, body.Pid, body.Tag); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {

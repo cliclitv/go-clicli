@@ -75,7 +75,6 @@ type Comments struct {
 
 type Note struct {
 	Id      int    `json:"id,omitempty"`
-	Oid     int    `json:"oid"`
 	Title   string `json:"title"`
 	Content string `json:"content,omitempty"`
 	Time    string `json:"time"`
