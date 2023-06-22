@@ -1,12 +1,12 @@
 import { render, useState, h, useEffect, useRef } from "fre"
 import { push } from "../use-route"
 import { addPost, getNotes, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
-import { getUid } from "../util/avatar"
 import './upload.css'
+import UploadHeader from "."
 
 export default function Upload(props) {
-    const [post, setPost] = useState({ id: 0, title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
-    const [note, setNote] = useState([])
+    const [post, setPost] = useState({ id: 0, title: "", status: "待审核", sort: "半次元", time: "", content: "", tag: "", videos: "" })
+    const [notes, setNotes] = useState([])
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
@@ -14,7 +14,7 @@ export default function Upload(props) {
             getPostDetail(props.id).then((res: any) => {
                 getNotes(res.result.id).then(res2 => {
                     setPost(res.result)
-                    setNote(res2.notes)
+                    setNotes(res2.notes)
                 })
 
             })
@@ -48,6 +48,7 @@ export default function Upload(props) {
     }
 
     function submit() {
+        console.log(post)
         if (props.id > 0) {
             updatePost(post as any).then(res => {
                 alert(res.msg || '成功啦~')
@@ -73,6 +74,8 @@ export default function Upload(props) {
     const tags = ['Recommend', '绘画', '小说', 'Cos']
     return (
         <div className="upload-tm">
+            <UploadHeader pid={post.id} />
+
             <h1>合集投稿</h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
@@ -94,7 +97,7 @@ export default function Upload(props) {
             </div>
             <div className="notes">
                 <ul>
-                    {(note || []).map((item) => <li onclick={() => push(`/note/${item.id}`)}>{item.oid}. {item.title}</li>)}
+                    {(notes || []).map((item) => <li onclick={() => push(`/note/${item.id}`)}>{item.oid}. {item.title}</li>)}
                     {props.id > 0 && <li onClick={() => push(`/add-note/${post.id}`)}>增加分集</li>}
                 </ul>
             </div>
@@ -104,10 +107,6 @@ export default function Upload(props) {
                     <option value="remove">待删除</option>
                     <option value="under">已下架</option>
                     <option value="public">发布</option>
-                </select>
-                <select value={post.sort} onInput={e => change('sort', e.target.value)}>
-                    <option value="原创">原创</option>
-                    <option value="半次元">半次元</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
             </div>

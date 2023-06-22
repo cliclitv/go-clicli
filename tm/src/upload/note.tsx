@@ -1,11 +1,13 @@
 import { render, useState, h, useEffect, useRef } from "fre"
 import { push } from "../use-route"
-import { addNote,  getNote,  getUser, updateNote } from "../util/api"
+import { addNote, getNote, getUser, updateNote } from "../util/api"
 import { getUid } from "../util/avatar"
 import './upload.css'
+import UploadHeader from "."
 
 export default function Upload(props) {
     const [note, setNote] = useState({ id: 0, title: "", uid: getUid(), pid: 30, time: "", content: "", tag: "" })
+
 
     useEffect(() => {
         // 监听 change 事件
@@ -20,7 +22,7 @@ export default function Upload(props) {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
         if (props.id > 0) {
 
-            getNote(props.id).then(res=>{
+            getNote(props.id).then(res => {
                 setNote(res.result)
             })
 
@@ -42,11 +44,6 @@ export default function Upload(props) {
 
 
         const formData = new FormData()
-        // formData.append('file', file)
-        // formData.append('permission', 0)
-        // formData.append('strategy_id', 0)
-        // formData.append('album_id',0 )
-
 
         formData.append('businessType', 'yk_community_post')
         formData.append('appKey', '110')
@@ -108,7 +105,9 @@ export default function Upload(props) {
     const tags = ['Recommend', '绘画', '小说', 'Cos']
     return (
         <div className="upload-tm">
-            <h1>投稿</h1>
+            <UploadHeader pid={0} />
+
+            <h1>分集投稿</h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={note.title} onInput={e => change('title', e.target.value)} />
             </div>
@@ -122,19 +121,7 @@ export default function Upload(props) {
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入正文，支持 markdown 语法" value={note.content} onInput={e => change('content', e.target.value)}></textarea>
-            <div className="tags">
-                <ul>
-                    {tags.map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
-                        className={(note?.tag || []).indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
-                </ul>
-            </div>
             <div className="options">
-                <select value={note.status} onInput={e => change('status', e.target.value)}>
-                    <option value="wait">待审核</option>
-                    <option value="remove">待删除</option>
-                    <option value="under">已下架</option>
-                    <option value="public">发布</option>
-                </select>
                 {props.id > 0 && <input type="text" value={note.time} onInput={e => change('time', e.target.value)} />}
             </div>
 

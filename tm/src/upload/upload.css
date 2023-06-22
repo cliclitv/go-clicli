@@ -3,7 +3,7 @@
 .upload-tm {
     width: 800px;
     min-height: 300px;
-    margin: 30px auto;
+    margin: 0 auto;
 }
 
 .upload-tm h1 {
@@ -116,4 +116,26 @@
     cursor: pointer;
     color: var(--tm-theme);
     margin: 5px;
+}
+
+.upload-header{
+    padding: 20px;
+    cursor: pointer;
+}
+
+.upload-header ul{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.upload-header li{
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+}
+
+.upload-header li.active{
+    color: var(--tm-theme);
+    font-weight: bold;
 }

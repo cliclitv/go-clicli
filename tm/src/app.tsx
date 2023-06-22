@@ -4,21 +4,20 @@ import './app.css'
 import './m.css'
 import Header from "./header/header"
 import Footer from './header/footer'
+import UploadHeader from './upload/index'
 import { getUid } from "./util/avatar"
 
 const routes = {
     '/': import('./home/home'),
     '/login': import('./login/login'),
     '/register': import('./login/register'),
-    '/publish/:id': import('./tm-upload/upload'),
-    '/addnote/:id': import('./note/upload'),
+    '/addpost/:id': import('./upload/post'),
+    '/addnote/:id': import('./upload/note'),
     '/search/:k': import('./search/search'),
-    '/watch/:pid':import('./book/book'),
+    '/watch/:pid': import('./book/book'),
     '/user/:id': import('./login/register'),
     '/recharge': import('./recharge/recharge'),
-    '/my/:id': import('./admin/admin'),
-    '/article/:id': import('./tm-article/article'),
-    '/add-article/:pid': import('./tm-article/article'),
+    '/my/:id': import('./upload/my'),
 }
 
 const App = () => {
