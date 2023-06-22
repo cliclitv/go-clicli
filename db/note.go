@@ -58,7 +58,7 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 	}
 
 	if pid != 0 {
-		slice = append(slice, uid)
+		slice = append(slice, pid)
 		query += fmt.Sprintf(" AND notes.pid =$%d", len(slice))
 	}
 
@@ -72,7 +72,7 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 		query += `)`
 	}
 
-	sqlRaw := fmt.Sprintf("SELECT notes.id,notes.oid,notes.title,notes.time,notes.pid, notes.info FROM notes WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
+	sqlRaw := fmt.Sprintf("SELECT notes.id,notes.oid,notes.title,notes.time,notes.pid, notes.info FROM notes WHERE 1=1%v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
 
 	slice = append(slice, pageSize, start)
 
