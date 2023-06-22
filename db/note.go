@@ -72,7 +72,7 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 		query += `)`
 	}
 
-	sqlRaw := fmt.Sprintf("SELECT notes.id,notes.oid,notes.title,notes.time,notes.pid, notes.info, users.id,users.name,users.qq FROM notes  LEFT JOIN posts ON notes.pid = posts.id LEFT JOIN users ON users.id = posts.uid WHERE 1=1%v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
+	sqlRaw := fmt.Sprintf("SELECT notes.id,notes.oid,notes.title,notes.time,notes.pid, notes.info, users.id,users.name,users.qq,posts,tag FROM notes  LEFT JOIN posts ON notes.pid = posts.id LEFT JOIN users ON users.id = posts.uid WHERE 1=1%v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
 
 	fmt.Println(sqlRaw)
 
@@ -95,12 +95,12 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 
 	for rows.Next() {
 		var id, oid, pid, uid int
-		var title, ctime, info, uname, uqq string
+		var title, ctime, info, uname, uqq, ptag string
 		if err := rows.Scan(&id, &oid, &title, &ctime, &pid, &info, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Note{Id: id, Oid: oid, Title: title, Time: ctime, Pid: pid, Info: info, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Note{Id: id, Oid: oid, Title: title, Time: ctime, Pid: pid, Info: info, Uid: uid, Uname: uname, Uqq: uqq, Tag: ptag}
 		res = append(res, c)
 	}
 	return res, nil
