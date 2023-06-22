@@ -3,25 +3,25 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"regexp"
 	"strings"
 	"time"
 )
 
 func getSuo(text string) string {
-	var reg = regexp.MustCompile(`suo(.+?)\)`) // 查找以空格开头，到行尾结束，中间不包含空格字符串
-	var a = reg.FindAllString(text, -1)
-	if len(a) > 0 {
-		var aa = a[0]
-		if len(aa) > 0 {
-			return aa[5:len(aa)-1]
-		} else {
-			return ""
-		}
+	// var reg = regexp.MustCompile(`suo(.+?)\)`) // 查找以空格开头，到行尾结束，中间不包含空格字符串
+	// var a = reg.FindAllString(text, -1)
+	// if len(a) > 0 {
+	// 	var aa = a[0]
+	// 	if len(aa) > 0 {
+	// 		return aa[5:len(aa)-1]
+	// 	} else {
+	// 		return ""
+	// 	}
 
-	} else {
-		return ""
-	}
+	// } else {
+	// 	return ""
+	// }
+	return text[0:200]
 
 }
 
@@ -72,7 +72,9 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 		query += `)`
 	}
 
-	sqlRaw := fmt.Sprintf("SELECT notes.id,notes.oid,notes.title,notes.time,notes.pid, notes.info FROM notes WHERE 1=1%v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
+	sqlRaw := fmt.Sprintf("SELECT notes.id,notes.oid,notes.title,notes.time,notes.pid, notes.info, users.id,users.name,users.qq FROM notes  LEFT JOIN posts ON notes.pid = posts.id LEFT JOIN users ON users.id = posts.uid WHERE 1=1%v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
+
+	fmt.Println(sqlRaw)
 
 	slice = append(slice, pageSize, start)
 
@@ -92,13 +94,13 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 	defer stmtOut.Close()
 
 	for rows.Next() {
-		var id, oid, pid int
-		var title, ctime, info string
-		if err := rows.Scan(&id, &oid, &title, &ctime, &pid, &info); err != nil {
+		var id, oid, pid, uid int
+		var title, ctime, info, uname, uqq string
+		if err := rows.Scan(&id, &oid, &title, &ctime, &pid, &info, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Note{Id: id, Oid: oid, Title: title, Time: ctime, Pid: pid, Info: info}
+		c := &Note{Id: id, Oid: oid, Title: title, Time: ctime, Pid: pid, Info: info, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 	return res, nil
