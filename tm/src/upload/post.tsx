@@ -3,10 +3,20 @@ import { push } from "../use-route"
 import { addPost, getNotes, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
 import './upload.css'
 import UploadHeader from "."
+import { uploadImage } from "../util/upload"
 
 export default function Upload(props) {
     const [post, setPost] = useState({ id: 0, title: "", status: "待审核", sort: "半次元", time: "", content: "", tag: "", videos: "" })
     const [notes, setNotes] = useState([])
+
+    useEffect(() => {
+        // 监听 change 事件
+
+        document.querySelector('#file').addEventListener('change', event => {
+            uploadImage(event)
+        })
+
+    }, [])
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
@@ -84,7 +94,8 @@ export default function Upload(props) {
                 <i class="te te-bold" onclick={() => window.md.bold()}></i>
                 <i class="te te-italic" onclick={() => window.md.italic()}></i>
                 <i class="te te-quote" onclick={() => window.md.quote()}></i>
-                <i class="te te-image" onclick={() => window.md.image()}></i>
+                <input id="file" type="file" accept="image/*" style="display:none" />
+                <label for="file"><i class="te te-image"></i></label>
                 <i class="te te-link" onclick={() => window.md.link()}></i>
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>
