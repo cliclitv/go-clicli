@@ -21,6 +21,9 @@ func getSuo(text string) string {
 	// } else {
 	// 	return ""
 	// }
+	if len(text) <= 200{
+		return text
+	}
 	return text[0:200]
 
 }

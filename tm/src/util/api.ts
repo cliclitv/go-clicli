@@ -92,22 +92,20 @@ export function getNote(pid) {
   return get(`https://www.clicli.cc/note/${pid}`)
 }
 
-export function addNote({ pid, oid, title, content, tag, uid }) {
+export function addNote({ pid, title, content, tag, uid }) {
   return post(`https://www.clicli.cc/note/add`, {
     pid: parseInt(pid),
-    oid: parseInt(oid) || 0,
     content,
     title,
     uid: parseInt(uid),
-    tag
   })
 }
 
-export function updateNote({ pid, oid, title, content, bio, id }) {
+export function updateNote({ pid, title, content, time, id }) {
   return post(`https://www.clicli.cc/note/update/${id}`, {
     pid: parseInt(pid),
-    oid: parseInt(oid),
     content,
-    title, bio
+    title,
+    time,
   })
 }

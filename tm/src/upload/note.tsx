@@ -7,7 +7,7 @@ import UploadHeader from "."
 import { uploadImage } from "../util/upload"
 
 export default function Upload(props) {
-    const [note, setNote] = useState({ id: 0, title: "", uid: getUid(), pid: 30, time: "", content: "", tag: "", oid: 0 })
+    const [note, setNote] = useState({ id: 0, title: "", uid: getUid() || 0, pid: props.pid || 30, time: "", content: "", tag: "", })
 
 
     useEffect(() => {
@@ -55,8 +55,6 @@ export default function Upload(props) {
         }
     }
 
-    console.log(props.id)
-
 
     // const tags = [["甜文", "虐文", "爽文", '狗血', '意识流'],
     // ['古代', '现代', '民国', '未来'],
@@ -86,7 +84,7 @@ export default function Upload(props) {
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>
             <textarea spellcheck="false" placeholder="请输入正文，支持 markdown 语法" value={note?.content} onInput={e => change('content', e.target.value)}></textarea>
-            {note?.id > 0 && <input type="text" value={note?.time} onInput={e => change('time', e.target.value)} />}
+            {note?.id > 0 && <div class='title'><input type="text" value={note?.time} onInput={e => change('time', e.target.value)} /></div>}
 
 
             <div className="submit">
