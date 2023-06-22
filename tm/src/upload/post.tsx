@@ -97,8 +97,16 @@ export default function Upload(props) {
             </div>
             <div className="notes">
                 <ul>
-                    {(notes || []).map((item) => <li onclick={() => push(`/note/${item.id}`)}>{item.oid}. {item.title}</li>)}
-                    {props.id > 0 && <li onClick={() => push(`/add-note/${post.id}`)}>增加分集</li>}
+                    {(notes || []).map((item) => <li onclick={() => push(`/addnote/${item.id}`)}>{item.oid}. {item.title}</li>)}
+                    <li onclick={() => {
+                        if (post.id == 0) {
+                            alert('先投稿合集，然后在合集编辑里添加分集')
+                            return
+                        }
+                        push(`/addnote/${post.id}${window.location.search}`)
+                    }}>
+                        投稿分集
+                    </li>
                 </ul>
             </div>
             <div className="options">

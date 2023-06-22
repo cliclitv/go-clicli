@@ -107,7 +107,7 @@
     cursor: pointer;
 }
 
-.articles li {
+.notes li {
     display: inline-block;
     padding: 10px 30px;
     box-sizing: border-box;
@@ -121,6 +121,8 @@
 .upload-header{
     padding: 20px;
     cursor: pointer;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .upload-header ul{

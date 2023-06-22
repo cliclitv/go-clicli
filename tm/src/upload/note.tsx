@@ -6,7 +6,7 @@ import './upload.css'
 import UploadHeader from "."
 
 export default function Upload(props) {
-    const [note, setNote] = useState({ id: 0, title: "", uid: getUid(), pid: 30, time: "", content: "", tag: "" })
+    const [note, setNote] = useState({ id: 0, title: "", uid: getUid(), pid: 30, time: "", content: "", tag: "", oid: 0 })
 
 
     useEffect(() => {
@@ -78,6 +78,8 @@ export default function Upload(props) {
 
     }
 
+    console.log(note.oid)
+
     function submit() {
         if (props.id > 0) {
             updateNote(note as any).then(res => {
@@ -110,13 +112,14 @@ export default function Upload(props) {
             <h1>分集投稿</h1>
             <div className="title">
                 <input type="text" placeholder="请输入标题" value={note.title} onInput={e => change('title', e.target.value)} />
+                {<input type="text" value={note.oid.toString()} onInput={e => change('oid', e.target.value)} placeholder="请输入排序id"/>}
             </div>
             <section>
                 <i class="te te-bold" onclick={() => window.md.bold()}></i>
                 <i class="te te-italic" onclick={() => window.md.italic()}></i>
                 <i class="te te-quote" onclick={() => window.md.quote()}></i>
                 <input id="file" type="file" accept="image/*" style="display:none" />
-                <label for="file"><i class="te te-image" onclick={(e) => uploadFile(e)}></i></label>
+                <label for="file"><i class="te te-image"></i></label>
                 <i class="te te-link" onclick={() => window.md.link()}></i>
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>

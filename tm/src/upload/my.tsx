@@ -21,7 +21,7 @@ export default function Home({ id }) {
             <div className="wrap">
                 <main>
                     <UploadHeader pid={0}/>
-                    <ListA posts={search} editor={id === getUid()} />
+                    <ListA posts={search} editor={id === getUid()||getUser()?.id} />
                 </main>
             </div>
         </div>
