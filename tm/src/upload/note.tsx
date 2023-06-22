@@ -63,22 +63,6 @@ export default function Upload(props) {
         })
     }
 
-    function selectTag(item) {
-        if (note?.tag?.indexOf(item) > -1) {
-            setNote({
-                ...note,
-                tag: (note.tag || '').replace(` ${item}`, ''),
-            })
-        } else {
-            setNote({
-                ...note,
-                tag: (note.tag || '') + ' ' + item,
-            })
-        }
-
-    }
-
-    console.log(note.oid)
 
     function submit() {
         if (props.id > 0) {
@@ -93,6 +77,8 @@ export default function Upload(props) {
             })
         }
     }
+
+    console.log(props.id)
 
 
     // const tags = [["甜文", "虐文", "爽文", '狗血', '意识流'],
@@ -111,8 +97,7 @@ export default function Upload(props) {
 
             <h1>分集投稿</h1>
             <div className="title">
-                <input type="text" placeholder="请输入标题" value={note.title} onInput={e => change('title', e.target.value)} />
-                {<input type="text" value={note.oid.toString()} onInput={e => change('oid', e.target.value)} placeholder="请输入排序id"/>}
+                <input type="text" placeholder="请输入标题" value={note?.title} onInput={e => change('title', e.target.value)} />
             </div>
             <section>
                 <i class="te te-bold" onclick={() => window.md.bold()}></i>
@@ -123,10 +108,9 @@ export default function Upload(props) {
                 <i class="te te-link" onclick={() => window.md.link()}></i>
                 <i class="te te-code" onclick={() => window.md.blockCode()}></i>
             </section>
-            <textarea spellcheck="false" placeholder="请输入正文，支持 markdown 语法" value={note.content} onInput={e => change('content', e.target.value)}></textarea>
-            <div className="options">
-                {props.id > 0 && <input type="text" value={note.time} onInput={e => change('time', e.target.value)} />}
-            </div>
+            <textarea spellcheck="false" placeholder="请输入正文，支持 markdown 语法" value={note?.content} onInput={e => change('content', e.target.value)}></textarea>
+            {note?.id > 0 && <input type="text" value={note?.time} onInput={e => change('time', e.target.value)} />}
+
 
             <div className="submit">
                 <button onClick={submit}>发布

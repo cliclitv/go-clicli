@@ -14,7 +14,7 @@ export default function UploadHeader({ pid }) {
                     1.合集投稿
                 </li>
                 <li class={window.location.pathname.indexOf('my') > -1 ? 'active' : ''} onclick={() => push(`/my/${getUid()||getUser()?.id}${window.location.search}`)}>
-                    2.合集编辑(在这里添加分集)
+                    2.合集编辑
                 </li>
             </ul>
         </header>
