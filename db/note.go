@@ -108,7 +108,7 @@ func GetNotes(pid int, uid int, tag string, page int, pageSize int) ([]*Note, er
 }
 
 func GetNote(id int) (*Note, error) {
-	stmtOut, err := dbConn.Prepare(`SELECT notes.id,notes.oid,notes.title,notes.content,notes.time, notes.tag,notes.info, users.id,users.name, users.qq FROM notes INNER JOIN posts ON notes.uid=users.id WHERE notes.id = $1`)
+	stmtOut, err := dbConn.Prepare(`SELECT notes.id,notes.oid,notes.title,notes.content,notes.time, notes.tag,notes.info, users.id,users.name, users.qq FROM notes INNER JOIN users ON notes.uid=users.id WHERE notes.id = $1`)
 	if err != nil {
 		return nil, err
 	}
