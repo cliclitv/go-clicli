@@ -29,26 +29,7 @@ export function getSearch(key) {
 }
 
 function replaceContent(c = '') {
-  return c.replace(/vip.ffzyread.com/g, 'cf.clicli.cc/read/2000')
-    .replace(/vip.ffzyread1.com/g, 'cf.clicli.cc/read1/2000')
-    .replace(/vip.ffzy-play2.com/g, 'cf.clicli.cc/2/2000')
-    .replace(/vip.ffzy-play3.com/g, 'cf.clicli.cc/3/2000')
-    .replace(/vip.ffzy-play4.com/g, 'cf.clicli.cc/4/2000')
-    .replace(/vip.ffzy-play5.com/g, 'cf.clicli.cc/5/2000')
-    .replace(/vip.ffzy-play6.com/g, 'cf.clicli.cc/6/2000')
-    .replace(/vip.ffzy-play7.com/g, 'cf.clicli.cc/7/2000')
-    .replace(/vip.ffzy-play8.com/g, 'cf.clicli.cc/8/2000')
-    .replace(/vip.ffzy-play9.com/g, 'cf.clicli.cc/9/2000')
-    .replace(/vip.ffzy-play10.com/g, 'cf.clicli.cc/4/2000')
-    .replace(/vip.ffzy-online1.com/g, 'cf.clicli.cc/01/2000')
-    .replace(/vip.ffzy-online2.com/g, 'cf.clicli.cc/02/2000')
-    .replace(/vip.ffzy-online3.com/g, 'cf.clicli.cc/03/2000')
-    .replace(/vip.ffzy-online4.com/g, 'cf.clicli.cc/04/2000')
-    .replace(/vip.ffzy-online5.com/g, 'cf.clicli.cc/05/2000')
-    .replace(/vip.ffzy-online6.com/g, 'cf.clicli.cc/06/2000')
-    .replace(/vip.ffzy-online7.com/g, 'cf.clicli.cc/07/2000')
-    .replace(/vip.ffzy-online8.com/g, 'cf.clicli.cc/08/2000')
-    .replace(/vip.ffzy-online9.com/g, 'cf.clicli.cc/09/2000')
+  return c
     .replace(/tb-binary.cdn.bcebos.com\/TbGame/g, 'bos.nj.bpc.baidu.com/tieba-movideo')
 
 }
