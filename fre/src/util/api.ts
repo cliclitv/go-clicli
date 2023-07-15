@@ -29,9 +29,7 @@ export function getSearch(key) {
 }
 
 function replaceContent(c = '') {
-  return c
-    .replace(/tb-binary.cdn.bcebos.com\/TbGame/g, 'bos.nj.bpc.baidu.com/tieba-movideo')
-
+  return c.replace(/tb-binary.cdn.bcebos.com\/TbGame/g, 'bos.nj.bpc.baidu.com/tieba-movideo')
 }
 
 export function addPost({ title, content, status, sort, tag, uid, videos }) {
