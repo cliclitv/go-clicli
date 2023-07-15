@@ -30,6 +30,7 @@ export function getSearch(key) {
 
 function replaceContent(c = '') {
   return c.replace(/tb-binary.cdn.bcebos.com\/TbGame/g, 'bos.nj.bpc.baidu.com/tieba-movideo')
+  .replace(/img[0-9].doubanio.com/g, 'doubanimg.deno.dev')
 }
 
 export function addPost({ title, content, status, sort, tag, uid, videos }) {
