@@ -9,7 +9,25 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"regexp"
 )
+
+
+func IsNumber(str string) bool {
+
+    pattern := "^[0-9]+$"
+
+    match, err := regexp.MatchString(pattern, str)
+
+    if err != nil {
+
+        return false
+
+    }
+
+    return match
+
+}
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
@@ -44,13 +62,25 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
+	
 
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
 		return
 	}
 
-	resp, err := db.GetUser(ubody.Name, 0, "")
+	var resp *db.User
+	var err error
+
+	if IsNumber(ubody.Name){
+		// qq
+		resp, err = db.GetUser("", 0, ubody.Name)
+	}else{
+		resp, err = db.GetUser(ubody.Name, 0, "")
+	}
+
+
+	// resp, err := db.GetUser(ubody.Name, 0, "")
 	pwd := util.Cipher(ubody.Pwd)
 
 	if resp == nil || err != nil {
