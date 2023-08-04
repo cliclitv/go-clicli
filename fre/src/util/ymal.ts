@@ -18,6 +18,7 @@ var dpr = window.devicePixelRatio
 let stack = []
 let stage = []
 let roles = []
+let activeAudio = null
 
 function drawPlayer(json = {}, canvas) {
     console.log(json)
@@ -42,10 +43,13 @@ function drawPlayer(json = {}, canvas) {
 
 
     canvas.addEventListener('click', (e) => {
-        // if (wiatbranch) {
+        if (activeAudio) {
+            activeAudio.play()
+        }
+        if (wiatbranch) {
             wiatbranch = false
             var branchK = findBatch(e, canvas)
-        // }
+        }
 
         if (branchK) {
             const branch = json.branches[branchK]
@@ -94,15 +98,32 @@ function drawNextStep(step, ctx) {
     if (key == 'stage') {
         stage = value
         drawImage2(ctx, stage[1], () => {
+            drawText2(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2, 'Press the screen to start', {
+                oppo: false,
+                size: 100,
+                align: 'center'
+            })
+            addAudio(stage[0])
             prevStep = step
+
         })
+
+
     } else if (key == 'choose') {
         wiatbranch = true
         drawImage2(ctx, stage[1], () => {
             const [key2, value2] = Object.entries(prevStep)[0]
-            drawDilog(ctx, key2, value2)
-            drawSelect(ctx, key, value)
-            prevStep = step
+
+            const cb = () => {
+                drawDilog(ctx, key2, value2)
+                drawSelect(ctx, key, value)
+                prevStep = step
+            }
+            if (roles[key2]) {
+                drawImage3(ctx, roles[key2], cb)
+            } else {
+                cb()
+            }
 
         })
     } else {
@@ -132,15 +153,27 @@ function drawSelect(ctx, name, value) {
         stack.push([x, y, x + w, y + h, v])
 
         drawButton(ctx, x, y, 500, 100, 60, true)
-        drawText(ctx, ctx.canvas.width - 350, ctx.canvas.height - 550 - i * 110 + 55, 500, v, true)
+        drawText2(ctx, ctx.canvas.width - 350, ctx.canvas.height - 550 - i * 110 + 55, v, {
+            oppo: true,
+            size: 50,
+            align: 'center'
+        })
     });
 }
 
 
 function drawDilog(ctx, name, value) {
-    drawText(ctx, 250, ctx.canvas.height - 450, 500, getName(name), false)
+    drawText2(ctx, 250, ctx.canvas.height - 440, getName(name), {
+        oppo: false,
+        size: 40,
+        align: 'left'
+    })
     drawButton(ctx, 100, ctx.canvas.height - 400, ctx.canvas.width - 200, 300, 160, false)
-    drawText(ctx, 400, ctx.canvas.height - 300, 500, '『 ' + value + ' 』', false)
+    drawText2(ctx, 200, ctx.canvas.height - 300, '『 ' + value + ' 』', {
+        oppo: false,
+        size: 50,
+        align: 'left'
+    })
 
 }
 
@@ -167,15 +200,15 @@ const drawButton = function (ctx, x, y, width, height, radius, oppo) {
 
 }
 
-const drawText = function (ctx, x, y, w, text, oppo) {
+const drawText2 = function (ctx, x, y, text, op) {
     ctx.save()
     ctx.beginPath();
-    const size = 50
+    const size = op.size
     ctx.font = `${size}px Micosoft yahei`;
-    ctx.fillStyle = oppo ? "black" : "white";
+    ctx.fillStyle = op.oppo ? "black" : "white";
     ctx.textBaseline = 'middle';
-    ctx.textAlign = 'center';
-    ctx.fillText(text, x, y, w);
+    ctx.textAlign = op.align;
+    ctx.fillText(text, x, y, 50 * text.length, 50);
     ctx.closePath();
     ctx.restore();
 }
@@ -200,4 +233,14 @@ function drawImage3(ctx, src, cb) {
         cb && cb()
     }
     ctx.restore()
+}
+
+function addAudio(src) {
+    if (activeAudio) {
+        let old = activeAudio
+        old.pause()
+    }
+    const a = new Audio(src)
+    activeAudio = a
+    // document.body.appendChild(a)
 }

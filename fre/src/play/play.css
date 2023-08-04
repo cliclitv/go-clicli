@@ -90,10 +90,12 @@
     border-radius: 5px;
     overflow: hidden
 }
-.canvas-wrap{
+
+.canvas-wrap {
     width: 1000px;
     margin: 0 auto;
 }
+
 .xiangqing p {
     font-size: 36px;
     color: #946ce6 !important;

@@ -70,9 +70,17 @@ export default function Post({ gv }) {
                     </div>
                 </div>
             ) : game ?
-                <div class="canvas-wrap">
-                    <canvas id="mycanvas" />
+                <div>
+                    <div class="avatar-wrap wrap">
+                        <Avatar uqq={post.uqq} />
+                        <h1>{post.title}</h1>
+                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
+                    </div>
+                    <div class="canvas-wrap">
+                        <canvas id="mycanvas" />
+                    </div>
                 </div>
+
                 : (<div class="wrap player">
                     <div className="ep-wrap">
                         <Eplayer url={play}></Eplayer>
@@ -93,7 +101,7 @@ export default function Post({ gv }) {
                                     {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
                                 </div>
                             </div>
-                            {<div class='article' style={{ display: (show || !oth) ? 'block' : 'none' }}>
+                            {<div class='article' style={{ display: (show && oth) ? 'block' : 'none' }}>
                                 <div class='xiangqing'>
                                     <li>详情</li><p onClick={() => setShow(false)}>×</p>
                                 </div>
