@@ -69,7 +69,7 @@ export default function Post({ gv }) {
 
                     </div>
                 </div>
-            ) : game ? <div style="margin: 0 auto; width: 1000px">
+            ) : game ? <div style="margin: 0 auto; width: 1000px;border-radius:5px">
                 <canvas id="mycanvas" />
             </div> : (<div class="wrap player">
                 <div className="ep-wrap">

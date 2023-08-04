@@ -120,9 +120,13 @@ function drawSelect(ctx, name, value) {
 
 
 function drawDilog(ctx, name, value) {
-    drawText(ctx, 250, ctx.canvas.height - 450, 500, name + ':', false)
+    drawText(ctx, 250, ctx.canvas.height - 450, 500, getName(name), false)
     drawButton(ctx, 100, ctx.canvas.height - 400, ctx.canvas.width - 200, 300, 160, false)
-    drawText(ctx, 400, ctx.canvas.height - 300, 500, value, false)
+    drawText(ctx, 400, ctx.canvas.height - 300, 500, '『 ' + value + ' 』', false)
+}
+
+function getName(name) {
+    return name === 'aside' ? '旁白' : name
 }
 
 const drawButton = function (ctx, x, y, width, height, radius, oppo) {
