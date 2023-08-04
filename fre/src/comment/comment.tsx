@@ -38,7 +38,7 @@ export default function Comment({ post }) {
     }
     const user = getUser() || {}
     return <div class="comment">
-        <h1>#弹幕<span>{comments?.length}</span></h1>
+        <h1>#讨论<span>{comments?.length}</span></h1>
         <div className="comment-input">
             <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
             <input type="text" placeholder="Duang~" onInput={(e) => setComment(e.target.value)} />

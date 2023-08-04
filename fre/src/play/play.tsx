@@ -6,6 +6,7 @@ import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
+import { renderYmal } from '../util/ymal'
 
 export default function Post({ gv }) {
     const id = getAv(gv)
@@ -35,7 +36,11 @@ export default function Post({ gv }) {
 
     useEffect(() => {
         const a = document.querySelector('article')
-        if (post.content) {
+        const c = document.getElementById('mycanvas')
+        if (c) {
+            renderYmal(post.videos, c)
+        }
+        if (post.content && a) {
             a.innerHTML = snarkdown(post?.content)
         }
     }, [post])
@@ -47,10 +52,26 @@ export default function Post({ gv }) {
         setId(i)
     }
 
-    const oth = (post.tag || "").indexOf('其它') < 0
+    const oth = (post.tag || "").indexOf('其它') > -1
+    const game = (post.tag || "").indexOf('小游戏') > -1
     return (
         <main>
-            {oth ? (<div class="wrap player">
+            {oth ? (
+
+                <div class='article2'>
+                    <div>
+                        <Avatar uqq={post.uqq} />
+                        <h1>{post.title}</h1>
+                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
+                    </div>
+                    <div>
+                        <article></article>
+
+                    </div>
+                </div>
+            ) : game ? <div style="margin: 0 auto; width: 1000px">
+                <canvas id="mycanvas" />
+            </div> : (<div class="wrap player">
                 <div className="ep-wrap">
                     <Eplayer url={play}></Eplayer>
                 </div>
@@ -93,21 +114,7 @@ export default function Post({ gv }) {
                         })}
                     </ul>
                 </div>
-            </div>) : (
-
-                <div class='article2'>
-                    <div>
-                        <Avatar uqq={post.uqq} />
-                        <h1>{post.title}</h1>
-                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
-                    </div>
-                    <div>
-                        <article></article>
-
-                    </div>
-                    {/* <article>{post.content}</article> */}
-                </div>
-            )}
+            </div>)}
 
             {post.id && <Comment post={post} />}
 
