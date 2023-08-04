@@ -13,12 +13,16 @@ export function renderYmal(str, node) {
 }
 
 let cursor = 0
+let wiatbranch = false
 var dpr = window.devicePixelRatio
 let stack = []
 let stage = []
+let roles = []
 
 function drawPlayer(json = {}, canvas) {
     console.log(json)
+
+    roles = json.roles
     canvas.style.width = '1000px'
     canvas.style.height = (1000 / 16 * 9) + 'px'
 
@@ -38,15 +42,23 @@ function drawPlayer(json = {}, canvas) {
 
 
     canvas.addEventListener('click', (e) => {
-        let branchK = findBatch(e)
+        // if (wiatbranch) {
+            wiatbranch = false
+            var branchK = findBatch(e, canvas)
+        // }
 
         if (branchK) {
             const branch = json.branches[branchK]
-            console.log(branch)
             cursor = 0
             drawNextStep(branch[cursor++], ctx)
         } else {
-            drawNextStep(branch[cursor++], ctx)
+            if (branch[cursor] != null) {
+                drawNextStep(branch[cursor++], ctx)
+            } else {
+                cursor = 0
+                drawNextStep(branch[cursor++], ctx)
+            }
+
         }
 
 
@@ -56,10 +68,13 @@ function drawPlayer(json = {}, canvas) {
 
 let prevStep = null
 
-function findBatch(e) {
+function findBatch(e, canvas) {
+    const rect = canvas.getBoundingClientRect()
     // console.log(e.clientX - 60, e.clientY - 100, stack.map(v => v.map(a => a / dpr)))
-    const cx = e.clientX - 60
-    const cy = e.clientY - 100
+    const cx = e.clientX - rect.left
+    const cy = e.clientY - rect.top
+
+    console.log(cx, cy, e.pageX)
 
     for (const [x, y, w, h, v] of stack) {
         if (x / dpr < cx && y / dpr < cy && w / dpr > cx && h / dpr > cy) {
@@ -72,22 +87,17 @@ function findBatch(e) {
 }
 
 function drawNextStep(step, ctx) {
-    console.log(step)
-    // 默认加载第一句
-    if (step == null) {
-        cursor = 0
-        return
-    }
 
     const [key, value] = Object.entries(step)[0]
     // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-    if (key == 'change') {
+    if (key == 'stage') {
         stage = value
         drawImage2(ctx, stage[1], () => {
             prevStep = step
         })
     } else if (key == 'choose') {
+        wiatbranch = true
         drawImage2(ctx, stage[1], () => {
             const [key2, value2] = Object.entries(prevStep)[0]
             drawDilog(ctx, key2, value2)
@@ -97,8 +107,16 @@ function drawNextStep(step, ctx) {
         })
     } else {
         drawImage2(ctx, stage[1], () => {
-            drawDilog(ctx, key, value)
-            prevStep = step
+            const cb = () => {
+                drawDilog(ctx, key, value)
+                prevStep = step
+            }
+            if (roles[key]) {
+                drawImage3(ctx, roles[key], cb)
+            } else {
+                cb()
+            }
+
         })
     }
 }
@@ -123,6 +141,7 @@ function drawDilog(ctx, name, value) {
     drawText(ctx, 250, ctx.canvas.height - 450, 500, getName(name), false)
     drawButton(ctx, 100, ctx.canvas.height - 400, ctx.canvas.width - 200, 300, 160, false)
     drawText(ctx, 400, ctx.canvas.height - 300, 500, '『 ' + value + ' 』', false)
+
 }
 
 function getName(name) {
@@ -167,7 +186,17 @@ function drawImage2(ctx, src, cb) {
     img.src = src
     img.onload = function () {
         ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height)//绘制图片
-        console.log(123)
+        cb && cb()
+    }
+    ctx.restore()
+}
+
+function drawImage3(ctx, src, cb) {
+    ctx.save()
+    let img = new Image();
+    img.src = src
+    img.onload = function () {
+        ctx.drawImage(img, ctx.canvas.width / 2 - img.width / 2, ctx.canvas.height / 2 - img.height / 2, img.width, img.height)//绘制图片
         cb && cb()
     }
     ctx.restore()

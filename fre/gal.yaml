@@ -1,0 +1,21 @@
+game: 小游戏演示
+
+branches:
+  branch1:
+    - stage: [
+          1.mp3, 
+          https://cdn-us.imgs.moe/2023/08/04/64ccceaa7994d.jpg,
+          a.png,
+        ] # 舞台，分别是[背景音乐，背景图，立绘]
+    - 旁白: 欢迎来到 clicli 世界 # 旁白
+    - 友人A: 你好
+    - 有人B: 我不好
+    - choose: [branch2, branch3] # 切换分支
+  branch2:
+    - 旁白: 欢迎来到分支2
+  branch3:
+    - 友人B: 欢迎来到分支3
+
+roles: 
+  友人A: https://cdn-us.imgs.moe/2023/08/04/64ccd82cac684.png
+  友人B: https://cdn-us.imgs.moe/2023/08/04/64ccd82ed7079.png

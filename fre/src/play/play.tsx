@@ -69,52 +69,54 @@ export default function Post({ gv }) {
 
                     </div>
                 </div>
-            ) : game ? <div style="margin: 0 auto; width: 1000px;border-radius:5px">
-                <canvas id="mycanvas" />
-            </div> : (<div class="wrap player">
-                <div className="ep-wrap">
-                    <Eplayer url={play}></Eplayer>
+            ) : game ?
+                <div class="canvas-wrap">
+                    <canvas id="mycanvas" />
                 </div>
-                <div className="p">
-                    <div className="info">
-                        <div>
-                            <div class='avatar-wrap'> <Avatar uqq={post.uqq} /> <li onclick={() => setShow(!show)}>详情{' >'}</li></div>
-
-                            <h1>{post.title}<span>{pv} ℃</span>
-                            </h1>
-                        </div>
-                        <div className="tag">
-                            <div className="tags">
-                                {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
-                                    return <li>{tag}</li>
-                                })}
-                                {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
-                            </div>
-                        </div>
-                        {<div class='article' style={{ display: (show || !oth) ? 'block' : 'none' }}>
-                            <div class='xiangqing'>
-                                <li>详情</li><p onClick={() => setShow(false)}>×</p>
-                            </div>
-                            <article ref={a}></article>
-                        </div>}
-
+                : (<div class="wrap player">
+                    <div className="ep-wrap">
+                        <Eplayer url={play}></Eplayer>
                     </div>
-                    <ul>
-                        {videos.map((name, index) => {
-                            if (name[1].indexOf('v.qq.com') > -1) {
-                                return <a href={name[1]} target="_blank"><li class={'active qq'}>{`P${index + 1}. 腾讯正版`}</li></a>
-                            }
-                            if (name[1].indexOf('iqiyi') > -1) {
-                                return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. 爱奇艺正版`}</li></a>
-                            }
-                            if (name[1].indexOf('bilibili') > -1) {
-                                return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. bilibili正版`}</li></a>
-                            }
-                            return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
-                        })}
-                    </ul>
-                </div>
-            </div>)}
+                    <div className="p">
+                        <div className="info">
+                            <div>
+                                <div class='avatar-wrap'> <Avatar uqq={post.uqq} /> <li onclick={() => setShow(!show)}>详情{' >'}</li></div>
+
+                                <h1>{post.title}<span>{pv} ℃</span>
+                                </h1>
+                            </div>
+                            <div className="tag">
+                                <div className="tags">
+                                    {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
+                                        return <li>{tag}</li>
+                                    })}
+                                    {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
+                                </div>
+                            </div>
+                            {<div class='article' style={{ display: (show || !oth) ? 'block' : 'none' }}>
+                                <div class='xiangqing'>
+                                    <li>详情</li><p onClick={() => setShow(false)}>×</p>
+                                </div>
+                                <article ref={a}></article>
+                            </div>}
+
+                        </div>
+                        <ul>
+                            {videos.map((name, index) => {
+                                if (name[1].indexOf('v.qq.com') > -1) {
+                                    return <a href={name[1]} target="_blank"><li class={'active qq'}>{`P${index + 1}. 腾讯正版`}</li></a>
+                                }
+                                if (name[1].indexOf('iqiyi') > -1) {
+                                    return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. 爱奇艺正版`}</li></a>
+                                }
+                                if (name[1].indexOf('bilibili') > -1) {
+                                    return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. bilibili正版`}</li></a>
+                                }
+                                return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
+                            })}
+                        </ul>
+                    </div>
+                </div>)}
 
             {post.id && <Comment post={post} />}
 
