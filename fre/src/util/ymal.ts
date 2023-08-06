@@ -27,6 +27,9 @@ function drawPlayer(json = {}, canvas) {
     canvas.style.width = '1000px'
     canvas.style.height = (1000 / 16 * 9) + 'px'
 
+    canvas.w = 1000
+    canvas.h = 1000 / 16 * 9
+
     canvas.width = 1000
     canvas.height = 1000 / 16 * 9
 
@@ -90,6 +93,10 @@ function findBatch(e, canvas) {
     return null
 }
 
+function getDprS(s) {
+    return s / 2 * dpr
+}
+
 function drawNextStep(step, ctx) {
 
     const [key, value] = Object.entries(step)[0]
@@ -100,7 +107,7 @@ function drawNextStep(step, ctx) {
         drawImage2(ctx, stage[1], () => {
             drawText2(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2, 'Press the screen to start', {
                 oppo: false,
-                size: 100,
+                size: 50,
                 align: 'center'
             })
             addAudio(stage[0])
@@ -145,33 +152,33 @@ function drawNextStep(step, ctx) {
 function drawSelect(ctx, name, value) {
 
     value.forEach((v, i) => {
-        const x = ctx.canvas.width - 600
-        const y = ctx.canvas.height - 550 - i * 110
-        const w = 500
-        const h = 100;
+        const x = ctx.canvas.width - 250 * dpr
+        const y = ctx.canvas.height - 270 * dpr - i * 50 * dpr
+        const w = 250 * dpr
+        const h = 40 * dpr;
 
         stack.push([x, y, x + w, y + h, v])
 
-        drawButton(ctx, x, y, 500, 100, 60, true)
-        drawText2(ctx, ctx.canvas.width - 350, ctx.canvas.height - 550 - i * 110 + 55, v, {
+        drawButton(ctx, x, y, 200 * dpr, h, h / 2, true)
+        drawText2(ctx, x + 10 * dpr, y + h / 2, v, {
             oppo: true,
-            size: 50,
-            align: 'center'
+            size: 20,
+            align: 'left'
         })
     });
 }
 
 
 function drawDilog(ctx, name, value) {
-    drawText2(ctx, 250, ctx.canvas.height - 440, getName(name), {
+    drawText2(ctx, 120 * dpr, ctx.canvas.height - 220 * dpr, getName(name), {
         oppo: false,
-        size: 40,
+        size: 20,
         align: 'left'
     })
-    drawButton(ctx, 100, ctx.canvas.height - 400, ctx.canvas.width - 200, 300, 160, false)
-    drawText2(ctx, 200, ctx.canvas.height - 300, '『 ' + value + ' 』', {
+    drawButton(ctx, 50 * dpr, ctx.canvas.height - 200 * dpr, ctx.canvas.width - 50 * dpr, 160 * dpr, 160 * dpr / 2, false)
+    drawText2(ctx, 80 * dpr, ctx.canvas.height - 160 * dpr, '『 ' + value + ' 』', {
         oppo: false,
-        size: 50,
+        size: 25,
         align: 'left'
     })
 
@@ -182,6 +189,7 @@ function getName(name) {
 }
 
 const drawButton = function (ctx, x, y, width, height, radius, oppo) {
+
     ctx.save()
     ctx.beginPath();
     ctx.moveTo(x, y + radius);
@@ -203,12 +211,12 @@ const drawButton = function (ctx, x, y, width, height, radius, oppo) {
 const drawText2 = function (ctx, x, y, text, op) {
     ctx.save()
     ctx.beginPath();
-    const size = op.size
+    const size = op.size * dpr
     ctx.font = `${size}px Micosoft yahei`;
     ctx.fillStyle = op.oppo ? "black" : "white";
     ctx.textBaseline = 'middle';
     ctx.textAlign = op.align;
-    ctx.fillText(text, x, y, 50 * text.length, 50);
+    ctx.fillText(text, x, y, 50 * text.length * dpr, 50 * dpr);
     ctx.closePath();
     ctx.restore();
 }
@@ -228,8 +236,11 @@ function drawImage3(ctx, src, cb) {
     ctx.save()
     let img = new Image();
     img.src = src
+
     img.onload = function () {
-        ctx.drawImage(img, ctx.canvas.width / 2 - img.width / 2, ctx.canvas.height / 2 - img.height / 2, img.width, img.height)//绘制图片
+        const w = img.width * dpr
+        const h = img.height * dpr
+        ctx.drawImage(img, ctx.canvas.width / 2 - w / 2, ctx.canvas.height / 2 - h / 2, w, h)//绘制图片
         cb && cb()
     }
     ctx.restore()
