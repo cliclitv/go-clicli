@@ -153,14 +153,14 @@ function drawSelect(ctx, name, value) {
 
     value.forEach((v, i) => {
         const x = ctx.canvas.width - 250 * dpr
-        const y = ctx.canvas.height - 270 * dpr - i * 50 * dpr
+        const y = ctx.canvas.height - 250 * dpr - i * 50 * dpr
         const w = 250 * dpr
         const h = 40 * dpr;
 
         stack.push([x, y, x + w, y + h, v])
 
         drawButton(ctx, x, y, 200 * dpr, h, h / 2, true)
-        drawText2(ctx, x + 10 * dpr, y + h / 2, v, {
+        drawText2(ctx, x + 10 * dpr, y + h / 2 + 2 * dpr, v, {
             oppo: true,
             size: 20,
             align: 'left'
@@ -170,13 +170,13 @@ function drawSelect(ctx, name, value) {
 
 
 function drawDilog(ctx, name, value) {
-    drawText2(ctx, 120 * dpr, ctx.canvas.height - 220 * dpr, getName(name), {
+    drawText2(ctx, 120 * dpr, ctx.canvas.height - 210 * dpr, getName(name), {
         oppo: false,
         size: 20,
         align: 'left'
     })
-    drawButton(ctx, 50 * dpr, ctx.canvas.height - 200 * dpr, ctx.canvas.width - 50 * dpr, 160 * dpr, 160 * dpr / 2, false)
-    drawText2(ctx, 80 * dpr, ctx.canvas.height - 160 * dpr, '『 ' + value + ' 』', {
+    drawButton(ctx, 50 * dpr, ctx.canvas.height - 190 * dpr, ctx.canvas.width - 50 * dpr, 160 * dpr, 160 * dpr / 2, false)
+    drawText2(ctx, 80 * dpr, ctx.canvas.height - 150 * dpr, '『 ' + value + ' 』', {
         oppo: false,
         size: 25,
         align: 'left'
