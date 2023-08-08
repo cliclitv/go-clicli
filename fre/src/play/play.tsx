@@ -101,7 +101,7 @@ export default function Post({ gv }) {
                                     {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
                                 </div>
                             </div>
-                            {<div class='article' style={{ display: (show && oth) ? 'block' : 'none' }}>
+                            {<div class='article' style={{ display: show  ? 'block' : 'none' }}>
                                 <div class='xiangqing'>
                                     <li>详情</li><p onClick={() => setShow(false)}>×</p>
                                 </div>

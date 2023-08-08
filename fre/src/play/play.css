@@ -25,14 +25,15 @@
     box-sizing: border-box;
     width: 360px;
     position: relative;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: 562px;
 }
 
 .p h1 {
     padding: 0 10px;
     font-size: 20px !important;
-
+    width: 350px;
 }
 
 .p h1 span {
