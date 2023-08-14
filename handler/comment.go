@@ -60,7 +60,7 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var resp []*db.Comment
 	var err error
 
-	if pid == 0 && uid == 0 {
+	if pid == 0 && uid == 0 && cid == 0 {
 		resp, err = db.GetAllComments(page, pageSize)
 	} else {
 		resp, err = db.GetComments(pid, uid, cid,page, pageSize)

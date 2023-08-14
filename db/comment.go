@@ -2,6 +2,7 @@ package db
 
 import (
 	_ "database/sql"
+	"fmt"
 	"time"
 )
 
@@ -31,6 +32,8 @@ func GetComments(pid int, uid int, cid int, page int, pageSize int) ([]*Comment,
 
 	stmtOut, err := dbConn.Prepare(query)
 
+	fmt.Println(query)
+
 	if err != nil {
 		return nil, err
 	}
@@ -45,13 +48,13 @@ func GetComments(pid int, uid int, cid int, page int, pageSize int) ([]*Comment,
 	defer rows.Close()
 
 	for rows.Next() {
-		var id, pid, uid, rate int
+		var id, pid, uid, rate,cid int
 		var content, ctime, uname, uqq string
-		if err := rows.Scan(&id, &rate, &content, &ctime, &pid, &uid, &uname, &uqq); err != nil {
+		if err := rows.Scan(&id, &rate, &content, &ctime, &pid,&cid, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Comment{Id: id, Rate: rate, Content: content, Time: ctime, Pid: pid, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Comment{Id: id, Rate: rate, Content: content, Time: ctime, Pid: pid,Cid: cid, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 	return res, nil
