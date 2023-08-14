@@ -24,15 +24,19 @@ func AddComment(rate int, content string, pid int, uid int, cid int) (*Comment, 
 }
 
 func GetComments(pid int, uid int, cid int, page int, pageSize int) ([]*Comment, error) {
+
 	start := pageSize * (page - 1)
 	var query string
+
+	if cid == 0 {
+		cid = 1 // 临时修复
+	}
 
 	query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,comments.cid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.pid=$1 OR comments.uid =$2 OR comments.cid =$3 ORDER BY time DESC LIMIT $4 OFFSET $5`
 
 	stmtOut, err := dbConn.Prepare(query)
 
-	fmt.Println(query)
 
 	if err != nil {
 		return nil, err
@@ -48,13 +52,13 @@ func GetComments(pid int, uid int, cid int, page int, pageSize int) ([]*Comment,
 	defer rows.Close()
 
 	for rows.Next() {
-		var id, pid, uid, rate,cid int
+		var id, pid, uid, rate, cid int
 		var content, ctime, uname, uqq string
-		if err := rows.Scan(&id, &rate, &content, &ctime, &pid,&cid, &uid, &uname, &uqq); err != nil {
+		if err := rows.Scan(&id, &rate, &content, &ctime, &pid, &cid, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Comment{Id: id, Rate: rate, Content: content, Time: ctime, Pid: pid,Cid: cid, Uid: uid, Uname: uname, Uqq: uqq}
+		c := &Comment{Id: id, Rate: rate, Content: content, Time: ctime, Pid: pid, Cid: cid, Uid: uid, Uname: uname, Uqq: uqq}
 		res = append(res, c)
 	}
 	return res, nil
