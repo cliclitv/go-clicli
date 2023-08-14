@@ -30,7 +30,7 @@ export function getSearch(key) {
 
 function replaceContent(c = '') {
   return c.replace(/tb-binary.cdn.bcebos.com\/TbGame/g, 'bos.nj.bpc.baidu.com/tieba-movideo')
-  .replace(/img[0-9].doubanio.com/g, 'doubanimg.deno.dev')
+    .replace(/img[0-9].doubanio.com/g, 'doubanimg.deno.dev')
 }
 
 export function addPost({ title, content, status, sort, tag, uid, videos }) {
@@ -125,11 +125,11 @@ export function getComments(pid, page?, pageSize?) {
   return get(`https://www.clicli.cc/comments?pid=${pid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
 }
 
-export function addComment({ pid, uid, rate, content }) {
+export function addComment({ pid, uid, rate, content, cid = 0 }) {
   return post('https://www.clicli.cc/comment/add', {
     content,
     rate,
     uid: getUser().id,
-    pid
+    pid, cid
   })
 }
