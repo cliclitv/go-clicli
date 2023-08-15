@@ -2,7 +2,6 @@ package db
 
 import (
 	_ "database/sql"
-	"fmt"
 	"time"
 )
 
