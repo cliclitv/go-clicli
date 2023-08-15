@@ -31,11 +31,11 @@ type Comment struct {
 	Content  string `json:"content"`
 	Time     string `json:"time"`
 	Pid      int    `json:"pid"`
-	Cid      int    `json:"cid"`
+	Cid      int    `json:"cid,omitempty"`
 	Ptitle   string `json:"ptitle,omitempty"`
 	Uid      int    `json:"uid"`
 	Uname    string `json:"uname,omitempty"`
-	Uqq      string `json:"uqq,omitempty"`
+	Uqq      string `json:"uqq"`
 	Pcontent string `json:"pcontent,omitempty"`
 }
 
