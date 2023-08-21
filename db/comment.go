@@ -28,9 +28,9 @@ func GetComments(pid int, uid int, cid int, page int, pageSize int) ([]*Comment,
 	var query string
 
 	if cid == 0 {
-		cid = 1 // 临时修复
+		cid = -1 // 临时修复
 	}else if pid == 0{
-		pid = 1
+		pid = -1
 	}
 
 	query = `SELECT comments.id,comments.rate,comments.content,comments.time,comments.pid,comments.cid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
