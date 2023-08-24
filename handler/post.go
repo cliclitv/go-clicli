@@ -134,7 +134,9 @@ func FollowPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func GetRank(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	resp, err := db.GetRank()
+	day, _ := strconv.Atoi(r.URL.Query().Get("day"))
+
+	resp, err := db.GetRank(day)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return

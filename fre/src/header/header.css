@@ -163,3 +163,7 @@ h1 span {
     border-radius: 100px;
     margin: 10px;
 }
+
+.friends a{
+    display: inline-block
+}

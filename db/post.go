@@ -202,12 +202,14 @@ func FollowPosts(fid int) ([]*Post, error) {
 	return res, nil
 }
 
-func GetRank() ([]*Post, error) {
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 16")
+func GetRank(day int) ([]*Post, error) {
+	// select * from posts where time >= current_timestamp - interval '1 day'
+
+	stmt, err := dbConn.Prepare("SELECT * FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '$1 day' ORDER BY pv DESC LIMIT 16")
 
 	var res []*Post
 
-	rows, err := stmt.Query()
+	rows, err := stmt.Query(day)
 	if err != nil {
 		return res, err
 	}
