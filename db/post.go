@@ -127,7 +127,6 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	defer rows.Close()
 	defer stmt.Close()
 
-
 	var res []*Post
 
 	for rows.Next() {
@@ -202,14 +201,26 @@ func FollowPosts(fid int) ([]*Post, error) {
 	return res, nil
 }
 
-func GetRank(day int) ([]*Post, error) {
-	// select * from posts where time >= current_timestamp - interval '1 day'
+func GetRank(day string) ([]*Post, error) {
 
-	stmt, err := dbConn.Prepare("SELECT * FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '$1 day' ORDER BY pv DESC LIMIT 16")
+	// fmt.Sprintf("%s day", day)
+	// select * from posts where time >= current_timestamp - interval '1 day'
+	var stmt *sql.Stmt
+	var err error
+
+	if day == "1" {
+		stmt, err = dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '1 day' ORDER BY pv DESC LIMIT 16")
+	} else if day == "7" {
+		stmt, err = dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '7 day' ORDER BY pv DESC LIMIT 16")
+
+	} else {
+		stmt, err = dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid  ORDER BY pv DESC LIMIT 16")
+
+	}
 
 	var res []*Post
 
-	rows, err := stmt.Query(day)
+	rows, err := stmt.Query()
 	if err != nil {
 		return res, err
 	}
