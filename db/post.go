@@ -205,22 +205,14 @@ func GetRank(day string) ([]*Post, error) {
 
 	// fmt.Sprintf("%s day", day)
 	// select * from posts where time >= current_timestamp - interval '1 day'
-	var stmt *sql.Stmt
-	var err error
 
-	if day == "1" {
-		stmt, err = dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '1 day' ORDER BY pv DESC LIMIT 16")
-	} else if day == "7" {
-		stmt, err = dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '7 day' ORDER BY pv DESC LIMIT 16")
-
-	} else {
-		stmt, err = dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid  ORDER BY pv DESC LIMIT 16")
-
-	}
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '1 day' * $1 ORDER BY pv DESC LIMIT 16")
 
 	var res []*Post
 
-	rows, err := stmt.Query()
+	// days := fmt.Sprintf("'%s day'", day)
+
+	rows, err := stmt.Query(day)
 	if err != nil {
 		return res, err
 	}
