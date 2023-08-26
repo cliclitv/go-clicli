@@ -24,18 +24,18 @@ export default function WeekList() {
         })
     }, [])
     const map = {
-        0: '周日',
-        1: '周一',
-        2: '周二',
-        3: '周三',
-        4: '周四',
-        5: '周五',
-        6: '周六'
+        0: '日',
+        1: '一',
+        2: '二',
+        3: '三',
+        4: '四',
+        5: '五',
+        6: '六'
     }
     return <div className="week-list">
-        <div className="wrap">
+        <div>
             <div className="headline">
-                <h1>新番表</h1>
+                <h2>新番表</h2>
                 <ul>
                     {posts && Object.keys(posts).map((item, index) => <button
                         className={index === day ? 'active' : ''}
@@ -43,7 +43,9 @@ export default function WeekList() {
                 </ul>
             </div>
             <ul className="posts">
-                <ListB posts={posts[day]?.slice(0, 8)} />
+                {posts[day]?.slice(0, 8).map(item=>{
+                    return <li>{item.title}</li>
+                })}
             </ul>
         </div>
     </div>

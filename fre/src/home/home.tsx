@@ -3,6 +3,7 @@ import { getPost } from '../util/api'
 import './home.css'
 import Avatar from '../component/avatar/avatar'
 import { getSuo } from '../util/avatar'
+import WeekList from '../week/week'
 
 export default function App() {
     const [posts, setPosts] = useState([])
@@ -43,7 +44,9 @@ export default function App() {
                     </section>
                 })}
             </div>
-            <div className="right"></div>
+            <div className="right">
+                <WeekList></WeekList>
+            </div>
         </div>
     )
 }

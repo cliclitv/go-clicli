@@ -11,7 +11,12 @@ main {
     margin: 0 auto;
     width: 1100px;
     background: #efeeef;
+    display: flex;
     /* background: url(https://static.gmgard.moe/Images/bg31.jpg); */
+}
+
+.right{
+    width: 320px;
 }
 
 .left {
@@ -51,3 +56,4 @@ section p{
     padding: 10px;
     cursor: pointer;
 }
+

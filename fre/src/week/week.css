@@ -1,14 +1,41 @@
 .week-list ul button {
     background: var(--primary-bg);
     color: var(--primary);
-    margin: 10px;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    margin: 4px;
+}
+
+.headline ul{
+    display: flex;
+    padding: 10px;
 }
 
 .week-list ul {
-    text-align: center;
+    /* text-align: center; */
+    margin-top: 15px;
+    
+}
+
+.week-list li {
+    padding: 10px;
+}
+
+.week-list li:nth-child(odd) {
+    background: #fff;
+
 }
 
 .week-list ul .active {
     font-weight: bold;
     background-color: rgba(148, 108, 230, 0.3);
+}
+
+h2{
+    padding: 10px;
 }
