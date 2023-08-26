@@ -52,6 +52,8 @@ export default function Post({ gv }) {
             <div className="p">
                 <div className="info">
                     <div>
+                        <div class='avatar-wrap'> <Avatar uqq={post.uqq} /></div>
+
                         <h1>{post.title}<span>{pv} ℃</span>
                         </h1>
                     </div>
