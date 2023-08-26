@@ -1,4 +1,4 @@
-import { h, useEffect, useState } from 'fre'
+import { h, useEffect, useMemo, useState } from 'fre'
 import { push } from '../use-route'
 import { getPost } from '../util/api'
 import { getSuo } from '../util/avatar'
@@ -7,22 +7,27 @@ import './week.css'
 
 
 export default function WeekList() {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState({})
     const [day, setDay] = useState(new Date().getDay())
+    const [post, setPost] = useState([])
     useEffect(() => {
         getPost('新番', '', 1, 100,).then(res => {
             let ret = {}
             res.posts.forEach(item => {
                 let day = new Date(item.time).getDay()
                 ret[day] = ret[day] || []
-                ret[day].push(item)
+                if (ret[day].indexOf(item) < 0) {
+                    ret[day].push(item)
+                }
+
             })
-            console.log(123)
-            setTimeout(() => {
-                setPosts(ret as any)
-            }, 500);
+            setPosts(ret as any)
         })
+        return () => {
+            setPosts({})
+        }
     }, [])
+
     const map = {
         0: '日',
         1: '一',
@@ -32,21 +37,24 @@ export default function WeekList() {
         5: '五',
         6: '六'
     }
+
     return <div className="week-list">
         <div>
             <div className="headline">
                 <h2>新番表</h2>
                 <ul>
-                    {posts && Object.keys(posts).map((item, index) => <button
+                    {posts && Object.values(map).map((item, index) => <button
                         className={index === day ? 'active' : ''}
-                        onClick={() => setDay(index)}>{map[item]}</button>)}
+                        onClick={() => setDay(index)}>{map[index]}</button>)}
                 </ul>
             </div>
-            <ul className="posts">
-                {posts[day]?.slice(0, 8).map(item=>{
-                    return <li>{item.title}</li>
-                })}
-            </ul>
+            {useMemo(() => {
+                return <ul className="posts">
+                    {posts[day] && posts[day].map(item => {
+                        return <li onClick={() => push(`/play/gv${item.id}`)}>{item.title}</li>
+                    })}
+                </ul>
+            })}
         </div>
     </div>
 }

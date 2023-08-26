@@ -37,20 +37,24 @@ export default function Comment({ post }) {
         })
     }
     const user = getUser() || {}
-    return <div class="comment">
-        <h1>#讨论<span>{comments?.length}</span></h1>
-        <div className="comment-input">
-            <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
-            <input type="text" placeholder="Duang~" onInput={(e) => setComment(e.target.value)} />
-            {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
-        </div>
-
-        {comments && comments.map(item => {
-            return <div className="comment-item">
-                <li><Avatar uqq={item.uqq} uname={item.uname}></Avatar><time>{item.time}</time></li>
-                <p><span>
-                    </span>{item.content}</p>
+    return <div className="wrap">
+        <div class="comment">
+            <div className="comment-input">
+                <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
+                <input type="text" placeholder="Duang~" onInput={(e) => setComment(e.target.value)} />
+                {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
-        })}
+
+            <h1>#讨论<span>{comments?.length}</span></h1>
+
+
+            {comments && comments.map(item => {
+                return <div className="comment-item">
+                    <li><Avatar uqq={item.uqq} uname={item.uname}></Avatar><time>{item.time}</time></li>
+                    <p><span>
+                    </span>{item.content}</p>
+                </div>
+            })}
+        </div>
     </div>
 }

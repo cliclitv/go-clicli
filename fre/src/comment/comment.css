@@ -1,6 +1,6 @@
 .comment {
-    width: 800px;
-    margin: 10px auto;
+    width: 780px;
+    padding: 1px;
 
 }
 
@@ -24,6 +24,7 @@
 
 .comment h1 {
     font-weight: normal;
+    padding: 10px;
 }
 
 .comment-item li {
@@ -61,7 +62,6 @@
 .comment-input button {
     position: absolute;
     right: 10px;
-    top: 21px;
 }
 
 .rate ul {

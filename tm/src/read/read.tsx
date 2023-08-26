@@ -11,7 +11,6 @@ export default function Post({ pid }) {
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [pv, setPv] = useState(0)
-    console.log(123)
 
     useEffect(() => {
         const p1 = getPostDetail(id)

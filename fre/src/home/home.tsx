@@ -4,8 +4,11 @@ import './home.css'
 import Avatar from '../component/avatar/avatar'
 import { getSuo } from '../util/avatar'
 import WeekList from '../week/week'
+import Post from '../play/play'
+import { push } from '../use-route'
+import RankList from '../rank/rank'
 
-export default function App() {
+export default function App(props) {
     const [posts, setPosts] = useState([])
     useEffect(() => {
 
@@ -25,28 +28,39 @@ export default function App() {
                 const realy = (1080 - windowHeight) * (document.documentElement.scrollTop / height)
                 main.style.backgroundPositionY = -realy + 'px'
             }
-        }, 20);
+        }, 500);
     }, [posts])
     return (
-        <div className="container">
-            <div className="left">
-                {posts.map(item => {
-                    return <section>
-                        <h1>{item.title}</h1>
-                        <div className="info">
-                            <span>由</span>
-                            <Avatar uqq={item.uqq} uname={item.uname}></Avatar>
-                            <span>发布于<i>  </i></span>
-                            <time>{item.time}</time>
-                        </div>
-                        <div><img src={getSuo(item.content)} class="suo" /></div>
-                        <p>{'>> '}继续观看</p>
-                    </section>
-                })}
+        <div>
+            <div className="container">
+                <div className="left">
+                    {posts.map(item => {
+                        return <section>
+                            <h1 onClick={() => push(`/play/gv${item.id}`)}>{item.title}</h1>
+                            <div className="info">
+                                <span>由</span>
+                                <Avatar uqq={item.uqq} uname={item.uname}></Avatar>
+                                <span>发布于<i>  </i></span>
+                                <time>{item.time}</time>
+                            </div>
+                            <div><img src={getSuo(item.content)} class="suo" /></div>
+                            <p onClick={() => push(`/play/gv${item.id}`)}>{'>> '}继续观看</p>
+                        </section>
+                    })}
+                </div>
+                <div className="right">
+                    <WeekList></WeekList>
+                    <RankList></RankList>
+                </div>
             </div>
-            <div className="right">
-                <WeekList></WeekList>
-            </div>
+            {props.gv && <div>
+                <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
+                    push('/')
+                }}></i>
+                    <Post gv={props.gv}></Post>
+                </div>
+                <div className="mask"></div></div>}
         </div>
+
     )
 }

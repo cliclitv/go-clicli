@@ -56,7 +56,6 @@ function perfrom(stack) {
     break
   }
 
-  console.log(path)
 
 
   Object.assign(stack, {

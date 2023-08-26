@@ -1,17 +1,8 @@
 import { h } from 'fre'
 
 export default function Footer(props) {
-    return <footer>
-        <h1>最佳体验，尽在 CliCli APP </h1>
-        <ul>
-            <a href="https://app.clicli.cc" target="_blank"><li>马上下载</li></a>
-
-        </ul>
-        <div>
-            
-        </div>
-        <p>© 2018 - 2023 clicli.cc & admin@clicli.us <a href="https://github.com/cliclitv" class='github'>Github</a>CDN 由<a href="https://cloudflare.com
-">Cloudflare</a>赞助</p>
+    return <footer class='wrap'>
+        <p>© 2018 - 2023 clicli.cc & admin@clicli.us <a href="https://github.com/cliclitv" class='github'>Github</a></p>
 
         <ul class="friends">
         

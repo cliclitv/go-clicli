@@ -1,7 +1,8 @@
 .login {
     width: 300px;
     text-align: center;
-    margin: 150px auto;
+    margin: 0 auto;
+    padding: 10px;
 }
 
 .login li {

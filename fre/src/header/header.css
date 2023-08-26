@@ -75,7 +75,7 @@ header .wallet {
     left: -70px;
     text-align: center;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     box-shadow: 2px 2px 5px #000;
     overflow: hidden;
     z-index: 999;
@@ -117,7 +117,7 @@ header nav {
 }
 
 nav ul {
-    width: 800px;
+    width: 700px;
     display: flex;
     margin: 0 auto;
     align-items: center;
@@ -129,6 +129,7 @@ nav ul li {
     color: var(--primary);
     font-size: 16px;
     position: relative;
+    cursor: pointer;
 }
 
 nav ul li:before {
@@ -158,8 +159,6 @@ nav ul li:nth-child(2):before {
 
 
 footer {
-    margin: 50px 0;
-    padding: 30px;
     text-align: center;
     color: #bbb;
     overflow: hidden;
@@ -189,11 +188,6 @@ footer ul li {
     transition: 0.5s;
     color: var(--primary);
     cursor: pointer;
-}
-
-footer ul li:hover {
-    background: #7e5fd9;
-    color: #fff;
 }
 
 .icon-dadou {

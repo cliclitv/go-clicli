@@ -1,39 +1,32 @@
 .player.wrap {
-    width: 1380px;
-    margin: 0 auto;
+    width: 1200px;
     display: flex;
-    margin-top: 20px;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, .1);
-
+    background: transparent;
+    overflow: hidden;
+    border-radius: 10px;
 }
 
 .ep-wrap {
-    width: 1000px;
-    border-radius: 5px 0 0 5px;
-    height: 562.5px;
+    width: 900px;
+    height: 500px;
     overflow: hidden;
     position: relative
 }
 
-.player {
-    background: #fff;
-    border-radius: 5px;
-}
 
 .p {
     padding: 0 10px;
     box-sizing: border-box;
-    width: 360px;
+    width: 320px;
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 562px;
+    height: 500px;
 }
 
 .p h1 {
     padding: 0 10px;
     font-size: 20px !important;
-    width: 350px;
 }
 
 .p h1 span {
@@ -43,22 +36,17 @@
 .p ul li {
     line-height: 40px;
     border-radius: 5px;
-    background: var(--primary-bg);
-    color: var(--primary);
-    margin: 10px;
+    color: #fff;
     cursor: pointer;
     padding: 0 10px;
 }
 
 .p ul .active {
-    background: #b692ff;
-    color: #fff;
+    color: var(--primary);
 }
 
 
-.p ul {
-    width: 360px;
-}
+.p ul {}
 
 .p .info {
     padding: 0;
@@ -66,14 +54,14 @@
 }
 
 .article {
-    width: 340px;
-    padding: 0 20px;
+    padding: 0 10px;
     position: absolute;
     top: 0;
     left: 0;
-    height: 560px;
+    height: 500px;
+    width: 300px;
     overflow: scroll;
-    background: #fff;
+    background: #333;
 }
 
 .xiangqing {
@@ -88,7 +76,6 @@
 #mycanvas {
     margin: 0 auto;
     width: 1000px;
-    border-radius: 5px;
     overflow: hidden
 }
 
@@ -99,20 +86,20 @@
 
 .xiangqing p {
     font-size: 36px;
-    color: #946ce6 !important;
+    color: var(--primary) !important;
     padding: 0;
     cursor: pointer;
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 .article h1 {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .avatar-wrap {
     display: flex;
     align-items: center;
-    width: 360px;
+    padding: 20px 0 10px 0;
 }
 
 .avatar-wrap .avatar {
@@ -126,20 +113,6 @@
     padding-right: 10px;
 }
 
-.qq {
-    background: #fb7600 !important;
-    color: #fff !important;
-}
-
-.iqiyi {
-    background: #00fb71 !important;
-    color: #fff !important;
-}
-
-.bilibili {
-    background: #00fb71 !important;
-    color: #fff !important;
-}
 
 article img[alt=suo] {
     width: 100%;
@@ -156,7 +129,7 @@ article h1 {
     font-weight: bold;
     padding: 0 10px;
     margin: 20px 0;
-    border-left: 5px solid #946ce6;
+    border-left: 5px solid var(--primary);
 }
 
 article h2 {
@@ -164,7 +137,7 @@ article h2 {
     font-weight: bold;
     padding: 0 10px;
     margin: 18px 0;
-    border-left: 5px solid #946ce6;
+    border-left: 5px solid var(--primary);
 }
 
 article h3 {
@@ -172,20 +145,20 @@ article h3 {
     font-weight: bold;
     padding: 0 10px;
     margin: 16px 0;
-    border-left: 5px solid #946ce6;
+    border-left: 5px solid var(--primary);
 }
 
 article blockquote {
     word-wrap: break-word;
     background: rgba(148, 108, 230, 0.1);
-    color: #946ce6;
+    color: var(--primary);
     padding: 10px;
     margin: 10px 0;
 }
 
 article a {
     text-decoration: none;
-    color: #946ce6;
+    color: var(--primary);
     padding: 0 5px;
     font-weight: bold;
 }
@@ -251,6 +224,23 @@ article a {
     filter: blur(10px) brightness(1.2);
     
 } */
+
+.p::-webkit-scrollbar {
+
+    display: none;
+    /* Chrome Safari */
+
+}
+
+.article::-webkit-scrollbar {
+
+    display: none;
+    /* Chrome Safari */
+
+}
+
+
+
 .poster {
     position: absolute;
     width: 200px;
@@ -285,14 +275,6 @@ article a {
     }
 }
 
-.article2 {
-    padding: 30px;
-    background: #fff;
-    border-radius: 4px;
-    width: 960px;
-    margin: 20px auto;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, .1);
-}
 
 .article2 div {
     display: flex;

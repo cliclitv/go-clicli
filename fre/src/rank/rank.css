@@ -1,4 +1,4 @@
-.week-list ul button {
+.rank-list ul button {
     background: var(--primary-bg);
     color: var(--primary);
     flex: 1;
@@ -11,31 +11,27 @@
     margin: 4px;
 }
 
-.headline ul {
+.headline ul{
     display: flex;
     padding: 10px;
 }
 
-.posts {
-    background: var(--primary-bg);
-    margin: 10px;
-    border-radius: 10px;
-    color: var(--primary);
-    cursor: pointer;
-
+.rank-list ul {
+    /* text-align: center; */
+    
 }
 
-.week-list li {
+.rank-list li {
     padding: 10px;
-    cursor: pointer;
 }
 
 
-.week-list ul .active {
+
+.rank-list ul .active {
     font-weight: bold;
     background-color: rgba(148, 108, 230, 0.3);
 }
 
-h2 {
+h2{
     padding: 10px;
 }

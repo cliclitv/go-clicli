@@ -56,7 +56,9 @@ export default function Header() {
 
             <nav>
                 <ul>
-                    <li>综合</li>
+                    <li onclick={() => {
+                        push('/')
+                    }}>综合</li>
                     <li onclick={() => {
                         alert('还不能点')
                     }}>动画</li>
