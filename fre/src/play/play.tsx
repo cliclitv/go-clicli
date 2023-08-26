@@ -37,17 +37,6 @@ export default function Post({ gv }) {
 
     }, [])
 
-    useEffect(() => {
-        const a = document.querySelector('article')
-        const c = document.getElementById('mycanvas')
-        if (c) {
-            renderYmal(post.videos, c)
-        }
-        if (post.content && a) {
-            a.innerHTML = snarkdown(post?.content)
-        }
-    }, [post])
-
 
     const changeid = (i) => {
         setPlay(videos[i][1])
@@ -63,8 +52,6 @@ export default function Post({ gv }) {
             <div className="p">
                 <div className="info">
                     <div>
-                        <div class='avatar-wrap'> <Avatar uqq={post.uqq} /> <li onclick={() => setShow(!show)}>详情{' >'}</li></div>
-
                         <h1>{post.title}<span>{pv} ℃</span>
                         </h1>
                     </div>
@@ -76,12 +63,6 @@ export default function Post({ gv }) {
                             {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
                         </div>
                     </div>
-                    {<div class='article' style={{ display: show ? 'block' : 'none' }}>
-                        <div class='xiangqing'>
-                            <li>详情</li><p onClick={() => setShow(false)}>×</p>
-                        </div>
-                        <article ref={a}></article>
-                    </div>}
 
                 </div>
                 <ul>
