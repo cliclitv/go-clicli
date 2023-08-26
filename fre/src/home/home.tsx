@@ -44,7 +44,11 @@ export default function App(props) {
                                 <span>发布于<i>  </i></span>
                                 <time>{item.time}</time>
                             </div>
-                            <article ref={(dom) => dom.innerHTML = snarkdown(item.content)}></article>
+                            <article ref={(dom) =>{
+                                if(dom){
+                                    dom.innerHTML = snarkdown(item.content)
+                                }
+                            }}></article>
                             <p onClick={() => push(`/play/gv${item.id}`)}>{'>> '}继续观看</p>
                         </section>
                     })}
