@@ -26,6 +26,7 @@ main {
 
 section {
     padding: 20px;
+    border-bottom:  1px solid #ddd;
 }
 
 section .suo {

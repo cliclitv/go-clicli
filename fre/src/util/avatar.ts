@@ -11,13 +11,15 @@ export function getAvatar(avatar) {
 }
 
 export function getSuo(content) {
-  if(!content) return ""
+  if (!content) return ""
   let m = content.match(/suo(.+?)\)/i)
   return m ? m[1].slice(2) : 'https://cdn-us.imgs.moe/2023/02/27/63fcb180cbb30.jpg'
 }
 
 export function getAv(id) {
-  return id.substring(2, id.length)
+  console.log(id)
+  const [gv, fp] = id.split('#')
+  return [gv.substring(2, id.length), fp ? fp.substring(1, fp.length) : 1]
 }
 
 export function isMobile() {
@@ -28,9 +30,9 @@ export function isMobile() {
   }
 }
 
-export default function shouldVIP(time){
+export default function shouldVIP(time) {
   let tt = new Date(time)
   let ttt = tt.getTime()
 
-  return ttt>=Date.now()
+  return ttt >= Date.now()
 }

@@ -2,7 +2,7 @@ import { h, useEffect, useState } from 'fre'
 import { getPost } from '../util/api'
 import './home.css'
 import Avatar from '../component/avatar/avatar'
-import { getSuo } from '../util/avatar'
+import snarkdown from 'snarkdown'
 import WeekList from '../week/week'
 import Post from '../play/play'
 import { push } from '../use-route'
@@ -29,6 +29,7 @@ export default function App(props) {
                 main.style.backgroundPositionY = -realy + 'px'
             }
         }, 500);
+
     }, [posts])
     return (
         <div>
@@ -43,7 +44,7 @@ export default function App(props) {
                                 <span>发布于<i>  </i></span>
                                 <time>{item.time}</time>
                             </div>
-                            <div><img src={getSuo(item.content)} class="suo" /></div>
+                            <article ref={(dom) => dom.innerHTML = snarkdown(item.content)}></article>
                             <p onClick={() => push(`/play/gv${item.id}`)}>{'>> '}继续观看</p>
                         </section>
                     })}

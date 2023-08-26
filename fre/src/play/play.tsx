@@ -9,14 +9,17 @@ import Comment from '../comment/comment'
 import { renderYmal } from '../util/ymal'
 
 export default function Post({ gv }) {
-    const id = getAv(gv)
+    console.log(gv)
+    const [id,fp] = getAv(gv)
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
     const [pv, setPv] = useState("")
     const a = useRef({} as any)
     const [show, setShow] = useState(false)
-    const [idx, setId] = useState(0)
+    const [idx, setId] = useState(fp - 1)
+
+    console.log(id, fp)
 
     useEffect(() => {
         const p1 = getPostDetail(id)

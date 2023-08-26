@@ -25,7 +25,7 @@ export function useRoutes(routes) {
 
 
 
-    let vdom = h(stack.component, stack.props)
+  let vdom = h(stack.component, stack.props)
 
   return typeof stack.component.then === 'function' ? null : vdom
 }
@@ -33,7 +33,7 @@ export function useRoutes(routes) {
 
 function perfrom(stack) {
   const { routes, setter } = stack
-  const currentPath = location.pathname || '/'
+  const currentPath = location.pathname ? location.pathname + location.hash : '/'
   let path, component, props, ii
 
   for (let i = 0; i < routes.length; i++) {
@@ -87,7 +87,7 @@ function pathSlice(path) {
     )
   ]
 
-  const params = path.match(/:[a-zA-Z]+/g)
+  const params = path.match(/:[a-zA-Z#0-9]+/g)
   slice.push(params ? params.map(name => name.substr(1)) : [])
 
   pathCache[path] = slice
