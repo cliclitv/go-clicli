@@ -20,11 +20,11 @@ const routes = {
 const App = () => {
     let route = useRoutes(routes)
     console.log(route)
-    return <div>
+    return <main>
         <Header />
         <div>{route}</div>
-        <Footer />
-    </div>
+        {/* <Footer /> */}
+    </main>
 }
 
 render(<App />, document.getElementById("app"))

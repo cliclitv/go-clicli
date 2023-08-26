@@ -78,6 +78,8 @@ export default function Upload(props) {
         '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
         '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其他原创', '小程序', '小游戏'
     ]
+
+    const maotags = ['动画', '漫画', '游戏', '广播剧', '画集', '文章']
     return (
         <div className="upload">
             <h1>视频投稿</h1>
@@ -104,17 +106,17 @@ export default function Upload(props) {
                     {user.level > 2 && <option value="public" selected={post.status === 'public'}>发布</option>}
                 </select>
                 <select onInput={e => change('sort', e.target.value)}>
+                    <option value="毛毛" selected={post.sort === '毛毛'}>毛毛</option>
                     <option value="新番" selected={post.sort === '新番'}>新番</option>
                     <option value="完结" selected={post.sort === '完结'}>完结</option>
                     <option value="推流" selected={post.sort === '推流'}>推流</option>
                     <option value="原创" selected={post.sort === '原创'}>原创</option>
-                    <option value="半次元" selected={post.sort === '半次元'}>半次元</option>
                 </select>
                 {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
             </div>
             <div className="tags">
                 <ul>
-                    {(post.sort === '原创' ? gametags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                    {(post.sort === '原创' ? gametags : post.sort === '毛毛' ? maotags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                         className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                 </ul>
             </div>

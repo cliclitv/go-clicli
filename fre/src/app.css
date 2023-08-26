@@ -8,15 +8,12 @@ body {
     list-style: none;
     color: var(--color);
     background: #fffcf8;
-    background-image: linear-gradient(#f1f1f1 1px, transparent 1px), linear-gradient(to right, #f1f1f1 1px, transparent 1px);
     background-size: 32px 32px;
-    --theme: #946ce6;
-    --tm-theme: #F77649;
-    --pink: rgb(255, 43, 121);
-    --theme-bg: rgba(148, 108, 230, 0.1);
-    --tm-theme-bg: rgba(228, 116, 30, 0.1);
+    --primary: #8a61ff;
+    --secondary: #c0f427;
+    --bg: #f2f2f2;
     --black: rgb(37, 37, 37);
-    --whrite: #fff;
+    --white: #fff;
     --border: 0 1px 2px #ddd;
     --color: #333;
     --background: #fafafa
@@ -52,22 +49,6 @@ input::-webkit-input-placeholder {
 
     color: var(--theme);
 
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2) !important;
-    background-image: #f2f2f2 !important;
-}
-
-::-webkit-scrollbar-track {
-    border-radius: 10px !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2) !important;
-    background: transparent !important;
 }
 
 h3 {

@@ -1,14 +1,16 @@
 header {
-    height: 100px;
-    /* background: var(--background); */
     display: flex;
     align-items: center;
+    background: transparent;
 }
 
 header .wrap {
-    width: 1268px;
+    width: 1100px;
     margin: 0 auto;
     cursor: pointer;
+    background: var(--bg);
+    border: 1px solid #bbb;
+    border-top: 0px;
 }
 
 header .flex {
@@ -16,17 +18,21 @@ header .flex {
     align-items: center;
 }
 
+header .avatar{
+    margin: 0!important;
+    height: 25px;
+}
+
 header h1 {
     flex: 1;
-    color: var(--theme);
-    font-size: 45px;
+    color: var(--primary);
     display: flex;
     align-items: flex-end;
 }
 
 header .search input {
     width: 500px;
-    background: var(--theme-bg);
+    background: var(--primary-bg);
     border-radius: 50px;
     border: none;
     padding: 8px 20px;
@@ -44,32 +50,20 @@ header .biu li {
 }
 
 header .biu li i {
-    padding: 10px;
+    padding: 0 10px;
 }
 
 header .avatar p {
     display: none;
 }
 
-header .icon-shouye {
-    background: var(--theme);
-    height: 40px;
-    width: 40px;
-    padding: 0px;
-    text-align: center;
-    line-height: 40px;
-    color: #fff;
-    box-sizing: border-box;
-}
-
 header .wallet {
     color: #fff;
     width: 200px;
     position: absolute;
-    top: 80px;
+    top: 50px;
     left: -70px;
     text-align: center;
-    /* padding: 10px; */
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.8);
     box-shadow: 2px 2px 5px #000;
@@ -101,6 +95,10 @@ header .wallet li a {
     color: #fff;
 }
 
+header nav{
+    margin-top: 300px;
+}
+
 footer {
     margin: 50px 0;
     padding: 30px;
@@ -109,13 +107,13 @@ footer {
     overflow: hidden;
 }
 
-footer a{
+footer a {
     display: block;
     padding: 10px;
 }
 
 footer h1 {
-    color: var(--theme);
+    color: var(--primary);
 }
 
 footer ul {
@@ -131,7 +129,7 @@ footer ul li {
     margin: 20px auto;
     border-radius: 4px;
     transition: 0.5s;
-    color: var(--theme);
+    color: var(--primary);
     cursor: pointer;
 }
 
@@ -155,15 +153,7 @@ footer p {
     justify-content: center;
 }
 
-h1 span {
-    font-size: 25px;
-    padding: 2px 10px;
-    background: var(--theme);
-    color: #fff;
-    border-radius: 100px;
-    margin: 10px;
-}
 
-.friends a{
+.friends a {
     display: inline-block
 }

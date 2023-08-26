@@ -4,25 +4,6 @@
     /* display: flex; */
 }
 
-nav ul {
-    display: flex;
-
-}
-
-nav {
-    font-size: 18px;
-    font-weight: bold;
-    background: #f2f2f2;
-    box-shadow: 2px 2px 4px #dde;
-}
-
-nav ul li {
-    padding: 10px 100px;
-}
-
-nav li.active {
-    color: var(--theme);
-}
 
 .home {
     display: flex;

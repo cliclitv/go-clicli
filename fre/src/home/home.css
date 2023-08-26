@@ -1,94 +1,16 @@
-.wrap {
-    width: 1350px;
+main {
+    background: url(https://static.gmgard.moe/Images/bg31.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center 0;
+}
+
+
+
+.container {
     margin: 0 auto;
-    /* display: flex; */
-}
-
-.home h1 {
-    font-size: 30px;
-    text-align: center;
-    letter-spacing: 20px;
-}
-
-nav {
-    background: var(--theme-bg);
-    padding: 15px;
-    border-radius: 50px;
-    border: 4px dashed #cdb4ff;
-    box-sizing: border-box;
-    margin: 50px 12px;
-    box-shadow: 5px 5px #dddade inset;
-}
-
-nav ul {
-    display: flex;
-    font-size: 16px;
-}
-
-nav ul li {
-    padding: 0 20px;
-    box-sizing: border-box;
-    color: var(--theme);
-    cursor: pointer;
-    position: relative
-}
-
-nav ul li.active {
-    font-weight: bold;
-    font-size: 18px;
-    text-decoration: underline
-}
-
-nav ul li:hover {
-    font-weight: bold;
-    font-size: 18px;
-    text-decoration: underline
-}
-
-nav ul li::before {
-    position: absolute;
-    right: 0px;
-    top: -10px;
-    color: #fff;
-    background: var(--pink);
-    height: 20px;
-    width: 20px;
-    font-size: 12px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-nav ul li:nth-child(3)::before {
-    content: '+2';
-}
-
-nav ul li:nth-child(2)::before {
-    content: '+4';
-}
-
-.tuifanjun .comment-wrap {
-    width: 50%;
-    display: inline-block;
-    vertical-align: text-top;
-}
-.tuifanjun .comment-item{
-    display: flex;
-    align-items: center;
-}
-
-.tuifanjun .b li {
-    width: 130px!important;
-}
-
-.tuifanjun .b .cover, .tuifanjun .b .cover img{
-    height: 160px;
-}
-.tuifanjun .b{
-    margin: 0;
-}
-
-.tuifanjun{
-    padding-top: 20px;
+    width: 1100px;
+    height: 4000px;
+    background: #fff;
+    /* background: url(https://static.gmgard.moe/Images/bg31.jpg); */
 }
