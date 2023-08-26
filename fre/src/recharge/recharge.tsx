@@ -32,7 +32,7 @@ export default function Pay() {
 
     const list = [100, 1000, 3000, 5000, 10000, 20000]
 
-    return <div className="vip">
+    return <div className="vip wrap">
         {/* <h3>1. 请输入c站昵称</h3> */}
         <div class="userinfo">
             <input type="text" placeholder="请输入c站昵称" onInput={(e) => changeUser(e.target.value)} />

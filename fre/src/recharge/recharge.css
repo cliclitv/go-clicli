@@ -5,9 +5,10 @@
 }
 
 .vip {
-    margin: 30px auto;
-    max-width: 700px;
+    margin: 0 auto;
+    max-width: 1100px;
     text-align: center;
+    background: #efeeef;
 }
 
 .vip h1 {
@@ -18,7 +19,7 @@
     width: 50%;
     padding: 10px;
     border-radius: 5px;
-    color: var(--pink);
+    color: var(--secondary);
     background: rgb(255, 43, 121, 0.2);
     margin: 15px;
     box-sizing: border-box;
@@ -27,7 +28,7 @@
 }
 
 .vip ul .active {
-    background: var(--pink);
+    background: var(--secondary);
     color: #fff;
 }
 
@@ -47,12 +48,12 @@
 .vip .userinfo input {
     border-radius: 19px;
     padding: 10px;
-    border: 1px solid var(--pink);
+    border: 1px solid var(--secondary);
     flex: 1;
 }
 
 .vip p{
-    color: var(--pink);
+    color: var(--secondary);
     padding-bottom: 10px;
     font-weight: bold;
     margin: 5px;

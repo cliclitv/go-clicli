@@ -5,10 +5,7 @@ export default function App() {
     useEffect(() => {
         const main = document.querySelector('main')
         const height = main.clientHeight
-        console.log(height)
         const windowHeight = document.documentElement.clientHeight
-        console.log(windowHeight)
-
         window.onscroll = () => {
             // 视差效果
             const realy = (1080 - windowHeight) * (document.documentElement.scrollTop / height)
@@ -18,6 +15,8 @@ export default function App() {
     }, [])
     return (
         <div className="container">
+            <div className="left"></div>
+            <div className="right"></div>
         </div>
     )
 }

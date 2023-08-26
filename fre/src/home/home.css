@@ -11,6 +11,12 @@ main {
     margin: 0 auto;
     width: 1100px;
     height: 4000px;
-    background: #fff;
+    background: #efeeef;
     /* background: url(https://static.gmgard.moe/Images/bg31.jpg); */
+}
+
+.left{
+    background: #F7F7DE;
+    width: 780px;
+    height: 1000px;
 }

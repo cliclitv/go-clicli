@@ -35,8 +35,8 @@ export default function Header() {
                         <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
                     </div>
                     <div className="biu">
-                        <a href="https://app.clicli.cc" target="_blank"><li><i className="icon-font icon-download"></i>APP</li></a>
-                        <li onClick={() => push('/recharge')}><i className="icon-font icon-dadou"></i>弯豆</li>
+                        <a href="https://app.clicli.cc" target="_blank"><li>APP</li></a>
+                        <li onClick={() => push('/recharge')}>弯豆</li>
                         <li onClick={openWallet} style={{ position: 'relative' }}>
                             <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                             {user.id ? <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
@@ -54,7 +54,29 @@ export default function Header() {
                 </div>
             </div>
 
-            <nav></nav>
+            <nav>
+                <ul>
+                    <li>综合</li>
+                    <li onclick={() => {
+                        alert('还不能点')
+                    }}>动画</li>
+                    <li onclick={() => {
+                        alert('还不能点')
+                    }}>漫画</li>
+                    <li onclick={() => {
+                        alert('还不能点')
+                    }}>游戏</li>
+                    <li onclick={() => {
+                        alert('还不能点')
+                    }}>声乐</li>
+                    <li onclick={() => {
+                        alert('还不能点')
+                    }}>三次元</li>
+                    <li onclick={() => {
+                        alert('还不能点')
+                    }}>文章</li>
+                </ul>
+            </nav>
         </header>
     )
 }

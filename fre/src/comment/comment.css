@@ -50,7 +50,7 @@
 
 .comment-input input {
     background: var(--theme-bg);
-    color: var(--pink);
+    color: var(--secondary);
     height: 46px;
     border: 0px;
     border-radius: 30px;
