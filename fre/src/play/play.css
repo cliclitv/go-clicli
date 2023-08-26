@@ -43,8 +43,8 @@
 .p ul li {
     line-height: 40px;
     border-radius: 5px;
-    background: var(--theme-bg);
-    color: var(--theme);
+    background: var(--primary-bg);
+    color: var(--primary);
     margin: 10px;
     cursor: pointer;
     padding: 0 10px;
@@ -122,7 +122,7 @@
 .avatar-wrap li {
     cursor: pointer;
     font-size: 16px;
-    color: var(--theme);
+    color: var(--primary);
     padding-right: 10px;
 }
 
@@ -192,7 +192,7 @@ article a {
 
 .info {
 
-    width: 1380px;
+    /* width: 1380px; */
     margin: 20px auto;
 }
 

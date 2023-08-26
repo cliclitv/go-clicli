@@ -1,6 +1,6 @@
 .week-list ul button {
-    background: var(--theme-bg);
-    color: var(--theme);
+    background: var(--primary-bg);
+    color: var(--primary);
     margin: 10px;
 }
 

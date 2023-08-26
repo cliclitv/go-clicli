@@ -81,48 +81,50 @@ export default function Upload(props) {
 
     const maotags = ['动画', '漫画', '游戏', '广播剧', '画集', '文章']
     return (
-        <div className="upload">
-            <h1>视频投稿</h1>
-            <div className="title">
-                <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
-            </div>
-            <section>
-                <i class="te te-bold" onclick={() => window.md.bold()}></i>
-                <i class="te te-italic" onclick={() => window.md.italic()}></i>
-                <i class="te te-quote" onclick={() => window.md.quote()}></i>
-                <i class="te te-image" onclick={() => window.md.image()}></i>
-                <i class="te te-link" onclick={() => window.md.link()}></i>
-                <i class="te te-code" onclick={() => window.md.blockCode()}></i>
-                <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
-            </section>
-            <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-            <textarea spellcheck="false" placeholder={`直链框，请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`} value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
+        <div className="wrap">
+            <div className="upload">
+                <h1>投稿</h1>
+                <div className="title">
+                    <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
+                </div>
+                <section>
+                    <i class="te te-bold" onclick={() => window.md.bold()}></i>
+                    <i class="te te-italic" onclick={() => window.md.italic()}></i>
+                    <i class="te te-quote" onclick={() => window.md.quote()}></i>
+                    <i class="te te-image" onclick={() => window.md.image()}></i>
+                    <i class="te te-link" onclick={() => window.md.link()}></i>
+                    <i class="te te-code" onclick={() => window.md.blockCode()}></i>
+                    <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
+                </section>
+                <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
+                <textarea spellcheck="false" placeholder={`直链框，请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`} value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
 
-            <div className="options">
-                <select onInput={e => change('status', e.target.value)}>
-                    <option value="wait" selected={post.status === 'wait'}>待审核</option>
-                    <option value="remove" selected={post.status === 'remove'}>待删除</option>
-                    <option value="under" selected={post.status === 'under'}>已下架</option>
-                    {user.level > 2 && <option value="public" selected={post.status === 'public'}>发布</option>}
-                </select>
-                <select onInput={e => change('sort', e.target.value)}>
-                    <option value="毛毛" selected={post.sort === '毛毛'}>毛毛</option>
-                    <option value="新番" selected={post.sort === '新番'}>新番</option>
-                    <option value="完结" selected={post.sort === '完结'}>完结</option>
-                    <option value="推流" selected={post.sort === '推流'}>推流</option>
-                    <option value="原创" selected={post.sort === '原创'}>原创</option>
-                </select>
-                {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
-            </div>
-            <div className="tags">
-                <ul>
-                    {(post.sort === '原创' ? gametags : post.sort === '毛毛' ? maotags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
-                        className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
-                </ul>
-            </div>
-            <div className="submit" onClick={submit}>
-                <button>发布
-                </button>
+                <div className="options">
+                    <select onInput={e => change('status', e.target.value)}>
+                        <option value="wait" selected={post.status === 'wait'}>待审核</option>
+                        <option value="remove" selected={post.status === 'remove'}>待删除</option>
+                        <option value="under" selected={post.status === 'under'}>已下架</option>
+                        {user.level > 2 && <option value="public" selected={post.status === 'public'}>发布</option>}
+                    </select>
+                    <select onInput={e => change('sort', e.target.value)}>
+                        <option value="毛毛" selected={post.sort === '毛毛'}>毛毛</option>
+                        <option value="新番" selected={post.sort === '新番'}>新番</option>
+                        <option value="完结" selected={post.sort === '完结'}>完结</option>
+                        <option value="推流" selected={post.sort === '推流'}>推流</option>
+                        <option value="原创" selected={post.sort === '原创'}>原创</option>
+                    </select>
+                    {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
+                </div>
+                <div className="tags">
+                    <ul>
+                        {(post.sort === '原创' ? gametags : post.sort === '毛毛' ? maotags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                            className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
+                    </ul>
+                </div>
+                <div className="submit" onClick={submit}>
+                    <button>发布
+                    </button>
+                </div>
             </div>
         </div>
     )

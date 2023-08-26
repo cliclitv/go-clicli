@@ -10,13 +10,44 @@ main {
 .container {
     margin: 0 auto;
     width: 1100px;
-    height: 4000px;
     background: #efeeef;
     /* background: url(https://static.gmgard.moe/Images/bg31.jpg); */
 }
 
-.left{
+.left {
     background: #F7F7DE;
     width: 780px;
-    height: 1000px;
+}
+
+section {
+    padding: 20px;
+}
+
+section .suo {
+    width: 500px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+section h1 {
+    font-size: 30px;
+    font-weight: normal;
+}
+
+section .info {
+    display: flex;
+    align-items: center;
+}
+
+section .info p {
+    padding: 0 0 0 10px !important;
+}
+
+section p{
+    color: var(--primary);
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
 }

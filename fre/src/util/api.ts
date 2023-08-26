@@ -1,7 +1,7 @@
 import { get, post } from './post'
 
-export function getPost(type, tag, page, pageSize, status?, uid?) {
-  return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
+export function getPost(sort, tag, page, pageSize, status?, uid?) {
+  return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${sort}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
 }
 
 export function getPostB(type, tag, page, pageSize, status?, uid?) {

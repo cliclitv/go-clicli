@@ -34,7 +34,7 @@
 }
 
 .a .cover:hover {
-    box-shadow: 5px 5px var(--theme);
+    box-shadow: 5px 5px var(--primary);
 }
 
 .b {
@@ -84,6 +84,6 @@
     padding: 10px;
     border-radius: 5px;
     color: #fff;
-    background: var(--theme);
+    background: var(--primary);
     z-index: 9;
 }
