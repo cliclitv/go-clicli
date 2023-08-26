@@ -1,16 +1,15 @@
 import { render, Fragment, h, } from "fre"
 import { useRoutes } from './use-route'
 import './app.css'
-import './m.css'
 import Header from "./header/header"
-import Footer from './header/footer'
+import Footer from "./header/footer"
 
 const routes = {
     '/': import('./home/home'),
     '/login': import('./login/login'),
     '/register': import('./login/register'),
     '/upload/:id': import('./upload/upload'),
-    '/play/:gv': import('./play/play'),
+    '/play/:gv': import('./home/home'),
     '/search/:k': import('./search/search'),
     '/user/:id': import('./login/register'),
     '/recharge': import('./recharge/recharge'),
@@ -19,12 +18,11 @@ const routes = {
 
 const App = () => {
     let route = useRoutes(routes)
-    console.log(route)
-    return <div>
+    return <main>
         <Header />
         <div>{route}</div>
         <Footer />
-    </div>
+    </main>
 }
 
 render(<App />, document.getElementById("app"))

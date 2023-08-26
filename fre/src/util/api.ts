@@ -1,15 +1,15 @@
 import { get, post } from './post'
 
-export function getPost(type, tag, page, pageSize, status?, uid?) {
-  return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
+export function getPost(sort, tag, page, pageSize, status?, uid?) {
+  return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${sort}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
 }
 
 export function getPostB(type, tag, page, pageSize, status?, uid?) {
   return get(`https://www.clicli.cc/posts?status=${status}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
 }
 
-export function getRank() {
-  return get('https://www.clicli.cc/rank')
+export function getRank(day) {
+  return get(`https://www.clicli.cc/rank?day=${day}`)
 }
 
 export function getPostDetail(pid) {

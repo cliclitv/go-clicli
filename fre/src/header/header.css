@@ -1,14 +1,26 @@
-header {
-    height: 100px;
-    /* background: var(--background); */
-    display: flex;
+header .top {
     align-items: center;
+    /* width: 100%;
+    z-index: 300;
+    box-shadow: rgb(0 0 0 / 30%) 0 1px 2px;
+    backdrop-filter: saturate(180%) blur(8px);
+    padding: 4px 0;
+    background-color: rgba(33, 33, 33, 0.4); */
+    text-shadow: 2px 0 2px #000, -2px 0 2px #000, 0 2px 2px #000, 0 -2px 2px #000;
 }
 
 header .wrap {
-    width: 1268px;
+    width: 1100px;
     margin: 0 auto;
     cursor: pointer;
+    color: #fff;
+    background: transparent;
+    /* margin-top: 250px; */
+
+}
+
+header .wrap a {
+    color: #fff;
 }
 
 header .flex {
@@ -16,17 +28,21 @@ header .flex {
     align-items: center;
 }
 
+header .avatar {
+    margin: 0 !important;
+    height: 25px;
+}
+
 header h1 {
     flex: 1;
-    color: var(--theme);
-    font-size: 45px;
+    color: #fff;
     display: flex;
     align-items: flex-end;
 }
 
 header .search input {
-    width: 500px;
-    background: var(--theme-bg);
+    width: 300px;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 50px;
     border: none;
     padding: 8px 20px;
@@ -44,34 +60,22 @@ header .biu li {
 }
 
 header .biu li i {
-    padding: 10px;
+    padding: 0 10px;
 }
 
 header .avatar p {
     display: none;
 }
 
-header .icon-shouye {
-    background: var(--theme);
-    height: 40px;
-    width: 40px;
-    padding: 0px;
-    text-align: center;
-    line-height: 40px;
-    color: #fff;
-    box-sizing: border-box;
-}
-
 header .wallet {
     color: #fff;
     width: 200px;
     position: absolute;
-    top: 80px;
+    top: 50px;
     left: -70px;
     text-align: center;
-    /* padding: 10px; */
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     box-shadow: 2px 2px 5px #000;
     overflow: hidden;
     z-index: 999;
@@ -101,21 +105,72 @@ header .wallet li a {
     color: #fff;
 }
 
+header nav {
+    text-align: center;
+    background: linear-gradient(#ccc, #fff);
+    border-bottom: 2px solid #acacac;
+    height: 45px;
+    width: 1100px;
+    margin: 0 auto 0 auto;
+    border-radius: 10px 10px 0 0;
+    margin-top: 300px;
+}
+
+nav ul {
+    width: 700px;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    height: 100%;
+}
+
+nav ul li {
+    flex: 1;
+    color: var(--primary);
+    font-size: 16px;
+    position: relative;
+    cursor: pointer;
+}
+
+nav ul li:before {
+    position: absolute;
+    right: 0;
+    top: -15px;
+    left: 60%;
+    text-shadow: 2px 0 2px #bbb;
+    color: #fff;
+    background: var(--secondary);
+    height: 25px;
+    width: 25px;
+    font-size: 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+nav ul li:nth-child(3):before {
+    content: "+2"
+}
+
+nav ul li:nth-child(2):before {
+    content: "+4"
+}
+
+
 footer {
-    margin: 50px 0;
-    padding: 30px;
     text-align: center;
     color: #bbb;
     overflow: hidden;
 }
 
-footer a{
+footer a {
     display: block;
     padding: 10px;
 }
 
 footer h1 {
-    color: var(--theme);
+    color: var(--primary);
 }
 
 footer ul {
@@ -131,13 +186,8 @@ footer ul li {
     margin: 20px auto;
     border-radius: 4px;
     transition: 0.5s;
-    color: var(--theme);
+    color: var(--primary);
     cursor: pointer;
-}
-
-footer ul li:hover {
-    background: #7e5fd9;
-    color: #fff;
 }
 
 .icon-dadou {
@@ -155,15 +205,7 @@ footer p {
     justify-content: center;
 }
 
-h1 span {
-    font-size: 25px;
-    padding: 2px 10px;
-    background: var(--theme);
-    color: #fff;
-    border-radius: 100px;
-    margin: 10px;
-}
 
-.friends a{
+.friends a {
     display: inline-block
 }

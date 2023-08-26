@@ -1,94 +1,97 @@
-.wrap {
-    width: 1350px;
+main {
+    background: url(https://static.gmgard.moe/Images/bg31.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center 0;
+}
+
+
+
+.container {
     margin: 0 auto;
-    /* display: flex; */
+    width: 1100px;
+    background: #efeeef;
+    display: flex;
+    /* background: url(https://static.gmgard.moe/Images/bg31.jpg); */
 }
 
-.home h1 {
+.right {
+    width: 320px;
+}
+
+.left {
+    background: #F7F7DE;
+    width: 780px;
+}
+
+section {
+    padding: 20px;
+    border-bottom:  1px solid #ddd;
+}
+
+section .suo {
+    width: 500px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+section h1 {
     font-size: 30px;
-    text-align: center;
-    letter-spacing: 20px;
-}
-
-nav {
-    background: var(--theme-bg);
-    padding: 15px;
-    border-radius: 50px;
-    border: 4px dashed #cdb4ff;
-    box-sizing: border-box;
-    margin: 50px 12px;
-    box-shadow: 5px 5px #dddade inset;
-}
-
-nav ul {
-    display: flex;
-    font-size: 16px;
-}
-
-nav ul li {
-    padding: 0 20px;
-    box-sizing: border-box;
-    color: var(--theme);
+    font-weight: normal;
     cursor: pointer;
-    position: relative
 }
 
-nav ul li.active {
-    font-weight: bold;
-    font-size: 18px;
-    text-decoration: underline
+section .info {
+    display: flex;
+    align-items: center;
 }
 
-nav ul li:hover {
-    font-weight: bold;
-    font-size: 18px;
-    text-decoration: underline
+section .info p {
+    padding: 0 0 0 10px !important;
+    cursor: pointer;
 }
 
-nav ul li::before {
-    position: absolute;
-    right: 0px;
-    top: -10px;
+section p {
+    color: var(--primary);
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.mask {
+    background: rgba(0, 0, 0, .7);
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
+.postplayer {
+    background: rgba(0, 0, 0, .7);
     color: #fff;
-    background: var(--pink);
-    height: 20px;
-    width: 20px;
-    font-size: 12px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 1200px;
+    height: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    border-radius: 10px;
+
 }
 
-nav ul li:nth-child(3)::before {
-    content: '+2';
-}
-
-nav ul li:nth-child(2)::before {
-    content: '+4';
-}
-
-.tuifanjun .comment-wrap {
-    width: 50%;
-    display: inline-block;
-    vertical-align: text-top;
-}
-.tuifanjun .comment-item{
-    display: flex;
-    align-items: center;
-}
-
-.tuifanjun .b li {
-    width: 130px!important;
-}
-
-.tuifanjun .b .cover, .tuifanjun .b .cover img{
-    height: 160px;
-}
-.tuifanjun .b{
-    margin: 0;
-}
-
-.tuifanjun{
-    padding-top: 20px;
+.icon-close {
+    color: #fff;
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    z-index: 11;
+    font-size: 40px;
+    cursor: pointer;
 }

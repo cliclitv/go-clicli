@@ -17,10 +17,8 @@ export default function Home({ id }) {
     return (
         <div>
             <div className="wrap">
-                <main>
                     <h1>我的投稿</h1>
                     <ListA posts={search} editor={parseInt(id) === getUser().id} />
-                </main>
             </div>
         </div>
     )

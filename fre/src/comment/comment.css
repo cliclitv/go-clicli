@@ -1,11 +1,11 @@
 .comment {
-    width: 800px;
-    margin: 10px auto;
+    width: 780px;
+    padding: 1px;
 
 }
 
 .comment-item {
-    background: var(--theme-bg);
+    background: var(--primary-bg);
     border-radius: 30px;
     border: 2px dashed #cdb4ff;
     box-sizing: border-box;
@@ -24,6 +24,7 @@
 
 .comment h1 {
     font-weight: normal;
+    padding: 10px;
 }
 
 .comment-item li {
@@ -37,7 +38,7 @@
 
 .comment-item p {
     font-size: 16px;
-    color: var(--theme);
+    color: var(--primary);
     padding: 10px;
 }
 
@@ -49,8 +50,8 @@
 }
 
 .comment-input input {
-    background: var(--theme-bg);
-    color: var(--pink);
+    background: var(--primary-bg);
+    color: var(--secondary);
     height: 46px;
     border: 0px;
     border-radius: 30px;
@@ -61,7 +62,6 @@
 .comment-input button {
     position: absolute;
     right: 10px;
-    top: 21px;
 }
 
 .rate ul {
@@ -75,6 +75,6 @@
 
 .rate .icon-star {
     font-size: 40px;
-    color: var(--theme);
+    color: var(--primary);
     cursor: pointer;
 }

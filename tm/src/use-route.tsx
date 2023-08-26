@@ -1,5 +1,4 @@
 import { h, useState } from 'fre'
-import { getUser } from './util/api'
 
 let pathCache = {}
 let routesCache = null
@@ -66,11 +65,6 @@ function perfrom(stack) {
         setter(Symbol())
       })
     } else {
-      if (currentPath !== '/register' && currentPath !== '/vip') {
-        setTimeout(() => {
-          push('/login')
-        })
-      }
 
     }
   } else {

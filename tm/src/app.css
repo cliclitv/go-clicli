@@ -23,7 +23,7 @@ body {
 
 button {
     background: var(--theme);
-    color: var(--whrite);
+    color: #fff;
     padding: 10px 30px;
     border-radius: 18px;
     border: none;

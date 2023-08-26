@@ -7,7 +7,6 @@ export default function Avatar(props) {
         <img src={getAvatar(props.uqq)} alt="" />{
             !props.noname && <p>{props.uname}</p>
         }
-        {shouldVIP(props.utime) && <b></b>}
         {/* <i className="icon-font icon-shouye" onClick={transfer}></i> */}
     </div>
 }
