@@ -1,16 +1,22 @@
-header {
-    display: flex;
+header .top {
     align-items: center;
-    background: transparent;
+    width: 100%;
+    z-index: 300;
+    box-shadow: rgb(0 0 0 / 30%) 0 1px 2px;
+    backdrop-filter: saturate(180%) blur(8px);
+    padding: 4px 0;
+    background-color: rgba(33, 33, 33, 0.4);
 }
 
 header .wrap {
     width: 1100px;
     margin: 0 auto;
     cursor: pointer;
-    background: var(--bg);
-    border: 1px solid #bbb;
-    border-top: 0px;
+    color: #fff;
+}
+
+header .wrap a{
+    color: #fff;
 }
 
 header .flex {
@@ -18,21 +24,21 @@ header .flex {
     align-items: center;
 }
 
-header .avatar{
-    margin: 0!important;
+header .avatar {
+    margin: 0 !important;
     height: 25px;
 }
 
 header h1 {
     flex: 1;
-    color: var(--primary);
+    color: #fff;
     display: flex;
     align-items: flex-end;
 }
 
 header .search input {
-    width: 500px;
-    background: var(--primary-bg);
+    width: 300px;
+    background: rgba(255,255,255,0.5);
     border-radius: 50px;
     border: none;
     padding: 8px 20px;
@@ -95,7 +101,7 @@ header .wallet li a {
     color: #fff;
 }
 
-header nav{
+header nav {
     margin-top: 300px;
 }
 
