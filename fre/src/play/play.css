@@ -1,5 +1,5 @@
 .player.wrap {
-    width: 1200px;
+    width: 1300px;
     display: flex;
     background: transparent;
     overflow: hidden;
@@ -15,9 +15,8 @@
 
 
 .p {
-    padding: 0 10px;
     box-sizing: border-box;
-    width: 320px;
+    width: 420px;
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -53,24 +52,34 @@
     margin: 0;
 }
 
-.article {
-    padding: 0 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 500px;
-    width: 300px;
-    overflow: scroll;
-    background: #333;
-}
-
-.xiangqing {
+.tab {
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+
 }
 
-.xiangqing li {
-    flex: 1;
+.tab li {
+    background: rgba(108, 230 ,123,0.1) !important;
+    color: var(--secondary) !important;
+    padding: 0 20px !important;
+    line-height: 25px !important;
+}
+
+.tab li:nth-child(1) {
+    border-radius: 10px 0 0 10px;
+}
+
+.tab li:nth-child(2) {
+    border-radius: 0 10px 10px 0;
+}
+
+.tab li.active {
+    background: rgba(108 ,230, 123,0.3) !important;
+    font-weight: bold;
+    /* background-color: rgba(148, 108, 230, 0.3) !important; */
+
 }
 
 #mycanvas {
@@ -82,14 +91,6 @@
 .canvas-wrap {
     width: 1000px;
     margin: 0 auto;
-}
-
-.xiangqing p {
-    font-size: 36px;
-    color: var(--primary) !important;
-    padding: 0;
-    cursor: pointer;
-    padding-right: 10px;
 }
 
 .article h1 {
@@ -187,43 +188,12 @@ article a {
 
 .info .tag {
     display: inline-block;
+    padding: 10px 5px;
 }
 
 .info .tags li {
-    font-size: 16px;
     cursor: pointer;
 }
-
-.icon-shouye {
-    background-color: #fbde00;
-    color: #333;
-    padding: 8px;
-    font-size: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-/* .poster {
-    width: 800px;
-    height: 300px;
-    overflow: hidden;
-    margin: 100px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-} 
-.poster::after{
-    width: 100%;
-    height: 100%;
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    filter: blur(10px) brightness(1.2);
-    
-} */
 
 .p::-webkit-scrollbar {
 

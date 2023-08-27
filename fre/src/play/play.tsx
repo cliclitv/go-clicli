@@ -10,7 +10,7 @@ import { renderYmal } from '../util/ymal'
 
 export default function Post({ gv }) {
     console.log(gv)
-    const [id,fp] = getAv(gv)
+    const [id, fp] = getAv(gv)
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
@@ -52,7 +52,13 @@ export default function Post({ gv }) {
             <div className="p">
                 <div className="info">
                     <div>
-                        <div class='avatar-wrap'> <Avatar uqq={post.uqq} /></div>
+                        <div class='avatar-wrap'>
+                            <Avatar uqq={post.uqq} uname={post.uname} />
+                            <ul class="tab">
+                                <li class={show && 'active'} onclick={() => setShow(true)}>分P</li>
+                                <li class={!show && 'active'} onclick={() => setShow(false)}>讨论</li>
+                            </ul>
+                        </div>
 
                         <h1>{post.title}<span>{pv} ℃</span>
                         </h1>
@@ -67,11 +73,17 @@ export default function Post({ gv }) {
                     </div>
 
                 </div>
-                <ul>
-                    {videos.map((name, index) => {
-                        return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
-                    })}
-                </ul>
+
+                {
+                    show && <ul>
+                        {videos.map((name, index) => {
+                            return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
+                        })}
+                    </ul>
+                }
+                {
+                    !show && post.id && <Comment post={post}></Comment>
+                }
             </div>
         </div>
 

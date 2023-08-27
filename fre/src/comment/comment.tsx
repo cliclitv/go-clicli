@@ -4,16 +4,8 @@ import { push } from '../use-route'
 import { addComment, getComments, getUser } from '../util/api'
 import './comment.css'
 
-function setRateDom(index, node) {
-    for (let j = index; j < node.length; j++) {
-        node[j].classList.remove('icon-star-fill')
-    }
-    for (let i = 0; i < index; i++) {
-        node[i].classList.add('icon-star-fill')
-    }
-}
-
 export default function Comment({ post }) {
+    console.log(post)
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
 
@@ -37,7 +29,7 @@ export default function Comment({ post }) {
         })
     }
     const user = getUser() || {}
-    return <div className="wrap">
+    return <div>
         <div class="comment">
             <div className="comment-input">
                 <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>

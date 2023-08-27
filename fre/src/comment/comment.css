@@ -1,22 +1,15 @@
 .comment {
-    width: 780px;
-    padding: 1px;
-
+    width: 420px;
+    position: relative;
+    margin-bottom: 80px;
 }
 
 .comment-item {
-    background: var(--primary-bg);
-    border-radius: 30px;
-    border: 2px dashed #cdb4ff;
     box-sizing: border-box;
-    margin: 20px;
-    box-shadow: 3px 3px #dddade inset;
     padding: 10px;
 }
 
 .comment h1 span {
-    background: #0000;
-    color: #333;
     padding: 0;
     position: relative;
     top: -5px;
@@ -34,25 +27,30 @@
 
 .comment-item time {
     color: #888;
+    font-size: 12px;
 }
 
 .comment-item p {
-    font-size: 16px;
-    color: var(--primary);
+    color: #fff;
     padding: 10px;
 }
 
 .comment-input {
     display: flex;
     align-items: center;
-    margin: 20px;
-    position: relative;
+    padding: 20px;
+    position: fixed;
+    z-index: 99999;
+    bottom: 0;
+    width: 400px;
+    background: #111;
+    box-sizing: border-box;
 }
 
 .comment-input input {
     background: var(--primary-bg);
-    color: var(--secondary);
-    height: 46px;
+    color: #fff;
+    height: 30px;
     border: 0px;
     border-radius: 30px;
     padding: 0 10px;
@@ -61,7 +59,9 @@
 
 .comment-input button {
     position: absolute;
-    right: 10px;
+    right: 20px;
+    height: 30px;
+    padding: 0 10px;
 }
 
 .rate ul {
@@ -71,10 +71,4 @@
 
 .comment-item ul {
     display: flex;
-}
-
-.rate .icon-star {
-    font-size: 40px;
-    color: var(--primary);
-    cursor: pointer;
 }
