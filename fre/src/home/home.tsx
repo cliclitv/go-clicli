@@ -7,17 +7,9 @@ import WeekList from '../week/week'
 import Post from '../play/play'
 import { push } from '../use-route'
 import RankList from '../rank/rank'
-console.log(dayjs)
 export default function App(props) {
     const [posts, setPosts] = useState([])
-    useEffect(() => {
-
-        getPost('', '', 1, 10).then(res => {
-            setPosts(res.posts)
-        })
-
-    }, [])
-
+    const [page, setPage] = useState(1)
     useEffect(() => {
         setTimeout(() => {
             const main = document.querySelector('main')
@@ -25,12 +17,19 @@ export default function App(props) {
             const windowHeight = document.documentElement.clientHeight
             window.onscroll = () => {
                 // 视差效果
-                const realy = (1080 - windowHeight) * (document.documentElement.scrollTop / height)
+                const realy = (1000 - windowHeight) * (document.documentElement.scrollTop / height)
                 main.style.backgroundPositionY = -realy + 'px'
             }
         }, 500);
 
-    }, [posts])
+    }, [posts,page])
+
+    useEffect(() => {
+        getPost('', '', page, 10).then(res => {
+            const newPosts = posts.concat(res.posts)
+            setPosts(newPosts)
+        })
+    }, [page])
     return (
         <div>
             <div className="container">
@@ -38,7 +37,7 @@ export default function App(props) {
                     {posts.map(item => {
                         const time = dayjs(item.time).format('MM-DD-YYYY')
                         console.log(time)
-                        return <section>
+                        return <section key={item.id}>
                             <h1 onClick={() => push(`/play/gv${item.id}`)}>{item.title}</h1>
                             <div className="info">
                                 <span>由</span>
@@ -54,6 +53,7 @@ export default function App(props) {
                             <p onClick={() => push(`/play/gv${item.id}`)}>{'>> '}继续观看</p>
                         </section>
                     })}
+                    <button class="more" onClick={() => setPage(page + 1)}>加载更多</button>
                 </div>
                 <div className="right">
                     <WeekList></WeekList>

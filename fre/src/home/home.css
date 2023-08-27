@@ -85,7 +85,9 @@ section p {
     border-radius: 10px;
 
 }
-
+.more{
+    margin: 20px;
+}
 .icon-close {
     color: #fff;
     position: absolute;

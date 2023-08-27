@@ -48,13 +48,12 @@ export default function WeekList() {
                         onClick={() => setDay(index)}>{map[index]}</button>)}
                 </ul>
             </div>
-            {useMemo(() => {
-                return <ul className="posts">
-                    {posts[day] && posts[day].map(item => {
-                        return <li onClick={() => push(`/play/gv${item.id}`)}>{item.title}</li>
+            <ul className="posts">
+                    {posts[day] && posts[day].map((item,index) => {
+                        return <li onClick={() => push(`/play/gv${item.id}`)} key={index}>{item.title}</li>
                     })}
                 </ul>
-            })}
+            
         </div>
     </div>
 }
