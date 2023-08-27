@@ -9,6 +9,7 @@
   "dependencies": {
     "@vitejs/plugin-legacy": "^1.8.2",
     "blueimp-md5": "^2.19.0",
+    "dayjs": "^1.11.9",
     "fre": "^2.6.5",
     "nanoid": "^4.0.0",
     "qr-code-generator-lib": "^1.0.1",

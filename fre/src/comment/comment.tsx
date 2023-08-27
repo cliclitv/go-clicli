@@ -37,14 +37,19 @@ export default function Comment({ post }) {
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
-            <h1>#讨论<span>{comments?.length}</span></h1>
+            <h1>共有{comments?.length}条讨论</h1>
 
 
             {comments && comments.map(item => {
+                const time = dayjs(item.time).format('MM-DD-YYYY')
                 return <div className="comment-item">
-                    <li><Avatar uqq={item.uqq} uname={item.uname}></Avatar><time>{item.time}</time></li>
-                    <p><span>
-                    </span>{item.content}</p>
+                    <Avatar uqq={item.uqq}></Avatar>
+                    <div className="comment-block">
+                        <p>{item.uname}</p>
+                        <p>{item.content}</p>
+                        <p>{time}</p>
+                    </div>
+
                 </div>
             })}
         </div>

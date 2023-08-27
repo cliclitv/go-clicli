@@ -7,7 +7,7 @@ import WeekList from '../week/week'
 import Post from '../play/play'
 import { push } from '../use-route'
 import RankList from '../rank/rank'
-
+console.log(dayjs)
 export default function App(props) {
     const [posts, setPosts] = useState([])
     useEffect(() => {
@@ -36,16 +36,18 @@ export default function App(props) {
             <div className="container">
                 <div className="left">
                     {posts.map(item => {
+                        const time = dayjs(item.time).format('MM-DD-YYYY')
+                        console.log(time)
                         return <section>
                             <h1 onClick={() => push(`/play/gv${item.id}`)}>{item.title}</h1>
                             <div className="info">
                                 <span>由</span>
                                 <Avatar uqq={item.uqq} uname={item.uname}></Avatar>
-                                <span>发布于<i>  </i></span>
-                                <time>{item.time}</time>
+                                <span>发布于</span>
+                                <span>{time}</span>
                             </div>
-                            <article ref={(dom) =>{
-                                if(dom){
+                            <article ref={(dom) => {
+                                if (dom) {
                                     dom.innerHTML = snarkdown(item.content)
                                 }
                             }}></article>

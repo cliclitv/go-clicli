@@ -7,32 +7,42 @@
 .comment-item {
     box-sizing: border-box;
     padding: 10px;
+    display: flex;
 }
 
-.comment h1 span {
-    padding: 0;
-    position: relative;
-    top: -5px;
+.comment-block{
+    flex: 1;
+}
+
+.comment-item .avatar{
+    margin: 0;
+    display: block;
+    padding: 5px 10px;
+}
+
+.comment-item p{
+    padding: 5px;
+}
+
+.comment-item p:nth-child(1){
+    color: #ddd;
+}
+
+.comment-item p:nth-child(3){
+    color: #888;
+    font-size: 12px;
 }
 
 .comment h1 {
     font-weight: normal;
+    font-size: 12px!important;
+    color: #ddd!important;
     padding: 10px;
 }
 
 .comment-item li {
     display: flex;
     align-items: center;
-}
-
-.comment-item time {
-    color: #888;
-    font-size: 12px;
-}
-
-.comment-item p {
-    color: #fff;
-    padding: 10px;
 }
 
 .comment-input {
