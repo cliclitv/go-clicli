@@ -12,7 +12,7 @@ export default function Comment({ post }) {
     const [rate, setRate] = useState(5)
     useEffect(() => {
         getComments(post.id).then(res => {
-            setComments((res as any).comments)
+            setComments((res as any).comments || [])
         })
     }, [])
 
