@@ -36,7 +36,7 @@ export class WebRtc {
                     console.log(data.content)
                     pc.setRemoteDescription(data.content)
                 }
-                
+
                 else if (i.toString() == data.tid) {
                     const d = JSON.parse(data.content)
                     console.log(111, d)
@@ -57,20 +57,19 @@ export class WebRtc {
     }
 
     async onCandidate(e) {
-        // await this.otherPc.pc.addIceCandidate(e.candidate)
-        if (!e || !e.candidate) return;
-
+        if (!e || !e.candidate) return
         console.log('发送消息', this.id)
-        const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": JSON.stringify(e.candidate), "cmd": 1 }
+        localStorage.setItem(this.id.toString() + 'cd', JSON.stringify(e.candidate))
+    }
+
+    sendCand() {
+        const candidate = localStorage.getItem(this.id + 'cd')
+        const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": candidate, "cmd": 1 }
         this.ws.send(JSON.stringify(data))
-
-
-        // console.log(e.candidate)
     }
 
     addStream(stream) {
         this.pc.addStream(stream)
-
     }
 
     async createOffer(key) {

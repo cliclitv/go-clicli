@@ -58,6 +58,10 @@ export async function startRpc(stream) {
     await pc1.createOffer('1')
     pc1.ws.send(JSON.stringify({ "uid": "1", "tid": "2", "content": "1", "cmd": 1 }))
 
+    if(localStorage.getItem('1cd')){
+        pc1.sendCand()
+    }
+
 }
 
 export async function startPull() {
