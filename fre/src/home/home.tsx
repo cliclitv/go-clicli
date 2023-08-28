@@ -36,9 +36,11 @@ export default function App(props) {
             <div className="container">
                 <div className="left">
                     <div>
-                        <button onClick={() => startPull()}>拉流</button>
+                        <h3>全站直播测试</h3>
+                        <button style="margin:10px" onclick={() => startPull()}>拉流</button>
+                        <video src="" controls autoplay class="remote"></video>
+
                     </div>
-                    <video src="" controls autoplay class="remote"></video>
                     {posts.map(item => {
                         const time = dayjs(item.time).format('MM-DD-YYYY')
                         console.log(time)

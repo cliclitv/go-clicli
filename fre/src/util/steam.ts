@@ -56,11 +56,13 @@ if (window.location.pathname == '/') {
 export async function startRpc(stream) {
     pc1.addStream(stream)
     await pc1.createOffer('1')
+    pc1.ws.send(JSON.stringify({ "uid": "1", "tid": "2", "content": "1", "cmd": 1 }))
+
 }
 
 export async function startPull() {
 
-    await pc2.setRomete('1')
+    // await pc2.setRomete('1')
     const desc = await pc2.createAnswer('2')
-    pc2.ws.send(JSON.stringify({ "uid": "2", "tid": "1", "content": JSON.stringify(desc), "cmd": 1 }))
+    pc2.ws.send(JSON.stringify({ "uid": "2", "tid": "1", "content": "2", "cmd": 1 }))
 }

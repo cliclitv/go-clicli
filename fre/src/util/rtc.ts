@@ -22,20 +22,24 @@ export class WebRtc {
 
         const i = this.id
         const pc = this.pc
+        const that = this
 
         this.ws.onmessage = function (event) {
             console.log("收到服务器消息：", i, event.data);
 
             if (event.data != 'ok') {
                 const data = JSON.parse(event.data)
-                if (data.tid == '1' && data.content.indexOf('candidate') < -1) {
+                if (data.content == '1' || data.content == '2') {
+                    that.setRomete(data.content)
+                }
+                else if (data.tid == '1' && data.content.indexOf('candidate') < -1) {
                     console.log(data.content)
                     pc.setRemoteDescription(data.content)
                 }
-                if (i.toString() == data.tid) {
+                
+                else if (i.toString() == data.tid) {
                     const d = JSON.parse(data.content)
-                    console.log(d)
-                    console.log(pc)
+                    console.log(111, d)
                     pc.addIceCandidate(d)
                 }
             }
@@ -43,6 +47,7 @@ export class WebRtc {
 
     }
     onAddStream(e) {
+        console.log(this.id)
         const v = document.querySelector('.remote') as any
         v.srcObject = e.stream
         console.log(e.stream)
@@ -53,11 +58,10 @@ export class WebRtc {
 
     async onCandidate(e) {
         // await this.otherPc.pc.addIceCandidate(e.candidate)
-
+        if (!e || !e.candidate) return;
 
         console.log('发送消息', this.id)
         const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": JSON.stringify(e.candidate), "cmd": 1 }
-        console.log(data)
         this.ws.send(JSON.stringify(data))
 
 
