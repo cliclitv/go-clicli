@@ -46,19 +46,21 @@ export function saveFile(data: { file: File; fileName: string }) {
 }
 
 
+if (window.location.pathname == '/') {
+    var pc2 = new WebRtc('2')
+} else {
+    var pc1 = new WebRtc('1')
+}
 
-const pc1 = new WebRtc('1')
 
 export async function startRpc(stream) {
-    await pc1.createOffer('1')
     pc1.addStream(stream)
-    await pc2.setRomete('1')
-
-
+    await pc1.createOffer('1')
 }
-const pc2 = new WebRtc('2')
+
 export async function startPull() {
 
+    await pc2.setRomete('1')
     const desc = await pc2.createAnswer('2')
-    pc2.ws.send(JSON.stringify({ "uid": "2", "tid": "1", "content": desc, "cmd": 1 }))
+    pc2.ws.send(JSON.stringify({ "uid": "2", "tid": "1", "content": JSON.stringify(desc), "cmd": 1 }))
 }
