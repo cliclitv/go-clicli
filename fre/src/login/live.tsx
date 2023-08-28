@@ -11,6 +11,17 @@ export default function Live() {
         })
     }, [])
 
+    let stream = null
+
+    useEffect(() => {
+        setInterval(async () => {
+            if (stream != null) {
+                await startRpc(stream)
+                console.log(123)
+            }
+        }, 1000)
+    }, [])
+
     async function handleStream(e) {
         const files = e.target.files
         const file = files[0];
@@ -29,7 +40,7 @@ export default function Live() {
             };
         });
         // @ts-ignore
-        const stream = videoRes.captureStream();
+        stream = videoRes.captureStream();
 
         await startRpc(stream)
     }
@@ -38,7 +49,7 @@ export default function Live() {
             <input id="file" type="file" name="file" style="display:none" />
             <label for="file">选择文件开始直播</label>
         </form>
-        <video src="" controls autoplay  class="local"></video>
-        
+        <video src="" controls autoplay class="local"></video>
+
     </div>
 }
