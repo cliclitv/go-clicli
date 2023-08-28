@@ -1,5 +1,5 @@
 import { h, useEffect } from 'fre'
-import { saveFile, startRpc } from '../util/steam'
+import { saveFile, startPull, startRpc } from '../util/steam'
 import './live.css'
 
 export default function Live() {
@@ -19,7 +19,7 @@ export default function Live() {
         if (code !== 1) return;
         const url = URL.createObjectURL(file);
 
-        const videoEl = document.querySelector('video')
+        const videoEl = document.querySelector('.local') as any
 
         videoEl.src = url
 
@@ -36,8 +36,9 @@ export default function Live() {
     return <div class='live'>
         <form id="upForm" action="#" method="post" enctype="multipart/form-data">
             <input id="file" type="file" name="file" style="display:none" />
-            <label for="file">选择文件</label>
+            <label for="file">选择文件开始直播</label>
         </form>
-        <video src="" controls autoplay muted></video>
+        <video src="" controls autoplay  class="local"></video>
+        
     </div>
 }

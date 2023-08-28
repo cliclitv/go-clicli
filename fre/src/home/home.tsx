@@ -7,6 +7,7 @@ import WeekList from '../week/week'
 import Post from '../play/play'
 import { push } from '../use-route'
 import RankList from '../rank/rank'
+import { startPull } from '../util/steam'
 export default function App(props) {
     const [posts, setPosts] = useState([])
     const [page, setPage] = useState(1)
@@ -22,7 +23,7 @@ export default function App(props) {
             }
         }, 500);
 
-    }, [posts,page])
+    }, [posts, page])
 
     useEffect(() => {
         getPost('', '', page, 10).then(res => {
@@ -34,6 +35,10 @@ export default function App(props) {
         <div>
             <div className="container">
                 <div className="left">
+                    <div>
+                        <button onClick={() => startPull()}>拉流</button>
+                    </div>
+                    <video src="" controls autoplay class="remote"></video>
                     {posts.map(item => {
                         const time = dayjs(item.time).format('MM-DD-YYYY')
                         console.log(time)

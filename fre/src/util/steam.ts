@@ -7,12 +7,10 @@ export function saveFile(data: { file: File; fileName: string }) {
             // @ts-ignore
             window.requestFileSystem || window.webkitRequestFileSystem;
         if (!requestFileSystem) {
-            console.error('不支持requestFileSystem');
             resolve({ code: 2 });
             return;
         }
         function onError(err) {
-            console.error('saveFile错误', data.fileName);
             console.log(err);
             resolve({ code: 2 });
         }
@@ -48,12 +46,19 @@ export function saveFile(data: { file: File; fileName: string }) {
 }
 
 
+
+const pc1 = new WebRtc('1')
+
 export async function startRpc(stream) {
-
-    const pc1 = new WebRtc()
+    await pc1.createOffer('1')
     pc1.addStream(stream)
-    const desc = await pc1.createOffer()
+    await pc2.setRomete('1')
 
-    const pc2 = new WebRtc()
-    await pc2.setRomete(desc)
+
+}
+const pc2 = new WebRtc('2')
+export async function startPull() {
+
+    const desc = await pc2.createAnswer('2')
+    pc2.ws.send(JSON.stringify({ "uid": "2", "tid": "1", "content": desc, "cmd": 1 }))
 }
