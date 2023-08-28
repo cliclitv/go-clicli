@@ -1,0 +1,11 @@
+video {
+    height: 450px;
+    width: 800px;
+    margin: 10px auto;
+}
+
+.live{
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
