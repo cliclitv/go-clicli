@@ -19,7 +19,7 @@ export default function Live() {
                 await startRpc(stream)
                 console.log(123)
             }
-        }, 1000)
+        }, 2000)
     }, [])
 
     async function handleStream(e) {

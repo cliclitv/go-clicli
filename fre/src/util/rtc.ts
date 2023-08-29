@@ -9,27 +9,45 @@ export class WebRtc {
     ws: any
     constructor(id) {
         this.pc = new RTCPeerConnection({})
-        const url = `wss://www.boyslove.org/chat?uid=${id}`
-        console.log(url)
-        this.ws = new WebSocket(url);
+
         this.id = id
         this.pc.onconnectionstatechange = this.onStateChange.bind(this)
         this.pc.onicecandidate = this.onCandidate.bind(this)
         this.pc.onaddstream = this.onAddStream.bind(this)
+
+        this.reconnect()
+
+    }
+    reconnect() {
+        const url = `wss://www.boyslove.org/chat?uid=${this.id}`
+
+        this.ws = new WebSocket(url);
         this.ws.onopen = function () {
-            console.log("连接已打开");
+            console.log("连接已打开", url);
         };
+        this.ws.onclose = (e) => {
+            console.log(e)
+            this.reconnect()
+            console.log('链接已关闭')
+        }
+        this.ws.onerror = (e) => {
+            console.log(e)
+            console.log('链接出错')
+        }
+
+        setTimeout(() => {
+            this.ws.send(JSON.stringify({ "cmd": 0 })) // 5s 一次心跳检测
+        }, 5000);
 
         const i = this.id
         const pc = this.pc
         const that = this
 
         this.ws.onmessage = function (event) {
-            console.log("收到服务器消息：", i, event.data);
-
+            console.log("收到服务器消息：", i);
             if (event.data != 'ok') {
                 const data = JSON.parse(event.data)
-                if (data.content == '1' || data.content == '2') {
+                if (data.content.indexOf('sdp') > -1) { // setRemote
                     that.setRomete(data.content)
                 }
                 else if (data.tid == '1' && data.content.indexOf('candidate') < -1) {
@@ -39,12 +57,10 @@ export class WebRtc {
 
                 else if (i.toString() == data.tid) {
                     const d = JSON.parse(data.content)
-                    console.log(111, d)
                     pc.addIceCandidate(d)
                 }
             }
-        };
-
+        }
     }
     onAddStream(e) {
         console.log(this.id)
@@ -60,11 +76,11 @@ export class WebRtc {
         if (!e || !e.candidate) return
         console.log('发送消息', this.id)
         localStorage.setItem(this.id.toString() + 'cd', JSON.stringify(e.candidate))
+        this.sendCand(e.candidate)
     }
 
-    sendCand() {
-        const candidate = localStorage.getItem(this.id + 'cd')
-        const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": candidate, "cmd": 1 }
+    sendCand(c: any) {
+        const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": c, "cmd": 1 }
         this.ws.send(JSON.stringify(data))
     }
 
@@ -72,25 +88,22 @@ export class WebRtc {
         this.pc.addStream(stream)
     }
 
-    async createOffer(key) {
+    async createOffer() {
         const desc = await this.pc.createOffer({
             offerToReceiveAudio: false,
             offerToReceiveVideo: false
         })
         await this.pc.setLocalDescription(desc)
-        localStorage.setItem(key, JSON.stringify(desc))
         return desc
     }
 
-    async setRomete(key) {
-        let desc = localStorage.getItem(key)
+    async setRomete(desc) {
         await this.pc.setRemoteDescription(JSON.parse(desc))
     }
 
     async createAnswer(key) {
         const desc = await this.pc.createAnswer()
         await this.pc.setLocalDescription(desc)
-        localStorage.setItem(key, JSON.stringify(desc))
         return desc
     }
 }
