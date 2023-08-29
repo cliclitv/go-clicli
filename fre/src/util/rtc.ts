@@ -22,8 +22,13 @@ export class WebRtc {
         const url = `wss://clicli-live.deno.dev?uid=${this.id}`
 
         this.ws = new WebSocket(url);
+        const ws = this.ws
+
         this.ws.onopen = function () {
             console.log("连接已打开", url);
+            setInterval(() => {
+                ws.send('heart') // 5s 一次心跳检测
+            }, 5000);
         };
         this.ws.onclose = (e) => {
             console.log(e)
@@ -35,16 +40,15 @@ export class WebRtc {
             console.log('链接出错')
         }
 
-        // setInterval(() => {
-        //     this.ws.send(JSON.stringify({ "cmd": 0 })) // 5s 一次心跳检测
-        // }, 5000);
 
         const i = this.id
         const pc = this.pc
         const that = this
 
         this.ws.onmessage = function (event) {
-
+            if (event.data == 'ok') {
+                return
+            }
             const data = JSON.parse(event.data)
             if (data.desc) { // setRemote
                 if (i.toString() == data.tid) {
@@ -55,7 +59,7 @@ export class WebRtc {
 
             else if (data.candidate) {
                 if (i.toString() == data.tid) {
-                    const d = JSON.parse(data.content)
+                    const d = JSON.parse(data.candidate)
                     pc.addIceCandidate(d)
                 }
             }
