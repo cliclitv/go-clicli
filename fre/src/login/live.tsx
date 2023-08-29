@@ -1,5 +1,5 @@
 import { h, useEffect } from 'fre'
-import { saveFile, startPull, startRpc } from '../util/steam'
+import { saveFile, startPull, startPush } from '../util/rtc'
 import './live.css'
 
 export default function Live() {
@@ -13,14 +13,14 @@ export default function Live() {
 
     let stream = null
 
-    useEffect(() => {
-        setInterval(async () => {
-            if (stream != null) {
-                await startRpc(stream)
-                console.log(123)
-            }
-        }, 2000)
-    }, [])
+    // useEffect(() => {
+    //     setInterval(async () => {
+    //         if (stream != null) {
+    //             await startRpc(stream)
+    //             console.log(123)
+    //         }
+    //     }, 2000)
+    // }, [])
 
     async function handleStream(e) {
         const files = e.target.files
@@ -40,9 +40,9 @@ export default function Live() {
             };
         });
         // @ts-ignore
-        stream = videoRes.captureStream();
+        let stream = videoRes.captureStream();
 
-        await startRpc(stream)
+        await startPush(stream)
     }
     return <div class='live'>
         <form id="upForm" action="#" method="post" enctype="multipart/form-data">
