@@ -27,7 +27,7 @@ export class WebRtc {
 
         this.ws.onopen = function () {
             console.log("连接已打开", url);
-            clearInterval(that.id)
+            // clearInterval(that.id)
             // that.sid = setInterval(() => {
             //     that.ws.send('heart') // 5s 一次心跳检测
             // }, 5000);
@@ -36,6 +36,7 @@ export class WebRtc {
             console.log(e)
             this.reconnect()
             console.log('链接已关闭')
+            startPush()
         }
         this.ws.onerror = (e) => {
             console.log(e)
