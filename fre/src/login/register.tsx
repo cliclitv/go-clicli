@@ -71,8 +71,5 @@ export default function Register({ id }) {
             {id && <li><button onClick={logout}>退出登陆</button></li>}
             {!id && <li><A href="/login">登录</A></li>}
         </div>
-        <div>
-            <Live></Live>
-        </div>
     </div>
 }
