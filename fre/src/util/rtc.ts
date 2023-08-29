@@ -7,6 +7,7 @@ export class WebRtc {
     id: number
     otherPc: any
     ws: any
+    candidate: any
     constructor(id) {
         this.pc = new RTCPeerConnection({})
 
@@ -47,14 +48,9 @@ export class WebRtc {
             console.log("收到服务器消息：", i);
             if (event.data != 'ok') {
                 const data = JSON.parse(event.data)
-                if (data.content.indexOf('sdp') > -1) { // setRemote
+                if (data.content.indexOf('type') > -1) { // setRemote
                     that.setRomete(data.content)
                 }
-                else if (data.tid == '1' && data.content.indexOf('candidate') < -1) {
-                    console.log(data.content)
-                    pc.setRemoteDescription(data.content)
-                }
-
                 else if (i.toString() == data.tid) {
                     const d = JSON.parse(data.content)
                     pc.addIceCandidate(d)
@@ -76,12 +72,14 @@ export class WebRtc {
         if (!e || !e.candidate) return
         console.log('发送消息', this.id)
         localStorage.setItem(this.id.toString() + 'cd', JSON.stringify(e.candidate))
-        this.sendCand(e.candidate)
+        this.sendCand()
     }
 
-    sendCand(c: any) {
-        const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": c, "cmd": 1 }
+    sendCand() {
+        const candidate = localStorage.getItem(this.id + 'cd')
+        const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": candidate, "cmd": 1 }
         this.ws.send(JSON.stringify(data))
+
     }
 
     addStream(stream) {
