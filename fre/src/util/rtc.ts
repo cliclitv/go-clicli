@@ -4,10 +4,9 @@ import { getUser } from "./api";
 
 export class WebRtc {
     pc: any;
-    id: number
+    id: string
     otherPc: any
     ws: any
-    candidate: any
     constructor(id) {
         this.pc = new RTCPeerConnection({})
 
@@ -20,7 +19,7 @@ export class WebRtc {
 
     }
     reconnect() {
-        const url = `wss://www.boyslove.org/chat?uid=${this.id}`
+        const url = `wss://clicli-live.deno.dev?uid=${this.id}`
 
         this.ws = new WebSocket(url);
         this.ws.onopen = function () {
@@ -36,29 +35,31 @@ export class WebRtc {
             console.log('链接出错')
         }
 
-        setTimeout(() => {
-            this.ws.send(JSON.stringify({ "cmd": 0 })) // 5s 一次心跳检测
-        }, 5000);
+        // setInterval(() => {
+        //     this.ws.send(JSON.stringify({ "cmd": 0 })) // 5s 一次心跳检测
+        // }, 5000);
 
         const i = this.id
         const pc = this.pc
         const that = this
 
         this.ws.onmessage = function (event) {
-            console.log("收到服务器消息：", i);
-            if (event.data != 'ok') {
-                const data = JSON.parse(event.data)
-                if (data.content.indexOf('type') > -1) { // setRemote
-                    that.setRomete(data.content)
+
+            const data = JSON.parse(event.data)
+            if (data.desc) { // setRemote
+                if (i.toString() == data.tid) {
+                    that.setRomete(data.desc)
                 }
 
-                else if (i.toString() == data.tid) {
+            }
+
+            else if (data.candidate) {
+                if (i.toString() == data.tid) {
                     const d = JSON.parse(data.content)
                     pc.addIceCandidate(d)
-                } else {
-                    console.log(event.data)
                 }
             }
+
         }
     }
     onAddStream(e) {
@@ -71,19 +72,16 @@ export class WebRtc {
         // console.log(e)
     }
 
-    onCandidate(e) {
+    async onCandidate(e) {
         if (!e || !e.candidate) return
         localStorage.setItem(this.id.toString() + 'cd', JSON.stringify(e.candidate))
-        this.sendCand()
+        this.sendCand(e.candidate)
     }
 
-    sendCand() {
-        console.log('发送消息', this.id)
-
-        const candidate = localStorage.getItem(this.id + 'cd')
-        const data = { "uid": this.id.toString(), "tid": this.id == 1 ? '2' : '1', "content": JSON.parse(candidate), "cmd": 1 }
+    sendCand(c: any) {
+        const data = { uid: this.id, tid: this.id == '1' ? '2' : '1', candidate: c }
+        console.log('发送消息', data)
         this.ws.send(JSON.stringify(data))
-
     }
 
     addStream(stream) {
@@ -119,18 +117,20 @@ if (window.location.pathname == '/') {
 
 
 export async function startPush(stream) {
-    setInterval(async () => {
+    // i am uid1
+    const push = async () => {
         pc1.addStream(stream)
         const desc = await pc1.createOffer()
-        pc1.ws.send(JSON.stringify({ "uid": "1", "tid": "2", "content": JSON.stringify(desc), "cmd": 1 })) // remote
-        pc1.sendCand()
-        console.log(123)
+        pc1.ws.send(JSON.stringify({ uid: '1', tid: '2', desc: JSON.stringify(desc) })) // remote
+    }
+    setInterval(async () => {
+        await push()
     }, 2000);
 
 }
 
 export async function startPull() {
     const desc = await pc2.createAnswer()
-    const str = JSON.stringify({ "uid": "2", "tid": "1", "content": JSON.stringify(desc), "cmd": 1 })
+    const str = JSON.stringify({ uid: "2", tid: "1", desc: JSON.stringify(desc) })
     pc2.ws.send(str)
 }

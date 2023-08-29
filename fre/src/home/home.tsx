@@ -7,7 +7,11 @@ import WeekList from '../week/week'
 import Post from '../play/play'
 import { push } from '../use-route'
 import RankList from '../rank/rank'
-import { startPull } from '../util/steam'
+import { startPull } from '../util/rtc'
+
+
+
+
 export default function App(props) {
     const [posts, setPosts] = useState([])
     const [page, setPage] = useState(1)

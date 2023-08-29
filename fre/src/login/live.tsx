@@ -1,5 +1,6 @@
 import { h, useEffect } from 'fre'
-import { saveFile, startPull, startPush } from '../util/rtc'
+import { startPull, startPush } from '../util/rtc'
+import { saveFile } from '../util/steam'
 import './live.css'
 
 export default function Live() {
