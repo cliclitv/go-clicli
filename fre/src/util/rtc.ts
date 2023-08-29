@@ -7,6 +7,7 @@ export class WebRtc {
     id: string
     otherPc: any
     ws: any
+    sid: any
     constructor(id) {
         this.pc = new RTCPeerConnection({})
 
@@ -22,13 +23,14 @@ export class WebRtc {
         const url = `wss://clicli-live.deno.dev?uid=${this.id}`
 
         this.ws = new WebSocket(url);
-        const ws = this.ws
+        const that = this
 
         this.ws.onopen = function () {
             console.log("连接已打开", url);
-            setInterval(() => {
-                ws.send('heart') // 5s 一次心跳检测
-            }, 5000);
+            clearInterval(that.id)
+            // that.sid = setInterval(() => {
+            //     that.ws.send('heart') // 5s 一次心跳检测
+            // }, 5000);
         };
         this.ws.onclose = (e) => {
             console.log(e)
@@ -43,16 +45,22 @@ export class WebRtc {
 
         const i = this.id
         const pc = this.pc
-        const that = this
 
-        this.ws.onmessage = function (event) {
+        this.ws.onmessage = async function (event) {
             if (event.data == 'ok') {
                 return
             }
             const data = JSON.parse(event.data)
             if (data.desc) { // setRemote
+
+                if (data.uid == '2') {
+                    console.log('拉流')
+                    
+                }
                 if (i.toString() == data.tid) {
-                    that.setRomete(data.desc)
+                    await that.setRomete(data.desc)
+
+
                 }
 
             }
@@ -83,7 +91,7 @@ export class WebRtc {
     }
 
     sendCand(c: any) {
-        const data = { uid: this.id, tid: this.id == '1' ? '2' : '1', candidate: c }
+        const data = { uid: this.id, tid: this.id == '1' ? '2' : '1', candidate: JSON.stringify(c) }
         console.log('发送消息', data)
         this.ws.send(JSON.stringify(data))
     }
@@ -128,7 +136,9 @@ export async function startPush(stream) {
         pc1.ws.send(JSON.stringify({ uid: '1', tid: '2', desc: JSON.stringify(desc) })) // remote
     }
     setInterval(async () => {
-        await push()
+        if (pc1.ws.readyState == 1) {
+            await push()
+        }
     }, 2000);
 
 }
@@ -137,4 +147,5 @@ export async function startPull() {
     const desc = await pc2.createAnswer()
     const str = JSON.stringify({ uid: "2", tid: "1", desc: JSON.stringify(desc) })
     pc2.ws.send(str)
+
 }
