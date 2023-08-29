@@ -1,4 +1,5 @@
 
+import { getStream } from "../login/live";
 import { getUser } from "./api";
 
 
@@ -129,12 +130,13 @@ if (window.location.pathname == '/') {
 }
 
 
-export async function startPush(stream) {
+export async function startPush() {
+    const stream = getStream()
     // i am uid1
     const push = async () => {
         pc1.addStream(stream)
         const desc = await pc1.createOffer()
-        pc1.ws.send(JSON.stringify({ uid: '1', tid: '2', desc: JSON.stringify(desc) })) // remote
+        pc1 &&pc1.ws.send(JSON.stringify({ uid: '1', tid: '2', desc: JSON.stringify(desc) })) // remote
     }
     setInterval(async () => {
         if (pc1.ws.readyState == 1) {

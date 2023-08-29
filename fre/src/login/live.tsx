@@ -3,6 +3,12 @@ import { startPull, startPush } from '../util/rtc'
 import { saveFile } from '../util/steam'
 import './live.css'
 
+let videoStream = null
+
+export function getStream(){
+    return videoStream
+}
+
 export default function Live() {
 
     useEffect(() => {
@@ -11,17 +17,6 @@ export default function Live() {
             handleStream(event)
         })
     }, [])
-
-    let stream = null
-
-    // useEffect(() => {
-    //     setInterval(async () => {
-    //         if (stream != null) {
-    //             await startRpc(stream)
-    //             console.log(123)
-    //         }
-    //     }, 2000)
-    // }, [])
 
     async function handleStream(e) {
         const files = e.target.files
@@ -43,7 +38,9 @@ export default function Live() {
         // @ts-ignore
         let stream = videoRes.captureStream();
 
-        await startPush(stream)
+        videoStream = stream
+
+        await startPush()
     }
     return <div class='live'>
         <form id="upForm" action="#" method="post" enctype="multipart/form-data">
