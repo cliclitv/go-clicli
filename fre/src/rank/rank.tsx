@@ -1,39 +1,50 @@
 import { h, useEffect, useState } from 'fre'
 import { push } from '../use-route'
-import { getPost, getRank } from '../util/api'
+import { getRank } from '../util/api'
 import { getSuo } from '../util/avatar'
-import { ListB } from '../list/list'
 import './rank.css'
 
 
-export default function RankList() {
+export default function Rank(props) {
     const [posts, setPosts] = useState([])
-    const [day, setDay] = useState(0)
-
-    const days = [7, 30, 120, 500]
+    const [day, setDay] = useState(900)
     useEffect(() => {
-        getRank(days[day]).then(res => {
+        getRank(day).then((res: any) => {
             setPosts(res.posts)
         })
     }, [day])
-
-    const map = ['周榜', '月榜', '季榜', '年榜']
-
-    return <div className="week-list">
-        <div>
-            <div className="headline">
-                <h2>排行榜</h2>
-                <ul>
-                    {map.map((item, index) => <button
-                        className={index === day ? 'active' : ''}
-                        onClick={() => setDay(index)}>{item}</button>)}
-                </ul>
-            </div>
-            <ul className="posts">
-                {(posts || []).map(item => {
-                    return <li onClick={() => push(`/play/gv${item.id}`)}>{item.title}</li>
-                })}
+    return <div className="rank">
+        <div class="top">
+            <h1>排行榜</h1>
+            <ul>
+                <li onclick={() => setDay(900)} class={day === 900 ? 'active' : ''}>总榜</li>
+                <li onclick={() => setDay(300)} class={day === 300 ? 'active' : ''}>年榜</li>
+                <li onclick={() => setDay(100)} class={day === 100 ? 'active' : ''}>季榜</li>
+                <li onclick={() => setDay(30)} class={day === 30 ? 'active' : ''}>月榜</li>
             </ul>
         </div>
+        <ul>
+            {posts.length > 0 && posts.map((item, index) => {
+                return index === 0 ?
+                    <li className='current' key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
+                        <div className="cover">
+                            <img src={getSuo(item.content)} />
+                        </div>
+                        <div className="info">
+                            <div className="title">{item.title}</div>
+                            <div className="bom">
+                                <div className="tag">{item.tag}</div>
+                                <div className="idx">{index + 1}</div>
+                            </div>
+                        </div>
+                    </li>
+                    :
+                    <li key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
+                        <span className={index < 3 ? 'active' : ''}>{index + 1}</span>
+
+                        <div className='title'>{item.title}</div>
+                    </li>
+            })}
+        </ul>
     </div>
 }

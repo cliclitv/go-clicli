@@ -1,32 +1,13 @@
 main {
-    background: url(https://static.gmgard.moe/Images/bg31.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center 0;
 }
 
 
-
-.container {
-    margin: 0 auto;
-    width: 1100px;
-    background: #efeeef;
-    display: flex;
-    /* background: url(https://static.gmgard.moe/Images/bg31.jpg); */
-}
-
-.right {
-    width: 320px;
-}
-
-.left {
-    background: #F7F7DE;
-    width: 780px;
-}
-
 section {
     padding: 20px;
-    border-bottom:  1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 section .suo {
@@ -85,9 +66,11 @@ section p {
     border-radius: 10px;
 
 }
-.more{
+
+.more {
     margin: 20px;
 }
+
 .icon-close {
     color: #fff;
     position: absolute;
@@ -96,4 +79,106 @@ section p {
     z-index: 11;
     font-size: 40px;
     cursor: pointer;
+}
+
+.recommend {
+    width: 850px;
+}
+
+.recommend li {
+    width: 20%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.recommend .title {
+    width: 150px;
+    height: 40px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.recommend .cover,
+.recommend .cover img {
+    width: 150px;
+    height: 210px;
+    border-radius: 2px;
+    object-fit: cover;
+    box-shadow: var(--shadow)
+}
+
+.ugc-list {
+    background: #f4f6fa;
+    padding-bottom: 50px;
+}
+
+.ugc-list .posts li {
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+
+.ugc-list .posts li .post {
+    background: #fff;
+    margin: 10px;
+    border-radius: 2px;
+    box-shadow: var(--shadow);
+}
+
+.ugc-list .posts li .cover,
+.ugc-list .posts li .cover img {
+    height: 160px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.ugc-list .posts li .title {
+    overflow: hidden;
+    padding-left: 10px;
+    height: 18px;
+}
+
+.ugc-list .posts li .info {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+
+.ugc-list .posts li .uqq,
+.ugc-list .posts li .uqq img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.post-list {
+    margin-bottom: 30px !important;
+}
+
+.post-list li {
+    width: 176.6px;
+    display: inline-block;
+    margin-right: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.post-list .title {
+    width: 170px;
+    height: 40px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.post-list .cover,
+.post-list .cover img {
+    width: 100%;
+    height: 230px;
+    box-shadow: var(--shadow);
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.post-list li:nth-child(6n) {
+    margin-right: 0;
 }

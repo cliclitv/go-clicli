@@ -1,16 +1,10 @@
 header .top {
     align-items: center;
-    /* width: 100%;
-    z-index: 300;
-    box-shadow: rgb(0 0 0 / 30%) 0 1px 2px;
-    backdrop-filter: saturate(180%) blur(8px);
-    padding: 4px 0;
-    background-color: rgba(33, 33, 33, 0.4); */
     text-shadow: 2px 0 2px #000, -2px 0 2px #000, 0 2px 2px #000, 0 -2px 2px #000;
 }
 
 header .wrap {
-    width: 1100px;
+    width:1160px;
     margin: 0 auto;
     cursor: pointer;
     color: #fff;
@@ -26,6 +20,13 @@ header .wrap a {
 header .flex {
     display: flex;
     align-items: center;
+}
+
+header{
+    background: url(https://cdn-us.imgs.moe/2023/09/03/64f4248097092.png);
+    height: 150px;
+    background-size: cover;
+    box-shadow: 2px 2px 0px rgba(5,20,50,0.1);
 }
 
 header .avatar {
@@ -105,16 +106,7 @@ header .wallet li a {
     color: #fff;
 }
 
-header nav {
-    text-align: center;
-    background: linear-gradient(#ccc, #fff);
-    border-bottom: 2px solid #acacac;
-    height: 45px;
-    width: 1100px;
-    margin: 0 auto 0 auto;
-    border-radius: 10px 10px 0 0;
-    margin-top: 300px;
-}
+
 
 nav ul {
     width: 700px;

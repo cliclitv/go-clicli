@@ -53,32 +53,6 @@ export default function Header() {
                     </div>
                 </div>
             </div>
-
-            <nav>
-                <ul>
-                    <li onclick={() => {
-                        push('/')
-                    }}>综合</li>
-                    <li onclick={() => {
-                        alert('还不能点')
-                    }}>动画</li>
-                    <li onclick={() => {
-                        alert('还不能点')
-                    }}>漫画</li>
-                    <li onclick={() => {
-                        alert('还不能点')
-                    }}>游戏</li>
-                    <li onclick={() => {
-                        alert('还不能点')
-                    }}>声乐</li>
-                    <li onclick={() => {
-                        alert('还不能点')
-                    }}>三次元</li>
-                    <li onclick={() => {
-                        alert('还不能点')
-                    }}>文章</li>
-                </ul>
-            </nav>
         </header>
     )
 }
