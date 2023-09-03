@@ -28,6 +28,13 @@ header .flex {
     align-items: center;
 }
 
+header{
+    background: url(https://cdn-us.imgs.moe/2023/09/03/64f4248097092.png);
+    height: 150px;
+    background-size: cover;
+    box-shadow: 2px 2px 0px rgba(5,20,50,0.1);
+}
+
 header .avatar {
     margin: 0 !important;
     height: 25px;

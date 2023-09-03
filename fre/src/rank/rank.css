@@ -1,37 +1,54 @@
-.rank-list ul button {
-    background: var(--primary-bg);
-    color: var(--primary);
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    width: 34px;
-    height: 34px;
-    margin: 0;
-    padding: 0;
-    margin: 4px;
+.rank {
+    width: 310px;
 }
-
-.headline ul{
+.rank .title {
+    padding: 0 10px;
+    height: 21px;
+    overflow: hidden;
+}
+.rank .cover, .rank .cover img {
+    width: 150px;
+    height: 210px;
+    box-shadow: var(--shadow);
+    border-radius: 2px;
+    object-fit: cover;
+}
+.rank .current {
     display: flex;
-    padding: 10px;
+    position: relative;
+    padding: 0 7px 14px 7px;
 }
-
-.rank-list ul {
-    /* text-align: center; */
-    
+.rank .current .title {
+    font-size: 16px;
 }
-
-.rank-list li {
-    padding: 10px;
+.rank .current .bom {
+    position: absolute;
+    display: flex;
+    align-items: baseline;
+    bottom: 12px;
 }
-
-
-
-.rank-list ul .active {
+.rank .current .bom .tag {
+    font-size: 12px;
+    padding: 0 10px;
+    color: #bbb;
+}
+.rank .current .bom .idx {
+    font-size: 60px;
+    color: var(--primary);
     font-weight: bold;
-    background-color: rgba(148, 108, 230, 0.3);
+    position: relative;
+    bottom: -18px;
 }
-
-h2{
-    padding: 10px;
+.rank li {
+    display: flex;
+    padding: 7px;
+    cursor: pointer;
+}
+.rank li span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #bbb;
+}
+.rank li .active {
+    color: var(--primary);
 }

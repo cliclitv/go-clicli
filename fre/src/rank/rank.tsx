@@ -1,39 +1,42 @@
-import { h, useEffect, useState } from 'fre'
-import { push } from '../use-route'
-import { getPost, getRank } from '../util/api'
+import {h, useEffect, useState} from 'fre'
+import { getRank } from '../util/api'
 import { getSuo } from '../util/avatar'
-import { ListB } from '../list/list'
-import './rank.css'
+import './index.styl'
 
 
-export default function RankList() {
-    const [posts, setPosts] = useState([])
-    const [day, setDay] = useState(0)
-
-    const days = [7, 30, 120, 500]
-    useEffect(() => {
-        getRank(days[day]).then(res => {
-            setPosts(res.posts)
-        })
-    }, [day])
-
-    const map = ['周榜', '月榜', '季榜', '年榜']
-
-    return <div className="week-list">
-        <div>
-            <div className="headline">
-                <h2>排行榜</h2>
-                <ul>
-                    {map.map((item, index) => <button
-                        className={index === day ? 'active' : ''}
-                        onClick={() => setDay(index)}>{item}</button>)}
-                </ul>
+export default function Rank(props) {
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    getRank(30).then((res:any) => {
+      setPosts(res.posts)
+    })
+  }, [])
+  return <div className="rank">
+    <h1>排行榜</h1>
+    <ul>
+      {posts.length > 0 && posts.map((item, index) => {
+        return index === 0 ? <a href={`/play/gv${item.id}`} key={item.id}>
+          <li className='current'>
+            <div className="cover">
+              <img src={getSuo(item.content)}/>
             </div>
-            <ul className="posts">
-                {(posts || []).map(item => {
-                    return <li onClick={() => push(`/play/gv${item.id}`)}>{item.title}</li>
-                })}
-            </ul>
-        </div>
-    </div>
+            <div className="info">
+              <div className="title">{item.title}</div>
+              <div className="bom">
+                <div className="tag">{item.tag}</div>
+                <div className="idx">{index + 1}</div>
+              </div>
+            </div>
+          </li>
+        </a> : <a href={`/play/gv${item.id}`} key={item.id}>
+          <li>
+            <span className={index < 3 ? 'active' : ''}>{index + 1}</span>
+            <a target="_blank" href={`/play/gv${item.id}`}>
+              <div className='title'>{item.title}</div>
+            </a>
+          </li>
+        </a>
+      })}
+    </ul>
+  </div>
 }
