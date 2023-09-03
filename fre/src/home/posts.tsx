@@ -13,9 +13,9 @@ export default function PostList(props) {
     return <div className="post-list wrap">
         <h1>最新更新</h1>
         <ul>
-            {posts.length > 0 && posts.map(item => {
+            {posts.length > 0 && posts.map((item,index) => {
                 return (
-                    <li key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
+                    <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
                         <div className="cover">
                             <img src={getSuo(item.content)} />
                         </div>

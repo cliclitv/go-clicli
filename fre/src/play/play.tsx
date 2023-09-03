@@ -9,7 +9,6 @@ import Comment from '../comment/comment'
 import { renderYmal } from '../util/ymal'
 
 export default function Post({ gv }) {
-    console.log(gv)
     const [id, fp] = getAv(gv)
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])

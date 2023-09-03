@@ -5,7 +5,6 @@ import { addComment, getComments, getUser } from '../util/api'
 import './comment.css'
 
 export default function Comment({ post }) {
-    console.log(post)
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
 

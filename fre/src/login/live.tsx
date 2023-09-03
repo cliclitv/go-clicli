@@ -21,7 +21,6 @@ export default function Live() {
     async function handleStream(e) {
         const files = e.target.files
         const file = files[0];
-        console.log(file)
         const { code } = await saveFile({ file, fileName: files[0].name });
         if (code !== 1) return;
         const url = URL.createObjectURL(file);
