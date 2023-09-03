@@ -61,7 +61,7 @@
 }
 
 .tab li {
-    background: rgba(108, 230 ,123,0.1) !important;
+    background: rgba(108, 230, 123, 0.1) !important;
     color: var(--secondary) !important;
     padding: 0 20px !important;
     line-height: 25px !important;
@@ -76,7 +76,7 @@
 }
 
 .tab li.active {
-    background: rgba(108 ,230, 123,0.3) !important;
+    background: rgba(108, 230, 123, 0.3) !important;
     font-weight: bold;
     /* background-color: rgba(148, 108, 230, 0.3) !important; */
 
@@ -195,7 +195,8 @@ article a {
     cursor: pointer;
 }
 
-.p::-webkit-scrollbar {
+.p::-webkit-scrollbar,
+.posts::-webkit-scrollbar {
 
     display: none;
     /* Chrome Safari */

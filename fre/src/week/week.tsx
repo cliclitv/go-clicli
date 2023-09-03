@@ -1,59 +1,55 @@
-import { h, useEffect, useMemo, useState } from 'fre'
+import { h, useEffect, useState } from 'fre'
 import { push } from '../use-route'
 import { getPost } from '../util/api'
 import { getSuo } from '../util/avatar'
-import { ListB } from '../list/list'
 import './week.css'
-
 
 export default function WeekList() {
     const [posts, setPosts] = useState({})
     const [day, setDay] = useState(new Date().getDay())
-    const [post, setPost] = useState([])
     useEffect(() => {
-        getPost('新番', '', 1, 100,).then(res => {
+        getPost('新番', '', 1, 100).then(res => {
             let ret = {}
             res.posts.forEach(item => {
                 let day = new Date(item.time).getDay()
                 ret[day] = ret[day] || []
-                if (ret[day].indexOf(item) < 0) {
-                    ret[day].push(item)
-                }
-
+                ret[day].push(item)
             })
-            setPosts(ret as any)
+            setPosts(ret)
         })
-        return () => {
-            setPosts({})
-        }
     }, [])
-
     const map = {
-        0: '日',
-        1: '一',
-        2: '二',
-        3: '三',
-        4: '四',
-        5: '五',
-        6: '六'
+        0: '周日',
+        1: '周一',
+        2: '周二',
+        3: '周三',
+        4: '周四',
+        5: '周五',
+        6: '周六'
     }
-
     return <div className="week-list">
-        <div>
+        <div className="wrap">
             <div className="headline">
-                <h2>新番表</h2>
+                <h1>更新表</h1>
                 <ul>
-                    {posts && Object.values(map).map((item, index) => <button
+                    {posts && Object.keys(posts).map((item, index) => <button
                         className={index === day ? 'active' : ''}
-                        onClick={() => setDay(index)}>{map[index]}</button>)}
+                        onClick={() => setDay(index)}>{map[item]}</button>)}
                 </ul>
             </div>
             <ul className="posts">
-                    {posts[day] && posts[day].map((item,index) => {
-                        return <li onClick={() => push(`/play/gv${item.id}`)} key={index}>{item.title}</li>
-                    })}
-                </ul>
-            
+                {posts[day] && posts[day].map((item) => (
+                    <li key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
+                        <div className="post">
+                            <div className="cover">
+                                <img src={getSuo(item.content)} />
+                            </div>
+                            <div className="title">{item.title}</div>
+                        </div>
+                    </li>
+                )
+                )}
+            </ul>
         </div>
     </div>
 }

@@ -1,5 +1,7 @@
 .rank {
     width: 310px;
+    height: 630px;
+    overflow: hidden;
 }
 .rank .title {
     padding: 0 10px;

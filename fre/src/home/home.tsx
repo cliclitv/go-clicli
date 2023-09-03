@@ -7,8 +7,9 @@ import WeekList from '../week/week'
 import Post from '../play/play'
 import { push } from '../use-route'
 import RankList from '../rank/rank'
-import { startPull } from '../util/rtc'
-
+import Recommend from './recommend'
+import UGCList from './ugc'
+import PostList from './posts'
 
 
 
@@ -24,15 +25,13 @@ export default function App(props) {
     }, [page])
     return (
         <div>
-            <div className="container">
                 <div className="wrap" style={{ display: 'flex' }}>
-                    {/* < /> */}
+                    <Recommend></Recommend>
                     <RankList />
                 </div>
                 <WeekList />
-                <UgcList />
-                <PostList />
-            </div>
+                <UGCList />
+                <PostList></PostList>
             {props.gv && <div>
                 <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
                     push('/')

@@ -18,7 +18,7 @@ body {
     --color: #555;
     --background: #fafafa;
     --primary-bg: rgba(148, 108, 230, .1);
-    --shadow: 2px 2px 0px rgba(5,20,50,0.1)
+    --shadow: 2px 2px 0px rgba(5, 20, 50, 0.1)
 }
 
 button {
@@ -53,4 +53,11 @@ h3 {
 
 li {
     list-style: none;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: normal;
+    padding: 30px 0;
+
 }
