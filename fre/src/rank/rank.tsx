@@ -7,7 +7,7 @@ import './rank.css'
 
 export default function Rank(props) {
     const [posts, setPosts] = useState([])
-    const [day, setDay] = useState(900)
+    const [day, setDay] = useState(300)
     useEffect(() => {
         getRank(day).then((res: any) => {
             setPosts(res.posts)
@@ -17,7 +17,6 @@ export default function Rank(props) {
         <div class="top">
             <h1>排行榜</h1>
             <ul>
-                <li onclick={() => setDay(900)} class={day === 900 ? 'active' : ''}>总榜</li>
                 <li onclick={() => setDay(300)} class={day === 300 ? 'active' : ''}>年榜</li>
                 <li onclick={() => setDay(100)} class={day === 100 ? 'active' : ''}>季榜</li>
                 <li onclick={() => setDay(30)} class={day === 30 ? 'active' : ''}>月榜</li>
@@ -26,7 +25,7 @@ export default function Rank(props) {
         <ul>
             {posts.length > 0 && posts.map((item, index) => {
                 return index === 0 ?
-                    <li className='current' key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
+                    <li className='current' key={index} onClick={() => push(`/play/gv${item.id}`)}>
                         <div className="cover">
                             <img src={getSuo(item.content)} />
                         </div>
@@ -39,7 +38,7 @@ export default function Rank(props) {
                         </div>
                     </li>
                     :
-                    <li key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
+                    <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
                         <span className={index < 3 ? 'active' : ''}>{index + 1}</span>
 
                         <div className='title'>{item.title}</div>

@@ -38,7 +38,7 @@ export default function WeekList() {
                 </ul>
             </div>
             <ul className="posts">
-                {posts[day] && posts[day].map((item) => (
+                {posts[day] && posts[day].map((item,index) => (
                     <li key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
                         <div className="post">
                             <div className="cover">
