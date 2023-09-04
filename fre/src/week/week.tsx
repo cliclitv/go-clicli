@@ -38,8 +38,8 @@ export default function WeekList() {
                 </ul>
             </div>
             <ul className="posts">
-                {posts[day] && posts[day].map((item,index) => (
-                    <li key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
+                {posts[day] ? posts[day].map((item, index) => (
+                    <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
                         <div className="post">
                             <div className="cover">
                                 <img src={getSuo(item.content)} />
@@ -48,7 +48,7 @@ export default function WeekList() {
                         </div>
                     </li>
                 )
-                )}
+                ) : <div></div>}
             </ul>
         </div>
     </div>

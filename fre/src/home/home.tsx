@@ -25,20 +25,20 @@ export default function App(props) {
     }, [page])
     return (
         <div>
-                <div className="wrap" style={{ display: 'flex' }}>
-                    <Recommend></Recommend>
-                    <RankList />
-                </div>
-                <WeekList />
-                <UGCList />
-                <PostList></PostList>
-            {props.gv && <div>
+            <div className="wrap" style={{ display: 'flex' }}>
+                <Recommend></Recommend>
+                <RankList />
+            </div>
+            <WeekList />
+            <UGCList />
+            <PostList></PostList>
+            {props.gv ? <div>
                 <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
                     push('/')
                 }}></i>
                     <Post gv={props.gv}></Post>
                 </div>
-                <div className="mask"></div></div>}
+                <div className="mask"></div></div> : <div></div>}
         </div>
 
     )

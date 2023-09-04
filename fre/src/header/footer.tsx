@@ -6,9 +6,9 @@ export default function Footer(props) {
 
         <ul class="friends">
         
-        <a href="https://tempstsuma.cn/" class='github'>友链(Tempstsuma)</a>
-        <a href="https://www.summerpockets.com" class='github'>友链(鸟白岛演绎厅)</a>
-        <a href="https://huahuo6.com" class='github'>友链(花火轻小说)</a>
+        <a href="https://tempstsuma.cn/" class='github' target="_blank">友链(Tempstsuma)</a>
+        <a href="https://www.summerpockets.com" class='github' target="_blank">友链(鸟白岛演绎厅)</a>
+        <a href="https://www.huahuo6.com" class='github' target="_blank">友链(花火轻小说)</a>
         </ul>
     </footer>
 }
