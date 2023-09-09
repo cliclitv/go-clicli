@@ -10,6 +10,8 @@ export function useRoutes(routes) {
 
   const [path, setter] = useState('')
 
+  //
+
   let stack = {
     routes: Object.entries(routesCache || routes),
     setter,
