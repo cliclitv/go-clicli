@@ -8,7 +8,7 @@ export default function Comment({ post }) {
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
 
-    const [rate, setRate] = useState(5)
+    const [pos, setPos] = useState(0)
     useEffect(() => {
         getComments(post.id).then(res => {
             setComments((res as any).comments || [])
@@ -21,7 +21,8 @@ export default function Comment({ post }) {
         }
         addComment({
             pid: post.id,
-            rate,
+            pos,
+            ruid: post.uid,
             content: comment,
         } as any).then(res => {
             alert(res.msg)

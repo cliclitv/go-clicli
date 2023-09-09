@@ -126,11 +126,11 @@ export function getComments(pid, page?, pageSize?) {
   return get(`https://www.clicli.cc/comments?pid=${pid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
 }
 
-export function addComment({ pid, uid, rate, content, cid = 0 }) {
+export function addComment({ pid, uid, pos, content, rid = 0, ruid }) {
   return post('https://www.clicli.cc/comment/add', {
     content,
-    rate,
+    pos,
     uid: getUser().id,
-    pid, cid
+    pid, rid, ruid
   })
 }
