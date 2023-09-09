@@ -74,7 +74,6 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
-	router.GET("/follow/posts", handler.FollowPosts)
 	router.GET("/search/users", handler.SearchUsers)
 	router.GET("/play", handler.GetPlay)
 	router.GET("/pv/:pid", handler.GetPv)

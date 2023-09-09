@@ -27,7 +27,7 @@ type Play struct {
 
 type Comment struct {
 	Id       int    `json:"id,omitempty"`
-	Rate     int    `json:"rate"`
+	Pos     int    `json:"pos"`
 	Content  string `json:"content"`
 	Time     string `json:"time"`
 	Pid      int    `json:"pid"`
