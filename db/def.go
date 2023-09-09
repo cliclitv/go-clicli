@@ -27,12 +27,13 @@ type Play struct {
 
 type Comment struct {
 	Id       int    `json:"id,omitempty"`
-	Pos     int    `json:"pos"`
+	Pos      string `json:"pos"`
 	Content  string `json:"content"`
 	Time     string `json:"time"`
 	Pid      int    `json:"pid"`
 	Rid      int    `json:"rid,omitempty"`
-	Ruid      int    `json:"ruid,omitempty"`
+	Ruid     int    `json:"ruid,omitempty"`
+	Read     int    `json:"read,omitempty"`
 	Ptitle   string `json:"ptitle,omitempty"`
 	Uid      int    `json:"uid"`
 	Uname    string `json:"uname,omitempty"`

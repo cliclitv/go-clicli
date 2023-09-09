@@ -5,20 +5,20 @@ import (
 	"time"
 )
 
-func AddComment(pos int, content string, pid int, uid int, rid int) (*Comment, error) {
+func AddComment(pos string, content string, pid int, uid int, rid int, ruid int, read int) (*Comment, error) {
 	t := time.Now()
 	ctime := t.Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO comments (pos,content,time,pid,uid,rid) VALUES ($1,$2,$3,$4,$5,$6)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO comments (pos,content,time,pid,uid,rid,ruid,read) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmtIns.Exec(pos, content, ctime, pid, uid, rid)
+	_, err = stmtIns.Exec(pos, content, ctime, pid, uid, rid, ruid, read)
 	if err != nil {
 		return nil, err
 	}
 	defer stmtIns.Close()
 
-	res := &Comment{Pos: pos, Content: content, Time: ctime, Uid: uid, Pid: pid, Rid: rid}
+	res := &Comment{Pos: pos, Content: content, Time: ctime, Uid: uid, Pid: pid, Rid: rid, Ruid: ruid, Read: read}
 	return res, err
 }
 
@@ -56,6 +56,8 @@ func GetComments(pid int, ruid int, rid int, page int, pageSize int) ([]*Comment
 
 	var res []*Comment
 
+
+
 	rows, err := stmtOut.Query(id, pageSize, start)
 	if err != nil {
 		return res, err
@@ -64,49 +66,13 @@ func GetComments(pid int, ruid int, rid int, page int, pageSize int) ([]*Comment
 	defer rows.Close()
 
 	for rows.Next() {
-		var id, pid, uid, pos, rid int
-		var content, ctime, uname, uqq string
+		var id, pid, uid, ruid, read, rid int
+		var content, ctime, uname, uqq, pos string
 		if err := rows.Scan(&id, &pos, &content, &ctime, &pid, &rid, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Comment{Id: id, Pos: pos, Content: content, Time: ctime, Pid: pid, Rid: rid, Uid: uid, Uname: uname, Uqq: uqq}
-		res = append(res, c)
-	}
-	return res, nil
-
-}
-
-func GetAllComments(page int, pageSize int) ([]*Comment, error) {
-	start := pageSize * (page - 1)
-	var query string
-
-	query = `SELECT comments.id,comments.pos,comments.content,comments.time,comments.pid,users.id,users.name,users.qq,posts.title,posts.content FROM comments INNER JOIN users ON comments.uid = users.id LEFT JOIN posts ON comments.pid = posts.id 
-		WHERE  comments.pos>4 ORDER BY time DESC LIMIT $1 OFFSET $2`
-
-	stmtOut, err := dbConn.Prepare(query)
-
-	if err != nil {
-		return nil, err
-	}
-
-	var res []*Comment
-
-	rows, err := stmtOut.Query(pageSize, start)
-	if err != nil {
-		return res, err
-	}
-	defer stmtOut.Close()
-	defer rows.Close()
-
-	for rows.Next() {
-		var id, pid, uid, pos int
-		var content, ctime, uname, uqq, ptitle, pcontent string
-		if err := rows.Scan(&id, &pos, &content, &ctime, &pid, &uid, &uname, &uqq, &ptitle, &pcontent); err != nil {
-			return res, err
-		}
-
-		c := &Comment{Id: id, Pos: pos, Content: content, Time: ctime, Pid: pid, Uid: uid, Uname: uname, Uqq: uqq, Ptitle: ptitle, Pcontent: pcontent}
+		c := &Comment{Id: id, Pos: pos, Content: content, Time: ctime, Pid: pid, Rid: rid, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Read: read}
 		res = append(res, c)
 	}
 	return res, nil
