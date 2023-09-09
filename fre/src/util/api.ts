@@ -129,8 +129,8 @@ export function getComments(pid, page?, pageSize?) {
 export function addComment({ pid, uid, pos, content, rid = 0, ruid, read = 0 }) {
   return post('https://www.clicli.cc/comment/add', {
     content,
-    pos,
+    pos: pos.toString(),
     uid: getUser().id,
-    pid, rid, ruid,read
+    pid, rid, ruid, read
   })
 }
