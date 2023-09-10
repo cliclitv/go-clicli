@@ -1,4 +1,4 @@
-import { h, useEffect, useState, useRef } from 'fre'
+import { useEffect, useState, useRef } from 'fre'
 import { getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
 import { getAv, getSuo } from '../util/avatar'
 import snarkdown from 'snarkdown'

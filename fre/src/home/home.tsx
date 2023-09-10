@@ -1,4 +1,4 @@
-import { h, useEffect, useState } from 'fre'
+import {  useEffect, useState } from 'fre'
 import { getPost } from '../util/api'
 import './home.css'
 import Avatar from '../component/avatar/avatar'

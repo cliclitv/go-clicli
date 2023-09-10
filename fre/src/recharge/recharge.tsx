@@ -1,4 +1,4 @@
-import { h, useEffect, useRef, useState } from 'fre'
+import {  useEffect, useRef, useState } from 'fre'
 import { getUser, getUserB, pay, paycheck } from '../util/api'
 import { getMatrix, render, renderPath } from 'qr-code-generator-lib'
 

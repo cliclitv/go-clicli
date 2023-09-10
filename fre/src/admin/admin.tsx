@@ -1,7 +1,5 @@
 import './admin.css'
-import { h } from 'fre'
-
-import { h, useEffect, useState } from 'fre'
+import { useEffect, useState } from 'fre'
 import { getPostB, getUser } from '../util/api'
 import { ListA } from '../list/list'
 

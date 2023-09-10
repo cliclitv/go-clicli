@@ -1,4 +1,4 @@
-import { render, useState, h, useEffect, useRef } from "fre"
+import { render, useState,  useEffect, useRef } from "fre"
 import { push } from "../use-route";
 import { addPost, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
 import './upload.css'

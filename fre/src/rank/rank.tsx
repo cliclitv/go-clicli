@@ -1,4 +1,4 @@
-import { h, useEffect, useState } from 'fre'
+import { useEffect, useState } from 'fre'
 import { push } from '../use-route'
 import { getRank } from '../util/api'
 import { getSuo } from '../util/avatar'

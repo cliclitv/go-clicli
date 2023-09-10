@@ -1,4 +1,4 @@
-import { render, useState, h, useEffect } from "fre"
+import { render, useState,  useEffect } from "fre"
 import { push } from '../use-route'
 import { getUser, getBal } from "../util/api"
 import { getAvatar } from "../util/avatar"

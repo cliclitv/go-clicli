@@ -1,4 +1,4 @@
-import { h, useEffect, useState, Fragment } from 'fre'
+import {useEffect, useState, Fragment } from 'fre'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import { addComment, getComments, getUser } from '../util/api'

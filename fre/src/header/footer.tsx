@@ -1,5 +1,3 @@
-import { h } from 'fre'
-
 export default function Footer(props) {
     return <footer class='wrap'>
         <p>© 2018 - 2023 clicli.cc & admin@clicli.us <a href="https://github.com/cliclitv" class='github'>Github</a></p>

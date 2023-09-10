@@ -1,4 +1,4 @@
-import { h, useState } from 'fre'
+import { useState } from 'fre'
 import { getUser } from './util/api'
 
 let pathCache = {}

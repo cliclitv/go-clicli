@@ -1,4 +1,4 @@
-import { h, useEffect, useState } from 'fre'
+import { useEffect, useState } from 'fre'
 import { getSearch, getRank, getPost } from '../util/api'
 import { ListA } from '../list/list'
 

@@ -1,5 +1,4 @@
-import { h } from 'fre'
-import shouldVIP, { getAv, getAvatar } from '../../util/avatar'
+import  { getAv, getAvatar } from '../../util/avatar'
 import './avatar.css'
 
 export default function Avatar(props) {

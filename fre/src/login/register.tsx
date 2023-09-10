@@ -1,4 +1,4 @@
-import { h, useState, useEffect } from 'fre'
+import { useState, useEffect } from 'fre'
 import { A, push } from '../use-route'
 import { post } from '../util/post'
 import './login.css'

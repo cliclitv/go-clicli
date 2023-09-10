@@ -1,4 +1,4 @@
-import { render, Fragment, h, } from "fre"
+import { render, Fragment,  } from "fre"
 import { useRoutes } from './use-route'
 import './app.css'
 import Header from "./header/header"
