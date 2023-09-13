@@ -1,7 +1,11 @@
+import { useEffect } from "fre"
+
 export default function Footer(props) {
+    useEffect(()=>{
+        document.querySelector('ad').innerHTML = '<script src="//js.penxiangge.com/inc/s.php?s=72329&w=760&h=60"></script>';
+    },[])
     return <footer class='wrap'>
         <div class="ad">
-            <script src="//js.penxiangge.com/inc/s.php?s=72328&w=760&h=60"></script>
         </div>
         <p>© 2018 - 2023 clicli.cc & admin@clicli.us <a href="https://github.com/cliclitv" class='github'>Github</a></p>
 
