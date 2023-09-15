@@ -1,6 +1,6 @@
 .week-list .headline {
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
 
 .week-list .headline ul,
