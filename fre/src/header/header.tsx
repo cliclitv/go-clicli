@@ -1,4 +1,4 @@
-import { render, useState,  useEffect } from "fre"
+import { render, useState, useEffect } from "fre"
 import { push } from '../use-route'
 import { getUser, getBal } from "../util/api"
 import { getAvatar } from "../util/avatar"
@@ -30,7 +30,7 @@ export default function Header() {
         <header>
             <div className="top">
                 <div className="wrap flex">
-                    <h1 onclick={() => push('/')}></h1>
+                    <h1></h1>
                     <div className="search">
                         <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
                     </div>
@@ -52,6 +52,10 @@ export default function Header() {
                         </li>
                     </div>
                 </div>
+                <div className="wrap">
+                    <div class='logo' onclick={() => push('/')}></div>
+                </div>
+
             </div>
         </header>
     )
