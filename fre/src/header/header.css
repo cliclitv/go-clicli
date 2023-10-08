@@ -16,7 +16,7 @@ header .wrap {
 header .logo{
     width: 300px;
     height: 80px;
-    background: url(https://www.pnglog.com/ow9xmJ.png);
+    /* background: url(https://www.pnglog.com/ow9xmJ.png); */
     background-size: cover;
     flex: 1;
     filter: brightness(0) invert(1);
