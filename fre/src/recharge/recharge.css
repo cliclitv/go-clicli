@@ -5,10 +5,9 @@
 }
 
 .vip {
-    margin: 0 auto;
+    margin: 50px auto;
     max-width: 1100px;
     text-align: center;
-    background: #efeeef;
 }
 
 .vip h1 {
@@ -20,7 +19,7 @@
     padding: 10px;
     border-radius: 5px;
     color: var(--secondary);
-    background: rgb(255, 43, 121, 0.2);
+    background: rgb(159, 220, 11, 0.2);
     margin: 15px;
     box-sizing: border-box;
     display: inline-block;
