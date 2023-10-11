@@ -121,6 +121,7 @@ export default function Upload(props) {
                         {(post.sort === '原创' ? gametags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                             className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                     </ul>
+                    
                 </div>
                 <div className="submit" onClick={submit}>
                     <button>发布
