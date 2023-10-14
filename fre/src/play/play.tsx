@@ -14,11 +14,8 @@ export default function Post({ gv }) {
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
     const [pv, setPv] = useState("")
-    const a = useRef({} as any)
     const [show, setShow] = useState(false)
     const [idx, setId] = useState(fp - 1)
-
-    console.log(id, fp)
 
     useEffect(() => {
         const p1 = getPostDetail(id)
@@ -46,7 +43,7 @@ export default function Post({ gv }) {
     return (
         <div class="wrap player">
             <div className="ep-wrap">
-                <Eplayer url={play}></Eplayer>
+                <Eplayer url={play} live={post.sort === '推流'}></Eplayer>
             </div>
             <div className="p">
                 <div className="info">
@@ -102,6 +99,9 @@ export function Eplayer(props) {
             if (t.current) {
                 t.current.setAttribute('type', type)
                 t.current.setAttribute('src', res.result.url)
+                if (props.live) {
+                    t.current.shadowRoot.querySelector('.progress').style.display = 'none'
+                }
             }
         })
     }, [props.url])

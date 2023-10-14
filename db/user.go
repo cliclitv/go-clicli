@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"github.com/cliclitv/go-clicli/util"
 	"log"
+	"fmt"
 )
 
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
@@ -100,7 +101,7 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 		slice = append(slice, level)
 	}
 
-	slice = append(slice, start, pageSize)
+	slice = append(slice, pageSize, start)
 	stmt, err := dbConn.Prepare(query)
 
 	var res []*User

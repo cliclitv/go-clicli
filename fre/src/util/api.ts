@@ -134,3 +134,8 @@ export function addComment({ pid, uid, pos, content, rid = 0, ruid, read = 0 }) 
     pid, rid, ruid, read
   })
 }
+
+
+export function getUsers(level, page, pageSize){
+  return get(`https://www.clicli.cc/users?level=${level}&page=${page}&pageSize=${pageSize}`)
+}
