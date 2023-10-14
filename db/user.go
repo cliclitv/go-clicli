@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"github.com/cliclitv/go-clicli/util"
 	"log"
-	"fmt"
 )
 
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
