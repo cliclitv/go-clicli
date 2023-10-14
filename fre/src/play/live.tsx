@@ -32,16 +32,15 @@ export function buildVideos(str) {
 export function Eplayer(props) {
     const t = useRef(null)
     useEffect(() => {
-        getPlayUrl(props.url).then((res: any) => {
-            const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
-            if (t.current) {
-                t.current.setAttribute('type', type)
-                t.current.setAttribute('src', res.result.url)
-                if (props.live) {
-                    t.current.shadowRoot.querySelector('.progress').style.display = 'none'
-                }
+
+        if (t.current) {
+            t.current.setAttribute('type', 'hls')
+            t.current.setAttribute('src', props.url)
+            if (props.live) {
+                t.current.shadowRoot.querySelector('.progress').style.display = 'none'
             }
-        })
+
+        }
     }, [props.url])
 
     return (
