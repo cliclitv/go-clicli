@@ -98,7 +98,7 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 	} else if level == 4 {
 		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 AND NOT sign = '' LIMIT $2 OFFSET $3"
 		slice = append(slice, level)
-	}else {
+	} else {
 		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 LIMIT $2 OFFSET $3"
 		slice = append(slice, level)
 	}
@@ -124,7 +124,7 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 			return res, err
 		}
 
-		c := &User{Id: id, Name: name, Level: level, QQ: qq}
+		c := &User{Id: id, Name: name, Level: level, QQ: qq, Sign: sign}
 		res = append(res, c)
 	}
 
