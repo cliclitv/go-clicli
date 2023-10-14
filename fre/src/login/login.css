@@ -46,3 +46,11 @@ button:disabled {
     box-sizing: border-box;
     margin: 10px 0;
 }
+
+.login p {
+    background: #555;
+    padding: 10px;
+    border-radius: 50px;
+    margin: 10px;
+    color: var(--secondary);
+}

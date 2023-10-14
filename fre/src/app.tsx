@@ -10,6 +10,7 @@ const routes = {
     '/register': import('./login/register'),
     '/upload/:id': import('./upload/upload'),
     '/play/:gv': import('./home/home'),
+    '/live/:gv': import('./home/home'),
     '/read/:gv': import('./home/home'),
     '/search/:k': import('./search/search'),
     '/user/:id': import('./login/register'),

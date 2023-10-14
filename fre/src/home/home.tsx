@@ -1,4 +1,4 @@
-import {  useEffect, useState } from 'fre'
+import { useEffect, useState } from 'fre'
 import { getPost } from '../util/api'
 import './home.css'
 import Avatar from '../component/avatar/avatar'
@@ -10,6 +10,7 @@ import RankList from '../rank/rank'
 import Recommend from './recommend'
 import UGCList from './ugc'
 import PostList from './posts'
+import Live from '../play/live'
 
 
 
@@ -33,10 +34,12 @@ export default function App(props) {
             <UGCList />
             <PostList></PostList>
             {props.gv ? <div>
-                <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
+                <div class={
+                    props.gv.indexOf('gv') > -1 ? "postplayer" : "postplayer2"
+                }><i class='icon-font icon-close' onclick={() => {
                     push('/')
                 }}></i>
-                    <Post gv={props.gv}></Post>
+                    {props.gv.indexOf('gv') > -1 ? <Post gv={props.gv}></Post> : <Live uu={props.gv}></Live>}
                 </div>
                 <div className="mask"></div></div> : <div></div>}
         </div>

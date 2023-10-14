@@ -19,14 +19,14 @@ export default function UGCList(props) {
             <ul className="posts">
                 {users && users.map(item => {
                     return <div class='user-card'>
-                        <ul>
+                        <ul onclick={()=>push(`/live/uu${item.id}`)}>
                             <li><img src={getAvatar(item.qq)} /></li>
                             <li class="r">
                                 <div>
                                     <span>LIVE</span>
                                     <h2>{item.name}</h2>
                                 </div>
-                                <p>{item.sign}</p>
+                                <div>{item.sign}</div>
                             </li>
                         </ul>
                     </div>

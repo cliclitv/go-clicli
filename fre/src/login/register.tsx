@@ -53,6 +53,8 @@ export default function Register({ id }) {
         }
     }
 
+    const isLive = user.level === 4 && user.sign != null
+
     return <div class="wrap">
         <div class="login">
             <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
@@ -67,6 +69,7 @@ export default function Register({ id }) {
                 <option value="3">审核</option>
                 <option value="4">管理</option>
             </select>}
+            {isLive && <p>{`rtmp://www.tm0.net/live/uu${user.id}`}</p>}
             <li><button onClick={register}>{id ? '修改' : '注册'}</button></li>
             {id && <li><button onClick={logout}>退出登陆</button></li>}
             {!id && <li><A href="/login">登录</A></li>}

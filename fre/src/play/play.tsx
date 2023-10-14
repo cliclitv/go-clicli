@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from 'fre'
-import { getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
-import { getAv, getSuo } from '../util/avatar'
+import { getPlayUrl, getPostDetail, getPv, getUser } from '../util/api'
+import { getAv } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
-import { renderYmal } from '../util/ymal'
 
 export default function Post({ gv }) {
     const [id, fp] = getAv(gv)
