@@ -2,6 +2,7 @@ import { useEffect, useState } from "fre"
 import { push } from "../use-route"
 import { getPost, getUsers } from "../util/api"
 import { getAvatar, getSuo } from "../util/avatar"
+import Avatar from "../component/avatar/avatar"
 
 export default function UGCList(props) {
     const [posts, setPosts] = useState([])
@@ -14,11 +15,20 @@ export default function UGCList(props) {
     }, [])
     return <div className="ugc-list">
         <div className="wrap">
-            <h1>推荐直播</h1>
+            <h1 style={{ color: '#fff' }}>推荐直播</h1>
             <ul className="posts">
-                {users && users.map(user=>{
-                    return <div>
-                        {user.name}
+                {users && users.map(item => {
+                    return <div class='user-card'>
+                        <ul>
+                            <li><img src={getAvatar(item.qq)} /></li>
+                            <li class="r">
+                                <div>
+                                    <span>LIVE</span>
+                                    <h2>{item.name}</h2>
+                                </div>
+                                <p>{item.sign}</p>
+                            </li>
+                        </ul>
                     </div>
                 })}
             </ul>

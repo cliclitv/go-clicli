@@ -108,10 +108,10 @@ section p {
 }
 
 .ugc-list {
-    background: #f4f6fa;
+    background: linear-gradient(#402689, #0a0023);
     padding-bottom: 50px;
 }
-
+/* 
 .ugc-list .posts li {
     display: inline-block;
     width: 25%;
@@ -149,6 +149,47 @@ section p {
     height: 40px;
     width: 40px;
     border-radius: 50%;
+} */
+
+.ugc-list .user-card{
+    display: inline-block;
+    width: 33.3%;
+}
+
+.ugc-list .user-card ul{
+    display: flex;
+    margin: 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, .2);
+    color: #fff;
+    overflow: hidden;
+    height: 150px;
+}
+
+.ugc-list .user-card img{
+    height: 150px;
+    width: 150px;
+}
+
+.ugc-list .user-card .r{
+    padding: 10px;
+    flex: 1;
+}
+
+.ugc-list .user-card h2{
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 15px;
+}
+
+.ugc-list .user-card span{
+    background: var(--secondary);
+    border-radius: 5px;
+    color: #000;
+    font-weight: bold;
+    padding: 2px 5px;
+    
 }
 
 .post-list {
