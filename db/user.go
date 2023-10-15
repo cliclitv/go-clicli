@@ -98,12 +98,12 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 	var slice []interface{}
 	var query string
 	if level == 5 {
-		query = "SELECT id, name, level, qq, sign, time FROM users WHERE NOT level = 1 ORDER BY time DESC LIMIT $1 OFFSET $2"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 ORDER BY time DESC LIMIT $1 OFFSET $2"
 	} else if level == 4 {
-		query = "SELECT id, name, level, qq, sign, time FROM users WHERE level = $1 AND NOT sign = '' ORDER BY time DESC LIMIT $2 OFFSET $3"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 AND NOT sign = '' ORDER BY time DESC LIMIT $2 OFFSET $3"
 		slice = append(slice, level)
 	} else {
-		query = "SELECT id, name, level, qq, sign, time FROM users WHERE level = $1 ORDER BY time DESC LIMIT $2 OFFSET $3"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 ORDER BY time DESC LIMIT $2 OFFSET $3"
 		slice = append(slice, level)
 	}
 
@@ -123,12 +123,12 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 
 	for rows.Next() {
 		var id, level int
-		var name, sign, qq, time string
-		if err := rows.Scan(&id, &name, &level, &qq, &sign,&time); err != nil {
+		var name, sign, qq string
+		if err := rows.Scan(&id, &name, &level, &qq, &sign); err != nil {
 			return res, err
 		}
 
-		c := &User{Id: id, Name: name, Level: level, QQ: qq, Sign: sign, Time: time}
+		c := &User{Id: id, Name: name, Level: level, QQ: qq, Sign: sign}
 		res = append(res, c)
 	}
 
