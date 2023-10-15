@@ -60,24 +60,24 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, sign stri
 func GetUser(name string, id int, qq string) (*User, error) {
 	var query string
 	if name != "" {
-		query += `SELECT id,name,pwd,level,qq,sign,time FROM users WHERE name = $1`
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE name = $1`
 	} else if id != 0 {
-		query += `SELECT id,name,pwd,level,qq,sign,time FROM users WHERE id = $1`
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE id = $1`
 	} else if qq != "" {
-		query += `SELECT id,name,pwd,level,qq,sign,time FROM users WHERE qq = $1`
+		query += `SELECT id,name,pwd,level,qq,sign FROM users WHERE qq = $1`
 	} else {
 		return nil, nil
 	}
 	stmt, err := dbConn.Prepare(query)
 
 	var level int
-	var sign, pwd, time string
+	var sign, pwd string
 	if name != "" {
-		err = stmt.QueryRow(name).Scan(&id, &name, &pwd, &level, &qq, &sign, &time)
+		err = stmt.QueryRow(name).Scan(&id, &name, &pwd, &level, &qq, &sign)
 	} else if id != 0 {
-		err = stmt.QueryRow(id).Scan(&id, &name, &pwd, &level, &qq, &sign, &time)
+		err = stmt.QueryRow(id).Scan(&id, &name, &pwd, &level, &qq, &sign)
 	} else {
-		err = stmt.QueryRow(qq).Scan(&id, &name, &pwd, &level, &qq, &sign, &time)
+		err = stmt.QueryRow(qq).Scan(&id, &name, &pwd, &level, &qq, &sign)
 	}
 
 	defer stmt.Close()
@@ -88,7 +88,7 @@ func GetUser(name string, id int, qq string) (*User, error) {
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-	res := &User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Sign: sign, Time: time}
+	res := &User{Id: id, Name: name, Pwd: pwd, Level: level, QQ: qq, Sign: sign}
 
 	return res, nil
 }
