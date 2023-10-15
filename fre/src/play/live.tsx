@@ -18,7 +18,7 @@ export default function Live({ uu }) {
 
     return (
         <div className="ep-wrap">
-            <Eplayer url={play} live={true}></Eplayer>
+            {play != '' && <Eplayer url={play} live={true}></Eplayer>}
         </div>
 
 
