@@ -167,6 +167,7 @@ section p {
 .ugc-list .user-card{
     display: inline-block;
     width: 33.3%;
+    position: relative;
 }
 
 .ugc-list .user-card ul{
@@ -184,6 +185,19 @@ section p {
 .ugc-list .user-card img{
     height: 150px;
     width: 150px;
+}
+
+.ugc-list .livecover{
+    position: relative;
+}
+
+.ugc-list i img{
+    height: 38px!important;
+    width: 64px!important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .ugc-list .user-card .r{
