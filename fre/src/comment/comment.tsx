@@ -29,9 +29,9 @@ export default function Comment({ post, live }) {
         if (live) {
             addComment({
                 pid: 0,
-                rid: user.id,
+                rid: post.id,
                 pos,
-                ruid: user.id,
+                ruid: post.id,
                 content: comment,
             } as any).then(res => {
                 alert(res.msg)
