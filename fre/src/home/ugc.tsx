@@ -14,14 +14,8 @@ export default function UGCList(props) {
         getUsers(4, 1, 9).then(res => {
             setUsers(res.users)
         })
-        get('http://www.tm0.net:1985/api/v1/streams/').then(res => {
-            let out = []
-            res.streams.forEach(s => {
-                if (s.publish.active) {
-                    out.push(s.name)
-                }
-                setActive(out)
-            })
+        get('https://clicli.deno.dev/streams').then(res => {
+            setActive(res.data)
         })
     }, [])
 
