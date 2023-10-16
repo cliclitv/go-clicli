@@ -31,11 +31,8 @@ export default function Live({ uu }) {
                             <h1>{user.name}の直播间</h1>
                         </div>
                     </div>
-
-
                 </div>
-
-                <Comment post={user}></Comment>
+                <Comment post={user} live={true}></Comment>
 
             </div>
         </div>

@@ -1,32 +1,51 @@
-import {useEffect, useState, Fragment } from 'fre'
+import { useEffect, useState, Fragment } from 'fre'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import { addComment, getComments, getUser } from '../util/api'
 import './comment.css'
 
-export default function Comment({ post }) {
+export default function Comment({ post, live }) {
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
 
     const [pos, setPos] = useState(0)
     useEffect(() => {
-        getComments(post.id).then(res => {
-            setComments((res as any).comments || [])
-        })
+        if (live) {
+            getComments(0, user.id).then(res => {
+                setComments((res as any).comments || [])
+            })
+        } else {
+            getComments(post.id, 0).then(res => {
+                setComments((res as any).comments || [])
+            })
+        }
     }, [])
 
     function submit() {
         if (comment.length < 1) {
             return
         }
-        addComment({
-            pid: post.id,
-            pos,
-            ruid: post.uid,
-            content: comment,
-        } as any).then(res => {
-            alert(res.msg)
-        })
+        if (live) {
+            addComment({
+                pid: 0,
+                rid: user.id,
+                pos,
+                ruid: user.id,
+                content: comment,
+            } as any).then(res => {
+                alert(res.msg)
+            })
+        } else {
+            addComment({
+                pid: post.id,
+                rid: 0,
+                pos,
+                ruid: post.uid,
+                content: comment,
+            } as any).then(res => {
+                alert(res.msg)
+            })
+        }
     }
     const user = getUser() || {}
     return <div>
@@ -37,7 +56,7 @@ export default function Comment({ post }) {
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
-            <h1>共有{comments?comments.length:0}条讨论</h1>
+            <h1>共有{comments ? comments.length : 0}条讨论</h1>
 
 
             {comments && comments.map(item => {

@@ -121,9 +121,9 @@ export function updateArticle({ pid, oid, title, content, bio, id }) {
   })
 }
 
-export function getComments(pid, page?, pageSize?) {
+export function getComments(pid,rid, page?, pageSize?) {
   console.log(pid)
-  return get(`https://www.clicli.cc/comments?pid=${pid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
+  return get(`https://www.clicli.cc/comments?pid=${pid}&rid=${rid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
 }
 
 export function addComment({ pid, uid, pos, content, rid = 0, ruid, read = 0 }) {
