@@ -34,9 +34,7 @@ export default function App(props) {
             <UGCList />
             <PostList></PostList>
             {props.gv ? <div>
-                <div class={
-                    props.gv.indexOf('gv') > -1 ? "postplayer" : "postplayer2"
-                }><i class='icon-font icon-close' onclick={() => {
+                <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
                     push('/')
                 }}></i>
                     {props.gv.indexOf('gv') > -1 ? <Post gv={props.gv}></Post> : <Live uu={props.gv}></Live>}

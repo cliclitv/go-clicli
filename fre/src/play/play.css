@@ -104,10 +104,6 @@
     padding: 20px 0 10px 0;
 }
 
-.avatar-wrap .avatar {
-    flex: 1;
-}
-
 .avatar-wrap li {
     cursor: pointer;
     font-size: 16px;
