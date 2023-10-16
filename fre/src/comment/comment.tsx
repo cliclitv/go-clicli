@@ -5,13 +5,14 @@ import { addComment, getComments, getUser } from '../util/api'
 import './comment.css'
 
 export default function Comment({ post, live }) {
+    console.log(post)
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
 
     const [pos, setPos] = useState(0)
     useEffect(() => {
         if (live) {
-            getComments(0, user.id).then(res => {
+            getComments(0, post.id).then(res => {
                 setComments((res as any).comments || [])
             })
         } else {

@@ -8,11 +8,9 @@ import Comment from '../comment/comment'
 
 export default function Live({ uu }) {
     const id = uu.substring(2, uu.length)
-    const [play, setPlay] = useState("")
     const [user, setUser] = useState({})
 
     useEffect(() => {
-        setPlay(`https://www.tm0.net/live/uu${id}.m3u8`)
         getUserB({ id: id } as any).then(res => {
             setUser(res.result)
         })
@@ -21,7 +19,7 @@ export default function Live({ uu }) {
     return (
         <div class="wrap player">
             <div className="ep-wrap">
-                {play != '' && <Eplayer url={play} live={true}></Eplayer>}
+                {<Eplayer url={`https://www.tm0.net/live/uu${id}.m3u8`} live={true}></Eplayer>}
             </div>
             <div className="p">
                 <div className="info">
@@ -32,7 +30,7 @@ export default function Live({ uu }) {
                         </div>
                     </div>
                 </div>
-                <Comment post={user} live={true}></Comment>
+                {user.id && <Comment post={user} live={true}></Comment>}
 
             </div>
         </div>

@@ -20,7 +20,6 @@ export default function PostList(props) {
                             <img src={getSuo(item.content)} />
                         </div>
                         <div className="title">{item.title}</div>
-
                     </li>
                 )
             })}
