@@ -45,7 +45,7 @@ export default function Register({ id }) {
             alert('全都得填::>_<::')
             return
         }
-        const res = await post("https://www.clicli.cc/user/register", { name: user.name, pwd: user.pwd, qq: user.qq, time: 0, sign: "这个人很懒，什么都没有留下~" }) as any
+        const res = await post("https://www.clicli.cc/user/register", { name: user.name, pwd: user.pwd, qq: user.qq, sign: "这个人很懒，什么都没有留下~" }) as any
         if (res.code === 200) {
             alert("注册成功啦~")
         } else {
