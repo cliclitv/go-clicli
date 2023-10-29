@@ -7,9 +7,10 @@ import (
 
 	"github.com/cliclitv/go-clicli/db"
 	jwt "github.com/golang-jwt/jwt/v4"
+	"os"
 )
 
-var Key = []byte("clicli")
+var Key = []byte(os.Getenv("JWT_KEY"))
 
 type MyClaims struct {
 	Id    int    `json:"id"`
@@ -52,6 +53,7 @@ func ParseToken(str string) (*MyClaims, error) {
 
 func Auth(uid int, token string, level int) error {
 	userClaims, err := ParseToken(token)
+	fmt.Println(userClaims)
 	if err != nil {
 		return errors.New("token已过期，请重新登录")
 	}

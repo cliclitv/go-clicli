@@ -70,7 +70,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/comment/add", handler.AddComment)
 	router.GET("/comments", handler.GetComments)
 	// router.POST("/post/delete/:id", handler.DeletePost)
-	// router.POST("/post/update/:id", handler.UpdatePost)
+	router.POST("/post/update/:id", handler.UpdatePost)
 	router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
@@ -101,7 +101,6 @@ func RegisterHandler() *httprouter.Router {
 
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		host := r.Host
-		fmt.Println(host)
 		if host == "www.tm0.net" || host == "fanfic.com.cn" {
 			w.Write([]byte(tm_index))
 
