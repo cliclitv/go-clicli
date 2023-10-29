@@ -70,7 +70,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/comment/add", handler.AddComment)
 	router.GET("/comments", handler.GetComments)
 	// router.POST("/post/delete/:id", handler.DeletePost)
-	router.POST("/post/update/:id", handler.UpdatePost)
+	// router.POST("/post/update/:id", handler.UpdatePost)
 	router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
