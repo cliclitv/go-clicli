@@ -69,13 +69,13 @@ func Auth(uid int, token string, level int) error {
 		return err
 	}
 
-	if user.Pwd == userClaims.Pwd { // 正常人
-		if uid == userClaims.Id {
+	if user.Pwd == userClaims.Pwd { // 本人
+		if uid == user.Id {
 			// 编辑自己，ok
 			return nil
 		} 
 		
-		if userClaims.Level >= level {
+		if user.Level >= level {
 			// 编辑他人
 			return nil
 		}
