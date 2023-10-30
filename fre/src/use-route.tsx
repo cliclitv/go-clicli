@@ -36,7 +36,7 @@ export function useRoutes(routes) {
 function perfrom(stack) {
   const { routes, setter } = stack
   const currentPath = location.pathname ? location.pathname + location.hash : '/'
-  let path, component, props, ii
+  let path, component, props,ii
 
   for (let i = 0; i < routes.length; i++) {
     ii = i
@@ -58,6 +58,8 @@ function perfrom(stack) {
     break
   }
 
+  console.log(123)
+
 
 
   Object.assign(stack, {
@@ -74,7 +76,8 @@ function perfrom(stack) {
 
   } else {
     routesCache[path] = component
-    setter(path)
+    console.log(currentPath)
+    setter(currentPath)
   }
 
 }

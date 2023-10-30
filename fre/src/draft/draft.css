@@ -12,10 +12,26 @@
 }
 
 .draft {
-    background: #fff;
+    background: #e2e2e2;
     border-radius: 10px;
     margin: 20px;
     flex: 1;
+    height: 635px;
+    overflow-y: scroll;
+}
+
+.draft ul{
+    padding: 10px;
+}
+
+.draft li{
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.draft li.active{
+    color: var(--primary);
 }
 
 .draft p{
@@ -24,7 +40,7 @@
 }
 
 .wrap {
-    width: 1100px;
+    width: 1160px;
     margin: 0 auto;
 }
 

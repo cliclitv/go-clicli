@@ -12,6 +12,9 @@ export default function Upload(props) {
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
+    }, [])
+
+    useEffect(() => {
         if (props.id > 0) {
             getPostDetail(props.id).then((res: any) => {
                 setPost(res.result)
@@ -19,13 +22,10 @@ export default function Upload(props) {
         } else {
             // 新增
         }
-    }, [])
-
-    useEffect(() => {
         getPostB("", "", 1, 200, "", user.id).then(res => {
             setDraft(res.posts)
         })
-    }, [])
+    }, [props.id])
 
     function change(key, val) {
         setPost({
@@ -87,9 +87,6 @@ export default function Upload(props) {
     ]
     return (
         <div className="wrap flex">
-            <div className="draft">
-                <p>草稿箱</p>
-            </div>
             <div className="upload">
                 <h1>投稿</h1>
                 <div className="title">
@@ -134,6 +131,14 @@ export default function Upload(props) {
                 <div className="submit" onClick={submit}>
                     <button>发布</button>
                 </div>
+            </div>
+            <div className="draft">
+                <p>草稿箱</p>
+                <ul>
+                    {draft.map(item => {
+                        return <li class={props.id === item.id.toString() ? 'active' : ''} onclick={() => push(`/draft/${item.id}`)}>{item.title}</li>
+                    })}
+                </ul>
             </div>
         </div>
     )
