@@ -88,7 +88,7 @@ export default function Upload(props) {
     return (
         <div className="wrap flex">
             <div className="upload">
-                <h1>投稿</h1>
+                <p>编辑</p>
                 <div className="title">
                     <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
                 </div>
@@ -129,7 +129,7 @@ export default function Upload(props) {
 
                 </div>
                 <div className="submit" onClick={submit}>
-                    <button>发布</button>
+                    <button>保存</button>
                 </div>
             </div>
             <div className="draft">
