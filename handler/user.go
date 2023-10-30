@@ -3,29 +3,29 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"regexp"
+	"strconv"
+
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/cliclitv/go-clicli/util"
 	"github.com/julienschmidt/httprouter"
-	"io"
-	"net/http"
-	"strconv"
-	"regexp"
 )
-
 
 func IsNumber(str string) bool {
 
-    pattern := "^[0-9]+$"
+	pattern := "^[0-9]+$"
 
-    match, err := regexp.MatchString(pattern, str)
+	match, err := regexp.MatchString(pattern, str)
 
-    if err != nil {
+	if err != nil {
 
-        return false
+		return false
 
-    }
+	}
 
-    return match
+	return match
 
 }
 
@@ -62,7 +62,6 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
-	
 
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
@@ -72,13 +71,12 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var resp *db.User
 	var err error
 
-	if IsNumber(ubody.Name){
+	if IsNumber(ubody.Name) {
 		// qq
 		resp, err = db.GetUser("", 0, ubody.Name)
-	}else{
+	} else {
 		resp, err = db.GetUser(ubody.Name, 0, "")
 	}
-
 
 	// resp, err := db.GetUser(ubody.Name, 0, "")
 	pwd := util.Cipher(ubody.Pwd)
@@ -117,7 +115,7 @@ func Logout(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 }
 
 func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	pint, _ := strconv.Atoi(p.ByName("id"))
+	uid, _ := strconv.Atoi(p.ByName("id"))
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
 	if err := json.Unmarshal(req, ubody); err != nil {
@@ -126,14 +124,30 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	token := r.Header.Get("token")
-	err := Auth(pint, token, 1) // uid 为原作者 uid
+	err := Auth(uid, token, 1) // uid 为原作者 uid
+
+	// 查找当前用户
+	user, err2 := db.GetUser("", uid, "")
+
+	if err2 != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+
+	var l = 1
+
+	if user.Level == 1 {
+		l = 1
+	} else {
+		l = ubody.Level
+	}
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
 
-	resp, _ := db.UpdateUser(pint, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Sign)
+	resp, _ := db.UpdateUser(uid, ubody.Name, ubody.Pwd, l, ubody.QQ, ubody.Sign)
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }

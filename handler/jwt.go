@@ -2,9 +2,7 @@ package handler
 
 import (
 	"errors"
-	"fmt"
 	"time"
-
 	"github.com/cliclitv/go-clicli/db"
 	jwt "github.com/golang-jwt/jwt/v4"
 	"os"
@@ -53,11 +51,10 @@ func ParseToken(str string) (*MyClaims, error) {
 
 func Auth(uid int, token string, level int) error {
 	userClaims, err := ParseToken(token)
-	fmt.Println(userClaims)
+
 	if err != nil {
 		return errors.New("token已过期，请重新登录")
 	}
-
 	// 查找当前用户
 	user, err := db.GetUser("", uid, "")
 
@@ -71,18 +68,16 @@ func Auth(uid int, token string, level int) error {
 		return nil
 	}
 
-	fmt.Println(userClaims.Level)
-
 	if err != nil {
 		return err
 	}
 
-	if level == 1 {
+	if level == 1 { // 编辑用户信息
 		if userClaims.Level >= user.Level {
 			// 编辑者权限 > 作者权限
 			return nil
 		}
-	} else {
+	} else { // 编辑其它
 		if userClaims.Level >= 3 {
 			// 编辑者权限 > 作者权限
 			return nil
