@@ -67,6 +67,7 @@ func Auth(uid int, token string, level int) error {
 	user, err := db.GetUser("", userClaims.Id, "")
 
 	fmt.Println(user)
+	fmt.Println(uid)
 
 	if err != nil {
 		return err
