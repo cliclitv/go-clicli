@@ -66,15 +66,13 @@ func Auth(uid int, token string, level int) error {
 	// 查找编辑者
 	user, err := db.GetUser("", userClaims.Id, "")
 
+	fmt.Println(user)
+
 	if err != nil {
 		return err
 	}
 
 	if user.Pwd == userClaims.Pwd { // 本人
-		if uid == user.Id {
-			// 编辑自己，ok
-			return nil
-		} 
 		
 		if user.Level >= level {
 			// 编辑他人
