@@ -16,15 +16,15 @@ export default function Upload(props) {
 
     }, [])
 
-    useEffect(() => {
-        if (post.title && post.content && post.sort && post.tag) {
-            console.log('???')
-            setInterval(() => {
-                console.log('自动保存')
-                submit()
-            }, 100000)
-        }
-    }, [post])
+    // useEffect(() => {
+    //     if (post.title && post.content && post.sort && post.tag) {
+    //         console.log('???')
+    //         setInterval(() => {
+    //             console.log('自动保存')
+    //             submit()
+    //         }, 100000)
+    //     }
+    // }, [post])
 
     useEffect(() => {
         if (props.id > 0) {
