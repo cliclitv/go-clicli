@@ -39,6 +39,7 @@ var whiteOriginsSet = make(map[string]bool)
 
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	origin := r.Header.Get("Origin")
+	fmt.Println(r.URL)
 	if whiteOriginsSet[origin] {
 		w.Header().Add("Access-Control-Allow-Origin", origin)
 	}

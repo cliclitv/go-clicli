@@ -48,7 +48,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	fmt.Println(pbody)
+	fmt.Println(pbody.Title)
 
 	token := r.Header.Get("token")
 	err := Auth(pbody.Uid, token, 4)
