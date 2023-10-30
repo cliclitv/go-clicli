@@ -43,8 +43,6 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Access-Control-Allow-Origin", origin)
 	}
 
-	fmt.Println(w.Header().Get("token"))
-
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
 	w.Header().Add("Access-Control-Allow-Methods", "*")
 	w.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token")
@@ -57,18 +55,16 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/user/login", handler.Login)
 	router.POST("/user/logout", handler.Logout) // 前端清空 localstorage
 	router.POST("/user/update/:id", handler.UpdateUser)
-	// router.POST("/user/delete/:id", handler.DeleteUser)
 	router.GET("/users", handler.GetUsers)
 	router.GET("/user", handler.GetUser)
 	router.POST("/post/add", handler.AddPost)
 	router.POST("/comment/add", handler.AddComment)
 	router.GET("/comments", handler.GetComments)
-	// router.POST("/post/delete/:id", handler.DeletePost)
 	router.POST("/post/update/:id", handler.UpdatePost)
 	router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
-	router.GET("/search/users", handler.SearchUsers)
+	// router.GET("/search/users", handler.SearchUsers)
 	router.GET("/play", handler.GetPlay)
 	router.GET("/pv/:pid", handler.GetPv)
 	router.POST("/pea", handler.GetPea)
