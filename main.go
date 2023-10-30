@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/fs"
 	"net/http"
-
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 )
@@ -44,6 +43,8 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Access-Control-Allow-Origin", origin)
 	}
 
+	fmt.Println(w.Header().Get("token"))
+
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
 	w.Header().Add("Access-Control-Allow-Methods", "*")
 	w.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token")
@@ -70,7 +71,6 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/search/users", handler.SearchUsers)
 	router.GET("/play", handler.GetPlay)
 	router.GET("/pv/:pid", handler.GetPv)
-
 	router.POST("/pea", handler.GetPea)
 	router.POST("/fan/follow", handler.Follow)
 	router.GET("/fan/:uid", handler.GetFanCount)
@@ -79,7 +79,6 @@ func RegisterHandler() *httprouter.Router {
 	// router.GET("/vip/pay", handler.Pay)
 	// router.GET("/vip/paycheck", handler.Check)
 	// router.POST("/vip/callback", handler.Callback)
-	// router.GET("/note", handler.GetNoteByOid)
 
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))

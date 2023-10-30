@@ -3,7 +3,7 @@ package handler
 import (
 	"errors"
 	"time"
-	// "github.com/cliclitv/go-clicli/db"
+	"github.com/cliclitv/go-clicli/db"
 	jwt "github.com/golang-jwt/jwt/v4"
 	"os"
 	"fmt"
@@ -57,26 +57,24 @@ func Auth(uid int, token string, level int) error {
 
 	fmt.Println(userClaims)
 
-
 	if err != nil {
 		return errors.New("token已过期，请重新登录")
 	}
 	// 查找当前用户
-	// user, err := db.GetUser("", uid, "")
+	user, err := db.GetUser("", uid, "")
 
 	if userClaims.Level < level {
-		// 都要大于2
 		return errors.New("没有权限")
 	}
 
-	// if user.Name == userClaims.Name {
-	// 	// 本人编辑，ok
-	// 	return nil
-	// }
+	if user.Pwd == userClaims.Pwd {
+		// 本人编辑，ok
+		return nil
+	}
 
-	// if err != nil {
-	// 	return err
-	// }
+	if err != nil {
+		return err
+	}
 
 	// if level == 1 { // 编辑用户信息
 	// 	if userClaims.Level >= user.Level {
