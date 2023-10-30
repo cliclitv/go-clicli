@@ -65,7 +65,7 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
-	// router.GET("/search/users", handler.SearchUsers)
+	router.GET("/search/users", handler.SearchUsers)
 	router.GET("/play", handler.GetPlay)
 	router.GET("/pv/:pid", handler.GetPv)
 	router.POST("/pea", handler.GetPea)
@@ -73,9 +73,9 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/fan/:uid", handler.GetFanCount)
 
 	router.GET("/rank", handler.GetRank)
-	// router.GET("/vip/pay", handler.Pay)
-	// router.GET("/vip/paycheck", handler.Check)
-	// router.POST("/vip/callback", handler.Callback)
+	router.GET("/vip/pay", handler.Pay)
+	router.GET("/vip/paycheck", handler.Check)
+	router.POST("/vip/callback", handler.Callback)
 
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
