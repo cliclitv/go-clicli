@@ -8,14 +8,13 @@ const routes = {
     '/': import('./home/home'),
     '/login': import('./login/login'),
     '/register': import('./login/register'),
-    '/upload/:id': import('./upload/upload'),
+    '/draft/:id': import('./draft/draft'),
     '/play/:gv': import('./home/home'),
     '/live/:gv': import('./home/home'),
     '/read/:gv': import('./home/home'),
     '/search/:k': import('./search/search'),
     '/user/:id': import('./login/register'),
     '/recharge': import('./recharge/recharge'),
-    '/my/:id': import('./admin/admin'),
 }
 
 const App = () => {

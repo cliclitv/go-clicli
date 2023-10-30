@@ -1,13 +1,14 @@
-import { render, useState,  useEffect, useRef } from "fre"
-import { push } from "../use-route";
-import { addPost, getDogeToken, getPostDetail, getUser, updatePost } from "../util/api"
-import './upload.css'
+import { render, useState, useEffect, useRef } from "fre"
+import { push } from "../use-route"
+import { addPost, getDogeToken, getPostB, getPostDetail, getUser, updatePost } from "../util/api"
+import './draft.css'
 
-let lock = false;
+let lock = false
 
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
     const user = getUser()
+    const [draft, setDraft] = useState([])
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
@@ -18,6 +19,12 @@ export default function Upload(props) {
         } else {
             // 新增
         }
+    }, [])
+
+    useEffect(() => {
+        getPostB("", "", 1, 200, "", user.id).then(res => {
+            setDraft(res.posts)
+        })
     }, [])
 
     function change(key, val) {
@@ -68,8 +75,8 @@ export default function Upload(props) {
     }
 
     const openWindow = (url) => {
-        let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no');
-        myWindow.focus();
+        let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no')
+        myWindow.focus()
     }
     const tags = ['推荐', '个人原创', '授权转载', '国漫', '剧场版', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔', '治愈',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '黄金厕纸',
@@ -78,10 +85,11 @@ export default function Upload(props) {
         '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
         '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其他原创', '小程序', '小游戏'
     ]
-
-    const maotags = ['动画', '漫画', '游戏', '广播剧', '画集', '文章']
     return (
-        <div className="wrap">
+        <div className="wrap flex">
+            <div className="draft">
+                <p>草稿箱</p>
+            </div>
             <div className="upload">
                 <h1>投稿</h1>
                 <div className="title">
@@ -121,11 +129,10 @@ export default function Upload(props) {
                         {(post.sort === '原创' ? gametags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                             className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                     </ul>
-                    
+
                 </div>
                 <div className="submit" onClick={submit}>
-                    <button>发布
-                    </button>
+                    <button>发布</button>
                 </div>
             </div>
         </div>

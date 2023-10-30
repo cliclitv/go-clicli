@@ -41,8 +41,7 @@ export default function Header() {
                             <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                             {user.id ? <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
                                 <li>UID {user?.id}</li>
-                                <li onClick={() => push('/upload/0')}>投稿</li>
-                                <li onClick={() => push(`/my/${(user || {}).id}`)}>我的投搞</li>
+                                <li onClick={() => push('/draft/0')}>草稿箱</li>
                                 <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
                                 <li onClick={logout}>退出</li>
                             </div> : <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
