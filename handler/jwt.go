@@ -62,20 +62,24 @@ func Auth(uid int, token string, level int) error {
 		return errors.New("token已过期，请重新登录")
 	}
 
+	// 1. 编辑者和被编辑者相同，可以编辑
+
 	// 查找当前用户
-	user, err := db.GetUser("", uid, "")
+	user, err := db.GetUser("", userClaims.Id, "")
 
 	if err != nil {
 		return err
 	}
 
-	if user.Pwd == userClaims.Pwd {
-		// 本人编辑，ok
-		return nil
-	}
-	// 非本人，按照权限控制
-	if user.Level <= level {
-		return errors.New("没有权限")
+	if user.Pwd == userClaims.Pwd { // 正常人
+		if uid == userClaims.Id {
+			// 编辑自己，ok
+			return nil
+		} else if userClaims.Level < level {
+			// 编辑他人
+			return errors.New("没有权限")
+		}
+
 	}
 
 	return errors.New("权限不足")
