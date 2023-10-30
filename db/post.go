@@ -202,14 +202,9 @@ func FollowPosts(fid int) ([]*Post, error) {
 
 func GetRank(day string) ([]*Post, error) {
 
-	// fmt.Sprintf("%s day", day)
-	// select * from posts where time >= current_timestamp - interval '1 day'
-
 	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '1 day' * $1 ORDER BY pv DESC LIMIT 10")
 
 	var res []*Post
-
-	// days := fmt.Sprintf("'%s day'", day)
 
 	rows, err := stmt.Query(day)
 	if err != nil {

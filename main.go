@@ -13,14 +13,8 @@ import (
 //go:embed fre/dist
 var cli_files embed.FS
 
-//go:embed tm/dist
-var tm_files embed.FS
-
 //go:embed fre/dist/index.html
 var cli_index string
-
-//go:embed tm/dist/index.html
-var tm_index string
 
 type middleWareHandler struct {
 	r *httprouter.Router
@@ -32,7 +26,6 @@ var whiteOrigins = [9]string{
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
 	"https://www.cli.plus",
-	"https://fanfic.com.cn",
 	"http://localhost:4000",
 	"http://localhost:6000",
 }
@@ -70,7 +63,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/comment/add", handler.AddComment)
 	router.GET("/comments", handler.GetComments)
 	// router.POST("/post/delete/:id", handler.DeletePost)
-	// router.POST("/post/update/:id", handler.UpdatePost)
+	router.POST("/post/update/:id", handler.UpdatePost)
 	router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
 	router.GET("/search/posts", handler.SearchPosts)
@@ -83,31 +76,16 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/fan/:uid", handler.GetFanCount)
 
 	router.GET("/rank", handler.GetRank)
-	router.GET("/vip/pay", handler.Pay)
-	router.GET("/vip/paycheck", handler.Check)
-	router.POST("/vip/callback", handler.Callback)
-
-	router.POST("/note/add", handler.AddNote)
-	router.POST("/note/update/:id", handler.UpdateNote)
-	router.GET("/note/:id", handler.GetNote)
+	// router.GET("/vip/pay", handler.Pay)
+	// router.GET("/vip/paycheck", handler.Check)
+	// router.POST("/vip/callback", handler.Callback)
 	// router.GET("/note", handler.GetNoteByOid)
-	router.GET("/notes", handler.GetNotes)
 
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
 
-	fsys2, _ := fs.Sub(tm_files, "tm/dist")
-	router.ServeFiles("/assets2/*filepath", http.FS(fsys2))
-
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		host := r.Host
-		if host == "www.tm0.net" || host == "fanfic.com.cn" {
-			w.Write([]byte(tm_index))
-
-		} else {
-			w.Write([]byte(cli_index))
-		}
-
+		w.Write([]byte(cli_index))
 	})
 
 	return router
