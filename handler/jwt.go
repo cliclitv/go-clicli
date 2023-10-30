@@ -63,7 +63,7 @@ func Auth(uid int, token string, level int) error {
 	// 查找当前用户
 	user, err := db.GetUser("", uid, "")
 
-	if userClaims.Level < level {
+	if user.Level < level {
 		return errors.New("没有权限")
 	}
 
