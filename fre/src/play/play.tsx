@@ -48,7 +48,9 @@ export default function Post({ gv }) {
                 <div className="info">
                     <div>
                         <div class='avatar-wrap'>
-                            <Avatar uqq={post.uqq} uname={post.uname} />
+                            <div style={{ flex: 1 }}>
+                                <Avatar uqq={post.uqq} uname={post.uname} />
+                            </div>
                             <ul class="tab">
                                 <li class={show && 'active'} onclick={() => setShow(true)}>分P</li>
                                 <li class={!show && 'active'} onclick={() => setShow(false)}>讨论</li>
