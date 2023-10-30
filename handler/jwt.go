@@ -52,6 +52,7 @@ func ParseToken(str string) (*MyClaims, error) {
 }
 
 func Auth(uid int, token string, level int) error {
+	fmt.Println("auth")
 	fmt.Println(uid, token, level)
 
 	userClaims, err := ParseToken(token)

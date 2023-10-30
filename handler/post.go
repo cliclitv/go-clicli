@@ -21,7 +21,7 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	token := r.Header.Get("token")
-	err := Auth(pbody.Uid, token, 2) // uid 为原作者 uid
+	err := Auth(pbody.Uid, token, 4) // uid 为原作者 uid
 
 	if err!= nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
