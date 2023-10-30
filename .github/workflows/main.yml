@@ -11,9 +11,6 @@ jobs:
           cd fre
           yarn
           yarn build
-          cd ../tm
-          yarn
-          yarn build
           cd ../
       
       - name: Set up Go
