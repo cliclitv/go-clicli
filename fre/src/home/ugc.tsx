@@ -14,9 +14,9 @@ export default function UGCList(props) {
         getUsers(4, 1, 9).then(res => {
             setUsers(res.users)
         })
-        get('https://clicli.deno.dev/streams').then(res => {
-            setActive(res.data)
-        })
+        // get('https://clicli.deno.dev/streams').then(res => {
+        //     setActive(res.data)
+        // })
     }, [])
 
     console.log(active)
