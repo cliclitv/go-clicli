@@ -22,30 +22,30 @@ func AddComment(content string, pid int, uid int, rid int, runame string, read i
 	return res, err
 }
 
-func GetComments(pid int, ruid int, rid int, page int, pageSize int) ([]*Comment, error) {
+func GetComments(pid int, runame string, rid int, page int, pageSize int) ([]*Comment, error) {
 
 	start := pageSize * (page - 1)
 	var query string
-	var id int
+	var id interface{}
 
-	if ruid != 0 {
+	if runame != "" {
 		// 查找别人发给我的未读消息
-		query = `SELECT comments.id,comments.pos,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
-		WHERE comments.ruid=$1 AND read = 0 ORDER BY time DESC LIMIT $2 OFFSET $3`
-		id = ruid
+		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
+		WHERE comments.runame=$1 AND read = 0 ORDER BY time DESC LIMIT $2 OFFSET $3`
+		id = runame
 	} else if rid == 0 {
 		// 查找 pid 的消息
-		query = `SELECT comments.id,comments.pos,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
+		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.pid=$1 ORDER BY time DESC LIMIT $2 OFFSET $3`
 		id = pid
 	} else if pid == 0 {
 		// 查找 rid 的消息
-		query = `SELECT comments.id,comments.pos,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
+		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.rid=$1 ORDER BY time DESC LIMIT $2 OFFSET $3`
 		id = rid
 	}
 
-	// query = `SELECT comments.id,comments.pos,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id
+	// query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id
 	// 	WHERE comments.pid=$1 OR comments.uid =$2 OR comments.rid =$3 ORDER BY time DESC LIMIT $4 OFFSET $5`
 
 	stmtOut, err := dbConn.Prepare(query)
@@ -55,8 +55,6 @@ func GetComments(pid int, ruid int, rid int, page int, pageSize int) ([]*Comment
 	}
 
 	var res []*Comment
-
-
 
 	rows, err := stmtOut.Query(id, pageSize, start)
 	if err != nil {

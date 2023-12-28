@@ -31,7 +31,7 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
-	ruid, _ := strconv.Atoi(r.URL.Query().Get("ruid"))
+	runame := r.URL.Query().Get("runame")
 	rid, _ := strconv.Atoi(r.URL.Query().Get("rid"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
@@ -39,8 +39,7 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var resp []*db.Comment
 	var err error
 
-	resp, err = db.GetComments(pid, ruid, rid, page, pageSize)
-	
+	resp, err = db.GetComments(pid, runame, rid, page, pageSize)
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
