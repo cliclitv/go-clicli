@@ -5,20 +5,20 @@ import (
 	"time"
 )
 
-func AddComment(pos string, content string, pid int, uid int, rid int, ruid int, read int) (*Comment, error) {
+func AddComment(content string, pid int, uid int, rid int, runame string, read int) (*Comment, error) {
 	t := time.Now()
 	ctime := t.Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO comments (pos,content,time,pid,uid,rid,ruid,read) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO comments (content,time,pid,uid,rid,runame,read) VALUES ($1,$2,$3,$4,$5,$6,$7)")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmtIns.Exec(pos, content, ctime, pid, uid, rid, ruid, read)
+	_, err = stmtIns.Exec(content, ctime, pid, uid, rid, runame, read)
 	if err != nil {
 		return nil, err
 	}
 	defer stmtIns.Close()
 
-	res := &Comment{Pos: pos, Content: content, Time: ctime, Uid: uid, Pid: pid, Rid: rid, Ruid: ruid, Read: read}
+	res := &Comment{Content: content, Time: ctime, Uid: uid, Pid: pid, Rid: rid, Runame: runame, Read: read}
 	return res, err
 }
 

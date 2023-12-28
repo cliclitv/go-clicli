@@ -20,7 +20,7 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	if _, err := db.AddComment(body.Pos, body.Content, body.Pid, body.Uid, body.Rid, body.Ruid, 0); err != nil {
+	if _, err := db.AddComment(body.Content, body.Pid, body.Uid, body.Rid, body.Runame, 0); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {

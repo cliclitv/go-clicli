@@ -16,19 +16,19 @@ type Play struct {
 }
 
 type Comment struct {
-	Id       int    `json:"id,omitempty"`
-	Pos      string `json:"pos"`
-	Content  string `json:"content"`
-	Time     string `json:"time"`
-	Pid      int    `json:"pid"`
-	Rid      int    `json:"rid,omitempty"`
-	Ruid     int    `json:"ruid,omitempty"`
-	Read     int    `json:"read,omitempty"`
-	Ptitle   string `json:"ptitle,omitempty"`
-	Uid      int    `json:"uid"`
-	Uname    string `json:"uname,omitempty"`
-	Uqq      string `json:"uqq"`
-	Pcontent string `json:"pcontent,omitempty"`
+	Id      int        `json:"id,omitempty"`
+	Pos     string     `json:"pos"`
+	Content string     `json:"content"`
+	Time    string     `json:"time"`
+	Pid     int        `json:"pid"`
+	Rid     int        `json:"rid,omitempty"`
+	Ruid    int        `json:"ruid,omitempty"`
+	Runame  string     `json:"runame,omitempty"`
+	Read    int        `json:"read,omitempty"`
+	Uid     int        `json:"uid"`
+	Uname   string     `json:"uname,omitempty"`
+	Uqq     string     `json:"uqq"`
+	Childs  []*Comment `json:"childs"`
 }
 
 type User struct {
