@@ -174,34 +174,6 @@ func SearchPosts(key string) ([]*Post, error) {
 	return res, nil
 }
 
-func FollowPosts(fid int) ([]*Post, error) {
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.uid in (SELECT fan.follow FROM fan WHERE fan.uid=$1) AND posts.status='public' ORDER BY posts.time DESC LIMIT 40")
-
-	var res []*Post
-
-	rows, err := stmt.Query(fid)
-	if err != nil {
-		return res, err
-	}
-
-	defer rows.Close()
-
-	defer stmt.Close()
-
-	for rows.Next() {
-		var id, uid int
-		var title, content, status, sort, tag, ctime, uname, uqq, videos string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
-			return res, err
-		}
-
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
-		res = append(res, c)
-	}
-
-	return res, nil
-}
-
 func GetRank() ([]*Post, error) {
 	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 16")
 
