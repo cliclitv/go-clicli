@@ -22,9 +22,4 @@ func init() {
 	//dbConn.SetMaxOpenConns(100)
 	//dbConn.SetConnMaxLifetime(time.Minute)
 
-	err = dbConn.Ping()
-	if err != nil {
-		panic(err.Error())
-	}
-
 }
