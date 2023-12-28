@@ -1,22 +1,20 @@
-import { h, useEffect, useState, useRef } from 'fre'
-import { getPlayUrl, getPostDetail, getPv, getTransfer, getUser } from '../util/api'
-import { getAv, getSuo } from '../util/avatar'
+import { useEffect, useState, useRef } from 'fre'
+import { getPlayUrl, getPostDetail, getPv, getUser } from '../util/api'
+import { getAv } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
-import { renderYmal } from '../util/ymal'
 
 export default function Post({ gv }) {
-    const id = getAv(gv)
+    const [id, fp] = getAv(gv)
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
     const [pv, setPv] = useState("")
-    const a = useRef({} as any)
     const [show, setShow] = useState(false)
-    const [idx, setId] = useState(0)
+    const [idx, setId] = useState(fp - 1)
 
     useEffect(() => {
         const p1 = getPostDetail(id)
@@ -34,17 +32,6 @@ export default function Post({ gv }) {
 
     }, [])
 
-    useEffect(() => {
-        const a = document.querySelector('article')
-        const c = document.getElementById('mycanvas')
-        if (c) {
-            renderYmal(post.videos, c)
-        }
-        if (post.content && a) {
-            a.innerHTML = snarkdown(post?.content)
-        }
-    }, [post])
-
 
     const changeid = (i) => {
         setPlay(videos[i][1])
@@ -52,83 +39,52 @@ export default function Post({ gv }) {
         setId(i)
     }
 
-    const oth = (post.tag || "").indexOf('其它') > -1
-    const game = (post.tag || "").indexOf('小游戏') > -1
     return (
-        <main>
-            {oth ? (
-
-                <div class='article2'>
+        <div class="wrap player">
+            <div className="ep-wrap">
+                <Eplayer url={play} live={post.sort === '推流'}></Eplayer>
+            </div>
+            <div className="p">
+                <div className="info">
                     <div>
-                        <Avatar uqq={post.uqq} />
-                        <h1>{post.title}</h1>
-                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
-                    </div>
-                    <div>
-                        <article></article>
-
-                    </div>
-                </div>
-            ) : game ?
-                <div>
-                    <div class="avatar-wrap wrap">
-                        <Avatar uqq={post.uqq} />
-                        <h1>{post.title}</h1>
-                        {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
-                    </div>
-                    <div class="canvas-wrap">
-                        <canvas id="mycanvas" />
-                    </div>
-                </div>
-
-                : (<div class="wrap player">
-                    <div className="ep-wrap">
-                        <Eplayer url={play}></Eplayer>
-                    </div>
-                    <div className="p">
-                        <div className="info">
-                            <div>
-                                <div class='avatar-wrap'> <Avatar uqq={post.uqq} /> <li onclick={() => setShow(!show)}>详情{' >'}</li></div>
-
-                                <h1>{post.title}<span>{pv} ℃</span>
-                                </h1>
+                        <div class='avatar-wrap'>
+                            <div style={{ flex: 1 }}>
+                                <Avatar uqq={post.uqq} uname={post.uname} />
                             </div>
-                            <div className="tag">
-                                <div className="tags">
-                                    {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
-                                        return <li>{tag}</li>
-                                    })}
-                                    {(getUser() || {}).level > 1 && <li onclick={() => push(`/upload/${id}`)}>编辑稿子 ⯈</li>}
-                                </div>
-                            </div>
-                            {<div class='article' style={{ display: show  ? 'block' : 'none' }}>
-                                <div class='xiangqing'>
-                                    <li>详情</li><p onClick={() => setShow(false)}>×</p>
-                                </div>
-                                <article ref={a}></article>
-                            </div>}
-
+                            <ul class="tab">
+                                <li class={show && 'active'} onclick={() => setShow(true)}>分P</li>
+                                <li class={!show && 'active'} onclick={() => setShow(false)}>讨论</li>
+                            </ul>
                         </div>
-                        <ul>
-                            {videos.map((name, index) => {
-                                if (name[1].indexOf('v.qq.com') > -1) {
-                                    return <a href={name[1]} target="_blank"><li class={'active qq'}>{`P${index + 1}. 腾讯正版`}</li></a>
-                                }
-                                if (name[1].indexOf('iqiyi') > -1) {
-                                    return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. 爱奇艺正版`}</li></a>
-                                }
-                                if (name[1].indexOf('bilibili') > -1) {
-                                    return <a href={name[1]} target="_blank"><li class={'active bilibili'}>{`P${index + 1}. bilibili正版`}</li></a>
-                                }
-                                return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
-                            })}
-                        </ul>
+
+                        <h1>{post.title}<span>{pv} ℃</span>
+                        </h1>
                     </div>
-                </div>)}
+                    <div className="tag">
+                        <div className="tags">
+                            {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
+                                return <li>{tag}</li>
+                            })}
+                            {(getUser() || {}).level > 1 && <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li>}
+                        </div>
+                    </div>
 
-            {post.id && <Comment post={post} />}
+                </div>
 
-        </main>
+                {
+                    show && <ul>
+                        {videos.map((name, index) => {
+                            return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
+                        })}
+                    </ul>
+                }
+                {
+                    !show && post.id && <Comment post={post}></Comment>
+                }
+            </div>
+        </div>
+
+
     )
 }
 
@@ -144,9 +100,10 @@ export function Eplayer(props) {
             if (t.current) {
                 t.current.setAttribute('type', type)
                 t.current.setAttribute('src', res.result.url)
+                if (props.live) {
+                    t.current.shadowRoot.querySelector('.progress').style.display = 'none'
+                }
             }
-            // t.current?.shadowRoot?.querySelector('video')?.play()
-
         })
     }, [props.url])
 

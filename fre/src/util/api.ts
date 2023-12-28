@@ -1,15 +1,15 @@
 import { get, post } from './post'
 
-export function getPost(type, tag, page, pageSize, status?, uid?) {
-  return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
+export function getPost(sort, tag, page, pageSize, status?, uid?) {
+  return get(`https://www.clicli.cc/posts?status=${status || 'public'}&sort=${sort}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
 }
 
 export function getPostB(type, tag, page, pageSize, status?, uid?) {
   return get(`https://www.clicli.cc/posts?status=${status}&sort=${type}&tag=${tag}&uid=${uid || ''}&page=${page}&pageSize=${pageSize}`)
 }
 
-export function getRank() {
-  return get('https://www.clicli.cc/rank')
+export function getRank(day) {
+  return get(`https://www.clicli.cc/rank?day=${day}`)
 }
 
 export function getPostDetail(pid) {
@@ -121,15 +121,21 @@ export function updateArticle({ pid, oid, title, content, bio, id }) {
   })
 }
 
-export function getComments(pid, page?, pageSize?) {
-  return get(`https://www.clicli.cc/comments?pid=${pid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
+export function getComments(pid,rid, page?, pageSize?) {
+  console.log(pid)
+  return get(`https://www.clicli.cc/comments?pid=${pid}&rid=${rid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
 }
 
-export function addComment({ pid, uid, rate, content, cid = 0 }) {
+export function addComment({ pid, uid, pos, content, rid = 0, ruid, read = 0 }) {
   return post('https://www.clicli.cc/comment/add', {
     content,
-    rate,
+    pos: pos.toString(),
     uid: getUser().id,
-    pid, cid
+    pid, rid, ruid, read
   })
+}
+
+
+export function getUsers(level, page, pageSize){
+  return get(`https://www.clicli.cc/users?level=${level}&page=${page}&pageSize=${pageSize}`)
 }

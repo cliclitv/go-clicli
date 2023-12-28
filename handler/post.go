@@ -21,7 +21,7 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	token := r.Header.Get("token")
-	err := Auth(pbody.Uid, token, 2) // uid 为原作者 uid
+	err := Auth(pbody.Uid, token, 4) // uid 为原作者 uid
 
 	if err!= nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
@@ -48,8 +48,10 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
+	fmt.Println(pbody.Title)
+
 	token := r.Header.Get("token")
-	err := Auth(pbody.Uid, token,2) // uid 为原作者 uid
+	err := Auth(pbody.Uid, token, 4)
 
 	if err!= nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
@@ -120,7 +122,9 @@ func SearchPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func GetRank(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	resp, err := db.GetRank()
+	day := r.URL.Query().Get("day")
+
+	resp, err := db.GetRank(day)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return

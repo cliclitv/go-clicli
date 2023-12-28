@@ -1,4 +1,4 @@
-import { h, useEffect, useRef, useState } from 'fre'
+import {  useEffect, useRef, useState } from 'fre'
 import { getUser, getUserB, pay, paycheck } from '../util/api'
 import { getMatrix, render, renderPath } from 'qr-code-generator-lib'
 
@@ -16,7 +16,7 @@ export default function Pay() {
             order,
             uid: (user || {}).id || 2
         }).then(res => {
-            q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), '#ff2b79')
+            q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), 'var(--secondary)')
             q2.current.href = res.alipay_trade_precreate_response.qr_code
         })
     }, [index, user])
@@ -32,7 +32,7 @@ export default function Pay() {
 
     const list = [100, 1000, 3000, 5000, 10000, 20000]
 
-    return <div className="vip">
+    return <div className="vip wrap">
         {/* <h3>1. 请输入c站昵称</h3> */}
         <div class="userinfo">
             <input type="text" placeholder="请输入c站昵称" onInput={(e) => changeUser(e.target.value)} />
@@ -47,7 +47,7 @@ export default function Pay() {
             })}
         </ul>
         <h3>方式一：跳转支付宝APP</h3>
-        <a href="" ref={q2}><button style={{ background: '#ff2b79', margin: '20px' }}>点此充值</button></a>
+        <a href="" ref={q2}><button style={{ background: 'var(--secondary)', margin: '20px' }}>点此充值</button></a>
         <h3>方式二：支付宝扫码</h3>
         <div className="qrcode" ref={q}></div>
     </div>

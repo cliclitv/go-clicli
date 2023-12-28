@@ -11,9 +11,6 @@ jobs:
           cd fre
           yarn
           yarn build
-          cd ../tm
-          yarn
-          yarn build
           cd ../
       
       - name: Set up Go
@@ -50,7 +47,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USERNAME }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
-          port: 29246
+          port: 29073
           script: |
             docker-compose pull 
             docker-compose up -d 

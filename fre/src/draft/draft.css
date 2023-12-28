@@ -1,13 +1,51 @@
 @import url("//at.alicdn.com/t/font_1151392_5hwi3w2ygqu.css");
 
-.upload {
-    width: 800px;
-    min-height: 200px;
-    margin: 30px auto;
+.flex {
+    display: flex;
 }
 
-.upload h1{
-    color: var(--theme);
+.upload {
+    flex: 3;
+    min-height: 200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.draft {
+    background: #e2e2e2;
+    border-radius: 10px;
+    margin: 20px;
+    flex: 1;
+    height: 635px;
+    overflow-y: scroll;
+}
+
+.draft ul{
+    padding: 10px;
+}
+
+.draft li{
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.draft li.active{
+    color: var(--primary);
+}
+
+.draft p{
+    padding: 10px;
+    color: #bbb;
+}
+
+.wrap {
+    width: 1160px;
+    margin: 0 auto;
+}
+
+.upload h1 {
+    color: var(--primary);
 }
 
 .upload textarea {
@@ -47,9 +85,9 @@
     border-radius: 18px;
     margin: 20px 0;
     border: none;
-    width: 800px;
+    width: 100%;
     box-sizing: border-box;
-    background: #f2f2f2;
+    /* background: #f2f2f2; */
 }
 
 .upload .title {
@@ -58,25 +96,20 @@
     margin: 10px 0;
 }
 
-.p .tags {
-    margin: 10px 0;
-    width: 360px;
-    display: inline-block;
-}
 
 .tags li {
     display: inline-block;
     list-style: none;
     padding: 2px 10px;
-    background: var(--theme-bg);
-    color: var(--theme);
+    background: var(--primary-bg);
+    color: var(--primary);
     border-radius: 2px;
     margin: 5px;
 }
 
 .tags li.active {
     color: #fff;
-    background: var(--theme);
+    background: var(--primary);
 }
 
 .options {
@@ -88,8 +121,8 @@
 }
 
 .submit button {
-    background: var(--theme);
-    color: var(--whrite);
+    background: var(--primary);
+    color: #fff;
     margin: 0 auto;
     padding: 10px;
     border-radius: 18px;
@@ -113,7 +146,8 @@
     padding: 2px 5px;
     border-radius: 5px;
 }
-.upload-video{
+
+.upload-video {
     padding: 10px;
     background: #f2f2f2;
     display: flex;
@@ -121,17 +155,17 @@
     cursor: pointer;
 }
 
-.icon-video{
+.icon-video {
     font-size: 10px;
     padding-right: 10px;
 }
 
-.video-pre{
+.video-pre {
     padding: 10px;
-    color: var(--theme);
+    color: var(--primary);
 }
 
-.video-vid{
+.video-vid {
     padding: 5px 10px;
     border: none;
 }

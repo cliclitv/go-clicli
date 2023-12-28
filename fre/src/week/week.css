@@ -1,14 +1,115 @@
-.week-list ul button {
-    background: var(--theme-bg);
-    color: var(--theme);
-    margin: 10px;
+.week-list .headline {
+  display: flex;
+  align-items: baseline;
 }
 
-.week-list ul {
-    text-align: center;
+.week-list .headline ul,
+.week-list .headline button {
+  background: none;
+  border: 0;
+  margin: 10px;
+  font-size: 16px;
+  padding: 5px;
+  color: #333;
 }
 
-.week-list ul .active {
-    font-weight: bold;
-    background-color: rgba(148, 108, 230, 0.3);
+.week-list .headline ul .active,
+.week-list .headline button .active {
+  color: var(--primary);
+  position: relative;
+}
+
+.week-list .headline ul .active:after,
+.week-list .headline button .active:after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 10px;
+  background: var(--primary);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.week-list .headline button:active {
+  transform: scale(0.97);
+}
+
+.week-list .posts {
+  height: 380px;
+  overflow: auto;
+  margin-left: -10px;
+  margin-right: 10px;
+  flex: 1;
+}
+
+.week-list .posts li {
+  display: inline-block;
+  width: 25%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.week-list .posts li .post {
+  padding: 10px;
+}
+
+.week-list .posts li .cover,
+.week-list .posts li img {
+  height: 120px;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+  border-radius: 2px;
+}
+
+.week-list .posts li .title {
+  height: 25px;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.weekcontent {
+  display: flex;
+}
+
+.weekcontent a {
+  display: block;
+  height: 320px;
+  padding: 10px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  position: relative;
+}
+
+.weekcontent a img {
+  width: 280px;
+  height: 280px;
+}
+
+.weekcontent a span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px 15px;
+  border-radius: 0 5px 0 5px;
+  background: #f2f2f2;
+  color: #bbb;
+}
+
+.weekcontent a div {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+
+.weekcontent a button {
+  color: var(--primary);
+  background: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+.weekcontent a p{
+  flex: 1;
 }

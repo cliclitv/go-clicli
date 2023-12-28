@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/fs"
 	"net/http"
-
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 )
@@ -40,6 +39,7 @@ var whiteOriginsSet = make(map[string]bool)
 
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	origin := r.Header.Get("Origin")
+	fmt.Println(r.URL)
 	if whiteOriginsSet[origin] {
 		w.Header().Add("Access-Control-Allow-Origin", origin)
 	}
@@ -56,13 +56,11 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/user/login", handler.Login)
 	router.POST("/user/logout", handler.Logout) // 前端清空 localstorage
 	router.POST("/user/update/:id", handler.UpdateUser)
-	// router.POST("/user/delete/:id", handler.DeleteUser)
 	router.GET("/users", handler.GetUsers)
 	router.GET("/user", handler.GetUser)
 	router.POST("/post/add", handler.AddPost)
 	router.POST("/comment/add", handler.AddComment)
 	router.GET("/comments", handler.GetComments)
-	// router.POST("/post/delete/:id", handler.DeletePost)
 	router.POST("/post/update/:id", handler.UpdatePost)
 	router.GET("/post/:id", handler.GetPost)
 	router.GET("/posts", handler.GetPosts)
@@ -70,35 +68,17 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/search/users", handler.SearchUsers)
 	router.GET("/play", handler.GetPlay)
 	router.GET("/pv/:pid", handler.GetPv)
-
 	router.POST("/pea", handler.GetPea)
 	router.GET("/rank", handler.GetRank)
 	router.GET("/vip/pay", handler.Pay)
 	router.GET("/vip/paycheck", handler.Check)
 	router.POST("/vip/callback", handler.Callback)
 
-	router.POST("/note/add", handler.AddNote)
-	router.POST("/note/update/:id", handler.UpdateNote)
-	router.GET("/note/:id", handler.GetNote)
-	// router.GET("/note", handler.GetNoteByOid)
-	router.GET("/notes", handler.GetNotes)
-
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
 
-	// fsys2, _ := fs.Sub(tm_files, "tm/dist")
-	// router.ServeFiles("/assets2/*filepath", http.FS(fsys2))
-
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		host := r.Host
-		fmt.Println(host)
-		if host == "www.tm0.net"{
-			
-
-		} else {
-			w.Write([]byte(cli_index))
-		}
-
+		w.Write([]byte(cli_index))
 	})
 
 	return router

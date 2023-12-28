@@ -3,13 +3,14 @@ package handler
 import (
 	"errors"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/cliclitv/go-clicli/db"
 	jwt "github.com/golang-jwt/jwt/v4"
 )
 
-var Key = []byte("clicli")
+var Key = []byte(os.Getenv("JWT_KEY"))
 
 type MyClaims struct {
 	Id    int    `json:"id"`
@@ -51,40 +52,34 @@ func ParseToken(str string) (*MyClaims, error) {
 }
 
 func Auth(uid int, token string, level int) error {
+	fmt.Println("auth")
+	fmt.Println(uid, token, level)
+
 	userClaims, err := ParseToken(token)
+
+	fmt.Println(userClaims)
+
 	if err != nil {
 		return errors.New("token已过期，请重新登录")
 	}
 
-	// 查找当前用户
-	user, err := db.GetUser("", uid, "")
+	// 查找编辑者
+	user, err := db.GetUser("", userClaims.Id, "")
 
-	if userClaims.Level < level {
-		// 都要大于2
-		return errors.New("没有权限")
-	}
-
-	if user.Name == userClaims.Name {
-		// 本人编辑，ok
-		return nil
-	}
-
-	fmt.Println(userClaims.Level)
+	fmt.Println(user)
+	fmt.Println(uid)
 
 	if err != nil {
 		return err
 	}
 
-	if level == 1 {
-		if userClaims.Level >= user.Level {
-			// 编辑者权限 > 作者权限
+	if user.Pwd == userClaims.Pwd { // 本人
+		
+		if user.Level >= level {
+			// 编辑他人
 			return nil
 		}
-	} else {
-		if userClaims.Level >= 3 {
-			// 编辑者权限 > 作者权限
-			return nil
-		}
+
 	}
 
 	return errors.New("权限不足")

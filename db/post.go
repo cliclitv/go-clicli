@@ -57,7 +57,6 @@ func DeletePost(id int) error {
 }
 
 func GetPost(id int) (*Post, error) {
-	fmt.Println(id)
 	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts 
 INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	if err != nil {
@@ -127,7 +126,6 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	defer rows.Close()
 	defer stmt.Close()
 
-
 	var res []*Post
 
 	for rows.Next() {
@@ -174,12 +172,13 @@ func SearchPosts(key string) ([]*Post, error) {
 	return res, nil
 }
 
-func GetRank() ([]*Post, error) {
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid ORDER BY pv DESC LIMIT 16")
+func GetRank(day string) ([]*Post, error) {
+
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '1 day' * $1 ORDER BY pv DESC LIMIT 10")
 
 	var res []*Post
 
-	rows, err := stmt.Query()
+	rows, err := stmt.Query(day)
 	if err != nil {
 		return res, err
 	}

@@ -1,7 +1,6 @@
 import { push } from "../use-route"
 import { getSuo } from "../util/avatar"
 import './list.css'
-import { h } from 'fre'
 
 export function ListA({ posts, editor }) {
     function navigate(isNovel, id) {

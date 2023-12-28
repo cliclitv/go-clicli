@@ -1,5 +1,4 @@
-import { h } from 'fre'
-import shouldVIP, { getAv, getAvatar } from '../../util/avatar'
+import  { getAv, getAvatar } from '../../util/avatar'
 import './avatar.css'
 
 export default function Avatar(props) {
@@ -7,7 +6,6 @@ export default function Avatar(props) {
         <img src={getAvatar(props.uqq)} alt="" />{
             !props.noname && <p>{props.uname}</p>
         }
-        {shouldVIP(props.utime) && <b></b>}
         {/* <i className="icon-font icon-shouye" onClick={transfer}></i> */}
     </div>
 }

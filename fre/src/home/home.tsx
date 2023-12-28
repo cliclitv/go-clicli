@@ -1,78 +1,46 @@
-import { h, useEffect, useState } from 'fre'
-import { getComments, getPost, getPostDetail, getRank } from '../util/api'
-import { ListA, ListB } from '../list/list'
+import { useEffect, useState } from 'fre'
+import { getPost } from '../util/api'
 import './home.css'
 import Avatar from '../component/avatar/avatar'
-import Swiper from '../swiper/swiper.tsx'
+import snarkdown from 'snarkdown'
+import WeekList from '../week/week'
+import Post from '../play/play'
 import { push } from '../use-route'
-import { getSuo } from '../util/avatar'
-import Week from '../week/week'
+import RankList from '../rank/rank'
+import Recommend from './recommend'
+import UGCList from './ugc'
+import PostList from './posts'
+import Live from '../play/live'
 
-export default function Home() {
-    const [recommend, setRecommend] = useState([])
-    const [index, setIndex] = useState(0)
-    const [comments, setComments] = useState([])
-    const [rank, setRank] = useState([])
-    useEffect(() => {
-        Promise.all([getComments(0, 1, 6), getRank()]).then(resA => {
-            setComments(resA[0].comments)
-            setRank(resA[1].posts)
-        })
-    }, [])
+
+
+export default function App(props) {
+    const [posts, setPosts] = useState([])
+    const [page, setPage] = useState(1)
 
     useEffect(() => {
-        getPost('', gametags[index], 1, 12).then((res: any) => {
-            setRecommend(res.posts)
+        getPost('', '', page, 10).then(res => {
+            const newPosts = posts.concat(res.posts)
+            setPosts(newPosts)
         })
-    }, [index])
-
-    const gametags = [
-        '原创', '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '王者荣耀', '塞尔达', '碧蓝航线', '其他原创'
-    ]
-
+    }, [page])
     return (
         <div>
-            <div class="wrap home">
-                {comments && rank && recommend && <Swiper/>}
-                <nav>
-                    <ul>
-                        {gametags.map((g, i) => <li class={index === i ? 'active' : ''} onclick={() => setIndex(i)}>{g}</li>)}
-                    </ul>
-                </nav>
-                <ListA posts={recommend} />
-                <Week></Week>
-                <h1>旧番，慢慢做...</h1>
-                <ListB posts={rank} />
-                <h1>推番君</h1>
-                <div className="tuifanjun">
-                    {comments && comments.map(item => {
-                        return <div class='comment-wrap'>
-                            <div className="comment-item">
-                                <div className="b">
-                                    <li onClick={() => push(`/play/gv${item.pid}`)} key={item.id} >
-                                        <div className="item">
-                                            <div className="cover">
-                                                <img src={getSuo(item.pcontent)} />
-                                                <div className="title">{item.ptitle}</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </div>
-                                <div>
-                                    <li><Avatar uqq={item.uqq} uname={item.uname}></Avatar><time>{item.time}</time></li>
-                                    <p><span>
-                                        <ul>{Array(5).fill(0).map((ite, idx) => {
-                                            return <li class={item.rate > idx ? 'icon-font icon-star-fill' : 'icon-font icon-star'}></li>
-                                        })}
-                                        </ul></span>{item.content}</p>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    })}
-                </div>
+            <div className="wrap" style={{ display: 'flex' }}>
+                <Recommend></Recommend>
+                <RankList />
             </div>
+            <WeekList />
+            <UGCList />
+            <PostList></PostList>
+            {props.gv ? <div>
+                <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
+                    push('/')
+                }}></i>
+                    {props.gv.indexOf('gv') > -1 ? <Post gv={props.gv}></Post> : <Live uu={props.gv}></Live>}
+                </div>
+                <div className="mask"></div></div> : <div></div>}
         </div>
+
     )
 }

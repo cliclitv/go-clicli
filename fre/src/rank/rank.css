@@ -1,0 +1,80 @@
+.rank {
+    width: 310px;
+    height: 630px;
+    overflow: hidden;
+}
+
+.rank .title {
+    padding: 0 10px;
+    height: 21px;
+}
+
+.rank .cover,
+.rank .cover img {
+    width: 150px;
+    height: 210px;
+    box-shadow: var(--shadow);
+    border-radius: 2px;
+    object-fit: cover;
+}
+
+.rank .current {
+    display: flex;
+    position: relative;
+    padding: 0 7px 14px 7px;
+}
+
+.rank .current .title {
+    font-size: 16px;
+}
+
+.rank .current .bom {
+    position: absolute;
+    display: flex;
+    align-items: baseline;
+    bottom: 12px;
+}
+
+.rank .current .bom .tag {
+    font-size: 12px;
+    padding: 0 10px;
+    color: #bbb;
+}
+
+.rank .current .bom .idx {
+    font-size: 60px;
+    color: var(--primary);
+    font-weight: bold;
+    position: relative;
+    bottom: -18px;
+}
+
+.rank li {
+    display: flex;
+    padding: 7px;
+    cursor: pointer;
+}
+
+.rank li span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #bbb;
+}
+
+.rank li .active {
+    color: var(--primary);
+}
+
+.rank .top {
+    display: flex;
+    align-items: baseline;
+}
+
+.rank .top ul {
+    display: flex;
+    padding: 0 10px;
+}
+
+.rank .top .active {
+    color: var(--primary);
+}

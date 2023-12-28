@@ -2,8 +2,10 @@ package db
 
 import (
 	"database/sql"
-	"github.com/cliclitv/go-clicli/util"
 	"log"
+	"time"
+
+	"github.com/cliclitv/go-clicli/util"
 )
 
 func CreateUser(name string, pwd string, level int, qq string, sign string) error {
@@ -22,12 +24,14 @@ func CreateUser(name string, pwd string, level int, qq string, sign string) erro
 }
 
 func UpdateUser(id int, name string, pwd string, level int, qq string, sign string) (*User, error) {
+	cstZone := time.FixedZone("CST", 8*3600)
+	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
 	if pwd == "" { // 编辑状态
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,sign=$4 WHERE id =$5")
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,level=$2,qq=$3,sign=$4,time=$5 WHERE id =$6")
 		if err != nil {
 			return nil, err
 		}
-		_, err = stmtIns.Exec(&name, &level, &qq, &sign, &id)
+		_, err = stmtIns.Exec(&name, &level, &qq, &sign, &ctime, &id)
 		if err != nil {
 			return nil, err
 		}
@@ -37,17 +41,17 @@ func UpdateUser(id int, name string, pwd string, level int, qq string, sign stri
 		return res, err
 	} else {
 		pwd = util.Cipher(pwd)
-		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5 WHERE id =$6")
+		stmtIns, err := dbConn.Prepare("UPDATE users SET name=$1,pwd=$2,level=$3,qq=$4,sign=$5,time=$6 WHERE id =$7")
 		if err != nil {
 			return nil, err
 		}
-		_, err = stmtIns.Exec(&name, &pwd, &level, &qq, &sign, &id)
+		_, err = stmtIns.Exec(&name, &pwd, &level, &qq, &sign, &ctime, &id)
 		if err != nil {
 			return nil, err
 		}
 		defer stmtIns.Close()
 
-		res := &User{Id: id, Name: name, QQ: qq, Level: level}
+		res := &User{Id: id, Name: name, QQ: qq, Level: level, Time: ctime}
 		return res, err
 	}
 
@@ -65,7 +69,7 @@ func GetUser(name string, id int, qq string) (*User, error) {
 		return nil, nil
 	}
 	stmt, err := dbConn.Prepare(query)
-	
+
 	var level int
 	var sign, pwd string
 	if name != "" {
@@ -94,13 +98,16 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 	var slice []interface{}
 	var query string
 	if level == 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 LIMIT $1 OFFSET $2"
-	} else if level > -1 && level < 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 LIMIT $2 OFFSET $3"
+		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 ORDER BY time DESC LIMIT $1 OFFSET $2"
+	} else if level == 4 {
+		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 AND NOT sign = '' ORDER BY time DESC LIMIT $2 OFFSET $3"
+		slice = append(slice, level)
+	} else {
+		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 ORDER BY time DESC LIMIT $2 OFFSET $3"
 		slice = append(slice, level)
 	}
 
-	slice = append(slice, start, pageSize)
+	slice = append(slice, pageSize, start)
 	stmt, err := dbConn.Prepare(query)
 
 	var res []*User
@@ -109,9 +116,9 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 	if err != nil {
 		return res, err
 	}
-	
+
 	defer rows.Close()
-	
+
 	defer stmt.Close()
 
 	for rows.Next() {
@@ -121,7 +128,7 @@ func GetUsers(level int, page int, pageSize int) ([]*User, error) {
 			return res, err
 		}
 
-		c := &User{Id: id, Name: name, Level: level, QQ: qq}
+		c := &User{Id: id, Name: name, Level: level, QQ: qq, Sign: sign}
 		res = append(res, c)
 	}
 

@@ -1,4 +1,4 @@
-import { h, useState } from 'fre'
+import { useState } from 'fre'
 import { getUser } from './util/api'
 
 let pathCache = {}
@@ -9,6 +9,8 @@ const cache = new Map()
 export function useRoutes(routes) {
 
   const [path, setter] = useState('')
+
+  //
 
   let stack = {
     routes: Object.entries(routesCache || routes),
@@ -25,7 +27,7 @@ export function useRoutes(routes) {
 
 
 
-    let vdom = h(stack.component, stack.props)
+  let vdom = h(stack.component, stack.props)
 
   return typeof stack.component.then === 'function' ? null : vdom
 }
@@ -33,8 +35,8 @@ export function useRoutes(routes) {
 
 function perfrom(stack) {
   const { routes, setter } = stack
-  const currentPath = location.pathname || '/'
-  let path, component, props, ii
+  const currentPath = location.pathname ? location.pathname + location.hash : '/'
+  let path, component, props,ii
 
   for (let i = 0; i < routes.length; i++) {
     ii = i
@@ -56,7 +58,8 @@ function perfrom(stack) {
     break
   }
 
-  console.log(path)
+  console.log(123)
+
 
 
   Object.assign(stack, {
@@ -73,7 +76,8 @@ function perfrom(stack) {
 
   } else {
     routesCache[path] = component
-    setter(path)
+    console.log(currentPath)
+    setter(currentPath)
   }
 
 }
@@ -88,7 +92,7 @@ function pathSlice(path) {
     )
   ]
 
-  const params = path.match(/:[a-zA-Z]+/g)
+  const params = path.match(/:[a-zA-Z#0-9]+/g)
   slice.push(params ? params.map(name => name.substr(1)) : [])
 
   pathCache[path] = slice

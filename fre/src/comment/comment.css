@@ -1,29 +1,43 @@
 .comment {
-    width: 800px;
-    margin: 10px auto;
-
+    width: 420px;
+    position: relative;
+    margin-bottom: 80px;
 }
 
 .comment-item {
-    background: var(--theme-bg);
-    border-radius: 30px;
-    border: 2px dashed #cdb4ff;
     box-sizing: border-box;
-    margin: 20px;
-    box-shadow: 3px 3px #dddade inset;
     padding: 10px;
+    display: flex;
 }
 
-.comment h1 span {
-    background: #0000;
-    color: #333;
-    padding: 0;
-    position: relative;
-    top: -5px;
+.comment-block{
+    flex: 1;
+}
+
+.comment-item .avatar{
+    margin: 0;
+    display: block;
+    padding: 5px 10px;
+}
+
+.comment-item p{
+    padding: 5px;
+}
+
+.comment-item p:nth-child(1){
+    color: #ddd;
+}
+
+.comment-item p:nth-child(3){
+    color: #888;
+    font-size: 12px;
 }
 
 .comment h1 {
     font-weight: normal;
+    font-size: 12px!important;
+    color: #ddd!important;
+    padding: 10px;
 }
 
 .comment-item li {
@@ -31,27 +45,22 @@
     align-items: center;
 }
 
-.comment-item time {
-    color: #888;
-}
-
-.comment-item p {
-    font-size: 16px;
-    color: var(--theme);
-    padding: 10px;
-}
-
 .comment-input {
     display: flex;
     align-items: center;
-    margin: 20px;
-    position: relative;
+    padding: 20px;
+    position: fixed;
+    z-index: 99999;
+    bottom: 0;
+    width: 400px;
+    background: #111;
+    box-sizing: border-box;
 }
 
 .comment-input input {
-    background: var(--theme-bg);
-    color: var(--pink);
-    height: 46px;
+    background: var(--primary-bg);
+    color: #fff;
+    height: 30px;
     border: 0px;
     border-radius: 30px;
     padding: 0 10px;
@@ -60,8 +69,9 @@
 
 .comment-input button {
     position: absolute;
-    right: 10px;
-    top: 21px;
+    right: 20px;
+    height: 30px;
+    padding: 0 10px;
 }
 
 .rate ul {
@@ -71,10 +81,4 @@
 
 .comment-item ul {
     display: flex;
-}
-
-.rate .icon-star {
-    font-size: 40px;
-    color: var(--theme);
-    cursor: pointer;
 }
