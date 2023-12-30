@@ -41,11 +41,36 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	resp, err = db.GetComments(pid, runame, rid, page, pageSize)
 
+	resp2 := fillComments(resp)
+
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		res := &db.Comments{Comments: resp}
+		res := &db.Comments{Comments: resp2}
 		sendCommentsResponse(w, res, 200)
 	}
+}
+
+func fillComments(data []*db.Comment) []*db.Comment {
+
+	mapComment := make(map[int]*db.Comment, len(data))
+	ret := []*db.Comment{}
+
+	for _, c := range data {
+		c.Replies = []*db.Comment{}
+		if c.Rid == 0 {
+			ret = append(ret, c)
+		}
+		mapComment[c.Id] = c
+	}
+
+	for _, c := range data {
+		if c.Rid != 0 {
+			parent := mapComment[c.Rid]
+			c.Replies = []*db.Comment{}
+			parent.Replies = append(parent.Replies, c)
+		}
+	}
+	return ret
 }

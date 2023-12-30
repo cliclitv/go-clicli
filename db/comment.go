@@ -2,6 +2,7 @@ package db
 
 import (
 	_ "database/sql"
+	"fmt"
 	"time"
 )
 
@@ -30,25 +31,19 @@ func GetComments(pid int, runame string, rid int, page int, pageSize int) ([]*Co
 
 	if runame != "" {
 		// 查找别人发给我的未读消息
-		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
+		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.runame=$1 AND read = 0 ORDER BY time DESC LIMIT $2 OFFSET $3`
 		id = runame
-	} else if rid == 0 {
+	} else {
 		// 查找 pid 的消息
-		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
+		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.pid=$1 ORDER BY time DESC LIMIT $2 OFFSET $3`
 		id = pid
-	} else if pid == 0 {
-		// 查找 rid 的消息
-		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id 
-		WHERE comments.rid=$1 ORDER BY time DESC LIMIT $2 OFFSET $3`
-		id = rid
 	}
 
-	// query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,users.id,users.name,users.qq FROM comments INNER JOIN users ON comments.uid = users.id
-	// 	WHERE comments.pid=$1 OR comments.uid =$2 OR comments.rid =$3 ORDER BY time DESC LIMIT $4 OFFSET $5`
-
 	stmtOut, err := dbConn.Prepare(query)
+
+	fmt.Println(query)
 
 	if err != nil {
 		return nil, err
@@ -65,12 +60,12 @@ func GetComments(pid int, runame string, rid int, page int, pageSize int) ([]*Co
 
 	for rows.Next() {
 		var id, pid, uid, ruid, read, rid int
-		var content, ctime, uname, uqq, pos string
-		if err := rows.Scan(&id, &pos, &content, &ctime, &pid, &rid, &uid, &uname, &uqq); err != nil {
+		var content, ctime, uname, uqq, runame string
+		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Comment{Id: id, Pos: pos, Content: content, Time: ctime, Pid: pid, Rid: rid, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Read: read}
+		c := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Read: read}
 		res = append(res, c)
 	}
 	return res, nil

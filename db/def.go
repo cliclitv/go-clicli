@@ -17,7 +17,6 @@ type Play struct {
 
 type Comment struct {
 	Id      int        `json:"id,omitempty"`
-	Pos     string     `json:"pos"`
 	Content string     `json:"content"`
 	Time    string     `json:"time"`
 	Pid     int        `json:"pid"`
@@ -25,10 +24,10 @@ type Comment struct {
 	Ruid    int        `json:"ruid,omitempty"`
 	Runame  string     `json:"runame,omitempty"`
 	Read    int        `json:"read,omitempty"`
-	Uid     int        `json:"uid"`
+	Uid     int        `json:"uid,omitempty"`
 	Uname   string     `json:"uname,omitempty"`
-	Uqq     string     `json:"uqq"`
-	Childs  []*Comment `json:"childs"`
+	Uqq     string     `json:"uqq,omitempty"`
+	Replies  []*Comment `json:"replies,omitempty"`
 }
 
 type User struct {
