@@ -2,7 +2,6 @@ package db
 
 import (
 	_ "database/sql"
-	"fmt"
 	"time"
 )
 
@@ -23,7 +22,20 @@ func AddComment(content string, pid int, uid int, rid int, runame string, read i
 	return res, err
 }
 
-func GetComments(pid int, runame string, rid int, page int, pageSize int) ([]*Comment, error) {
+func ReadComments(runame string) error {
+	stmtIns, err := dbConn.Prepare("UPDATE comments set read=1 WHERE runame=$1")
+	if err != nil {
+		return err
+	}
+	_, err = stmtIns.Exec(runame)
+	if err != nil {
+		return err
+	} else {
+		return nil
+	}
+}
+
+func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, error) {
 
 	start := pageSize * (page - 1)
 	var query string
@@ -42,8 +54,6 @@ func GetComments(pid int, runame string, rid int, page int, pageSize int) ([]*Co
 	}
 
 	stmtOut, err := dbConn.Prepare(query)
-
-	fmt.Println(query)
 
 	if err != nil {
 		return nil, err

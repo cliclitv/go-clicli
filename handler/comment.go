@@ -32,22 +32,26 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
 	runame := r.URL.Query().Get("runame")
-	rid, _ := strconv.Atoi(r.URL.Query().Get("rid"))
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
 
 	var resp []*db.Comment
 	var err error
 
-	resp, err = db.GetComments(pid, runame, rid, page, pageSize)
-
-	resp2 := fillComments(resp)
+	if runame == "" {
+		resp, err = db.GetComments(pid, runame, page, pageSize)
+		resp = fillComments(resp)
+	} else {
+		resp, err = db.GetComments(pid, runame, page, pageSize)
+		// 然后设置为已读
+		db.ReadComments(runame)
+	}
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
-		res := &db.Comments{Comments: resp2}
+		res := &db.Comments{Comments: resp}
 		sendCommentsResponse(w, res, 200)
 	}
 }
