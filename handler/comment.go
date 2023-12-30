@@ -44,7 +44,6 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	} else {
 		resp, err = db.GetComments(pid, runame, page, pageSize)
 		// 然后设置为已读
-		db.ReadComments(runame)
 	}
 
 	if err != nil {
@@ -53,6 +52,19 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	} else {
 		res := &db.Comments{Comments: resp}
 		sendCommentsResponse(w, res, 200)
+	}
+}
+
+func ReadComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	runame := r.URL.Query().Get("runame")
+
+	err := db.ReadComments(runame)
+
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	} else {
+		sendMsg(w, 200, fmt.Sprintf("%s", "成功啦"))
 	}
 }
 
