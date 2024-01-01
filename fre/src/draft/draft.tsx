@@ -121,7 +121,7 @@ export default function Upload(props) {
                         <option value="wait" selected={post.status === 'wait'}>待审核</option>
                         <option value="remove" selected={post.status === 'remove'}>待删除</option>
                         <option value="under" selected={post.status === 'under'}>已下架</option>
-                        {user.level > 2 && <option value="public" selected={post.status === 'public'}>发布</option>}
+                        {(user.level & 0b1100) !== 0 && <option value="public" selected={post.status === 'public'}>发布</option>}
                     </select>
                     <select onInput={e => change('sort', e.target.value)}>
                         <option value="新番" selected={post.sort === '新番'}>新番</option>

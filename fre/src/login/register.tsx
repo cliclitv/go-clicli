@@ -63,11 +63,11 @@ export default function Register({ id }) {
             <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => change('pwd', e.target.value)} /></li>
             <li><input type="text" placeholder="签名(可不填)" onInput={(e) => change('sign', e.target.value)} value={user.sign} /></li>
 
-            {id && getUser().level >= 3 && <select value={user.level} onInput={e => change('level', e.target.value)}>
+            {id && (getUser().level & 0b1000) != 0 && <select value={user.level} onInput={e => change('level', e.target.value)}>
                 <option value="1">游客</option>
                 <option value="2">作者</option>
-                <option value="3">审核</option>
-                <option value="4">管理</option>
+                <option value="4">审核</option>
+                <option value="8">管理</option>
             </select>}
             {isLive && <p>{`rtmp://www.tm0.net/live/uu${user.id}`}</p>}
             <li><button onClick={register}>{id ? '修改' : '注册'}</button></li>
