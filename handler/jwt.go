@@ -2,7 +2,6 @@ package handler
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"time"
 
@@ -51,14 +50,8 @@ func ParseToken(str string) (*MyClaims, error) {
 	return nil, errors.New("invalid token")
 }
 
-func Auth(uid int, token string, level int) error {
-	fmt.Println("auth")
-	fmt.Println(uid, token, level)
-
+func Auth(token string, right int) error {
 	userClaims, err := ParseToken(token)
-
-	fmt.Println(userClaims)
-
 	if err != nil {
 		return errors.New("token已过期，请重新登录")
 	}
@@ -66,21 +59,7 @@ func Auth(uid int, token string, level int) error {
 	// 查找编辑者
 	user, err := db.GetUser("", userClaims.Id, "")
 
-	fmt.Println(user)
-	fmt.Println(uid)
-
-	if err != nil {
-		return err
-	}
-
-	if user.Pwd == userClaims.Pwd { // 本人
-		
-		if user.Level >= level {
-			// 编辑他人
-			return nil
-		}
-
-	}
+	println(user)
 
 	return errors.New("权限不足")
 }

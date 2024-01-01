@@ -80,7 +80,6 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		resp, err = db.GetUser(ubody.Name, 0, "")
 	}
 
-	// resp, err := db.GetUser(ubody.Name, 0, "")
 	pwd := util.Cipher(ubody.Pwd)
 
 	if resp == nil || err != nil {
@@ -125,8 +124,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	token := r.Header.Get("token")
-	err := Auth(uid, token, 1) // uid 为原作者 uid
+	err := Auth(r.Header.Get("token"), 0b1000) // 最高权限才可以
 
 	// 查找当前用户
 	user, err2 := db.GetUser("", uid, "")

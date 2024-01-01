@@ -20,10 +20,10 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	token := r.Header.Get("token")
-	err := Auth(pbody.Uid, token, 4) // uid 为原作者 uid
+	err := Auth(
+		r.Header.Get("token"), 0b1110) // 非游客都可以
 
-	if err!= nil {
+	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
@@ -50,10 +50,9 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	fmt.Println(pbody.Title)
 
-	token := r.Header.Get("token")
-	err := Auth(pbody.Uid, token, 4)
+	err := Auth(r.Header.Get("token"), 0b1100) // 审核和管理可以
 
-	if err!= nil {
+	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
