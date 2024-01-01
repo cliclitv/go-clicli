@@ -147,7 +147,7 @@ export default function Upload(props) {
             <div className="draft">
                 <p>草稿箱</p>
                 <ul>
-                    {draft.map(item => {
+                    {(draft || []).map(item => {
                         return <li class={props.id === item.id.toString() ? 'active' : ''} onclick={() => push(`/draft/${item.id}`)}>{item.title}</li>
                     })}
                 </ul>
