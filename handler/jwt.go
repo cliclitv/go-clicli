@@ -50,7 +50,7 @@ func ParseToken(str string) (*MyClaims, error) {
 	return nil, errors.New("invalid token")
 }
 
-func Auth(token string, right int) error {
+func Auth(token string, right int, p ...int) error {
 	userClaims, err := ParseToken(token)
 	if err != nil {
 		return errors.New("token已过期，请重新登录")
@@ -59,7 +59,20 @@ func Auth(token string, right int) error {
 	// 查找编辑者
 	user, err := db.GetUser("", userClaims.Id, "")
 
-	println(user)
+	if err != nil {
+		return err
+	}
+
+	if p[0] != 0 { 
+		if p[0] == userClaims.Id {
+			// 本人操作, 加权
+			user.Level |= 0b1000
+		}
+	}
+
+	if user.Level&right != 0 { // 有权限
+		return nil
+	}
 
 	return errors.New("权限不足")
 }

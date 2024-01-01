@@ -124,7 +124,8 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	err := Auth(r.Header.Get("token"), 0b1000) // 最高权限才可以
+	err := Auth(r.Header.Get("token"), 0b1000, uid) // 最高权限才可以
+
 
 	// 查找当前用户
 	user, err2 := db.GetUser("", uid, "")
