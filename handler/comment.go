@@ -70,6 +70,10 @@ func ReadComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func fillComments(data []*db.Comment) []*db.Comment {
 
+	if len(data) == 0 {
+		return []*db.Comment{}
+	}
+
 	mapComment := make(map[int]*db.Comment, len(data))
 	ret := []*db.Comment{}
 

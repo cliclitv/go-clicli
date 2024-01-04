@@ -2,7 +2,6 @@ package handler
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"time"
 
@@ -63,9 +62,6 @@ func Auth(token string, right int, p ...int) error {
 	if err != nil {
 		return err
 	}
-
-	fmt.Println(p)
-
 	if len(p) != 0 { 
 		if p[0] == userClaims.Id {
 			// 本人操作, 加权
