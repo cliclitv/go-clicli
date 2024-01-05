@@ -124,14 +124,23 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	err := Auth(r.Header.Get("token"), 0b1000, uid) // 最高权限才可以
-
+	user, err := ParseToken(r.Header.Get("token"))
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
 
-	resp, _ := db.UpdateUser(uid, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Sign)
+	var resp *db.User
+
+	if uid == user.Id {
+		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, user.Level, ubody.QQ, ubody.Sign)
+	} else if user.Level&0b1000 != 0 {
+		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Sign)
+	} else {
+		sendMsg(w, 500, "权限不足")
+		return
+	}
+
 	sendUserResponse(w, resp, 200, "更新成功啦")
 
 }

@@ -4,8 +4,6 @@ import (
 	"errors"
 	"os"
 	"time"
-
-	"github.com/cliclitv/go-clicli/db"
 	jwt "github.com/golang-jwt/jwt/v4"
 )
 
@@ -51,19 +49,16 @@ func ParseToken(str string) (*MyClaims, error) {
 }
 
 func Auth(token string, right int, p ...int) error {
-	userClaims, err := ParseToken(token)
+	user, err := ParseToken(token)
 	if err != nil {
-		return errors.New("token已过期，请重新登录")
+		return errors.New("token失效")
 	}
-
-	// 查找编辑者
-	user, err := db.GetUser("", userClaims.Id, "")
 
 	if err != nil {
 		return err
 	}
-	if len(p) != 0 { 
-		if p[0] == userClaims.Id {
+	if len(p) != 0 {
+		if p[0] == user.Id {
 			// 本人操作, 加权
 			user.Level |= 0b1000
 		}

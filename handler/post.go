@@ -48,8 +48,6 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	fmt.Println(r.Header.Get("token"),pid)
-
 	err := Auth(r.Header.Get("token"), 0b1100) // 审核和管理可以
 
 	if err != nil {
