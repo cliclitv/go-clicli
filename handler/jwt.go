@@ -12,7 +12,6 @@ var Key = []byte(os.Getenv("JWT_KEY"))
 type MyClaims struct {
 	Id    int    `json:"id"`
 	Name  string `json:"name"`
-	Pwd   string `json:"pwd"`
 	Level int    `json:"level"`
 	jwt.StandardClaims
 }
@@ -21,7 +20,6 @@ func GenToken(id int, name string, pwd string, level int) (string, error) {
 	c := MyClaims{
 		id,
 		name,
-		pwd,
 		level,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 240).Unix(),

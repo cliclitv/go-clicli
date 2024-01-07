@@ -124,13 +124,17 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	user, err := ParseToken(r.Header.Get("token"))
+	token:=r.Header.Get("token")
+
+	user, err := ParseToken(token)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
 
 	var resp *db.User
+
+	fmt.Println(uid, user.Id, token)
 
 	if uid == user.Id {
 		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, user.Level, ubody.QQ, ubody.Sign)
