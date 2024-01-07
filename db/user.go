@@ -71,13 +71,13 @@ func GetUser(name string, id int, qq string) (*User, error) {
 	stmt, err := dbConn.Prepare(query)
 
 	var level int
-	var sign, pwd string
+	var sign string
 	if name != "" {
-		err = stmt.QueryRow(name).Scan(&id, &name, &pwd, &level, &qq, &sign)
+		err = stmt.QueryRow(name).Scan(&id, &name, &level, &qq, &sign)
 	} else if id != 0 {
-		err = stmt.QueryRow(id).Scan(&id, &name, &pwd, &level, &qq, &sign)
+		err = stmt.QueryRow(id).Scan(&id, &name, &level, &qq, &sign)
 	} else {
-		err = stmt.QueryRow(qq).Scan(&id, &name, &pwd, &level, &qq, &sign)
+		err = stmt.QueryRow(qq).Scan(&id, &name, &level, &qq, &sign)
 	}
 
 	defer stmt.Close()
