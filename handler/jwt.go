@@ -46,7 +46,7 @@ func ParseToken(str string) (*MyClaims, error) {
 	return nil, errors.New("invalid token")
 }
 
-func Auth(token string, right int, p ...int) error {
+func Auth(token string, right int) error {
 	user, err := ParseToken(token)
 	if err != nil {
 		return errors.New("token失效")
@@ -54,12 +54,6 @@ func Auth(token string, right int, p ...int) error {
 
 	if err != nil {
 		return err
-	}
-	if len(p) != 0 {
-		if p[0] == user.Id {
-			// 本人操作, 加权
-			user.Level |= 0b1000
-		}
 	}
 
 	if user.Level&right != 0 { // 有权限
