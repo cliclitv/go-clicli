@@ -31,7 +31,7 @@ export default function App(props) {
                 <RankList />
             </div>
             <WeekList />
-            <UGCList />
+            {/* <UGCList /> */}
             <PostList></PostList>
             {props.gv ? <div>
                 <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
