@@ -88,8 +88,11 @@ func fillComments(data []*db.Comment) []*db.Comment {
 	for _, c := range data {
 		if c.Rid != 0 {
 			parent := mapComment[c.Rid]
-			c.Replies = []*db.Comment{}
-			parent.Replies = append(parent.Replies, c)
+			if parent != nil {
+				c.Replies = []*db.Comment{}
+				parent.Replies = append(parent.Replies, c)
+			}
+
 		}
 	}
 	return ret
