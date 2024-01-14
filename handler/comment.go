@@ -89,7 +89,6 @@ func fillComments(data []*db.Comment) []*db.Comment {
 		if c.Rid != 0 {
 			parent := mapComment[c.Rid]
 			if parent != nil {
-				c.Replies = []*db.Comment{}
 				parent.Replies = append(parent.Replies, c)
 			}
 
