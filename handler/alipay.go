@@ -9,7 +9,6 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"github.com/cliclitv/go-clicli/db"
 	"github.com/julienschmidt/httprouter"
 	"io"
 	"net/http"
@@ -63,24 +62,8 @@ func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Println(a)
 	fmt.Println("充值回调")
 	uid, _ := strconv.Atoi(body)
-	
-	pea, err := db.GetPea(uid)
 
-	if err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
-	}
-
-	aamount := pea.Pea + int(amount*100)
-
-	fmt.Println(aamount)
-
-	_, err2 := db.ReplacePea(uid, aamount)
-
-	if err2 != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
-	}
+	fmt.Println(uid, amount)
 
 	io.WriteString(w, "success")
 

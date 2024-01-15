@@ -5,11 +5,6 @@ type Pv struct {
 	Pv  int `json:"pv"`
 }
 
-type Pea struct {
-	Uid int `json:"uid"`
-	Pea int `json:"pea"`
-}
-
 type Play struct {
 	MType string `json:"mtype"`
 	Url   string `json:"url"`
@@ -64,21 +59,4 @@ type Users struct {
 
 type Comments struct {
 	Comments []*Comment `json:"comments"`
-}
-
-type Note struct {
-	Id      int    `json:"id,omitempty"`
-	Title   string `json:"title"`
-	Content string `json:"content,omitempty"`
-	Time    string `json:"time"`
-	Pid     int    `json:"pid"`
-	Uid     int    `json:"uid,omitempty"`
-	Uname   string `json:"uname,omitempty"`
-	Uqq     string `json:"uqq,omitempty"`
-	Tag     string `json:"tag,omitempty"`
-	Info    string `json:"info,omitempty"`
-}
-
-type Notes struct {
-	Notes []*Note `json:"notes"`
 }
