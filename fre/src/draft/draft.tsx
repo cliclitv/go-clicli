@@ -114,8 +114,9 @@ export default function Upload(props) {
                 </section>
                 <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
                 <textarea spellcheck="false" placeholder={post.sort === '里世界'
-                    ? `直链框，请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开` :
-                    `图集框，请输入图床地址，如：https://clicli.cc/001.png\n多图流用回车隔开`
+                    ? `图集框，请输入图床地址，如：https://clicli.cc/001.png\n多图流用回车隔开` :
+                    `直链框，请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`
+
                 } value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
 
                 <div className="options">
