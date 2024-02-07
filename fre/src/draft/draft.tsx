@@ -113,7 +113,7 @@ export default function Upload(props) {
                     <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
                 </section>
                 <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-                <textarea spellcheck="false" placeholder={post.sort === '图文'
+                <textarea spellcheck="false" placeholder={post.sort === '里世界'
                     ? `直链框，请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开` :
                     `图集框，请输入图床地址，如：https://clicli.cc/001.png\n多图流用回车隔开`
                 } value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
@@ -128,13 +128,13 @@ export default function Upload(props) {
                     <select onInput={e => change('sort', e.target.value)}>
                         <option value="新番" selected={post.sort === '新番'}>新番</option>
                         <option value="完结" selected={post.sort === '完结'}>完结</option>
-                        <option value="图文" selected={post.sort === '图文'}>图文</option>
+                        <option value="里世界" selected={post.sort === '里世界'}>里世界</option>
                     </select>
                     {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
                 </div>
                 <div className="tags">
                     <ul>
-                        {(post.sort === '图文' ? acgzoneTags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                        {(post.sort === '里世界' ? acgzoneTags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                             className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                     </ul>
 
