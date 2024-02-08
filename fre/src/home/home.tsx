@@ -15,15 +15,6 @@ import Live from '../play/live'
 
 
 export default function App(props) {
-    const [posts, setPosts] = useState([])
-    const [page, setPage] = useState(1)
-
-    useEffect(() => {
-        getPost('', '', page, 10).then(res => {
-            const newPosts = posts.concat(res.posts)
-            setPosts(newPosts)
-        })
-    }, [page])
     return (
         <div>
             <div className="wrap" style={{ display: 'flex' }}>
