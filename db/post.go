@@ -101,7 +101,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		query += ` AND (1=2 `
 		for i:=0;i<len(sorts);i++{
 			key:=sorts[i]
-			slice = append(slice, status)
+			slice = append(slice, key)
 			query += fmt.Sprintf(" OR posts.sort =$%d", len(slice))
 		}
 		query += `)`
