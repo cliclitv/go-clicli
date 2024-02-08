@@ -87,6 +87,9 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	var query string
 	var slice []interface{}
 
+	fmt.Println(sorts)
+
+
 	if status != "" {
 		slice = append(slice, status)
 		query += fmt.Sprintf(" AND posts.status =$%d", len(slice))
@@ -98,7 +101,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 	if len(sorts) != 0 {
-		query += ` AND (1=2 `
+		query += ` AND (1=2`
 		for i:=0;i<len(sorts);i++{
 			key:=sorts[i]
 			slice = append(slice, key)
@@ -108,7 +111,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 	if len(tags) != 0 {
-		query += ` AND (1=2 `
+		query += ` AND (1=2`
 		for i := 0; i < len(tags); i++ {
 			key := string("%" + tags[i] + "%")
 			slice = append(slice, key)

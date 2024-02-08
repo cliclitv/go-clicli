@@ -6,7 +6,7 @@ import { getSuo } from "../util/avatar"
 export default function Recommend(props) {
     const [posts, setPosts] = useState([])
     useEffect(() => {
-        getPost('新番,旧番', '推荐', 1, 10).then((res:any) => {
+        getPost('新番,完结', '推荐', 1, 10).then((res:any) => {
             setPosts(res.posts)
         })
     }, [])
