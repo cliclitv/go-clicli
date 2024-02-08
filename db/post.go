@@ -81,14 +81,9 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 
 func GetPosts(page int, pageSize int, status string, sort string, tag string, uid int) ([]*Post, error) {
 	start := pageSize * (page - 1)
-	tags := strings.Split(tag,",")
-	sorts := strings.Split(sort,",")
 
 	var query string
 	var slice []interface{}
-
-	fmt.Println(sorts)
-
 
 	if status != "" {
 		slice = append(slice, status)
@@ -100,7 +95,8 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		query += fmt.Sprintf(" AND posts.uid =$%d", len(slice))
 	}
 
-	if len(sorts) != 0 {
+	if sort != "" {
+		sorts := strings.Split(sort,",")
 		query += ` AND (1=2`
 		for i:=0;i<len(sorts);i++{
 			key:=sorts[i]
@@ -110,7 +106,8 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		query += `)`
 	}
 
-	if len(tags) != 0 {
+	if tag != "" {
+		tags := strings.Split(tag,",")
 		query += ` AND (1=2`
 		for i := 0; i < len(tags); i++ {
 			key := string("%" + tags[i] + "%")
@@ -123,6 +120,8 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
 
 	slice = append(slice, pageSize, start)
+
+	fmt.Println(sqlRaw)
 
 	stmt, err := dbConn.Prepare(sqlRaw)
 
