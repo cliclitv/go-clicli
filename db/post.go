@@ -81,23 +81,30 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 
 func GetPosts(page int, pageSize int, status string, sort string, tag string, uid int) ([]*Post, error) {
 	start := pageSize * (page - 1)
-	tags := strings.Fields(tag)
+	tags := strings.Split(tag,",")
+	sorts := strings.Split(sort,",")
 
 	var query string
 	var slice []interface{}
+
 	if status != "" {
 		slice = append(slice, status)
 		query += fmt.Sprintf(" AND posts.status =$%d", len(slice))
 	}
 
-	if sort != "" {
-		slice = append(slice, sort)
-		query += fmt.Sprintf(" AND posts.sort =$%d", len(slice))
-	}
-
 	if uid != 0 {
 		slice = append(slice, uid)
 		query += fmt.Sprintf(" AND posts.uid =$%d", len(slice))
+	}
+
+	if len(sorts) != 0 {
+		query += ` AND (1=2 `
+		for i:=0;i<len(sorts);i++{
+			key:=sorts[i]
+			slice = append(slice, status)
+			query += fmt.Sprintf(" OR posts.sort =$%d", len(slice))
+		}
+		query += `)`
 	}
 
 	if len(tags) != 0 {

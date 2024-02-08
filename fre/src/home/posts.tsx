@@ -6,7 +6,7 @@ import { getSuo } from "../util/avatar"
 export default function PostList(props) {
     const [posts, setPosts] = useState([])
     useEffect(() => {
-        getPost('', '', 1, 30).then(res => {
+        getPost('旧番,新番', '', 1, 30).then(res => {
             setPosts(res.posts)
         })
     }, [])
