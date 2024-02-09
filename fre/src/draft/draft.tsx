@@ -113,7 +113,7 @@ export default function Upload(props) {
                     <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
                 </section>
                 <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-                <textarea spellcheck="false" placeholder={post.sort === '原创'
+                <textarea spellcheck="false" placeholder={post.sort === '轻视频'
                     ? `图集框，请输入图床地址，如：https://clicli.cc/001.png\n多图流用回车隔开` :
                     `直链框，请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`
 
