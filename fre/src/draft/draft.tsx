@@ -90,11 +90,11 @@ export default function Upload(props) {
         let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no')
         myWindow.focus()
     }
-    const tags = ['推荐', '幻灯', '个人原创', '授权转载', '国漫', '剧场版', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔', '治愈',
+    const tags = ['推荐', '幻灯', '国漫', '美漫', '剧场版', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔', '治愈',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '黄金厕纸',
         '特摄', '真人剧', '其它']
     const acgzoneTags = [
-        '推荐', '幻灯', '漫画', '动画', '游戏', '小说', '图包', '音乐', '三次元'
+        '推荐', '幻灯', '个人原创', '授权转载', '漫画', '动画', '游戏', '小说', '图包', '音乐', '三次元'
     ]
     return (
         <div className="wrap flex">
@@ -130,12 +130,13 @@ export default function Upload(props) {
                         <option value="新番" selected={post.sort === '新番'}>新番</option>
                         <option value="完结" selected={post.sort === '完结'}>完结</option>
                         <option value="原创" selected={post.sort === '原创'}>原创</option>
+                        <option value="轻视频" selected={post.sort === '轻视频'}>轻视频</option>
                     </select>
                     {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
                 </div>
                 <div className="tags">
                     <ul>
-                        {(post.sort === '原创' ? acgzoneTags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                        {(post.sort === '原创' || post.sort === '轻视频' ? acgzoneTags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                             className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
                     </ul>
 
