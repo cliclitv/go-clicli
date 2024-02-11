@@ -25,3 +25,8 @@ export function get(url) {
         }).catch(e => console.log(e))
     })
 }
+
+export function getToken() {
+    const search = new URL(window.location.href).searchParams
+    return search.get('token') || null
+}

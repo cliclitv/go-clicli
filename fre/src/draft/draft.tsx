@@ -81,7 +81,6 @@ export default function Upload(props) {
             addPost(post as any).then(res => {
                 lock = false
                 alert((res.msg || '搞定^_^'))
-                push(`/my/${getUser().id}`)
             })
         }
     }
