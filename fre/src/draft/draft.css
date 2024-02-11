@@ -1,7 +1,7 @@
 @import url("//at.alicdn.com/t/font_1151392_5hwi3w2ygqu.css");
 
 .flex {
-    display: flex;
+    display: flex!important;
 }
 
 .upload {

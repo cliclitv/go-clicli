@@ -17,12 +17,11 @@ import Live from '../play/live'
 export default function App(props) {
     return (
         <div>
-            <div className="wrap" style={{ display: 'flex' }}>
+            <div className="wrap section" style={{ display: 'flex' }}>
                 <Recommend></Recommend>
                 <RankList />
             </div>
             <WeekList />
-            {/* <UGCList /> */}
             <PostList></PostList>
             {props.gv ? <div>
                 <div class="postplayer"><i class='icon-font icon-close' onclick={() => {

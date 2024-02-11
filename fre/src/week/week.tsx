@@ -28,7 +28,7 @@ export default function WeekList() {
         6: '周六'
     }
     return <div className="week-list">
-        <div className="wrap">
+        <div className="wrap section">
             <div className="headline">
                 <h1>更新表</h1>
                 <ul>
@@ -51,14 +51,16 @@ export default function WeekList() {
                     )
                     ) : <div></div>}
                 </ul>
-                <a href="https://shop119340084.taobao.com/shop/view_shop.htm?spm=a230r.1.14.4.75dc14ecGDLY4r&user_number_id=1965847533&mm_sycmid=1_143947_3565a75377635dc11b2616c8c6d51a7d" target="_blank">
-                    <span>官方赞助</span>
-                    <img src="http://image.planet.youku.com/img/100/15/47949/i_1694758247949_203bbf08698d4b1e4d749e42c3e20be3_b_w1600h1600.jpg" alt="" />
-                    <div>
-                        <p>哥哥^_^打个胶叭！</p>
-                        <button>暗号CLI</button>
-                    </div>
-                </a>
+                <div className="ad">
+                    <a href="https://shop119340084.taobao.com/shop/view_shop.htm?spm=a230r.1.14.4.75dc14ecGDLY4r&user_number_id=1965847533&mm_sycmid=1_143947_3565a75377635dc11b2616c8c6d51a7d" target="_blank">
+                        <span>官方赞助</span>
+                        <img src="http://image.planet.youku.com/img/100/15/47949/i_1694758247949_203bbf08698d4b1e4d749e42c3e20be3_b_w1600h1600.jpg" alt="" />
+                        <div>
+                            <p>哥哥^_^打个胶叭！</p>
+                            <button>暗号CLI</button>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

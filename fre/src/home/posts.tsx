@@ -10,7 +10,7 @@ export default function PostList(props) {
             setPosts(res.posts)
         })
     }, [])
-    return <div className="post-list wrap">
+    return <div className="post-list wrap section">
         <h1>最新更新</h1>
         <ul>
             {posts.length > 0 && posts.map((item,index) => {

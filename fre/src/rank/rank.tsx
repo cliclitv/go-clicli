@@ -7,7 +7,7 @@ import './rank.css'
 
 export default function Rank(props) {
     const [posts, setPosts] = useState([])
-    const [day, setDay] = useState(300)
+    const [day, setDay] = useState(1000)
     useEffect(() => {
         getRank(day).then((res: any) => {
             setPosts(res.posts)
@@ -17,7 +17,7 @@ export default function Rank(props) {
         <div class="top">
             <h1>排行榜</h1>
             <ul>
-                <li onclick={() => setDay(300)} class={day === 1000 ? 'active' : ''}>年榜</li>
+                <li onclick={() => setDay(1000)} class={day === 1000 ? 'active' : ''}>年榜</li>
                 <li onclick={() => setDay(100)} class={day === 100 ? 'active' : ''}>季榜</li>
                 <li onclick={() => setDay(30)} class={day === 30 ? 'active' : ''}>月榜</li>
             </ul>
