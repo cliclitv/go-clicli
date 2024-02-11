@@ -1,6 +1,6 @@
-import { render, useState, useEffect, useRef } from "fre"
+import { useState, useEffect } from "fre"
 import { push } from "../use-route"
-import { addPost, getDogeToken, getPostB, getPostDetail, getUser, updatePost } from "../util/api"
+import { addPost, getPostB, getPostDetail, getUser, updatePost } from "../util/api"
 import './draft.css'
 
 let lock = false
@@ -34,9 +34,11 @@ export default function Upload(props) {
         } else {
             // 新增
         }
-        getPostB("", "", 1, 200, "", user.id).then(res => {
-            setDraft(res.posts)
-        })
+        if (user) {
+            getPostB("", "", 1, 200, "", user?.id).then(res => {
+                setDraft(res.posts)
+            })
+        }
     }, [props.id])
 
     function change(key, val) {
@@ -108,7 +110,7 @@ export default function Upload(props) {
                     <i class="te te-image" onclick={() => window.md.image()}></i>
                     <i class="te te-link" onclick={() => window.md.link()}></i>
                     <i class="te te-code" onclick={() => window.md.blockCode()}></i>
-                    <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user.id}`)}></i>
+                    <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user?.id}`)}></i>
                 </section>
                 <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
                 <textarea spellcheck="false" placeholder={post.sort === '图文视频'
@@ -122,7 +124,7 @@ export default function Upload(props) {
                         <option value="wait" selected={post.status === 'wait'}>待审核</option>
                         <option value="remove" selected={post.status === 'remove'}>待删除</option>
                         <option value="under" selected={post.status === 'under'}>已下架</option>
-                        {(user.level & 0b1100) !== 0 && <option value="public" selected={post.status === 'public'}>发布</option>}
+                        {(user?.level & 0b1100) !== 0 && <option value="public" selected={post.status === 'public'}>发布</option>}
                     </select>
                     <select onInput={e => change('sort', e.target.value)}>
                         <option value="新番" selected={post.sort === '新番'}>新番</option>
@@ -143,14 +145,14 @@ export default function Upload(props) {
                     <button>保存</button>
                 </div>
             </div>
-            <div className="draft">
+            {user && <div className="draft">
                 <p>草稿箱</p>
                 <ul>
                     {(draft || []).map(item => {
                         return <li class={props.id === item.id.toString() ? 'active' : ''} onclick={() => push(`/draft/${item.id}`)}>{item.title}</li>
                     })}
                 </ul>
-            </div>
+            </div>}
         </div>
     )
 }
