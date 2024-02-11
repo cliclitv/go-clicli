@@ -20,7 +20,7 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	err := Auth(
+	user, err := Auth(
 		r.Header.Get("token"), 0b1110) // 非游客都可以
 
 	if err != nil {
@@ -28,7 +28,7 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	resp, err := db.AddPost(pbody.Title, pbody.Content, pbody.Status, pbody.Sort, pbody.Tag, pbody.Uid, pbody.Videos)
+	resp, err := db.AddPost(pbody.Title, pbody.Content, pbody.Status, pbody.Sort, pbody.Tag, user.Id, pbody.Videos)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
@@ -48,7 +48,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	err := Auth(r.Header.Get("token"), 0b1100) // 审核和管理可以
+	_, err := Auth(r.Header.Get("token"), 0b1100) // 审核和管理可以
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))

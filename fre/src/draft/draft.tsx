@@ -97,9 +97,8 @@ export default function Upload(props) {
         '推荐', '幻灯', '个人原创', '授权转载', '漫画', '动画', '游戏', '小说', '图包', '音乐', '三次元'
     ]
     return (
-        <div className="wrap flex">
+        <div className="wrap section" style={{ display: 'flex' }}>
             <div className="upload">
-                <p>编辑</p>
                 <div className="title">
                     <input type="text" placeholder="请输入标题" value={post.title} onInput={e => change('title', e.target.value)} />
                 </div>

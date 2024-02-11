@@ -181,4 +181,8 @@ h1 {
     .p {
         width: 100% !important;
     }
+
+    .upload{
+        padding: 10px!important;
+    }
 }

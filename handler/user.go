@@ -134,7 +134,6 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	var resp *db.User
 
-	fmt.Println(uid, user.Id, token)
 	if user.Level&0b1000 != 0 {
 		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Sign)
 	} else if uid == user.Id {
