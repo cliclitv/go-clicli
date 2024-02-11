@@ -33,7 +33,7 @@ function replaceContent(c = '') {
     .replace(/img[0-9].doubanio.com/g, 'doubanimg.deno.dev')
 }
 
-export function addPost({ title, content, status, sort, tag, uid, videos }) {
+export function addPost({ title, content, status, sort, tag,  videos }) {
   videos = replaceContent(videos)
   return post('https://www.clicli.cc/post/add', {
     title,
@@ -41,7 +41,6 @@ export function addPost({ title, content, status, sort, tag, uid, videos }) {
     status,
     sort,
     tag,
-    uid: getUser().id,
     videos
   })
 }
@@ -50,7 +49,7 @@ export function getUser() {
   return JSON.parse(window.localStorage.getItem('user'))
 }
 
-export function updatePost({ id, title, content, status, sort, tag, uid, time, videos }) {
+export function updatePost({ id, title, content, status, sort, tag, time, videos }) {
   videos = replaceContent(videos)
   return post(`https://www.clicli.cc/post/update/${id}`, {
     id,
@@ -59,7 +58,6 @@ export function updatePost({ id, title, content, status, sort, tag, uid, time, v
     status,
     sort,
     tag,
-    uid,
     time,
     videos
   })
