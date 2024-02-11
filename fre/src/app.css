@@ -133,9 +133,9 @@ h1 {
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        transform: none!important;
-        width: 100%!important;
-        height: 100%!important;
+        transform: none !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 
     .ep-wrap {
@@ -144,24 +144,41 @@ h1 {
 
     header .search input {
         flex: 1 !important;
-        width: auto!important;
+        width: auto !important;
     }
 
-    .player.wrap{
-        width: 100%!important;
-        height: 100%!important;
+    .player.wrap {
+        width: 100% !important;
+        height: 100% !important;
         position: fixed;
         top: 0;
         bottom: 0;
         right: 0;
         left: 0;
-        display: block!important;
-        overflow: auto!important;
-        background: #111!important;
-        border-radius: 0!important;
+        display: block !important;
+        overflow: auto !important;
+        background: #111 !important;
+        border-radius: 0px !important;
     }
 
-    .comment-input{
-        width: 100%!important;
+    .comment-input {
+        width: 100% !important;
+    }
+
+    .ep-wrap {
+        width: 100% !important;
+        height: calc(var(--width) / 16 * 9) !important;
+        padding: 5px;
+        box-sizing: border-box;
+
+    }
+
+    .ep {
+        border-radius: 5px!important;
+        overflow: hidden!important;
+    }
+
+    .p {
+        width: 100% !important;
     }
 }
