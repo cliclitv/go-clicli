@@ -26,8 +26,8 @@ func GetPv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func GetActionCount(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	action := p.ByName("action")
-	pid, _ := strconv.Atoi(p.ByName("pid"))
+	action := r.URL.Query().Get("action")
+	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
 
 	res, err := db.GetActionCount(action, pid, 0)
 
@@ -38,9 +38,9 @@ func GetActionCount(w http.ResponseWriter, r *http.Request, p httprouter.Params)
 }
 
 func ReplaceAction(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	action := p.ByName("action")
-	pid, _ := strconv.Atoi(p.ByName("pid"))
-	uid, _ := strconv.Atoi(p.ByName("uid"))
+	action := r.URL.Query().Get("action")
+	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
+	uid, _ := strconv.Atoi(r.URL.Query().Get("uid"))
 
 	res, err := db.ReplaceAction(uid, action, pid)
 
