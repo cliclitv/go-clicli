@@ -6,11 +6,23 @@ import (
 )
 
 func ReplaceAction(uid int, action string, pid int) (*Action, error) {
-	stmt, err := dbConn.Prepare("INSERT INTO actions (uid,action,pid) VALUES ($1,$2,$3) ON conflict(uid,action,pid) DO DELETE FROM actions WHERE uid=$4 AND action=$5 AND pid=$6")
+
+	count, err := GetActionCount(action, pid, uid)
+	var query = ""
+
+	if count.Count != 0 || err == sql.ErrNoRows {
+		// insert
+		query = "INSERT INTO actions (uid,action,pid) VALUES ($1,$2,$3)"
+	} else {
+		//delete
+		query = "DELETE FROM actions WHERE uid=$1 AND action=$2 AND pid=$3"
+	}
+
+	stmt, err := dbConn.Prepare(query)
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmt.Exec(uid, action, pid, uid, action, pid)
+	_, err = stmt.Exec(uid, action, pid)
 	if err != nil {
 		return nil, err
 	}
@@ -20,8 +32,18 @@ func ReplaceAction(uid int, action string, pid int) (*Action, error) {
 	return res, err
 }
 
-func GetActionCount(action string, pid int) (*Count, error) {
-	stmtCount, err := dbConn.Prepare("SELECT COUNT(*) FROM fan WHERE action=$1 AND pid=$2")
+func GetActionCount(action string, pid int, uid int) (*Count, error) {
+	var query = ""
+	if uid == 0 {
+		query = "SELECT COUNT(*) FROM fan WHERE action=$1 AND pid=$2"
+	} else {
+		query = "SELECT COUNT(*) FROM fan WHERE action=$1 AND pid=$2 AND uid=$3"
+	}
+
+	stmtCount, err := dbConn.Prepare(query)
+	if err != nil {
+		return nil, err
+	}
 	var count int
 	err = stmtCount.QueryRow(action, pid).Scan(&count)
 	if err != nil && err != sql.ErrNoRows {
