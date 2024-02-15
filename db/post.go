@@ -120,8 +120,6 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	slice = append(slice, pageSize, start)
 
-	fmt.Println(sqlRaw)
-
 	stmt, err := dbConn.Prepare(sqlRaw)
 
 	if err != nil {

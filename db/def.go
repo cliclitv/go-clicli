@@ -66,7 +66,7 @@ type Action struct {
 	Uname    string `json:"uname,omitempty"`
 	Uqq      string `json:"uqq,omitempty"`
 	Action   string `json:"action,omitempty"`
-	Pid      int    `json:"int,omitempty"`
+	Pid      int    `json:"pid,omitempty"`
 	Ptitle   string `json:"ptitle,omitempty"`
 	Pcontent string `json:"pcontent,omitempty"`
 }

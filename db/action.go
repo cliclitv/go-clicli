@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 )
 
 func ReplaceAction(uid int, action string, pid int) (*Action, error) {
@@ -15,7 +14,7 @@ func ReplaceAction(uid int, action string, pid int) (*Action, error) {
 
 	var query = ""
 
-	if count == nil {
+	if count.Count == 0 {
 		// insert
 		query = "INSERT INTO actions (uid,action,pid) VALUES ($1,$2,$3)"
 	} else {
@@ -39,7 +38,6 @@ func ReplaceAction(uid int, action string, pid int) (*Action, error) {
 
 func GetActionCount(params ...interface{}) (*Count, error) {
 	var query = ""
-	fmt.Println(params)
 	if len(params) < 3 {
 		query = "SELECT COUNT(*) FROM actions WHERE action=$1 AND pid=$2"
 	} else {
@@ -52,6 +50,7 @@ func GetActionCount(params ...interface{}) (*Count, error) {
 	}
 	var count int
 	err = stmtCount.QueryRow(params...).Scan(&count)
+
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
