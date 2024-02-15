@@ -9,7 +9,7 @@ type Count struct {
 	Uid    int    `json:"uid,omitempty"`
 	Action string `json:"action,omitempty"`
 	Pid    int    `json:"pid,omitempty"`
-	Count  int    `json:"count,omitempty"`
+	Count  int    `json:"count"`
 }
 
 type Play struct {
