@@ -39,9 +39,9 @@ func ReplaceAction(uid int, action string, pid int) (*Action, error) {
 func GetActionCount(action string, pid int, uid int) (*Count, error) {
 	var query = ""
 	if uid == 0 {
-		query = "SELECT COUNT(*) FROM fan WHERE action=$1 AND pid=$2"
+		query = "SELECT COUNT(*) FROM actions WHERE action=$1 AND pid=$2"
 	} else {
-		query = "SELECT COUNT(*) FROM fan WHERE action=$1 AND pid=$2 AND uid=$3"
+		query = "SELECT COUNT(*) FROM actions WHERE action=$1 AND pid=$2 AND uid=$3"
 	}
 
 	stmtCount, err := dbConn.Prepare(query)
