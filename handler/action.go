@@ -29,7 +29,7 @@ func GetActionCount(w http.ResponseWriter, r *http.Request, p httprouter.Params)
 	action := r.URL.Query().Get("action")
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
 
-	res, err := db.GetActionCount(action, pid, 0)
+	res, err := db.GetActionCount(action, pid)
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
@@ -48,6 +48,5 @@ func ReplaceAction(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	fmt.Println(res,err)
 	sendActionResponse(w, res, 200)
 }

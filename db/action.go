@@ -38,6 +38,7 @@ func ReplaceAction(uid int, action string, pid int) (*Action, error) {
 
 func GetActionCount(params ...interface{}) (*Count, error) {
 	var query = ""
+
 	if len(params) < 3 {
 		query = "SELECT COUNT(*) FROM actions WHERE action=$1 AND pid=$2"
 	} else {
