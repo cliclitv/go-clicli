@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	"os"
+	"fmt"
 )
 
 var (
@@ -13,6 +14,7 @@ var (
 
 func init() {
 	str := os.Getenv("DATABASE_STR")
+	fmt.Println(str)
 	dbConn, err = sql.Open("postgres", str)
 
 	if err != nil {

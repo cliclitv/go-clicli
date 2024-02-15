@@ -9,7 +9,7 @@ func ReplaceAction(uid int, action string, pid int) (*Action, error) {
 	count, err := GetActionCount(action, pid, uid)
 
 	if err != nil {
-		return nil err
+		return nil, err
 	}
 
 	var query = ""
