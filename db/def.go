@@ -5,6 +5,13 @@ type Pv struct {
 	Pv  int `json:"pv"`
 }
 
+type Count struct {
+	Uid    int    `json:"uid,omitempty"`
+	Action string `json:"action,omitempty"`
+	Pid    int    `json:"pid,omitempty"`
+	Count  int    `json:"count,omitempty"`
+}
+
 type Play struct {
 	MType string `json:"mtype"`
 	Url   string `json:"url"`

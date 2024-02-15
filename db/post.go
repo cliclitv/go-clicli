@@ -96,10 +96,10 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 	if sort != "" {
-		sorts := strings.Split(sort,",")
+		sorts := strings.Split(sort, ",")
 		query += ` AND (1=2`
-		for i:=0;i<len(sorts);i++{
-			key:=sorts[i]
+		for i := 0; i < len(sorts); i++ {
+			key := sorts[i]
 			slice = append(slice, key)
 			query += fmt.Sprintf(" OR posts.sort =$%d", len(slice))
 		}
@@ -107,7 +107,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 	if tag != "" {
-		tags := strings.Split(tag,",")
+		tags := strings.Split(tag, ",")
 		query += ` AND (1=2`
 		for i := 0; i < len(tags); i++ {
 			key := string("%" + tags[i] + "%")
@@ -141,7 +141,6 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		var id, uid int
 		var title, content, status, sort, tag, ctime, uname, uqq, videos string
 		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
-			log.Println(err)
 			return res, err
 		}
 		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
@@ -156,6 +155,9 @@ func SearchPosts(key string) ([]*Post, error) {
 	key = string("%" + key + "%")
 	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
 
+	if err != nil {
+		return nil, err
+	}
 	var res []*Post
 
 	rows, err := stmt.Query(key, key)
