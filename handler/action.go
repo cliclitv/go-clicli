@@ -30,7 +30,7 @@ func GetActionCount(w http.ResponseWriter, r *http.Request, p httprouter.Params)
 	action := p.ByName("action")
 	pid, _ := strconv.Atoi(p.ByName("pid"))
 
-	res, err := db.GetActionCount(action, pid)
+	res, err := db.GetActionCount(action, pid, 0)
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
