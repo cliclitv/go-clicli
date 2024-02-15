@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/julienschmidt/httprouter"
 )
@@ -47,6 +46,8 @@ func ReplaceAction(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
 	}
+	fmt.Println(res,err)
 	sendActionResponse(w, res, 200)
 }

@@ -7,9 +7,14 @@ import (
 func ReplaceAction(uid int, action string, pid int) (*Action, error) {
 
 	count, err := GetActionCount(action, pid, uid)
+
+	if err != nil {
+		return nil err
+	}
+
 	var query = ""
 
-	if count.Count != 0 || err == sql.ErrNoRows {
+	if count == nil {
 		// insert
 		query = "INSERT INTO actions (uid,action,pid) VALUES ($1,$2,$3)"
 	} else {
