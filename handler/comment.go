@@ -96,3 +96,21 @@ func fillComments(data []*db.Comment) []*db.Comment {
 	}
 	return ret
 }
+
+func DeleteComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id, _ := strconv.Atoi(p.ByName("id"))
+	_, err := Auth(
+		r.Header.Get("token"), 0b1100) // 审核权限
+
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+	err = db.DeleteComment(id)
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	} else {
+		sendMsg(w, 200, "删除成功啦")
+	}
+}

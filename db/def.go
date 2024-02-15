@@ -22,7 +22,7 @@ type Comment struct {
 	Uid     int        `json:"uid,omitempty"`
 	Uname   string     `json:"uname,omitempty"`
 	Uqq     string     `json:"uqq,omitempty"`
-	Replies  []*Comment `json:"replies,omitempty"`
+	Replies []*Comment `json:"replies,omitempty"`
 }
 
 type User struct {
@@ -47,6 +47,21 @@ type Post struct {
 	Uname   string `json:"uname,omitempty"`
 	Uqq     string `json:"uqq,omitempty"`
 	Videos  string `json:"videos,omitempty"`
+}
+
+type Actions struct {
+	Posts []*Post `json:"actions"`
+}
+
+type Action struct {
+	Id       int    `json:"id,omitempty"`
+	Uid      int    `json:"uid,omitempty"`
+	Uname    string `json:"uname,omitempty"`
+	Uqq      string `json:"uqq,omitempty"`
+	Action   string `json:"action,omitempty"`
+	Pid      int    `json:"int,omitempty"`
+	Ptitle   string `json:"ptitle,omitempty"`
+	Pcontent string `json:"pcontent,omitempty"`
 }
 
 type Posts struct {

@@ -81,3 +81,18 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 	return res, nil
 
 }
+
+func DeleteComment(id int) error {
+	stmtDel, err := dbConn.Prepare("DELETE FROM comments WHERE id=$1")
+	if err != nil {
+		return err
+	}
+
+	_, err = stmtDel.Exec(id)
+	if err != nil {
+		return err
+	}
+	defer stmtDel.Close()
+
+	return nil
+}

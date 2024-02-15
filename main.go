@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/fs"
 	"net/http"
+
 	"github.com/cliclitv/go-clicli/handler"
 	"github.com/julienschmidt/httprouter"
 )
@@ -60,6 +61,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/post/add", handler.AddPost)
 	router.POST("/comment/add", handler.AddComment)
 	router.POST("/comment/read", handler.ReadComments)
+	router.POST("/comment/delete/:id", handler.DeleteComment)
 	router.GET("/comments", handler.GetComments)
 	router.POST("/post/update/:id", handler.UpdatePost)
 	router.GET("/post/:id", handler.GetPost)

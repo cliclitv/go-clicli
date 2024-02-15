@@ -138,10 +138,6 @@ h1 {
         height: 100% !important;
     }
 
-    .ep-wrap {
-        /* display: none; */
-    }
-
     header .search input {
         flex: 1 !important;
         width: auto !important;
