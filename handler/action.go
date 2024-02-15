@@ -1,13 +1,52 @@
-func GetFanCount(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	type, _ := strconv.Atoi(p.ByName("uid"))
-	uid, _ := strconv.Atoi(p.ByName("uid"))
-	
-	res, err := db.GetFanCount(uid)
+package handler
 
-	if err != nil{
+import (
+	"fmt"
+	"net/http"
+	"strconv"
+
+	"github.com/cliclitv/go-clicli/db"
+	"github.com/julienschmidt/httprouter"
+)
+
+func GetPv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	pid, _ := strconv.Atoi(p.ByName("pid"))
+	resp, err := db.GetPv(pid)
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+	if resp == nil {
+		res, _ := db.ReplacePv(pid, 1)
+		sendPvResponse(w, res, 200)
+
+	} else {
+		res, _ := db.ReplacePv(pid, resp.Pv+1)
+		sendPvResponse(w, res, 200)
+	}
+}
+
+func GetActionCount(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	action := p.ByName("action")
+	pid, _ := strconv.Atoi(p.ByName("pid"))
+
+	res, err := db.GetActionCount(action, pid)
+
+	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 	}
-	
-	sendFansResponse(w, res, 200)
+	sendCountResponse(w, res, 200)
+}
 
+func ReplaceAction(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	action := p.ByName("action")
+	pid, _ := strconv.Atoi(p.ByName("pid"))
+	uid, _ := strconv.Atoi(p.ByName("uid"))
+
+	res, err := db.ReplaceAction(uid, action, pid)
+
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+	}
+	sendActionResponse(w, res, 200)
 }

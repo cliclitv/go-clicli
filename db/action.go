@@ -5,12 +5,12 @@ import (
 	_ "database/sql"
 )
 
-func AddAction(uid int, action string, pid int) (*Action, error) {
-	stmt, err := dbConn.Prepare("INSERT INTO actions (uid,action,pid) VALUES ($1,$2,$3)")
+func ReplaceAction(uid int, action string, pid int) (*Action, error) {
+	stmt, err := dbConn.Prepare("INSERT INTO actions (uid,action,pid) VALUES ($1,$2,$3) ON conflict(uid,action,pid) DO DELETE FROM actions WHERE uid=$4 AND action=$5 AND pid=$6")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmt.Exec(uid, action, pid)
+	_, err = stmt.Exec(uid, action, pid, uid, action, pid)
 	if err != nil {
 		return nil, err
 	}
@@ -18,21 +18,6 @@ func AddAction(uid int, action string, pid int) (*Action, error) {
 
 	res := &Action{Uid: uid, Action: action, Pid: pid}
 	return res, err
-}
-
-func DeleteAction(uid int, action string, pid int) error {
-	stmt, err := dbConn.Prepare("DELETE FROM comments WHERE uid=$1 AND action=$2 AND pid=$3")
-	if err != nil {
-		return err
-	}
-
-	_, err = stmt.Exec(uid, action, pid)
-	if err != nil {
-		return err
-	}
-	defer stmt.Close()
-
-	return nil
 }
 
 func GetActionCount(action string, pid int) (*Count, error) {
@@ -46,5 +31,34 @@ func GetActionCount(action string, pid int) (*Count, error) {
 	res := &Count{Action: action, Pid: pid, Count: count}
 
 	defer stmtCount.Close()
+	return res, nil
+}
+
+func GetPv(pid int) (*Pv, error) {
+	stmtCount, err := dbConn.Prepare("SELECT pv FROM pv WHERE pid = $1")
+	var pv int
+	err = stmtCount.QueryRow(pid).Scan(&pv)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
+	}
+
+	res := &Pv{Pid: pid, Pv: pv}
+
+	defer stmtCount.Close()
+	return res, nil
+}
+
+func ReplacePv(pid int, pv int) (*Pv, error) {
+	stmtIns, err := dbConn.Prepare("INSERT INTO pv (pid,pv) VALUES ($1,$2) ON conflict(pid) DO UPDATE SET pv=$3")
+	if err != nil {
+		return nil, err
+	}
+	_, err = stmtIns.Exec(pid, pv, pv)
+	if err != nil {
+		return nil, err
+	}
+	defer stmtIns.Close()
+
+	res := &Pv{Pid: pid, Pv: pv}
 	return res, nil
 }
