@@ -1,7 +1,7 @@
 package db
 
 import (
-	_ "database/sql"
+	"database/sql"
 )
 
 func ReplaceAction(uid int, action string, pid int) (*Action, error) {
