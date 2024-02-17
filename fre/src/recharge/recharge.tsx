@@ -9,13 +9,13 @@ import { getAvatar, getSuo } from '../util/avatar'
 export default function Pay() {
     const [index, setIndex] = useState(0)
     const order = Math.floor(Math.random() * 10000000000)
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({} as any);
     useEffect(() => {
         pay({
             price: Object.values(list)[index],
             order,
-            uid: (user || {}).id || getUser()?.id
-        }).then(res => {
+            uid: user?.id || getUser()?.id
+        }).then((res: any) => {
             q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), 'var(--secondary)')
             q2.current.href = res.alipay_trade_precreate_response.qr_code
         })
@@ -30,7 +30,7 @@ export default function Pay() {
         })
     }
 
-    const list = { '一天': 0.5, '一月': 9, '一季度': 25, '一年': 99 }
+    const list = { '一天': 0.5, '一月': 10, '一季度': 25, '一年': 90 }
 
     return <div className="vip wrap section">
         {/* <h3>1. 请输入c站昵称</h3> */}

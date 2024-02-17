@@ -9,13 +9,13 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"io"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 	"time"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 var publickey string = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApmDKNmbEQSBaijjZCX1tfPZtFD4MTnnNDuDQEeB3uNA48Qk4KmrMAo3LDDqvFTQ7MHLJcHzqpooUF9COYX65JEezW8CFuu1K79lfXnz0rgEK6mTQYM+SVsCt4U07ivqNaHRlnId/hF9odTUDSHGQYw2lUxXZY7HjAGRRqTmFwJ2gs/8uNPvKd9NccGB/++JuLN/JPHZmsAPuicVOIu2hIPAyHvw4qgG7zGWxD88Sm4xs/CyJsQLHBKhYVrI+YR9VoRKAjRLHuBhOEBFv6fVnrj30ovnoPAEP/4m/ycSg8Rt+uVKCU6eYSHBiCAIuM51+zBXHDlGEWwqQRPXNRw3hGwIDAQAB`
@@ -54,16 +54,14 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
-	body := r.Form.Get("body")
-	a := r.Form.Get("total_amount")
-	amount, _ := strconv.ParseFloat(a, 64)
-	// amount, _ := strconv.Atoi(r.URL.Query().Get("total_amount"))
-	fmt.Println(body)
-	fmt.Println(a)
+	uid := r.Form.Get("body")
+	amount := r.Form.Get("total_amount")
 	fmt.Println("充值回调")
-	uid, _ := strconv.Atoi(body)
+	url := `https://clicli.deno.dev/vip/add?uid=` + uid + `&price=` + amount
 
-	fmt.Println(uid, amount)
+	body := httpPost(url)
+
+	fmt.Println(url, body)
 
 	io.WriteString(w, "success")
 

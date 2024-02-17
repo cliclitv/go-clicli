@@ -20,12 +20,11 @@ type middleWareHandler struct {
 	r *httprouter.Router
 }
 
-var whiteOrigins = [9]string{
+var whiteOrigins = [6]string{
 	"https://www.clicli.cc",
 	"https://clicli.cc",
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
-	"https://www.cli.plus",
 	"http://localhost:4000",
 	"http://localhost:6000",
 }
@@ -60,11 +59,8 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/user", handler.GetUser)
 	router.POST("/comment/add", handler.AddComment)
 	router.POST("/comment/read", handler.ReadComments)
-	router.POST("/comment/delete/:id", handler.DeleteComment)
+	router.GET("/comment/delete/:id", handler.DeleteComment)
 	router.GET("/comments", handler.GetComments)
-
-	router.POST("/action/replace", handler.ReplaceAction)
-	router.GET("/action/count", handler.GetActionCount)
 	router.GET("/pv/:pid", handler.GetPv)
 
 	router.POST("/post/update/:id", handler.UpdatePost)
