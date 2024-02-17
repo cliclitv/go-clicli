@@ -1,4 +1,4 @@
-import {  useEffect, useRef, useState } from 'fre'
+import { useEffect, useRef, useState } from 'fre'
 import { getUser, getUserB, pay, paycheck } from '../util/api'
 import { getMatrix, render, renderPath } from 'qr-code-generator-lib'
 
@@ -12,9 +12,9 @@ export default function Pay() {
     const [user, setUser] = useState({});
     useEffect(() => {
         pay({
-            price: list[index] / 100,
+            price: Object.values(list)[index],
             order,
-            uid: (user || {}).id || 2
+            uid: (user || {}).id || getUser()?.id
         }).then(res => {
             q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), 'var(--secondary)')
             q2.current.href = res.alipay_trade_precreate_response.qr_code
@@ -30,9 +30,9 @@ export default function Pay() {
         })
     }
 
-    const list = [100, 1000, 3000, 5000, 10000, 20000]
+    const list = { '一天': 0.5, '一月': 9, '一季度': 25, '一年': 99 }
 
-    return <div className="vip wrap">
+    return <div className="vip wrap section">
         {/* <h3>1. 请输入c站昵称</h3> */}
         <div class="userinfo">
             <input type="text" placeholder="请输入c站昵称" onInput={(e) => changeUser(e.target.value)} />
@@ -42,8 +42,8 @@ export default function Pay() {
         </div>
         <p>p.s. 请确认昵称和头像正确!</p>
         <ul>
-            {list.map((item, i) => {
-                return <li class={i === index ? 'active' : ''} onclick={() => setIndex(i)}>{item} 弯豆 <span>￥{item / 100}</span></li>
+            {Object.keys(list).map((item, i) => {
+                return <li class={i === index ? 'active' : ''} onclick={() => setIndex(i)}>延长{item} <span>￥{list[item]}</span></li>
             })}
         </ul>
         <h3>方式一：跳转支付宝APP</h3>

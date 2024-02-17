@@ -3,7 +3,6 @@ import { A, push } from '../use-route'
 import { post } from '../util/post'
 import './login.css'
 import { getUser, getUserB, updateUser } from '../util/api'
-import Live from './live'
 
 export function logout() {
     localStorage.clear()
@@ -55,7 +54,7 @@ export default function Register({ id }) {
 
     const isLive = user.level === 4 && user.sign != null
 
-    return <div class="wrap">
+    return <div class="wrap section">
         <div class="login">
             <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
             <li><input type="text" placeholder="QQ" onInput={(e) => change('qq', e.target.value)} value={user.qq} /></li>

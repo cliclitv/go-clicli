@@ -26,7 +26,7 @@ export default function Login() {
             }
         })
     }
-    return <div className="wrap">
+    return <div className="wrap section">
         <div class="login">
             <li><h1>CliCli.登录</h1></li>
             <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} /></li>
