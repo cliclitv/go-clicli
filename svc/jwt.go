@@ -1,4 +1,4 @@
-package handler
+package svc
 
 import (
 	"errors"

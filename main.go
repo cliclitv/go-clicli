@@ -6,7 +6,7 @@ import (
 	"io/fs"
 	"net/http"
 
-	"github.com/cliclitv/go-clicli/handler"
+	"github.com/cliclitv/go-clicli/svc"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -51,29 +51,29 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
-	router.POST("/user/register", handler.Register)
-	router.POST("/user/login", handler.Login)
-	router.POST("/user/logout", handler.Logout) // 前端清空 localstorage
-	router.POST("/user/update/:id", handler.UpdateUser)
-	router.GET("/users", handler.GetUsers)
-	router.GET("/user", handler.GetUser)
-	router.POST("/comment/add", handler.AddComment)
-	router.POST("/comment/read", handler.ReadComments)
-	router.GET("/comment/delete/:id", handler.DeleteComment)
-	router.GET("/comments", handler.GetComments)
-	router.GET("/pv/:pid", handler.GetPv)
+	router.POST("/user/register", svc.Register)
+	router.POST("/user/login", svc.Login)
+	router.POST("/user/logout", svc.Logout) // 前端清空 localstorage
+	router.POST("/user/update/:id", svc.UpdateUser)
+	router.GET("/users", svc.GetUsers)
+	router.GET("/user", svc.GetUser)
+	router.POST("/comment/add", svc.AddComment)
+	router.POST("/comment/read", svc.ReadComments)
+	router.GET("/comment/delete/:id", svc.DeleteComment)
+	router.GET("/comments", svc.GetComments)
+	router.GET("/pv/:pid", svc.GetPv)
 
-	router.POST("/post/update/:id", handler.UpdatePost)
-	router.POST("/post/add", handler.AddPost)
-	router.GET("/post/:id", handler.GetPost)
-	router.GET("/posts", handler.GetPosts)
-	router.GET("/search/posts", handler.SearchPosts)
-	router.GET("/search/users", handler.SearchUsers)
-	router.GET("/play", handler.GetPlay)
-	router.GET("/rank", handler.GetRank)
-	router.GET("/vip/pay", handler.Pay)
-	router.GET("/vip/paycheck", handler.Check)
-	router.POST("/vip/callback", handler.Callback)
+	router.POST("/post/update/:id", svc.UpdatePost)
+	router.POST("/post/add", svc.AddPost)
+	router.GET("/post/:id", svc.GetPost)
+	router.GET("/posts", svc.GetPosts)
+	router.GET("/search/posts", svc.SearchPosts)
+	router.GET("/search/users", svc.SearchUsers)
+	router.GET("/play", svc.GetPlay)
+	router.GET("/rank", svc.GetRank)
+	router.GET("/vip/pay", svc.Pay)
+	router.GET("/vip/paycheck", svc.Check)
+	router.POST("/vip/callback", svc.Callback)
 
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
