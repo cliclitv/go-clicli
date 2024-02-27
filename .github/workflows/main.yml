@@ -47,7 +47,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USERNAME }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
-          port: 29073
+          port: ${{ secrets.DEPLOY_PORT }}
           script: |
             docker-compose pull 
             docker-compose up -d 
