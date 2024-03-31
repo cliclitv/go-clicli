@@ -20,7 +20,14 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	if _, err := db.AddComment(body.Content, body.Pid, body.Uid, body.Rid, body.Runame, 0); err != nil {
+	user, err := Auth(
+		r.Header.Get("token"), 0b1111) // 非游客都可以
+
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+	if _, err := db.AddComment(body.Content, body.Pid, user.Id, body.Rid, body.Runame, 0); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
@@ -100,7 +107,7 @@ func fillComments(data []*db.Comment) []*db.Comment {
 func DeleteComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id, _ := strconv.Atoi(p.ByName("id"))
 	_, err := Auth(
-		r.Header.Get("token"), 0b1100) // 审核权限
+		r.URL.Query().Get("token"), 0b1100) // 审核权限
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))

@@ -20,9 +20,7 @@ func IsNumber(str string) bool {
 	match, err := regexp.MatchString(pattern, str)
 
 	if err != nil {
-
 		return false
-
 	}
 
 	return match
