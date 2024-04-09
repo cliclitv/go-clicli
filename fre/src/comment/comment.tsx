@@ -67,7 +67,7 @@ export default function Comment({ post, live }) {
                     <div className="comment-block">
                         <p>{item.uname}</p>
                         <p>{item.content}</p>
-                        <p>{time} <a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank">#{item.id}</a></p>
+                        <del>{time} <a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank">#{item.id}</a></del>
                     </div>
 
                 </div>
