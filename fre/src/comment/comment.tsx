@@ -65,9 +65,9 @@ export default function Comment({ post, live }) {
                 return <div className="comment-item">
                     <Avatar uqq={item.uqq}></Avatar>
                     <div className="comment-block">
-                        <p>{item.uname}</p>
+                        <p>{item.uname} <a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
                         <p>{item.content}</p>
-                        <del>{time} <a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank">#{item.id}</a></del>
+                        <p>{time}</p>
                     </div>
 
                 </div>
