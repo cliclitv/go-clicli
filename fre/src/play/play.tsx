@@ -65,7 +65,7 @@ export default function Post({ gv }) {
                             {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
                                 return <li>{tag}</li>
                             })}
-                            {(getUser() || {}).level & 0b1110 && <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li>}
+                            {((getUser() || {}).level & 0b1110 !== 0) && <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li>}
                         </div>
                     </div>
 
