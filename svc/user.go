@@ -28,6 +28,10 @@ func IsNumber(str string) bool {
 }
 
 func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if !tb.TryConsume() {
+		sendMsg(w, 429, "请求限速")
+		return
+	}
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
 

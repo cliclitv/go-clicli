@@ -6,11 +6,7 @@ import (
 	"io/fs"
 	"net/http"
 
-	"time"
-
 	"github.com/cliclitv/go-clicli/svc"
-	"github.com/didip/tollbooth"
-	"github.com/didip/tollbooth/limiter"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -41,22 +37,6 @@ func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 
 var whiteOriginsSet = make(map[string]bool)
 
-func LimitHandler(handler httprouter.Handle) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-		lmt := tollbooth.NewLimiter(1, &limiter.ExpirableOptions{DefaultExpirationTTL: time.Minute})
-
-		httpError := tollbooth.LimitByRequest(lmt, w, r)
-		if httpError != nil {
-			w.Header().Add("Content-Type", lmt.GetMessageContentType())
-			w.WriteHeader(httpError.StatusCode)
-			w.Write([]byte(httpError.Message))
-			return
-		}
-
-		handler(w, r, ps)
-	}
-}
-
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	origin := r.Header.Get("Origin")
 	if whiteOriginsSet[origin] {
@@ -72,13 +52,13 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
 
-	router.POST("/user/register", LimitHandler(svc.Register)) // 需要限流
+	router.POST("/user/register", svc.Register) // 需要限流
 	router.POST("/user/login", svc.Login)
 	router.POST("/user/logout", svc.Logout) // 前端清空 localstorage
 	router.POST("/user/update/:id", svc.UpdateUser)
 	router.GET("/users", svc.GetUsers)
 	router.GET("/user", svc.GetUser)
-	router.POST("/comment/add", LimitHandler(svc.AddComment)) // 需要限流
+	router.POST("/comment/add", svc.AddComment) // 需要限流
 	router.POST("/comment/read", svc.ReadComments)
 	router.GET("/comment/delete/:id", svc.DeleteComment)
 	router.GET("/comments", svc.GetComments)

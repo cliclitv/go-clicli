@@ -8,10 +8,17 @@ import (
 	"strconv"
 
 	"github.com/cliclitv/go-clicli/db"
+	"github.com/cliclitv/go-clicli/util"
 	"github.com/julienschmidt/httprouter"
 )
 
+var tb = util.NewTokenBucket(10, 20)
+
 func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	if !tb.TryConsume() {
+		sendMsg(w, 429, "请求限速")
+		return
+	}
 	req, _ := ioutil.ReadAll(r.Body)
 	body := &db.Comment{}
 
