@@ -35,6 +35,7 @@ export default function Header() {
                     </div>
                     <div className="biu">
                         <a href="https://app.clicli.cc" target="_blank"><li>APP</li></a>
+                        <a href="https://acgzone.clicli.us" target="_blank"><li>ACG里世界</li></a>
                         <li onClick={() => push('/recharge')}>会员时长</li>
                         <li onClick={openWallet} style={{ position: 'relative' }}>
                             <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
