@@ -203,7 +203,7 @@ func GetRank(day string) ([]*Post, error) {
 	for rows.Next() {
 		var id, pv, uid int
 		var title, content, status, sort, tag, ctime, videos, uname, uqq string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, pv, uid, uname, uqq); err != nil {
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
