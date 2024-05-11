@@ -1,10 +1,5 @@
 package db
 
-type Pv struct {
-	Pid int `json:"pid"`
-	Pv  int `json:"pv"`
-}
-
 type Count struct {
 	Uid    int    `json:"uid,omitempty"`
 	Action string `json:"action,omitempty"`
@@ -54,6 +49,7 @@ type Post struct {
 	Uname   string `json:"uname,omitempty"`
 	Uqq     string `json:"uqq,omitempty"`
 	Videos  string `json:"videos,omitempty"`
+	Pv      int    `json:"sort"`
 }
 
 type Actions struct {
