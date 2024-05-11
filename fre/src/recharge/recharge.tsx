@@ -43,7 +43,7 @@ export default function Pay() {
         <p>p.s. 请确认昵称和头像正确!</p>
         <ul>
             {Object.keys(list).map((item, i) => {
-                return <li class={i === index ? 'active' : ''} onclick={() => setIndex(i)}>延长{item} <span>￥{list[item]}</span></li>
+                return <li class={i === index ? 'active' : ''} onclick={() => setIndex(i)}>赞助{item} <span>￥{list[item]}</span></li>
             })}
         </ul>
         <h3>方式一：跳转支付宝APP</h3>
