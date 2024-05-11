@@ -73,6 +73,8 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	}
 	defer stmt.Close()
 
+	UpdatePv(pid)
+
 	res := &Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq}
 
 	return res, nil
@@ -182,7 +184,7 @@ func SearchPosts(key string) ([]*Post, error) {
 
 func GetRank(day string) ([]*Post, error) {
 
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts JOIN pv ON posts.id = pv.pid WHERE time >= current_timestamp - interval '1 day' * $1 ORDER BY pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos FROM posts WHERE time >= current_timestamp - interval '1 day' * $1 ORDER BY posts.pv DESC LIMIT 10")
 
 	var res []*Post
 
