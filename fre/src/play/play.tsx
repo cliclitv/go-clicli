@@ -12,21 +12,18 @@ export default function Post({ gv }) {
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
-    const [pv, setPv] = useState("")
     const [show, setShow] = useState(false)
     const [idx, setId] = useState(fp - 1)
 
     useEffect(() => {
         const p1 = getPostDetail(id)
-        const p2 = getPv(id)
-        Promise.all([p1, p2]).then(([res1, res2]) => {
-            setPost((res1 as any).result)
-            const videos = buildVideos((res1 as any).result.videos || "")
+        p1.then((res) => {
+            setPost((res as any).result)
+            const videos = buildVideos((res as any).result.videos || "")
             setVideos(videos)
             if (videos.length > 0) {
                 setPlay(videos[0][1])
             }
-            setPv((res2 as any).result.pv)
             // a.current.innerHTML = snarkdown((res1 as any).result.content)
         })
 
@@ -57,7 +54,7 @@ export default function Post({ gv }) {
                             </ul>
                         </div>
 
-                        <h1>{post.title}<span>{pv} ℃</span>
+                        <h1>{post.title}<span>{post.pv} ℃</span>
                         </h1>
                     </div>
                     <div className="tag">
