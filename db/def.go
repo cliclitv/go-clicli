@@ -49,7 +49,7 @@ type Post struct {
 	Uname   string `json:"uname,omitempty"`
 	Uqq     string `json:"uqq,omitempty"`
 	Videos  string `json:"videos,omitempty"`
-	Pv      int    `json:"sort"`
+	Pv      int    `json:"pv,omitempty"`
 }
 
 type Actions struct {
