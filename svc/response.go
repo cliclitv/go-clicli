@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-
 	"github.com/cliclitv/go-clicli/db"
 )
 
@@ -56,16 +55,6 @@ func sendPlayResponse(w http.ResponseWriter, cRes db.Play, sc int) {
 	resStr, _ := json.Marshal(struct {
 		Code   int     `json:"code"`
 		Result db.Play `json:"result"`
-	}{sc, cRes})
-
-	io.WriteString(w, string(resStr))
-}
-
-func sendPvResponse(w http.ResponseWriter, cRes *db.Pv, sc int) {
-	w.WriteHeader(sc)
-	resStr, _ := json.Marshal(struct {
-		Code   int    `json:"code"`
-		Result *db.Pv `json:"result"`
 	}{sc, cRes})
 
 	io.WriteString(w, string(resStr))
