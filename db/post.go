@@ -139,7 +139,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	for rows.Next() {
 		var id, uid, pv int
 		var title, content, status, sort, tag, ctime, uname, uqq, videos string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Pv: pv}
@@ -171,7 +171,7 @@ func SearchPosts(key string) ([]*Post, error) {
 	for rows.Next() {
 		var id, uid, pv int
 		var title, content, status, sort, tag, ctime, uname, uqq, videos string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &uid, &uname, &uqq); err != nil {
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
@@ -184,8 +184,11 @@ func SearchPosts(key string) ([]*Post, error) {
 
 func GetRank(day string) ([]*Post, error) {
 
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv FROM posts WHERE time >= current_timestamp - interval '1 day' * $1 ORDER BY pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv,users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE time >= current_timestamp - interval '1 day' * $1 AND status='public' ORDER BY pv DESC LIMIT 10")
 
+	if err != nil {
+		return nil, err
+	}
 	var res []*Post
 
 	rows, err := stmt.Query(day)

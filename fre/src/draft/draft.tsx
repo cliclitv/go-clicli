@@ -94,10 +94,10 @@ export default function Upload(props) {
     const tags = ['推荐', '幻灯', '国漫', '美漫', '剧场版', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔', '治愈',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '黄金厕纸',
         '特摄', '真人剧', '其它']
-        const gametags = [
-            '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
-            '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其它原创'
-        ]
+    const gametags = [
+        '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
+        '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其它原创'
+    ]
     return (
         <div className="wrap section" style={{ display: 'flex' }}>
             <div className="upload">
@@ -114,10 +114,8 @@ export default function Upload(props) {
                     <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user?.id}`)}></i>
                 </section>
                 <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
-                <textarea spellcheck="false" placeholder={post.sort === '图文视频'
-                    ? `图集框，请输入图床地址，如：https://clicli.cc/001.png\n多图流用回车隔开` :
+                <textarea spellcheck="false" placeholder={
                     `直链框，请输入标题+$+直链，如：第一话$https://clicli.cc/001.mp4\n多个分P用回车隔开`
-
                 } value={post.videos} class="videos" onInput={e => change('videos', e.target.value)}></textarea>
 
                 <div className="options">
