@@ -3,11 +3,12 @@ package svc
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/cliclitv/go-clicli/db"
-	"github.com/julienschmidt/httprouter"
 	"io"
 	"net/http"
 	"strconv"
+
+	"github.com/cliclitv/go-clicli/db"
+	"github.com/julienschmidt/httprouter"
 )
 
 func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -130,4 +131,15 @@ func GetRank(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendPostsResponse(w, res, 200)
 	}
 
+}
+
+func GetPv(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	w.WriteHeader(200)
+	resStr, _ := json.Marshal(struct {
+		Code int `json:"code"`
+		Pid  int `json:"pid"`
+		Pv   int `json:"pv"`
+	}{200, 1, 100})
+
+	io.WriteString(w, string(resStr))
 }

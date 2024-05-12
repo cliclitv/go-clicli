@@ -79,23 +79,3 @@ func sendCommentsResponse(w http.ResponseWriter, Res *db.Comments, sc int) {
 
 	io.WriteString(w, string(resStr))
 }
-
-func sendCountResponse(w http.ResponseWriter, Res *db.Count, sc int) {
-	w.WriteHeader(sc)
-	resStr, _ := json.Marshal(struct {
-		Code int `json:"code"`
-		*db.Count
-	}{sc, Res})
-
-	io.WriteString(w, string(resStr))
-}
-
-func sendActionResponse(w http.ResponseWriter, Res *db.Action, sc int) {
-	w.WriteHeader(sc)
-	resStr, _ := json.Marshal(struct {
-		Code int `json:"code"`
-		*db.Action
-	}{sc, Res})
-
-	io.WriteString(w, string(resStr))
-}
