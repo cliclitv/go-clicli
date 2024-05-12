@@ -14,14 +14,8 @@ function getTimeStr(time) {
     return h === '00' ? m + ':' + s : h + ':' + m + ':' + s
   }
 
-export default function Danmaku({ post, p }) {
+export default function Danmaku({ post, p, danmakus }) {
     const [danmaku, setDanmaku] = useState('')
-    const [danmakus, setDanmakus] = useState([])
-    useEffect(() => {
-        getDanmakus(post.id, 0).then(res => {
-            setDanmakus((res as any).danmakus || [])
-        })
-    }, [])
 
     function submit() {
         if (danmaku.length < 1) {
