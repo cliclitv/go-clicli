@@ -18,8 +18,6 @@ export default function Post({ gv }) {
     const [idx, setId] = useState(fp - 1)
     const [danmakus, setDanmakus] = useState([])
 
-    var dm
-
     useEffect(() => {
         const p1 = getPostDetail(id)
         p1.then((res) => {
@@ -40,15 +38,14 @@ export default function Post({ gv }) {
 
         getDanmakus(id, idx).then(res => {
             setDanmakus((res as any).danmakus || [])
-            console.log((res as any).danmakus)
-            dm = new Danmu(canvas, video, (res as any).danmakus)
+            window.dm = new Danmu(canvas, video, (res as any).danmakus || [])
             video.addEventListener('play', function () {
                 console.log("开始播放");
-                dm.play()
+                window.dm.play()
             });
             video.addEventListener('pause', function () {
                 console.log("播放暂停");
-                dm.pause()
+                window.dm.pause()
             });
         })
     }, [])

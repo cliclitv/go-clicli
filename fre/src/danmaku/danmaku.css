@@ -6,8 +6,9 @@
 
 .danmaku-item {
     box-sizing: border-box;
-    padding: 10px;
+    padding: 5px 10px;
     display: flex;
+    border-top: 1px solid #222;
 }
 
 .danmaku-block{

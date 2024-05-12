@@ -22,13 +22,15 @@ export default function Danmaku({ post, p, danmakus }) {
             return
         }
         const video = document.querySelector('e-player').shadowRoot.querySelector('video')
-        addDanmaku({
+        const data = {
             pid: post.id,
             p,
             pos: Math.floor(video.currentTime),
             color: '#ffffff',
             content: danmaku,
-        } as any).then((res: any) => {
+        }
+        window.dm.add(data)
+        addDanmaku(data as any).then((res: any) => {
             alert(res.msg)
         })
 
