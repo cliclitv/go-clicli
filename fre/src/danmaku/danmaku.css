@@ -23,15 +23,11 @@
 
 .danmaku-item p{
     padding: 5px;
-}
-
-.danmaku-item p:nth-child(1){
-    color: #ddd;
+    color: #888;
 }
 
 .danmaku-item p:nth-child(3){
-    color: #888;
-    font-size: 12px;
+    color: #ddd;
 }
 
 .danmaku h1 {

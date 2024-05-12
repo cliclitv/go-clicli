@@ -53,6 +53,7 @@ export default function Danmaku({ post, p, danmakus }) {
                 //@ts-ignore
                 const pos = getTimeStr(item.pos)
                 return <div className="danmaku-item">
+                    <p>P{p+1}</p>
                     <p>{pos}</p>
                     {/* <p><a href={`https://www.clicli.cc/danmaku/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p> */}
                     <p className="danmaku-block">{item.content}</p>
