@@ -132,14 +132,3 @@ func GetRank(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 
 }
-
-func GetPv(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	w.WriteHeader(200)
-	resStr, _ := json.Marshal(struct {
-		Code int `json:"code"`
-		Pid  int `json:"pid"`
-		Pv   int `json:"pv"`
-	}{200, 1, 100})
-
-	io.WriteString(w, string(resStr))
-}
