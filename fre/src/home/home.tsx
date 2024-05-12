@@ -10,7 +10,6 @@ import RankList from '../rank/rank'
 import Recommend from './recommend'
 import UGCList from './ugc'
 import PostList from './posts'
-import Live from '../play/live'
 
 
 
@@ -27,7 +26,7 @@ export default function App(props) {
                 <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
                     push('/')
                 }}></i>
-                    {props.gv.indexOf('gv') > -1 ? <Post gv={props.gv}></Post> : <Live uu={props.gv}></Live>}
+                    <Post gv={props.gv}></Post>
                 </div>
                 <div className="mask"></div></div> : <div></div>}
         </div>

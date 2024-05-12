@@ -248,3 +248,8 @@ article a {
     justify-content: center;
     cursor: pointer;
 }
+
+canvas {
+    position: absolute;
+    z-index: 999;
+}

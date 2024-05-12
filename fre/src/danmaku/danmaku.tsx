@@ -4,26 +4,35 @@ import { push } from '../use-route'
 import { addDanmaku, getDanmakus, getUser } from '../util/api'
 import './danmaku.css'
 
+function getTimeStr(time) {
+    let h = Math.floor(time / 3600) as any
+    let m = Math.floor((time % 3600) / 60) as any
+    let s = Math.floor(time % 60) as any
+    h = h >= 10 ? h : '0' + h
+    m = m >= 10 ? m : '0' + m
+    s = s >= 10 ? s : '0' + s
+    return h === '00' ? m + ':' + s : h + ':' + m + ':' + s
+  }
+
 export default function Danmaku({ post, p }) {
     const [danmaku, setDanmaku] = useState('')
     const [danmakus, setDanmakus] = useState([])
     useEffect(() => {
-
         getDanmakus(post.id, 0).then(res => {
             setDanmakus((res as any).danmakus || [])
         })
-
     }, [])
 
     function submit() {
         if (danmaku.length < 1) {
             return
         }
+        const video = document.querySelector('e-player').shadowRoot.querySelector('video')
         addDanmaku({
             pid: post.id,
             p,
-            pos: 0,
-            color: '#fffff',
+            pos: Math.floor(video.currentTime),
+            color: '#ffffff',
             content: danmaku,
         } as any).then((res: any) => {
             alert(res.msg)
@@ -45,11 +54,13 @@ export default function Danmaku({ post, p }) {
             {danmakus && danmakus.map(item => {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')
+                //@ts-ignore
+                const pos = getTimeStr(item.pos)
                 return <div className="danmaku-item">
-                    <p><a href={`https://www.clicli.cc/danmaku/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
+                    <p>{pos}</p>
+                    {/* <p><a href={`https://www.clicli.cc/danmaku/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p> */}
                     <p className="danmaku-block">{item.content}</p>
                     <p>{time}</p>
-
                 </div>
             })}
         </div>

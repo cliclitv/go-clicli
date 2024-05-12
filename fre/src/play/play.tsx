@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'fre'
-import { getPlayUrl, getPostDetail, getPv, getUser } from '../util/api'
+import { useEffect, useState, useRef, Fragment } from 'fre'
+import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser } from '../util/api'
 import { getAv } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import './play.css'
@@ -7,6 +7,7 @@ import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
 import Danmaku from '../danmaku/danmaku'
+import Danmu from './danmaku'
 
 export default function Post({ gv }) {
     const [id, fp] = getAv(gv)
@@ -15,6 +16,7 @@ export default function Post({ gv }) {
     const [play, setPlay] = useState("")
     const [show, setShow] = useState(0)
     const [idx, setId] = useState(fp - 1)
+    const [danmakus, setDanmakus] = useState([])
 
     useEffect(() => {
         const p1 = getPostDetail(id)
@@ -30,6 +32,20 @@ export default function Post({ gv }) {
 
     }, [])
 
+    useEffect(() => {
+        const canvas = document.querySelector('canvas')
+        const video = document.querySelector('e-player').shadowRoot.querySelector('video')
+
+        getDanmakus(id, idx).then(res => {
+            setDanmakus((res as any).danmakus || [])
+            console.log((res as any).danmakus)
+            let dm = new Danmu(canvas, video, (res as any).danmakus)
+            dm.play()
+        })
+
+
+    }, [])
+
 
     const changeid = (i) => {
         setPlay(videos[i][1])
@@ -39,7 +55,7 @@ export default function Post({ gv }) {
     return (
         <div class="wrap player">
             <div className="ep-wrap">
-                <Eplayer url={play} live={post.sort === '推流'}></Eplayer>
+                <Eplayer url={play}></Eplayer>
             </div>
             <div className="p">
                 <div className="info">
@@ -100,14 +116,14 @@ export function Eplayer(props) {
             if (t.current) {
                 t.current.setAttribute('type', type)
                 t.current.setAttribute('src', res.result.url)
-                if (props.live) {
-                    t.current.shadowRoot.querySelector('.progress').style.display = 'none'
-                }
             }
         })
     }, [props.url])
 
     return (
-        <e-player ref={t} class='ep' />
+        <>
+            <canvas id="danmaku"></canvas>
+            <e-player ref={t} class='ep' />
+        </>
     )
 }
