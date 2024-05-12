@@ -1,5 +1,5 @@
 .player.wrap {
-    width: 1300px;
+    width: 1600px;
     display: flex;
     background: transparent;
     overflow: hidden;
@@ -7,11 +7,11 @@
 }
 
 .ep-wrap {
-    width: 900px;
-    height: 500px;
+    width: 1200px !important;
+    height: calc(var(--width) / 16 * 9) !important;
     overflow: hidden;
     position: relative;
-    border-radius: 10px;
+    border-radius: 5px 0 0 5px;
 }
 
 
@@ -21,7 +21,7 @@
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 500px;
+    height: 670px;
 }
 
 .p h1 {

@@ -22,13 +22,15 @@ export default function App(props) {
             </div>
             <WeekList />
             <PostList></PostList>
-            {props.gv ? <div>
-                <div class="postplayer"><i class='icon-font icon-close' onclick={() => {
-                    push('/')
-                }}></i>
+            {props.gv ? <div style={{ 'position': 'relative' }}>
+                <div class="postplayer">
                     <Post gv={props.gv}></Post>
                 </div>
-                <div className="mask"></div></div> : <div></div>}
+                <div className="mask">
+                    <i class='icon-font icon-back' onclick={() => {
+                        push('/')
+                    }}></i>
+                </div></div> : <div></div>}
         </div>
 
     )
