@@ -2,21 +2,21 @@ import { useEffect, useState, Fragment } from 'fre'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import { addDanmaku, getDanmakus, getUser } from '../util/api'
-import './comment.css'
+import './danmaku.css'
 
 export default function Danmaku({ post,p }) {
-    const [comment, setDanmaku] = useState('')
-    const [comments, setDanmakus] = useState([])
+    const [danmaku, setDanmaku] = useState('')
+    const [danmakus, setDanmakus] = useState([])
     useEffect(() => {
 
         getDanmakus(post.id, 0).then(res => {
-            setDanmakus((res as any).comments || [])
+            setDanmakus((res as any).danmakus || [])
         })
 
     }, [])
 
     function submit() {
-        if (comment.length < 1) {
+        if (danmaku.length < 1) {
             return
         }
         addDanmaku({
@@ -24,7 +24,7 @@ export default function Danmaku({ post,p }) {
             p: 0,
             pos:0,
             color:'#fffff',
-            content: comment,
+            content: danmaku,
         } as any).then((res: any) => {
             alert(res.msg)
         })
@@ -32,22 +32,22 @@ export default function Danmaku({ post,p }) {
     }
     const user = getUser() || {}
     return <div>
-        <div class="comment">
-            <div className="comment-input">
+        <div class="danmaku">
+            <div className="danmaku-input">
                 <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
                 <input type="text" placeholder="Duang~" onInput={(e) => setDanmaku(e.target.value)} />
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
-            <h1>共有{comments ? comments.length : 0}条讨论</h1>
+            <h1>共有{danmakus ? danmakus.length : 0}条讨论</h1>
 
 
-            {comments && comments.map(item => {
+            {danmakus && danmakus.map(item => {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')
-                return <div className="comment-item">
-                    <div className="comment-block">
-                        <p><a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
+                return <div className="danmaku-item">
+                    <div className="danmaku-block">
+                        <p><a href={`https://www.clicli.cc/danmaku/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
                         <p>{item.content}</p>
                         <p>{time}</p>
                     </div>
