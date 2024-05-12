@@ -1,51 +1,51 @@
-.comment {
+.danmaku {
     width: 420px;
     position: relative;
     margin-bottom: 80px;
 }
 
-.comment-item {
+.danmaku-item {
     box-sizing: border-box;
     padding: 10px;
     display: flex;
 }
 
-.comment-block{
+.danmaku-block{
     flex: 1;
 }
 
-.comment-item .avatar{
+.danmaku-item .avatar{
     margin: 0;
     display: block;
     padding: 5px 10px;
 }
 
-.comment-item p{
+.danmaku-item p{
     padding: 5px;
 }
 
-.comment-item p:nth-child(1){
+.danmaku-item p:nth-child(1){
     color: #ddd;
 }
 
-.comment-item p:nth-child(3){
+.danmaku-item p:nth-child(3){
     color: #888;
     font-size: 12px;
 }
 
-.comment h1 {
+.danmaku h1 {
     font-weight: normal;
     font-size: 12px!important;
     color: #ddd!important;
     padding: 10px;
 }
 
-.comment-item li {
+.danmaku-item li {
     display: flex;
     align-items: center;
 }
 
-.comment-input {
+.danmaku-input {
     display: flex;
     align-items: center;
     padding: 20px;
@@ -57,7 +57,7 @@
     box-sizing: border-box;
 }
 
-.comment-input input {
+.danmaku-input input {
     background: var(--primary-bg);
     color: #fff;
     height: 30px;
@@ -67,7 +67,8 @@
     flex: 1;
 }
 
-.comment-input button {
+.danmaku-input button {
+    background: var(--secondary);
     position: absolute;
     right: 20px;
     height: 30px;
@@ -79,6 +80,6 @@
     justify-content: center;
 }
 
-.comment-item ul {
+.danmaku-item ul {
     display: flex;
 }

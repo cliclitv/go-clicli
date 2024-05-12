@@ -4,7 +4,7 @@ import { push } from '../use-route'
 import { addDanmaku, getDanmakus, getUser } from '../util/api'
 import './danmaku.css'
 
-export default function Danmaku({ post,p }) {
+export default function Danmaku({ post, p }) {
     const [danmaku, setDanmaku] = useState('')
     const [danmakus, setDanmakus] = useState([])
     useEffect(() => {
@@ -21,9 +21,9 @@ export default function Danmaku({ post,p }) {
         }
         addDanmaku({
             pid: post.id,
-            p: 0,
-            pos:0,
-            color:'#fffff',
+            p,
+            pos: 0,
+            color: '#fffff',
             content: danmaku,
         } as any).then((res: any) => {
             alert(res.msg)
@@ -39,18 +39,16 @@ export default function Danmaku({ post,p }) {
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
-            <h1>共有{danmakus ? danmakus.length : 0}条讨论</h1>
+            <h1>共有{danmakus ? danmakus.length : 0}条弹幕</h1>
 
 
             {danmakus && danmakus.map(item => {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')
                 return <div className="danmaku-item">
-                    <div className="danmaku-block">
-                        <p><a href={`https://www.clicli.cc/danmaku/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
-                        <p>{item.content}</p>
-                        <p>{time}</p>
-                    </div>
+                    <p><a href={`https://www.clicli.cc/danmaku/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
+                    <p className="danmaku-block">{item.content}</p>
+                    <p>{time}</p>
 
                 </div>
             })}

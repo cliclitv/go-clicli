@@ -73,6 +73,10 @@
 }
 
 .tab li:nth-child(2) {
+    border-radius: 0;
+}
+
+.tab li:nth-child(3) {
     border-radius: 0 10px 10px 0;
 }
 

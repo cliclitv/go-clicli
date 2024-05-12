@@ -143,7 +143,7 @@ export function addDanmaku({ pid, p, uid, color, pos, content }) {
     content,
     color,
     p,
-    pos: pos.toString(),
+    pos,
     uid: getUser().id,
     pid
   })
