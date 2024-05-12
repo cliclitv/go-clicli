@@ -79,3 +79,13 @@ func sendCommentsResponse(w http.ResponseWriter, Res *db.Comments, sc int) {
 
 	io.WriteString(w, string(resStr))
 }
+
+func sendDanmakusResponse(w http.ResponseWriter, Res *db.Danmakus, sc int) {
+	w.WriteHeader(sc)
+	resStr, _ := json.Marshal(struct {
+		Code int `json:"code"`
+		*db.Danmakus
+	}{sc, Res})
+
+	io.WriteString(w, string(resStr))
+}

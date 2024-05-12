@@ -58,7 +58,6 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	} else {
 		sendMsg(w, 200, "注册成功啦")
 	}
-
 }
 
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {

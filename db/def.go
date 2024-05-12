@@ -27,6 +27,17 @@ type Comment struct {
 	Replies []*Comment `json:"replies,omitempty"`
 }
 
+type Danmaku struct {
+	Id      int    `json:"id,omitempty"`
+	Content string `json:"content"`
+	Pid     int    `json:"pid"`
+	P       int    `json:"p"`
+	Pos     int    `json:"pos"`
+	Uid     int    `json:"uid,omitempty"`
+	Color   string `json:"color,omitempty"`
+	Time    string `json:"time,omitempty"`
+}
+
 type User struct {
 	Id    int    `json:"id,omitempty"`
 	Name  string `json:"name"`
@@ -52,10 +63,6 @@ type Post struct {
 	Pv      int    `json:"pv,omitempty"`
 }
 
-type Actions struct {
-	Posts []*Post `json:"actions"`
-}
-
 type Action struct {
 	Id       int    `json:"id,omitempty"`
 	Uid      int    `json:"uid,omitempty"`
@@ -77,4 +84,8 @@ type Users struct {
 
 type Comments struct {
 	Comments []*Comment `json:"comments"`
+}
+
+type Danmakus struct {
+	Danmakus []*Danmaku `json:"danmakus"`
 }
