@@ -58,10 +58,15 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/user/update/:id", svc.UpdateUser)
 	router.GET("/users", svc.GetUsers)
 	router.GET("/user", svc.GetUser)
+
 	router.POST("/comment/add", svc.AddComment) // 需要限流
 	router.POST("/comment/read", svc.ReadComments)
 	router.GET("/comment/delete/:id", svc.DeleteComment)
 	router.GET("/comments", svc.GetComments)
+
+	router.POST("/danmaku/add", svc.AddDanmaku) // 需要限流
+	router.GET("/danmaku/delete/:id", svc.DeleteDanmaku)
+	router.GET("/danmakus", svc.GetDanmakus)
 
 	router.POST("/post/update/:id", svc.UpdatePost)
 	router.POST("/post/add", svc.AddPost)

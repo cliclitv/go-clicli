@@ -1,19 +1,16 @@
 import { useEffect, useState, Fragment } from 'fre'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
-import { addComment, getComments, getUser } from '../util/api'
+import { addDanmaku, getDanmakus, getUser } from '../util/api'
 import './comment.css'
 
-export default function Comment({ post }) {
-    console.log(post)
-    const [comment, setComment] = useState('')
-    const [comments, setComments] = useState([])
-
-    const [pos, setPos] = useState(0)
+export default function Danmaku({ post,p }) {
+    const [comment, setDanmaku] = useState('')
+    const [comments, setDanmakus] = useState([])
     useEffect(() => {
 
-        getComments(post.id, 0).then(res => {
-            setComments((res as any).comments || [])
+        getDanmakus(post.id, 0).then(res => {
+            setDanmakus((res as any).comments || [])
         })
 
     }, [])
@@ -22,12 +19,11 @@ export default function Comment({ post }) {
         if (comment.length < 1) {
             return
         }
-
-        addComment({
+        addDanmaku({
             pid: post.id,
-            rid: 0,
-            pos,
-            ruid: post.uid,
+            p: 0,
+            pos:0,
+            color:'#fffff',
             content: comment,
         } as any).then((res: any) => {
             alert(res.msg)
@@ -39,7 +35,7 @@ export default function Comment({ post }) {
         <div class="comment">
             <div className="comment-input">
                 <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
-                <input type="text" placeholder="Duang~" onInput={(e) => setComment(e.target.value)} />
+                <input type="text" placeholder="Duang~" onInput={(e) => setDanmaku(e.target.value)} />
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
@@ -50,9 +46,8 @@ export default function Comment({ post }) {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')
                 return <div className="comment-item">
-                    <Avatar uqq={item.uqq}></Avatar>
                     <div className="comment-block">
-                        <p>{item.uname} <a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
+                        <p><a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
                         <p>{item.content}</p>
                         <p>{time}</p>
                     </div>

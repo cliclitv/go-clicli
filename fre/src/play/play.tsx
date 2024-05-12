@@ -6,13 +6,14 @@ import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
+import Danmaku from '../danmaku/danmaku'
 
 export default function Post({ gv }) {
     const [id, fp] = getAv(gv)
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(0)
     const [idx, setId] = useState(fp - 1)
 
     useEffect(() => {
@@ -32,7 +33,6 @@ export default function Post({ gv }) {
 
     const changeid = (i) => {
         setPlay(videos[i][1])
-        getPv(id)
         setId(i)
     }
 
@@ -49,8 +49,9 @@ export default function Post({ gv }) {
                                 <Avatar uqq={post.uqq} uname={post.uname} />
                             </div>
                             <ul class="tab">
-                                <li class={show && 'active'} onclick={() => setShow(true)}>分P</li>
-                                <li class={!show && 'active'} onclick={() => setShow(false)}>讨论</li>
+                                <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
+                                <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>讨论</li>
+                                <li class={(show == 2) && 'active'} onclick={() => setShow(2)}>弹幕</li>
                             </ul>
                         </div>
 
@@ -62,19 +63,23 @@ export default function Post({ gv }) {
                             {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
                                 return <li>{tag}</li>
                             })}
-                            {((getUser() || {}).level & 0b1110) > 0 ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li>:null}
+                            {((getUser() || {}).level & 0b1110) > 0 ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li> : null}
                         </div>
                     </div>
                 </div>
                 {
-                    show && <ul>
+                    (show == 0) && <ul>
                         {videos.map((name, index) => {
                             return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
                         })}
                     </ul>
                 }
                 {
-                    !show && post.id && <Comment post={post}></Comment>
+                    (show == 1) && post.id && <Comment post={post}></Comment>
+                }
+
+                {
+                    (show == 2) && post.id && <Danmaku post={post} p={idx}></Danmaku>
                 }
             </div>
         </div>

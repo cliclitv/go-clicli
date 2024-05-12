@@ -33,7 +33,7 @@ function replaceContent(c = '') {
     .replace(/img[0-9].doubanio.com/g, 'doubanimg.deno.dev')
 }
 
-export function addPost({ title, content, status, sort, tag,  videos }) {
+export function addPost({ title, content, status, sort, tag, videos }) {
   videos = replaceContent(videos)
   return post('https://www.clicli.cc/post/add', {
     title,
@@ -119,7 +119,7 @@ export function updateArticle({ pid, oid, title, content, bio, id }) {
   })
 }
 
-export function getComments(pid,rid, page?, pageSize?) {
+export function getComments(pid, rid, page?, pageSize?) {
   console.log(pid)
   return get(`https://www.clicli.cc/comments?pid=${pid}&rid=${rid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
 }
@@ -133,7 +133,23 @@ export function addComment({ pid, uid, pos, content, rid = 0, ruid, read = 0 }) 
   })
 }
 
+export function getDanmakus(pid, p, page?, pageSize?) {
+  console.log(pid)
+  return get(`https://www.clicli.cc/danmakus?pid=${pid}&p=${p}&page=${page || 1}&pageSize=${pageSize || 1000}`)
+}
 
-export function getUsers(level, page, pageSize){
+export function addDanmaku({ pid, p, uid, color, pos, content }) {
+  return post('https://www.clicli.cc/danmaku/add', {
+    content,
+    color,
+    p,
+    pos: pos.toString(),
+    uid: getUser().id,
+    pid
+  })
+}
+
+
+export function getUsers(level, page, pageSize) {
   return get(`https://www.clicli.cc/users?level=${level}&page=${page}&pageSize=${pageSize}`)
 }
