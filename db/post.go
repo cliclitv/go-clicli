@@ -10,16 +10,17 @@ import (
 func AddPost(title string, content string, status string, sort string, tag string, uid int, videos string) (*Post, error) {
 	cstZone := time.FixedZone("CST", 8*3600)
 	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)")
+	pv := 1
+	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos,pv) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)")
 	if err != nil {
 		return nil, err
 
 	}
-	_, err = stmtIns.Exec(title, content, status, sort, tag, ctime, uid, videos)
+	_, err = stmtIns.Exec(title, content, status, sort, tag, ctime, uid, videos, pv)
 	if err != nil {
 		return nil, err
 	}
-	res := &Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Videos: videos}
+	res := &Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Videos: videos, Pv: pv}
 	defer stmtIns.Close()
 
 	return res, err
