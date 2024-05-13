@@ -15,7 +15,7 @@ const routes = {
     '/read/:gv': import('./home/home'),
     '/search/:k': import('./search/search'),
     '/user/:id': import('./login/register'),
-    '/recharge': import('./recharge/recharge'),
+    '/sponsor': import('./sponsor/sponsor'),
 }
 
 const App = () => {

@@ -12,9 +12,11 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/cliclitv/go-clicli/db"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -54,14 +56,39 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
-	uid := r.Form.Get("body")
-	amount := r.Form.Get("total_amount")
+	uid, _ := strconv.Atoi(r.Form.Get("body"))
+	amount, _ := strconv.ParseFloat(r.Form.Get("total_amount"), 64)
 	fmt.Println("充值回调")
-	url := `https://clicli.deno.dev/vip/add?uid=` + uid + `&price=` + amount
 
-	body := httpPost(url)
+	user, err := db.GetUser("", uid, "")
 
-	fmt.Println(url, body)
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+
+	var amountTime int
+
+	cTime := int(time.Now().Unix())
+
+	atime := int(amount * 2 * 86400)
+
+	if cTime > user.Viptime || user.Viptime == 0 {
+		// 已过期
+		amountTime = cTime + atime
+
+	} else {
+		// 没过期
+		amountTime = user.Viptime + atime
+	}
+
+	fmt.Println(amountTime, uid)
+	err2 := db.UpdateVipTime(uid, amountTime)
+
+	if err2 != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
 
 	io.WriteString(w, "success")
 

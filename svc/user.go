@@ -187,16 +187,3 @@ func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		sendUsersResponse(w, res, 200)
 	}
 }
-
-func SearchUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	key := r.URL.Query().Get("key")
-
-	resp, err := db.SearchUsers(key)
-	if err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
-	} else {
-		res := &db.Users{Users: resp}
-		sendUsersResponse(w, res, 200)
-	}
-}

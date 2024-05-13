@@ -39,13 +39,13 @@ type Danmaku struct {
 }
 
 type User struct {
-	Id    int    `json:"id,omitempty"`
-	Name  string `json:"name"`
-	Pwd   string `json:"pwd,omitempty"`
-	QQ    string `json:"qq"`
-	Sign  string `json:"sign,omitempty"`
-	Level int    `json:"level"`
-	Time  string `json:"time,omitempty"`
+	Id      int    `json:"id,omitempty"`
+	Name    string `json:"name"`
+	Pwd     string `json:"pwd,omitempty"`
+	QQ      string `json:"qq"`
+	Sign    string `json:"sign,omitempty"`
+	Level   int    `json:"level"`
+	Viptime int    `json:"viptime,omitempty"`
 }
 
 type Post struct {

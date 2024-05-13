@@ -73,7 +73,6 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/post/:id", svc.GetPost)
 	router.GET("/posts", svc.GetPosts)
 	router.GET("/search/posts", svc.SearchPosts)
-	router.GET("/search/users", svc.SearchUsers)
 	router.GET("/play", svc.GetPlay)
 	router.GET("/rank", svc.GetRank)
 	router.GET("/pv/:pid", svc.GetPv)
