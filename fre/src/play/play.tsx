@@ -26,7 +26,9 @@ export default function Post({ gv }) {
             const videos = buildVideos((res as any).result.videos || "", res.result.uname)
             const names = buildNames(videos)
 
-            getUsers(names).then(users => setAuthors(users as any))
+            getUsers(names).then((res:any) => {
+                setAuthors(res.users)
+            })
             setVideos(videos)
             setSource(res.result.uname)
             if (videos.length > 0) {
