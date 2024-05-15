@@ -37,6 +37,7 @@
 .login .header {
     background: var(--primary);
     padding: 10px 0;
+    border-bottom: 5px solid var(--secondary);
 }
 
 button:disabled {
