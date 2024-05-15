@@ -63,11 +63,12 @@
     line-height: 30px!important;
 }
 
-.avatar img{
+.tabs .avatar img{
     padding: 5px;
+    cursor: pointer;
 }
 
-.active img{
+.tabs .active img{
     border: 1px dashed var(--primary);
     padding: 4px;
 }
