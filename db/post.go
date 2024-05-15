@@ -101,12 +101,16 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		sorts := strings.Split(sort, ",")
 		params := make([]string, 0, len(sorts))
 
-		for i, s := range sorts {
+		for i := len(slice); i < len(sorts); i++ {
+			s := sorts[i]
 			params = append(params, fmt.Sprintf("$%d", i+1))
 			slice = append(slice, s)
 		}
-		query += ` AND posts.sort IN(` + strings.Join(params, ", ") + `)`
+		query += ` AND posts.sort IN (` + strings.Join(params, ", ") + `)`
 	}
+
+	fmt.Println(query)
+	fmt.Println(slice)
 
 	if tag != "" {
 		tags := strings.Split(tag, ",")
