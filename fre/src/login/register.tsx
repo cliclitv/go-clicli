@@ -9,13 +9,13 @@ export function logout() {
     window.location.href = '/login'
 }
 
-export default function Register({ id }) {
+export default function Register({ uid }) {
 
     const [user, setUser] = useState({} as any)
 
     useEffect(() => {
-        if (id) {
-            getUserB({ qq: id } as any).then((user: any) => {
+        if (uid) {
+            getUserB({ qq: uid } as any).then((user: any) => {
                 setUser(user.result)
             })
         }
@@ -31,7 +31,7 @@ export default function Register({ id }) {
 
 
     async function register() {
-        if (id != null) {
+        if (uid != null) {
             console.log('修改用户')
             updateUser(user as any).then(res => {
                 if ((res as any).code === 200) {
@@ -54,23 +54,25 @@ export default function Register({ id }) {
 
     const isLive = user.level === 4 && user.sign != null
 
-    return <div class="wrap section">
+    return <div class="section">
         <div class="login">
-            <li><h1>CliCli.{id ? '个人中心' : '注册'}</h1></li>
+            <div className="header">
+                <li><h1>{uid ? `${user.name}の资料卡` : 'CliCli.注册'}</h1></li>
+            </div>
             <li><input type="text" placeholder="QQ" onInput={(e) => change('qq', e.target.value)} value={user.qq} /></li>
             <li><input type="text" placeholder="昵称" onInput={(e) => change('name', e.target.value)} value={user.name} /></li>
-            <li><input type="text" placeholder={id ? "留空则不改" : "密码"} onInput={(e) => change('pwd', e.target.value)} /></li>
+            <li><input type="text" placeholder={uid ? "留空则不改" : "密码"} onInput={(e) => change('pwd', e.target.value)} /></li>
             <li><input type="text" placeholder="签名(可不填)" onInput={(e) => change('sign', e.target.value)} value={user.sign} /></li>
 
-            {id && (getUser().level & 0b1000) != 0 && <select value={user.level} onInput={e => change('level', e.target.value)}>
+            {uid && (getUser().level & 0b1000) != 0 && <select value={user.level} onInput={e => change('level', e.target.value)}>
                 <option value="1">游客</option>
                 <option value="2">作者</option>
                 <option value="4">审核</option>
                 <option value="8">管理</option>
             </select>}
-            <li><button onClick={register}>{id ? '修改' : '注册'}</button></li>
-            {id && <li><button onClick={logout}>退出登陆</button></li>}
-            {!id && <li><A href="/login">登录</A></li>}
+            <li><button onClick={register}>{uid ? '修改' : '注册'}</button></li>
+            {uid && <li><button onClick={logout} type='error'>退出登陆</button></li>}
+            {!uid && <li><A href="/login">登录</A></li>}
         </div>
     </div>
 }

@@ -1,12 +1,14 @@
 .login {
-    width: 300px;
     text-align: center;
+    overflow: hidden;
+    max-width: 370px;
     margin: 0 auto;
-    padding: 10px;
+    border-radius: 10px;
 }
 
 .login li {
     padding: 10px;
+    margin: 5px;
 }
 
 .login li input {
@@ -28,8 +30,12 @@
 }
 
 .login li h1 {
-    color: var(--primary);
-    text-align: left;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.login .header {
+    background: var(--primary);
     padding: 10px 0;
 }
 
@@ -42,7 +48,7 @@ button:disabled {
     padding: 10px 20px;
     border-radius: 18px;
     border: none;
-    width: 280px;
+    width: 330px;
     box-sizing: border-box;
     margin: 10px 0;
 }
@@ -53,4 +59,8 @@ button:disabled {
     border-radius: 50px;
     margin: 10px;
     color: var(--secondary);
+}
+
+button[type=error]{
+    background: #fc4761!important;
 }

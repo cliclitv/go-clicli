@@ -7,14 +7,12 @@ import { getToken } from "./util/post"
 
 const routes = {
     '/': import('./home/home'),
-    '/login': import('./login/login'),
-    '/register': import('./login/register'),
+    '/login': import('./home/home'),
+    '/register': import('./home/home'),
     '/draft/:id': import('./draft/draft'),
     '/play/:gv': import('./home/home'),
-    '/live/:gv': import('./home/home'),
-    '/read/:gv': import('./home/home'),
     '/search/:k': import('./search/search'),
-    '/user/:id': import('./login/register'),
+    '/user/:uid': import('./home/home'),
     '/sponsor': import('./sponsor/sponsor'),
 }
 

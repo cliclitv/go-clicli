@@ -52,6 +52,17 @@ section p {
     bottom: 0;
 }
 
+.usercenter{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    border-radius: 10px;
+    background: #f0f0f5;
+    width: 370px;
+    overflow: hidden;
+}
 
 .postplayer {
     background: rgba(0, 0, 0, .7);

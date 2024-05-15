@@ -42,7 +42,7 @@ export default function Header() {
                             {user.id ? <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
                                 <li>UID {user?.id}</li>
                                 <li onClick={() => push('/draft/0')}>草稿箱</li>
-                                <li onClick={() => push(`/user/${(user || {}).qq}`)}>个人中心</li>
+                                <li onClick={() => push(`/user/${(user || {}).qq}`)}>资料卡</li>
                                 <li onClick={logout}>退出</li>
                             </div> : <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
                                 <li>UID {user?.id}</li>

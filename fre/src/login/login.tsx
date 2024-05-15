@@ -1,4 +1,4 @@
-import {useState } from 'fre'
+import { useState } from 'fre'
 import { A, push } from '../use-route'
 import { post } from '../util/post'
 import './login.css'
@@ -26,9 +26,11 @@ export default function Login() {
             }
         })
     }
-    return <div className="wrap section">
+    return <div className=" section">
         <div class="login">
-            <li><h1>CliCli.登录</h1></li>
+            <div className="header">
+                <li><h1>CliCli.登录</h1></li>
+            </div>
             <li><input type="text" placeholder="昵称" onInput={(e) => changeName(e.target.value)} /></li>
             <li><input type="password" placeholder="密码" onInput={(e) => changePwd(e.target.value)} /></li>
             <li><button onClick={login}>登录</button></li>
