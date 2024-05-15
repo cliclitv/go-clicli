@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
-import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser } from '../util/api'
+import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB } from '../util/api'
 import { getAv } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import './play.css'
@@ -17,19 +17,28 @@ export default function Post({ gv }) {
     const [show, setShow] = useState(0)
     const [idx, setId] = useState(fp - 1)
     const [danmakus, setDanmakus] = useState([])
+    const [source, setSource] = useState('')
+    const [authors, setAuthors] = useState('')
 
     useEffect(() => {
-        const p1 = getPostDetail(id)
-        p1.then((res) => {
+        getPostDetail(id).then((res: any) => {
             setPost((res as any).result)
-            const videos = buildVideos((res as any).result.videos || "")
+            const videos = buildVideos((res as any).result.videos || "", res.result.uname)
+            const names = buildNames(videos)
+
+            Promise.all(names.map(async function name(name) {
+                return new Promise(resolve => {
+                    getUserB({ name } as any).then((data: any) => {
+                        resolve(data.result)
+                    })
+                })
+            })).then(users => setAuthors(users as any))
             setVideos(videos)
+            setSource(res.result.uname)
             if (videos.length > 0) {
                 setPlay(videos[0][1])
             }
-            // a.current.innerHTML = snarkdown((res1 as any).result.content)
         })
-
     }, [])
 
     useEffect(() => {
@@ -51,9 +60,9 @@ export default function Post({ gv }) {
     }, [])
 
 
-
     const changeid = (i) => {
-        setPlay(videos[i][1])
+        const v = videos
+        setPlay(v[i][1])
         setId(i)
     }
 
@@ -67,7 +76,7 @@ export default function Post({ gv }) {
                     <div>
                         <div class='avatar-wrap'>
                             <div style={{ flex: 1 }}>
-                                <Avatar uqq={post.uqq} uname={post.uname} />
+                                {/* <Avatar uqq={post.uqq} uname={post.uname} /> */}
                             </div>
                             <ul class="tab">
                                 <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
@@ -89,11 +98,20 @@ export default function Post({ gv }) {
                     </div>
                 </div>
                 {
-                    (show == 0) && <ul>
-                        {videos.map((name, index) => {
-                            return <li class={index == idx ? 'active' : ''} onClick={() => changeid(index)}>{`P${index + 1}. ${videos[index][0]}`}</li>
-                        })}
-                    </ul>
+                    (show == 0) && <>
+                        <ul class="tabs">
+                            {(authors || []).map((item, i) => {
+                                return <div class={item.name == source ? 'active' : ''} onClick={() => setSource(item.name)}>
+                                    <Avatar uqq={item.qq} noname={true}></Avatar>
+                                </div>
+                            })}
+                        </ul>
+                        <ul>
+                            {(buildNameVideos(videos, source) || []).map((video, ii) => {
+                                return <li class={video[3] == idx ? 'active' : ''} onClick={() => changeid(video[3])}>{`${video[0]}`}</li>
+                            })}
+                        </ul>
+                    </>
                 }
                 {
                     (show == 1) && post.id && <Comment post={post}></Comment>
@@ -109,8 +127,28 @@ export default function Post({ gv }) {
     )
 }
 
-export function buildVideos(str) {
-    return str.split('\n').map(v => v.split('$')).filter(i => i.length > 0 && i[1] != null)
+export function buildVideos(str, uname) {
+    return str.split('\n').map((v, i) => {
+        const [title, content, name] = v.split('$')
+        return [title, content, name || uname, i]
+    }).filter(i => i.length > 0 && i[1] != null)
+}
+
+export function buildNames(videos) {
+    if (!videos) return []
+    const names = []
+    console.log(videos)
+    videos.forEach((varr) => {
+        let [title, content, name] = varr
+        if (!names.includes(name)) {
+            names.push(name)
+        }
+    });
+    return names
+}
+
+export function buildNameVideos(videos, name) {
+    return videos.filter(item => item[2] == name)
 }
 
 export function Eplayer(props) {

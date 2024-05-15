@@ -11,6 +11,7 @@ body {
     background-size: 32px 32px;
     --primary: #8a61ff;
     --secondary: #9fdc0b;
+    --secondary-bg:rgba(108, 230, 123, 0.3);
     --bg: #f2f2f2;
     --black: rgb(37, 37, 37);
     --white: #fff;

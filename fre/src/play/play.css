@@ -53,12 +53,30 @@
     margin: 0;
 }
 
+.tabs{
+    display: flex;
+}
+
+.tabs li{
+    padding: 0 10px;
+    margin: 5px;
+    line-height: 30px!important;
+}
+
+.avatar img{
+    padding: 5px;
+}
+
+.active img{
+    border: 1px dashed var(--primary);
+    padding: 4px;
+}
+
 .tab {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 20px;
-
 }
 
 .tab li {
