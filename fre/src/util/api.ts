@@ -150,6 +150,6 @@ export function addDanmaku({ pid, p, uid, color, pos, content }) {
 }
 
 
-export function getUsers(level, page, pageSize) {
-  return get(`https://www.clicli.cc/users?level=${level}&page=${page}&pageSize=${pageSize}`)
+export function getUsers(names) {
+  return get(`https://www.clicli.cc/users?names=${names.join(',')}`)
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
-import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB } from '../util/api'
+import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
 import { getAv } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import './play.css'
@@ -26,13 +26,7 @@ export default function Post({ gv }) {
             const videos = buildVideos((res as any).result.videos || "", res.result.uname)
             const names = buildNames(videos)
 
-            Promise.all(names.map(async function name(name) {
-                return new Promise(resolve => {
-                    getUserB({ name } as any).then((data: any) => {
-                        resolve(data.result)
-                    })
-                })
-            })).then(users => setAuthors(users as any))
+            getUsers(names).then(users => setAuthors(users as any))
             setVideos(videos)
             setSource(res.result.uname)
             if (videos.length > 0) {
