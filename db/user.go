@@ -2,7 +2,9 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
+	"strings"
 
 	"github.com/cliclitv/go-clicli/util"
 )
@@ -94,26 +96,30 @@ func GetUser(name string, id int, qq string) (*User, error) {
 	return res, nil
 }
 
-func GetUsers(level int, page int, pageSize int) ([]*User, error) {
-	start := pageSize * (page - 1)
-	var slice []interface{}
-	var query string
-	if level == 5 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE NOT level = 1 ORDER BY time DESC LIMIT $1 OFFSET $2"
-	} else if level == 4 {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 AND NOT sign = '' ORDER BY time DESC LIMIT $2 OFFSET $3"
-		slice = append(slice, level)
-	} else {
-		query = "SELECT id, name, level, qq, sign FROM users WHERE level = $1 ORDER BY time DESC LIMIT $2 OFFSET $3"
-		slice = append(slice, level)
+func GetUsers(namestr string) ([]*User, error) {
+
+	names := strings.Split(namestr, ",")
+
+	params := make([]string, 0, len(names))
+	values := make([]interface{}, 0, len(names))
+
+	for i, s := range names {
+		params = append(params, fmt.Sprintf("$%d", i+1))
+		values = append(values, s)
 	}
 
-	slice = append(slice, pageSize, start)
+	query := fmt.Sprintf("SELECT id, name, level, qq, sign FROM users WHERE name IN (%s)", strings.Join(params, ", "))
+
 	stmt, err := dbConn.Prepare(query)
+
+	if err != nil {
+		return nil, err
+	}
 
 	var res []*User
 
-	rows, err := stmt.Query(slice...)
+	rows, err := stmt.Query(values...)
+
 	if err != nil {
 		return res, err
 	}

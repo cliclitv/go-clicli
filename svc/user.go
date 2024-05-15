@@ -174,11 +174,9 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	level, _ := strconv.Atoi(r.URL.Query().Get("level"))
-	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
-	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
+	names:= r.URL.Query().Get("names")
 
-	resp, err := db.GetUsers(level, page, pageSize)
+	resp, err := db.GetUsers(names)
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
