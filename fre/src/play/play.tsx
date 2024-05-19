@@ -26,7 +26,7 @@ export default function Post({ gv }) {
             const videos = buildVideos((res as any).result.videos || "", res.result.uname)
             const names = buildNames(videos)
 
-            getUsers(names).then((res:any) => {
+            getUsers(names).then((res: any) => {
                 setAuthors(res.users)
             })
             setVideos(videos)
@@ -62,11 +62,13 @@ export default function Post({ gv }) {
         setId(i)
     }
 
+    const isOther = post.sort == '原创'
+
     return (
         <div class="wrap player">
-            <div className="ep-wrap">
-                <Eplayer url={play}></Eplayer>
-            </div>
+
+            {isOther ? <></> : <div className="ep-wrap"><Eplayer url={play}></Eplayer></div>}
+
             <div className="p">
                 <div className="info">
                     <div>

@@ -40,6 +40,7 @@ export default function Header() {
                         <a href="https://app.clicli.cc" target="_blank"><li>APP</li></a>
                         <a href="https://www.acgzone.fun" target="_blank"><li>ACG里世界</li></a>
                         <li onClick={() => push('/sponsor')}>赞助会员</li>
+                        <li onClick={() => push('/play/gv31')}>使用说明</li>
                         <li onClick={openWallet} style={{ position: 'relative' }}>
                             <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                             {user.id ? <div className="wallet" style={{ display: show ? 'block' : 'none' }}>

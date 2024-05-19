@@ -67,7 +67,6 @@ section p {
 .postplayer {
     background: rgba(0, 0, 0, .7);
     color: #fff;
-    width: 1600px;
     height: 670px;
     position: fixed;
     top: 50%;

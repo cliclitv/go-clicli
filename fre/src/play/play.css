@@ -1,9 +1,9 @@
 .player.wrap {
-    width: 1600px;
     display: flex;
     background: transparent;
     overflow: hidden;
     border-radius: 10px;
+    width: 100%;
 }
 
 .ep-wrap {
@@ -17,7 +17,7 @@
 
 .p {
     box-sizing: border-box;
-    width: 420px;
+    width: 400px;
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
