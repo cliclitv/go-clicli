@@ -18,7 +18,7 @@ header .logo {
     height: 60px;
     background: url(https://image.planet.youku.com/img/100/19/22947/i_1714198822947_3121e11706edf77252386393406108a4_b_w305h91.png);
     background-size: contain;
-    filter: drop-shadow(8px 0px #648e00);
+    filter: drop-shadow(8px 0px #9eb921);
 }
 
 header .wrap a {
