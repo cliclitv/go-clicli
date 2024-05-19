@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
 import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
-import { getAv } from '../util/avatar'
+import { getAv, getSuo } from '../util/avatar'
 import snarkdown from 'snarkdown'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
@@ -55,6 +55,12 @@ export default function Post({ gv }) {
         })
     }, [])
 
+    useEffect(() => {
+        if (isOther) {
+            setShow(1)
+        }
+    }, [post])
+
 
     const changeid = (i) => {
         const v = videos
@@ -67,20 +73,22 @@ export default function Post({ gv }) {
     return (
         <div class="wrap player">
 
-            {isOther ? <></> : <div className="ep-wrap"><Eplayer url={play}></Eplayer></div>}
+            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play}></Eplayer>}
 
-            <div className="p">
+            <div className="p" style={{ height: isOther ? '800px' : '670px' }}>
                 <div className="info">
                     <div>
                         <div class='avatar-wrap'>
                             <div style={{ flex: 1 }}>
-                                {/* <Avatar uqq={post.uqq} uname={post.uname} /> */}
+                                {isOther && <Avatar uqq={post.uqq} uname={post.uname} />}
                             </div>
-                            <ul class="tab">
-                                <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
-                                <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>讨论</li>
-                                <li class={(show == 2) && 'active'} onclick={() => setShow(2)}>弹幕</li>
-                            </ul>
+                            {
+                                !isOther && <ul class="tab">
+                                    <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
+                                    <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>讨论</li>
+                                    <li class={(show == 2) && 'active'} onclick={() => setShow(2)}>弹幕</li>
+                                </ul>
+                            }
                         </div>
 
                         <h1>{post.title}<span>{post.pv} ℃</span>
@@ -162,9 +170,16 @@ export function Eplayer(props) {
     }, [props.url])
 
     return (
-        <>
+        <div className="ep-wrap">
             <canvas id="danmaku"></canvas>
             <e-player ref={t} class='ep' />
-        </>
+        </div>
     )
+}
+
+
+function Eimage({ content }) {
+    return <div className="ei-wrap">
+        <img src={getSuo(content)}></img>
+    </div>
 }

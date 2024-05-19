@@ -1,0 +1,60 @@
+article {
+    padding: 10px;
+}
+
+.article h1 {
+    padding-bottom: 10px;
+}
+
+article img[alt=suo] {
+    width: 600px;
+    border-radius: 2px;
+}
+
+article img {
+    max-width: 100%;
+    border-radius: 2px;
+}
+
+article h1 {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 20px 0;
+    border-left: 5px solid var(--primary);
+}
+
+article h2 {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 18px 0;
+    border-left: 5px solid var(--primary);
+}
+
+article h3 {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 10px;
+    margin: 16px 0;
+    border-left: 5px solid var(--primary);
+}
+
+article blockquote {
+    word-wrap: break-word;
+    background: rgba(148, 108, 230, 0.1);
+    color: var(--primary);
+    padding: 10px;
+    margin: 10px 0;
+}
+
+article a {
+    text-decoration: none;
+    color: var(--primary);
+    padding: 0 5px;
+    font-weight: bold;
+}
+
+article p{
+    line-height: 24px;
+}

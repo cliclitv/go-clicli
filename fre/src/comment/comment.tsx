@@ -3,6 +3,8 @@ import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import { addComment, getComments, getUser } from '../util/api'
 import './comment.css'
+import Markdown from '../component/md/md'
+import { removeSuo } from '../util/avatar'
 
 export default function Comment({ post }) {
     console.log(post)
@@ -36,6 +38,7 @@ export default function Comment({ post }) {
     }
     const user = getUser() || {}
     return <div>
+        <Markdown text={removeSuo(post.content)}></Markdown>
         <div class="comment">
             <div className="comment-input">
                 <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
@@ -44,8 +47,6 @@ export default function Comment({ post }) {
             </div>
 
             <h1>共有{comments ? comments.length : 0}条讨论</h1>
-
-
             {comments && comments.map(item => {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')

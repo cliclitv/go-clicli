@@ -16,6 +16,12 @@ export function getSuo(content) {
   return m ? m[1].slice(2) : 'https://cdn-us.imgs.moe/2023/02/27/63fcb180cbb30.jpg'
 }
 
+export function removeSuo(content) {
+  if (!content) return ""
+  let m = content.replace(/suo(.+?)\)/ig,'')
+  return m.slice(2)
+}
+
 export function getAv(id) {
   console.log(id)
   const [gv, fp] = id.split('#')

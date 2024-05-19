@@ -17,11 +17,10 @@
 
 .p {
     box-sizing: border-box;
-    width: 400px;
+    width: 420px;
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 670px;
 }
 
 .p h1 {
@@ -117,9 +116,6 @@
     margin: 0 auto;
 }
 
-.article h1 {
-    padding-bottom: 10px;
-}
 
 .avatar-wrap {
     display: flex;
@@ -135,54 +131,6 @@
 }
 
 
-article img[alt=suo] {
-    width: 600px;
-    border-radius: 2px;
-}
-
-article img {
-    max-width: 100%;
-    border-radius: 2px;
-}
-
-article h1 {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 0 10px;
-    margin: 20px 0;
-    border-left: 5px solid var(--primary);
-}
-
-article h2 {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0 10px;
-    margin: 18px 0;
-    border-left: 5px solid var(--primary);
-}
-
-article h3 {
-    font-size: 14px;
-    font-weight: bold;
-    padding: 0 10px;
-    margin: 16px 0;
-    border-left: 5px solid var(--primary);
-}
-
-article blockquote {
-    word-wrap: break-word;
-    background: rgba(148, 108, 230, 0.1);
-    color: var(--primary);
-    padding: 10px;
-    margin: 10px 0;
-}
-
-article a {
-    text-decoration: none;
-    color: var(--primary);
-    padding: 0 5px;
-    font-weight: bold;
-}
 
 .info a {
     display: block;
@@ -216,15 +164,6 @@ article a {
     /* Chrome Safari */
 
 }
-
-.article::-webkit-scrollbar {
-
-    display: none;
-    /* Chrome Safari */
-
-}
-
-
 
 .poster {
     position: absolute;
@@ -261,15 +200,12 @@ article a {
 }
 
 
-.article2 div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
 canvas {
     position: absolute;
     z-index: 999;
     pointer-events: none;
+}
+
+.ei-wrap, .ei-wrap img{
+    height: 800px;
 }
