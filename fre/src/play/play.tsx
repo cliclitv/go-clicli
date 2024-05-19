@@ -68,7 +68,7 @@ export default function Post({ gv }) {
         setId(i)
     }
 
-    const isOther = post.sort == '原创'
+    const isOther = post.tag.includes('其它') && post.sort == '原创'
 
     return (
         <div class="wrap player">
