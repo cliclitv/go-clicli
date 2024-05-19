@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
 import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
 import { getAv, getSuo } from '../util/avatar'
-import snarkdown from 'snarkdown'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
@@ -68,7 +67,7 @@ export default function Post({ gv }) {
         setId(i)
     }
 
-    const isOther = post.tag.includes('其它') && post.sort == '原创'
+    const isOther = post.tag?.includes('其它原创')
 
     return (
         <div class="wrap player">

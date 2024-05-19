@@ -36,9 +36,12 @@ export default function Comment({ post }) {
         })
 
     }
+    const isOther = post.tag?.includes('其它原创')
     const user = getUser() || {}
     return <div>
-        <Markdown text={removeSuo(post.content)}></Markdown>
+        {
+            isOther && <Markdown text={removeSuo(post.content)}></Markdown>
+        }
         <div class="comment">
             <div className="comment-input">
                 <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
