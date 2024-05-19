@@ -13,15 +13,12 @@ header .wrap {
 
 }
 
-header .logo{
-    width: 300px;
-    height: 80px;
-    /* background: url(https://www.pnglog.com/ow9xmJ.png); */
-    background-size: cover;
-    flex: 1;
-    filter: brightness(0) invert(1);
-    margin-left: 250px;
-    margin-top: -10px;
+header .logo {
+    width: 200px;
+    height: 60px;
+    background: url(https://image.planet.youku.com/img/100/19/22947/i_1714198822947_3121e11706edf77252386393406108a4_b_w305h91.png);
+    background-size: contain;
+    filter: drop-shadow(8px 0px #648e00);
 }
 
 header .wrap a {
@@ -34,10 +31,15 @@ header .flex {
 }
 
 header {
-    background: url(https://cdn-us.imgs.moe/2023/09/03/64f4248097092.png);
+    background: url(https://image.planet.youku.com/img/100/19/22947/i_1714198822947_f3e292be39b32ba6876c075929187665_b_w1920h140.png);
     height: 150px;
     background-size: cover;
     box-shadow: 2px 2px 0px rgba(5, 20, 50, 0.1);
+}
+
+header .logo-wrap {
+    padding: 10px 0;
+    flex: 1;
 }
 
 header .avatar {

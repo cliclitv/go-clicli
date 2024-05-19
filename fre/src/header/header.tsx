@@ -29,7 +29,10 @@ export default function Header() {
         <header>
             <div className="top">
                 <div className="wrap flex section">
-                    <h1></h1>
+                    <div className="logo-wrap" onClick={() => push('/')}>
+                        <div className="logo"></div>
+                    </div>
+
                     <div className="search">
                         <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
                     </div>
