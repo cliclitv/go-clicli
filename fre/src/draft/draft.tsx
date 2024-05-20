@@ -5,6 +5,11 @@ import './draft.css'
 
 let lock = false
 
+export const gametags = [
+    '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
+    '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其它原创'
+]
+
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
     const user = getUser()
@@ -16,15 +21,6 @@ export default function Upload(props) {
 
     }, [])
 
-    // useEffect(() => {
-    //     if (post.title && post.content && post.sort && post.tag) {
-    //         console.log('???')
-    //         setInterval(() => {
-    //             console.log('自动保存')
-    //             submit()
-    //         }, 100000)
-    //     }
-    // }, [post])
 
     useEffect(() => {
         if (props.id > 0) {
@@ -94,10 +90,7 @@ export default function Upload(props) {
     const tags = ['推荐', '幻灯', '国漫', '美漫', '剧场版', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔', '治愈',
         '搞笑', '冒险', '校园', '恐怖', '穿越', '推理', '科幻', '日常', '古风', '恋爱', 'r15', '泡面番', '黄金厕纸',
         '特摄', '真人剧', '其它']
-    const gametags = [
-        '鬼畜', 'AMV/MAD', '音乐·PV', '游戏·GMV', 'VOCALOID',
-        '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其它原创'
-    ]
+
     return (
         <div className="wrap section" style={{ display: 'flex' }}>
             <div className="upload">

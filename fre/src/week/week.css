@@ -7,7 +7,7 @@
 .week-list .headline button {
   background: none;
   border: 0;
-  margin: 10px;
+  margin: 2px;
   font-size: 16px;
   padding: 5px;
   color: #333;
@@ -43,11 +43,22 @@
   flex: 1;
 }
 
+.ugc-list .posts {
+  height: auto!important;
+  overflow: auto;
+  flex: 1;
+}
+
 .week-list .posts li {
   display: inline-block;
   width: 25%;
   text-align: center;
   cursor: pointer;
+}
+
+.ugc-list .posts li {
+  width: 16.6%;
+  height: 120px;
 }
 
 .week-list .posts li .post {
@@ -61,6 +72,11 @@
   object-fit: cover;
   box-shadow: var(--shadow);
   border-radius: 2px;
+}
+
+.ugc-list .posts li .cover,
+.ugc-list .posts li img {
+  height: 130px;
 }
 
 .week-list .posts li .title {
@@ -112,4 +128,11 @@
 }
 .weekcontent a p{
   flex: 1;
+}
+
+.ugc-list .headline ul{
+  flex: 1;
+  flex-wrap: wrap;
+  overflow-x: scroll;
+  display: flex;
 }

@@ -6,7 +6,7 @@ import Post from '../play/play'
 import { push } from '../use-route'
 import RankList from '../rank/rank'
 import Recommend from './recommend'
-import UGCList from './ugc'
+import UGCList from '../ugc/ugc'
 import PostList from './posts'
 import Login from '../login/login'
 import Register from '../login/register'
@@ -34,6 +34,7 @@ export default function App(props) {
                 <RankList />
             </div>
             <WeekList />
+            <UGCList></UGCList>
             <PostList></PostList>
             {
                 window.location.pathname === '/login' && <CenterSection comp={Login} props={props}></CenterSection>
