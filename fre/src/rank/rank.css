@@ -1,6 +1,6 @@
 .rank {
-    width: 310px;
-    height: 630px;
+    width: 320px;
+    height: 650px;
     overflow: hidden;
 }
 
@@ -11,8 +11,8 @@
 
 .rank .cover,
 .rank .cover img {
-    width: 150px;
-    height: 210px;
+    width: 170px;
+    height: 230px;
     box-shadow: var(--shadow);
     border-radius: 2px;
     object-fit: cover;
@@ -53,16 +53,30 @@
     display: flex;
     padding: 7px;
     cursor: pointer;
+    position: relative;
 }
 
 .rank li span {
     font-size: 16px;
     font-weight: bold;
     color: #bbb;
+
 }
 
 .rank li .active {
     color: var(--primary);
+}
+
+.rank .top .active:after,
+.rank .top .active:after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 10px;
+  background: var(--primary);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .rank .top {
