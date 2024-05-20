@@ -97,7 +97,6 @@ header .wallet {
 }
 
 header .wallet {
-    padding-bottom: 10px;
 }
 
 header .wallet h2 {
@@ -119,7 +118,10 @@ header .wallet li a {
     color: #fff;
 }
 
-
+.searchbox {
+    left: 0!important;
+    top: 10px!important;
+}
 
 nav ul {
     width: 700px;

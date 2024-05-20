@@ -1,7 +1,7 @@
 import { render, useState, useEffect } from "fre"
 import { push } from '../use-route'
 import { getUser, getBal } from "../util/api"
-import { getAvatar } from "../util/avatar"
+import Search from "./search"
 import './header.css'
 import Avatar from "../component/avatar/avatar"
 import { logout } from "../login/register"
@@ -12,9 +12,7 @@ export default function Header() {
 
     let user = getUser() || {}
     const keydown = (e) => {
-        if (e.keyCode == 13 && key !== "") {
-            push(`/search/${key}`)
-        }
+        console.log(key)
     }
 
     const changeKey = (key) => {
@@ -35,6 +33,7 @@ export default function Header() {
 
                     <div className="search">
                         <input type="text" placeholder="搜一下下菊花又不会坏😏" onKeyDown={keydown} onInput={(e) => changeKey(e.target.value)} />
+                        {key && <Search k={key}></Search>}
                     </div>
                     <div className="biu">
                         <a href="https://app.clicli.cc" target="_blank"><li>APP</li></a>

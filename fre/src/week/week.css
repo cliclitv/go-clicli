@@ -136,3 +136,7 @@
   overflow-x: scroll;
   display: flex;
 }
+
+.ugc-list .posts li .post{
+  padding: 7px;
+}
