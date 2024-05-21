@@ -11,12 +11,13 @@ func AddPost(title string, content string, status string, sort string, tag strin
 	cstZone := time.FixedZone("CST", 8*3600)
 	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
 	pv := 1
-	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos,pv) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)")
+	uv := ''
+	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos,pv,uv) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)")
 	if err != nil {
 		return nil, err
 
 	}
-	_, err = stmtIns.Exec(title, content, status, sort, tag, ctime, uid, videos, pv)
+	_, err = stmtIns.Exec(title, content, status, sort, tag, ctime, uid, videos, pv, uv)
 	if err != nil {
 		return nil, err
 	}
