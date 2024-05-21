@@ -93,7 +93,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 	if uv != "" {
-		slice = append(slice, status)
+		slice = append(slice, string("%" + uv + "%"))
 		query += fmt.Sprintf(" AND posts.uv LIKE $%d", len(slice))
 	}
 
