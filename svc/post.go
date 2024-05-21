@@ -133,10 +133,12 @@ func GetPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	sort := r.URL.Query().Get("sort")
 	tag := r.URL.Query().Get("tag")
 	uid, _ := strconv.Atoi(r.URL.Query().Get("uid"))
+	uv := r.URL.Query().Get("uv")
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
 
-	resp, err := db.GetPosts(page, pageSize, status, sort, tag, uid)
+	resp, err := db.GetPosts(page, pageSize, status, sort, tag, uid, uv)
+
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
