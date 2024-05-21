@@ -88,6 +88,7 @@ func UpdateUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 	uv := resp.Uv
 	names := strings.Split(uv, ",")
+	names = remove(names, "") // 特殊处理，删除空字符串
 
 	if strings.Contains(uv, name) {
 		names = remove(names, name)
@@ -99,7 +100,6 @@ func UpdateUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
 	} else {
 		sendMsg(w, 200, "更新成功啦")
 	}
