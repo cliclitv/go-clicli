@@ -90,10 +90,14 @@ func UpdateUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	names := strings.Split(uv, ",")
 	names = remove(names, "") // 特殊处理，删除空字符串
 
+	var status = ""
+
 	if strings.Contains(uv, name) {
 		names = remove(names, name)
+		status="追番"
 	} else {
 		names = append(names, name)
+		status=	"已追番"
 	}
 
 	err = db.UpdateUv(pint, strings.Join(names, ","))
@@ -101,7 +105,7 @@ func UpdateUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 	} else {
-		sendMsg(w, 200, "更新成功啦")
+		sendMsg(w, 200, status)
 	}
 
 }
