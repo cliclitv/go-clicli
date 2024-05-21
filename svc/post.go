@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/julienschmidt/httprouter"
@@ -61,6 +62,46 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	} else {
 		sendPostResponse(w, resp, 200)
+	}
+
+}
+
+func remove(s []string, r string) []string {
+	for i, v := range s {
+		if v == r {
+			return append(s[:i], s[i+1:]...)
+		}
+	}
+	return s
+}
+
+func UpdateUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	pid := r.URL.Query().Get("pid")
+	pint, _ := strconv.Atoi(pid)
+	name := r.URL.Query().Get("name")
+
+	resp, err := db.GetPost(pint)
+
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	}
+	uv := resp.Uv
+	names := strings.Split(uv, ",")
+
+	if strings.Contains(uv, name) {
+		names = remove(names, name)
+	} else {
+		names = append(names, name)
+	}
+
+	err = db.UpdateUv(pint, strings.Join(names, ","))
+
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+		return
+	} else {
+		sendMsg(w, 200, "更新成功啦")
 	}
 
 }

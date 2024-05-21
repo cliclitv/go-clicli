@@ -17,8 +17,6 @@ export default function Upload(props) {
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
-
-
     }, [])
 
 
