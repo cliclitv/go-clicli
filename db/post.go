@@ -57,15 +57,15 @@ func DeletePost(id int) error {
 }
 
 func GetPost(id int) (*Post, error) {
-	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,posts.pv,users.id,users.name,users.qq FROM posts 
+	stmt, err := dbConn.Prepare(`SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,posts.pv,posts.uv,users.id,users.name,users.qq FROM posts 
 INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	if err != nil {
 		return nil, err
 	}
 	var pid, uid, pv int
-	var title, content, status, sort, tag, ctime, uname, uqq, videos string
+	var title, content, status, sort, tag, ctime, uname, uqq, videos, uv string
 
-	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uid, &uname, &uqq)
+	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uv, &uv, &uid, &uname, &uqq)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 
 	UpdatePv(pid)
 
-	res := &Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Pv: pv}
+	res := &Post{Id: pid, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Pv: pv, Uv: uv}
 
 	return res, nil
 }
@@ -119,7 +119,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		query += `)`
 	}
 
-	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,posts.pv,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
+	sqlRaw := fmt.Sprintf("SELECT posts.id,posts.title,posts.content,posts.status,posts.sort,posts.tag,posts.time,posts.videos,posts.pv,posts.uv,users.id,users.name,users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE 1=1 %v ORDER BY time DESC LIMIT $%v OFFSET $%v", query, len(slice)+1, len(slice)+2)
 
 	slice = append(slice, pageSize, start)
 
@@ -139,11 +139,11 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	for rows.Next() {
 		var id, uid, pv int
-		var title, content, status, sort, tag, ctime, uname, uqq, videos string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uid, &uname, &uqq); err != nil {
+		var title, content, status, sort, tag, ctime, uname, uqq, videos, uv string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uv, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Pv: pv}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Pv: pv, Uv: uv}
 		res = append(res, c)
 	}
 
@@ -153,7 +153,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 func SearchPosts(key string) ([]*Post, error) {
 	key = string("%" + key + "%")
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos,posts.pv, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, posts.pv, posts.uv users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
 
 	if err != nil {
 		return nil, err
@@ -171,12 +171,12 @@ func SearchPosts(key string) ([]*Post, error) {
 
 	for rows.Next() {
 		var id, uid, pv int
-		var title, content, status, sort, tag, ctime, uname, uqq, videos string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uid, &uname, &uqq); err != nil {
+		var title, content, status, sort, tag, ctime, uname, uqq, videos, uv string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uv, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Pv: pv}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Uid: uid, Uname: uname, Uqq: uqq, Pv: pv, Uv: uv}
 		res = append(res, c)
 	}
 
@@ -185,7 +185,7 @@ func SearchPosts(key string) ([]*Post, error) {
 
 func GetRank(day string) ([]*Post, error) {
 
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv,users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.time >= current_timestamp - interval '1 day' * $1 AND posts.status='public' ORDER BY posts.pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv, posts.uv, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.time >= current_timestamp - interval '1 day' * $1 AND posts.status='public' ORDER BY posts.pv DESC LIMIT 10")
 
 	if err != nil {
 		return nil, err
@@ -203,12 +203,12 @@ func GetRank(day string) ([]*Post, error) {
 
 	for rows.Next() {
 		var id, pv, uid int
-		var title, content, status, sort, tag, ctime, videos, uname, uqq string
-		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uid, &uname, &uqq); err != nil {
+		var title, content, status, sort, tag, ctime, videos, uname, uqq, uv string
+		if err := rows.Scan(&id, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uv, &uid, &uname, &uqq); err != nil {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv, Uv: uv}
 		res = append(res, c)
 	}
 
@@ -221,6 +221,19 @@ func UpdatePv(pid int) error {
 		return err
 	}
 	_, err = stmtCount.Exec(pid)
+	if err != nil && err != sql.ErrNoRows {
+		return err
+	}
+	defer stmtCount.Close()
+	return nil
+}
+
+func UpdateUv(pid int, uv string) error {
+	stmtCount, err := dbConn.Prepare("UPDATE posts SET uv = $1 WHERE id = $2")
+	if err != nil {
+		return err
+	}
+	_, err = stmtCount.Exec(uv, pid)
 	if err != nil && err != sql.ErrNoRows {
 		return err
 	}

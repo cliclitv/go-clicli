@@ -61,6 +61,7 @@ type Post struct {
 	Uqq     string `json:"uqq,omitempty"`
 	Videos  string `json:"videos,omitempty"`
 	Pv      int    `json:"pv,omitempty"`
+	Uv      string `json:"uv,omitempty"`
 }
 
 type Action struct {
