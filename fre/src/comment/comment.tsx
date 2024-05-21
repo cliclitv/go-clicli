@@ -36,7 +36,7 @@ export default function Comment({ post }) {
         })
 
     }
-    const isOther = post.tag?.includes('其它原创')
+    const isOther = post.tag?.includes('其它')
     const user = getUser() || {}
     return <div>
         {

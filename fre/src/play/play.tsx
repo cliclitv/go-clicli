@@ -67,7 +67,7 @@ export default function Post({ gv }) {
         setId(i)
     }
 
-    const isOther = post.tag?.includes('其它原创')
+    const isOther = post.tag?.includes('其它')
 
     return (
         <div class="wrap player">
