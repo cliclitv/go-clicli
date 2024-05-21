@@ -65,7 +65,7 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	var pid, uid, pv int
 	var title, content, status, sort, tag, ctime, uname, uqq, videos, uv string
 
-	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uv, &uv, &uid, &uname, &uqq)
+	err = stmt.QueryRow(id).Scan(&pid, &title, &content, &status, &sort, &tag, &ctime, &videos, &pv, &uv, &uid, &uname, &uqq)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 func SearchPosts(key string) ([]*Post, error) {
 	key = string("%" + key + "%")
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, posts.pv, posts.uv users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time,posts.videos, posts.pv, posts.uv, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE status = 'public' AND (title LIKE $1 OR content LIKE $2) ORDER BY time DESC")
 
 	if err != nil {
 		return nil, err
