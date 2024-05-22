@@ -11,7 +11,7 @@ func AddPost(title string, content string, status string, sort string, tag strin
 	cstZone := time.FixedZone("CST", 8*3600)
 	ctime := time.Now().In(cstZone).Format("2006-01-02 15:04")
 	pv := 1
-	uv := ''
+	uv := ""
 	stmtIns, err := dbConn.Prepare("INSERT INTO posts (title,content,status,sort,tag,time,uid,videos,pv,uv) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)")
 	if err != nil {
 		return nil, err
@@ -21,7 +21,7 @@ func AddPost(title string, content string, status string, sort string, tag strin
 	if err != nil {
 		return nil, err
 	}
-	res := &Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Videos: videos, Pv: pv}
+	res := &Post{Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Uid: uid, Videos: videos, Pv: pv, Uv: uv}
 	defer stmtIns.Close()
 
 	return res, err
