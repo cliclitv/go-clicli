@@ -10,6 +10,11 @@ export const gametags = [
     '原神', '星穹铁道', '崩坏三', '明日方舟', '火影忍者', '三国杀', '绝区零', '反恐精英', '英雄联盟', '王者荣耀', '塞尔达', '碧蓝航线', '鸣潮', '无畏契约', '我的世界', '其它'
 ]
 
+export const imgtags = [
+    '作文', '动画', '漫画', '游戏', '音乐',
+    '小说', '图包', '其它'
+]
+
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
     const user = getUser()
@@ -120,7 +125,7 @@ export default function Upload(props) {
                 </div>
                 <div className="tags">
                     <ul>
-                        {(post.sort === '原创' ? gametags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                        {(post.sort === '原创' ? gametags : post.sort === '图文' ? imgtags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                             className={tag.includes(item) ? 'active' : ''}>{item}</li>)}
                     </ul>
 
