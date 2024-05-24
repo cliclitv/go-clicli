@@ -120,6 +120,7 @@ export default function Upload(props) {
                         <option value="新番" selected={post.sort === '新番'}>新番</option>
                         <option value="完结" selected={post.sort === '完结'}>完结</option>
                         <option value="原创" selected={post.sort === '原创'}>原创</option>
+                        <option value="图文" selected={post.sort === '图文'}>图文</option>
                     </select>
                     {props.id > 0 && <input type="text" value={post.time} onInput={e => change('time', e.target.value)} />}
                 </div>
