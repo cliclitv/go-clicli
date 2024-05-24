@@ -13,6 +13,7 @@ export const gametags = [
 export default function Upload(props) {
     const [post, setPost] = useState({ title: "", status: "待审核", sort: "原创", time: "", content: "", tag: "", videos: "" })
     const user = getUser()
+    const [tag, setTag] = useState([])
     const [draft, setDraft] = useState([])
 
     useEffect(() => {
@@ -24,6 +25,7 @@ export default function Upload(props) {
         if (props.id > 0) {
             getPostDetail(props.id).then((res: any) => {
                 setPost(res.result)
+                setTag(res.result.tag.split(' '))
             })
         } else {
             // 新增
@@ -43,18 +45,12 @@ export default function Upload(props) {
     }
 
     function selectTag(item) {
-        if ((post.tag || '').indexOf(item) > -1) {
-            setPost({
-                ...post,
-                tag: post.tag.replace(` ${item}`, ''),
-            })
+        if (tag.includes(item)) {
+            setTag(tag.filter(i => i != item))
         } else {
-            setPost({
-                ...post,
-                tag: post.tag + ' ' + item,
-            })
+            setTag(tag.concat([item]))
         }
-
+        change('tag', tag.join(' '))
     }
 
 
@@ -102,7 +98,6 @@ export default function Upload(props) {
                     <i class="te te-image" onclick={() => window.md.image()}></i>
                     <i class="te te-link" onclick={() => window.md.link()}></i>
                     <i class="te te-code" onclick={() => window.md.blockCode()}></i>
-                    <i class="te te-upload" onclick={() => openWindow(`https://cdn.clicli.cc/upload?uid=${user?.id}`)}></i>
                 </section>
                 <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
                 <textarea spellcheck="false" placeholder={
@@ -126,7 +121,7 @@ export default function Upload(props) {
                 <div className="tags">
                     <ul>
                         {(post.sort === '原创' ? gametags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
-                            className={(post.tag || '').indexOf(item) > -1 ? 'active' : ''}>{item}</li>)}
+                            className={tag.includes(item) ? 'active' : ''}>{item}</li>)}
                     </ul>
 
                 </div>
