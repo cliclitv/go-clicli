@@ -17,7 +17,7 @@ export default function WeekList() {
     return <div className="week-list ugc-list">
         <div className="wrap section">
             <div className="headline">
-                <h1>个人投稿区</h1>
+                <h1>投稿区</h1>
                 <ul>
                     {(['全部'].concat(gametags)).map((item, index) => <button
                         className={item === tag ? 'active' : ''}

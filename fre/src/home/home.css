@@ -105,10 +105,11 @@ section p {
     width: 20%;
     display: inline-block;
     cursor: pointer;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
 .recommend .title {
-    width: 170px;
     height: 40px;
     overflow: hidden;
     margin: 10px 0;
@@ -116,7 +117,7 @@ section p {
 
 .recommend .cover,
 .recommend .cover img {
-    width: 170px;
+    width: 100%;
     height: 230px;
     border-radius: 2px;
     object-fit: cover;
@@ -137,7 +138,6 @@ section p {
 }
 
 .post-list .title {
-    width: 170px;
     height: 40px;
     overflow: hidden;
     margin: 10px 0;

@@ -11,7 +11,6 @@
 
 .rank .cover,
 .rank .cover img {
-    width: 170px;
     height: 230px;
     box-shadow: var(--shadow);
     border-radius: 2px;
@@ -67,18 +66,6 @@
     color: var(--primary);
 }
 
-.rank .top .active:after,
-.rank .top .active:after {
-  content: "";
-  position: absolute;
-  height: 3px;
-  width: 10px;
-  background: var(--primary);
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .rank .top {
     display: flex;
     align-items: baseline;
@@ -91,4 +78,15 @@
 
 .rank .top .active {
     color: var(--primary);
+    background: rgba(148, 108, 230, 0.2);
+    font-weight: bold;
+}
+
+
+.rank .top li {
+    background: rgba(200,200,200,0.3);
+    position: relative;
+    margin: 3px;
+    border-radius: 4px;
+    padding: 4px 8px;
 }

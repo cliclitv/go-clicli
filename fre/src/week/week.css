@@ -3,43 +3,29 @@
   align-items: baseline;
 }
 
-.week-list .headline ul,
-.week-list .headline button {
-  background: none;
+.headline button {
   border: 0;
-  margin: 2px;
   font-size: 16px;
-  padding: 5px;
   color: #333;
-}
-
-.week-list .headline ul .active,
-.week-list .headline button .active {
-  color: var(--primary);
+  background: rgba(200,200,200,0.3);
   position: relative;
+  margin: 4px;
+  border-radius: 4px;
+  padding: 4px 8px;
 }
 
-.week-list .headline ul .active:after,
-.week-list .headline button .active:after {
-  content: "";
-  position: absolute;
-  height: 3px;
-  width: 10px;
-  background: var(--primary);
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+.headline ul .active,
+.headline button .active {
+  color: var(--primary);
+  font-weight: bold;
+  position: relative;
+  background: rgba(148, 108, 230, 0.2);
 }
 
-.week-list .headline button:active {
-  transform: scale(0.97);
-}
 
 .week-list .posts {
   height: 410px;
   overflow: auto;
-  margin-left: -10px;
-  margin-right: 10px;
   flex: 1;
 }
 
@@ -80,7 +66,7 @@
 }
 
 .week-list .posts li .title {
-  height: 25px;
+  height: 28px;
   overflow: hidden;
   padding: 10px 0;
 }
@@ -93,7 +79,7 @@
   display: block;
   height: 320px;
   padding: 10px;
-  background: #f2f2f2;
+  background: #ddd;
   border-radius: 5px;
   position: relative;
 }
@@ -109,7 +95,7 @@
   top: 0;
   padding: 5px 15px;
   border-radius: 0 5px 0 5px;
-  background: #f2f2f2;
+  background: #ddd;
   color: #bbb;
 }
 
