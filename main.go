@@ -22,11 +22,10 @@ type middleWareHandler struct {
 
 var whiteOrigins = [6]string{
 	"https://www.clicli.cc",
+	"https://www.acgzone.fun",
 	"https://clicli.cc",
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
-	"http://localhost:4000",
-	"http://localhost:6000",
 }
 
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
