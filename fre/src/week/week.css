@@ -57,7 +57,7 @@
   width: 100%;
   object-fit: cover;
   box-shadow: var(--shadow);
-  border-radius: 50%;
+  border-radius: 4px;
 }
 
 .ugc-list .posts li .cover,
