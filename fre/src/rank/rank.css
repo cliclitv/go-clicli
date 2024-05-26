@@ -20,7 +20,7 @@
 .rank .current {
     display: flex;
     position: relative;
-    padding: 0 7px 14px 7px;
+    padding: 0 10px 15px 10px;
 }
 
 .rank .current .title {
@@ -50,7 +50,7 @@
 
 .rank li {
     display: flex;
-    padding: 7px;
+    padding: 8px 10px;
     cursor: pointer;
     position: relative;
 }
