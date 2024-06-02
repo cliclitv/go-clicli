@@ -43,12 +43,12 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 
 	if runame != "" {
 		// 查找别人发给我的未读消息
-		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime FROM comments INNER JOIN users ON comments.uid = users.id 
+		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.runame=$1 AND read = 0 ORDER BY time DESC LIMIT $2 OFFSET $3`
 		id = runame
 	} else {
 		// 查找 pid 的消息
-		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime FROM comments INNER JOIN users ON comments.uid = users.id 
+		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.pid=$1 ORDER BY time DESC LIMIT $2 OFFSET $3`
 		id = pid
 	}
@@ -70,12 +70,12 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 
 	for rows.Next() {
 		var id, pid, uid, ruid, read, rid int
-		var content, ctime, uname, uqq, runame,viptime string
-		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uid, &uname, &uqq, &viptime); err != nil {
+		var content, ctime, uname, uqq, runame, uviptime, ulevel string
+		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uid, &uname, &uqq, &uviptime, &ulevel); err != nil {
 			return res, err
 		}
 
-		c := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Read: read, Uviptime: viptime}
+		c := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Read: read, Uviptime: uviptime, Ulevel: ulevel}
 		res = append(res, c)
 	}
 	return res, nil
