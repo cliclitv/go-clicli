@@ -24,8 +24,8 @@ type Comment struct {
 	Uid      int        `json:"uid,omitempty"`
 	Uname    string     `json:"uname,omitempty"`
 	Uqq      string     `json:"uqq,omitempty"`
-	Uviptime string     `json:"uviptime,omitempty"`
-	Ulevel   string     `json:"ulevel,omitempty"`
+	Uviptime int        `json:"uviptime,omitempty"`
+	Ulevel   int        `json:"ulevel,omitempty"`
 	Replies  []*Comment `json:"replies,omitempty"`
 }
 
