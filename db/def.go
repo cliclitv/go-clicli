@@ -13,18 +13,19 @@ type Play struct {
 }
 
 type Comment struct {
-	Id      int        `json:"id,omitempty"`
-	Content string     `json:"content"`
-	Time    string     `json:"time"`
-	Pid     int        `json:"pid"`
-	Rid     int        `json:"rid,omitempty"`
-	Ruid    int        `json:"ruid,omitempty"`
-	Runame  string     `json:"runame,omitempty"`
-	Read    int        `json:"read,omitempty"`
-	Uid     int        `json:"uid,omitempty"`
-	Uname   string     `json:"uname,omitempty"`
-	Uqq     string     `json:"uqq,omitempty"`
-	Replies []*Comment `json:"replies,omitempty"`
+	Id       int        `json:"id,omitempty"`
+	Content  string     `json:"content"`
+	Time     string     `json:"time"`
+	Pid      int        `json:"pid"`
+	Rid      int        `json:"rid,omitempty"`
+	Ruid     int        `json:"ruid,omitempty"`
+	Runame   string     `json:"runame,omitempty"`
+	Read     int        `json:"read,omitempty"`
+	Uid      int        `json:"uid,omitempty"`
+	Uname    string     `json:"uname,omitempty"`
+	Uqq      string     `json:"uqq,omitempty"`
+	Uviptime string     `json:"uviptime,omitempty"`
+	Replies  []*Comment `json:"replies,omitempty"`
 }
 
 type Danmaku struct {
