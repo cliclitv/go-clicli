@@ -69,8 +69,8 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 	defer rows.Close()
 
 	for rows.Next() {
-		var id, pid, uid, ruid, read, rid int
-		var content, ctime, uname, uqq, runame, uviptime, ulevel string
+		var id, pid, uid, ruid, read, rid, uviptime, ulevel int
+		var content, ctime, uname, uqq, runame string
 		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uid, &uname, &uqq, &uviptime, &ulevel); err != nil {
 			return res, err
 		}
