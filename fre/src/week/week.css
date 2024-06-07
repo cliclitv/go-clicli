@@ -37,7 +37,7 @@
 
 .week-list .posts li {
   display: inline-block;
-  width: 12.5%;
+  width: 25%;
   text-align: center;
   cursor: pointer;
 }

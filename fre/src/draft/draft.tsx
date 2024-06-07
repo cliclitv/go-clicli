@@ -50,12 +50,14 @@ export default function Upload(props) {
     }
 
     function selectTag(item) {
+        let a = tag
         if (tag.includes(item)) {
-            setTag(tag.filter(i => i != item))
+            a = tag.filter(i => i != item)
         } else {
-            setTag(tag.concat([item]))
+            a = tag.concat([item])
         }
-        change('tag', tag.join(' '))
+        setTag(a)
+        change('tag', a.join(' '))
     }
 
 
