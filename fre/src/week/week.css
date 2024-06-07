@@ -53,7 +53,7 @@
 
 .week-list .posts li .cover,
 .week-list .posts li img {
-  height: 100px;
+  height: 110px;
   width: 100%;
   object-fit: cover;
   box-shadow: var(--shadow);
