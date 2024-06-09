@@ -85,7 +85,7 @@ export default function Upload(props) {
     }
 
     const openWindow = (url) => {
-        let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no, menubar=no, scrollbars=no, resizeable=no, location=0, status=no')
+        let myWindow = window.open(url, '', 'width=800,height=600,toolbar=no,menubar=no,scrollbars=no,resizeable=no,location=0,status=no')
         myWindow.focus()
     }
     const tags = ['推荐', '幻灯', '国漫', '美漫', '剧场版', '漫画改', '小说改', '游戏改', '耽美', '乙女', '百合', '后宫', '热血', '战斗', '运动', '奇幻', '神魔', '治愈',
@@ -105,6 +105,7 @@ export default function Upload(props) {
                     <i class="te te-image" onclick={() => window.md.image()}></i>
                     <i class="te te-link" onclick={() => window.md.link()}></i>
                     <i class="te te-code" onclick={() => window.md.blockCode()}></i>
+                    <i class="te te-upload" onclick={() => openWindow('https://bcy-upload.deno.dev')}></i>
                 </section>
                 <textarea spellcheck="false" placeholder="请输入简介，支持 markdown 语法" value={post.content} onInput={e => change('content', e.target.value)}></textarea>
                 <textarea spellcheck="false" placeholder={

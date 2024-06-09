@@ -24,7 +24,7 @@ const App = () => {
     }
     return <main>
         {!token && <Header />}
-        <div>{route}</div>
+        <div class="container">{route}</div>
         {!token && <Footer />}
     </main>
 }
