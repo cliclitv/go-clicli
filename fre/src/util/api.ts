@@ -153,3 +153,7 @@ export function addDanmaku({ pid, p, uid, color, pos, content }) {
 export function getUsers(names) {
   return get(`https://www.clicli.cc/users?names=${names.join(',')}`)
 }
+
+export function getGonggao(){
+  return get(`https://www.clicli.cc/post/1`)
+}

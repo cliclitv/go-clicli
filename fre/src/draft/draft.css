@@ -112,6 +112,11 @@
     background: var(--primary);
 }
 
+.tags li.active1 {
+    color: #fff;
+    background: var(--secondary);
+}
+
 .options {
     margin: 10px 0;
 }

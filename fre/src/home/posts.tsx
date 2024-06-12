@@ -1,27 +1,51 @@
-import { useEffect, useState} from "fre"
+import { useEffect, useState } from "fre"
 import { push } from "../use-route"
 import { getPost } from "../util/api"
 import { getSuo } from "../util/avatar"
 
+function groupByPosts(posts) {
+    const out = {}
+
+    posts.forEach(item => {
+        const uid = item.uname
+        const list = out[uid] || []
+        list.push(item)
+        out[uid] = list
+    });
+
+    return out
+}
+
 export default function PostList(props) {
     const [posts, setPosts] = useState([])
     useEffect(() => {
-        getPost('完结,新番', '', 1, 30).then(res => {
-            setPosts(res.posts)
+        getPost('完结,新番', '', 1, 100).then(res => {
+            const out = groupByPosts(res.posts)
+            setPosts(out)
         })
     }, [])
     return <div className="post-list wrap section">
-        <h1>最新更新</h1>
+        <h1>最新投稿</h1>
         <ul>
-            {posts.length > 0 && posts.map((item,index) => {
-                return (
-                    <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
-                        <div className="cover">
-                            <img src={getSuo(item.content)} />
-                        </div>
-                        <div className="title">{item.title}</div>
-                    </li>
-                )
+            {Object.keys(posts).map(name => {
+                const postss = posts[name]
+                return <div class="card-wrap">
+                    <div class="post-card">
+                        <h2>@{name} 投稿了</h2>
+                        <ul>
+                            {postss.map((item, index) => {
+                                return (
+                                    <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
+                                        <div className="cover">
+                                            <img src={getSuo(item.content)} />
+                                        </div>
+                                        <div className="title">{item.title}</div>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                </div>
             })}
         </ul>
     </div>

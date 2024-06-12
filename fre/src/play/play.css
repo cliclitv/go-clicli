@@ -158,7 +158,7 @@
 }
 
 .p::-webkit-scrollbar,
-.posts::-webkit-scrollbar {
+.posts::-webkit-scrollbar,.top ul::-webkit-scrollbar,.post-card ul::-webkit-scrollbar {
 
     display: none;
     /* Chrome Safari */

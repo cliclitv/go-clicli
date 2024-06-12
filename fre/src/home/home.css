@@ -52,7 +52,7 @@ section p {
     bottom: 0;
 }
 
-.usercenter{
+.usercenter {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -146,7 +146,7 @@ section p {
 .post-list .cover,
 .post-list .cover img {
     width: 100%;
-    height: 255px;
+    height: 170px;
     box-shadow: var(--shadow);
     border-radius: 2px;
     object-fit: cover;
@@ -154,4 +154,67 @@ section p {
 
 .post-list li:nth-child(6n) {
     margin-right: 0;
+}
+
+.recommend .top {
+    display: flex;
+    align-items: baseline;
+}
+
+.recommend .top ul {
+    display: flex;
+    padding: 0 10px;
+    overflow-y: scroll;
+}
+
+.recommend .top .active {
+    color: var(--primary);
+    background: rgba(148, 108, 230, 0.2);
+    font-weight: bold;
+}
+
+
+.recommend .top li {
+    background: rgba(200, 200, 200, 0.3);
+    position: relative;
+    margin: 3px;
+    border-radius: 4px;
+    padding: 4px 8px;
+    width: auto !important;
+}
+
+.card-wrap {
+    flex: 0 0 50%;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.post-card{
+        margin: 10px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.post-card h2{
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+    font-weight: normal;
+    color: #666;
+}
+
+.post-card ul {
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: nowrap !important;
+
+}
+
+.post-card ul li {
+    flex: 0 0 150px;
+}
+
+.post-list ul {
+    display: flex;
+    flex-wrap: wrap;
 }
