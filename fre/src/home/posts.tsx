@@ -25,13 +25,13 @@ export default function PostList(props) {
         })
     }, [])
     return <div className="post-list wrap section">
-        <h1>最新投稿</h1>
+        <h1>最新更新</h1>
         <ul>
             {Object.keys(posts).map(name => {
                 const postss = posts[name]
                 return <div class="card-wrap">
                     <div class="post-card">
-                        <h2>@{name} 投稿了</h2>
+                        <h2>@{name} 更新了</h2>
                         <ul>
                             {postss.map((item, index) => {
                                 return (
