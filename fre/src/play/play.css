@@ -45,7 +45,7 @@
 }
 
 
-.p ul {}
+
 
 .p .info {
     padding: 0;
@@ -158,11 +158,24 @@
 }
 
 .p::-webkit-scrollbar,
-.posts::-webkit-scrollbar,.top ul::-webkit-scrollbar,.post-card ul::-webkit-scrollbar {
+.posts::-webkit-scrollbar,.top ul::-webkit-scrollbar {
 
     display: none;
     /* Chrome Safari */
 
+}
+
+.post-card ul::-webkit-scrollbar{
+    height: 6px;
+    background: transparent;
+    position: fixed;
+    top: 0;
+}
+
+.post-card ul::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: var(--secondary);
 }
 
 .poster {
@@ -187,7 +200,6 @@
     animation-play-state: paused;
 }
 
-.poster:before {}
 
 @keyframes rotate {
     0% {

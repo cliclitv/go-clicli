@@ -31,7 +31,14 @@ export default function PostList(props) {
                 const postss = posts[name]
                 return <div class="card-wrap">
                     <div class="post-card">
-                        <h2>@{name} 更新了</h2>
+                        <h2>@{name} 更新了
+
+                            {/* <span onClick={(e) => {
+                                const box = e.target.parentNode.parentNode.lastChild
+                                console.log(box)
+                                box.style = `transform: translate(-600px, 0);`
+                            }}>{">"}</span> */}
+                        </h2>
                         <ul>
                             {postss.map((item, index) => {
                                 return (

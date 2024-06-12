@@ -216,3 +216,20 @@ section p {
     display: flex;
     flex-wrap: wrap;
 }
+
+.post-card h2{
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-card span{
+    height: 20px;
+    width: 20px;
+    background: var(--primary-bg);
+    color: var(--primary);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    font-weight: bold;
+}
