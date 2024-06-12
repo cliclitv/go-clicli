@@ -25,7 +25,7 @@ export default function PostList(props) {
         })
     }, [])
     return <div className="post-list wrap section">
-        <h1>最新更新</h1>
+        <h1>最近更新</h1>
         <ul>
             {Object.keys(posts).map(name => {
                 const postss = posts[name]
