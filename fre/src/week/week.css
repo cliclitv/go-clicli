@@ -108,7 +108,7 @@
 
 .weekcontent a button {
   color: var(--primary);
-  background: #fff;
+  background: #eee;
   font-weight: bold;
   border-radius: 5px;
   padding: 5px 15px;

@@ -53,7 +53,6 @@ export default function WeekList() {
                 </ul>
                 <div className="ad">
                     <a href="https://shop.m.taobao.com/shop/shop_index.htm?sellerId=1965847533&shopId=119340084&inShopPageId=413203121&pathInfo=shop/index2&mm_sycmid=1_149789_b2afceece31d3a0f7034537f8cadc8b2" target="_blank">
-                        <span>官方赞助</span>
                         <img src="https://ice.frostsky.com/2024/04/01/6d16b318ac3766b0d06546998c5066ed.jpeg" alt="" />
                         <div>
                             <p>哥哥^_^打个胶叭！</p>
