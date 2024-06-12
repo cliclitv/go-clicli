@@ -12,8 +12,7 @@
 .rank .cover,
 .rank .cover img {
     height: 230px;
-    box-shadow: var(--shadow);
-    border-radius: 2px;
+    border-radius: 8px;
     object-fit: cover;
 }
 

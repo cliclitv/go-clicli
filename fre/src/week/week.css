@@ -56,14 +56,13 @@
   height: 110px;
   width: 100%;
   object-fit: cover;
-  box-shadow: var(--shadow);
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .ugc-list .posts li .cover,
 .ugc-list .posts li img {
   height: 130px;
-  border-radius: 2px;
+  border-radius: 8px;
 }
 
 .week-list .posts li .title {
