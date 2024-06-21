@@ -15,7 +15,7 @@
     "nanoid": "^4.0.0",
     "preact": "^10.17.1",
     "qr-code-generator-lib": "^1.0.1",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "vite": "2"
   }
 }

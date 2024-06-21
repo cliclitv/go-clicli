@@ -18,20 +18,26 @@ export default function Post({ gv }) {
     const [danmakus, setDanmakus] = useState([])
     const [source, setSource] = useState('')
     const [authors, setAuthors] = useState('')
+    const [beat, setBeat] = useState('')
 
     useEffect(() => {
         getPostDetail(id).then((res: any) => {
             setPost((res as any).result)
             const videos = buildVideos((res as any).result.videos || "", res.result.uname)
             const names = buildNames(videos)
+            if (names.length > 0) {
+                getUsers(names).then((res: any) => {
+                    setAuthors(res.users)
+                })
+            }
 
-            getUsers(names).then((res: any) => {
-                setAuthors(res.users)
-            })
+
+
             setVideos(videos)
             setSource(res.result.uname)
             if (videos.length > 0) {
                 setPlay(videos[0][1])
+                setBeat(videos[0][2])
             }
         })
     }, [])
@@ -44,13 +50,13 @@ export default function Post({ gv }) {
             setDanmakus((res as any).danmakus || [])
             window.dm = new Danmu(canvas, video, (res as any).danmakus || [])
             video.addEventListener('play', function () {
-                console.log("开始播放");
+                console.log("开始播放")
                 window.dm.play()
-            });
+            })
             video.addEventListener('pause', function () {
-                console.log("播放暂停");
+                console.log("播放暂停")
                 window.dm.pause()
-            });
+            })
         })
     }, [])
 
@@ -68,13 +74,14 @@ export default function Post({ gv }) {
     }
 
     const isOther = post.tag?.includes('其它')
+    const isMug = post.tag?.includes('音游')
 
     return (
         <div class="wrap player">
 
-            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play}></Eplayer>}
+            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} isMug={isMug} beat={beat}></Eplayer>}
 
-            <div className="p" style={{ height: isOther ? '800px' : '670px' }}>
+            <div className="p" style={{ height: isOther ? '800px' : '565px' }}>
                 <div className="info">
                     <div>
                         <div class='avatar-wrap'>
@@ -142,13 +149,13 @@ export function buildVideos(str, uname) {
 export function buildNames(videos) {
     if (!videos) return []
     const names = []
-    console.log(videos)
+
     videos.forEach((varr) => {
         let [title, content, name] = varr
-        if (!names.includes(name)) {
+        if (!names.includes(name) && !name.includes(":")) {
             names.push(name)
         }
-    });
+    })
     return names
 }
 
@@ -164,6 +171,10 @@ export function Eplayer(props) {
             if (t.current) {
                 t.current.setAttribute('type', type)
                 t.current.setAttribute('src', res.result.url)
+                if (props.isMug) {
+                    t.current.setAttribute('beatmap', props.beat)
+                    t.current.setAttribute('height', '565')
+                }
             }
         })
     }, [props.url])
