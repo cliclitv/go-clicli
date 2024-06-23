@@ -182,7 +182,7 @@ export function Eplayer(props) {
     return (
         <div className="ep-wrap">
             <canvas id="danmaku"></canvas>
-            <e-player ref={t} class='ep' />
+            <e-player ref={t} class='ep'/>
         </div>
     )
 }
