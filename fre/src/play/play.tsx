@@ -40,6 +40,10 @@ export default function Post({ gv }) {
                 setBeat(videos[0][2])
             }
         })
+        document.body.style.overflow = 'hidden'
+        return ()=>{
+            document.body.style.overflow = 'auto'
+        }
     }, [])
 
     useEffect(() => {
@@ -182,7 +186,7 @@ export function Eplayer(props) {
     return (
         <div className="ep-wrap">
             <canvas id="danmaku"></canvas>
-            <e-player ref={t} class='ep'/>
+            <e-player ref={t} class='ep' />
         </div>
     )
 }
