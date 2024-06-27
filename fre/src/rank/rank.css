@@ -1,12 +1,10 @@
 .rank {
     width: 320px;
-    height: 650px;
     overflow: hidden;
 }
 
 .rank .title {
     padding: 0 10px;
-    height: 21px;
 }
 
 .rank .cover,
