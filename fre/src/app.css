@@ -138,6 +138,7 @@ h1 {
     .week-list .headline button {
         margin: 0 !important;
         flex: 1;
+        border-radius: 0!important;
     }
 
     .week-list .posts li .post {
@@ -145,8 +146,16 @@ h1 {
     }
 
     .week-list .posts {
-        height: 300px !important;
         margin: 0 !important;
+    }
+
+    .card-wrap{
+        width: 100%!important;
+        flex: 1!important;
+    }
+
+    .post-card ul li{
+        flex: 0 0 125px!important;
     }
 
     .postplayer {

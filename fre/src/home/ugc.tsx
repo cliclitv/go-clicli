@@ -3,7 +3,9 @@ import { push } from '../use-route'
 import { getPost } from '../util/api'
 import { getSuo } from '../util/avatar'
 import '../week/week.css'
-import { gametags } from '../draft/draft'
+// import { gametags } from '../draft/draft'
+
+const gametags = []
 
 export default function WeekList() {
     const [posts, setPosts] = useState([])
@@ -16,10 +18,10 @@ export default function WeekList() {
 
     return <div className="week-list ugc-list">
         <div className="wrap section">
-            <div className="headline">
+            <div className="">
                 <h1>投稿区</h1>
                 <ul>
-                    {(['全部'].concat(gametags)).map((item, index) => <button
+                    {([].concat(gametags)).map((item, index) => <button
                         className={item === tag ? 'active' : ''}
                         onClick={() => setTag(item)}>{item}</button>)}
                 </ul>
