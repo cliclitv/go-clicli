@@ -126,6 +126,8 @@ h1 {
     .post-list li {
         width: 33.3% !important;
         padding: 5px !important;
+        border-radius: 0!important;
+        margin: 0!important;
     }
 
     .ugc-list .posts li {
