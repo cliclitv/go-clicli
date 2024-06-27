@@ -241,4 +241,9 @@ h1 {
     .upload {
         padding: 10px !important;
     }
+
+    .ei-wrap, .ei-wrap img{
+        max-width: 100%!important;
+        height: auto!important;
+    }
 }
