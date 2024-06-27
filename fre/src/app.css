@@ -125,7 +125,6 @@ h1 {
     .recommend li,
     .post-list li {
         width: 33.3% !important;
-        margin: 0 !important;
         padding: 5px !important;
     }
 
