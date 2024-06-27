@@ -11,7 +11,7 @@ body {
     background-size: 32px 32px;
     --primary: #8a61ff;
     --secondary: #9fdc0b;
-    --secondary-bg:rgba(108, 230, 123, 0.3);
+    --secondary-bg: rgba(108, 230, 123, 0.3);
     --bg: #f2f2f2;
     --black: rgb(37, 37, 37);
     --white: #fff;
@@ -63,28 +63,54 @@ h1 {
 
 }
 
-.container{
-    background: linear-gradient(180deg,hsla(0,0%,100%,0),#f0f0f5 140px),fixed 0 0 /20px 20px radial-gradient(#d0d0d0 1px,transparent 0),fixed 10px 10px /20px 20px radial-gradient(#d0d0d0 1px,transparent 0);
+.container {
+    background: linear-gradient(180deg, hsla(0, 0%, 100%, 0), #f0f0f5 140px), fixed 0 0 /20px 20px radial-gradient(#d0d0d0 1px, transparent 0), fixed 10px 10px /20px 20px radial-gradient(#d0d0d0 1px, transparent 0);
 }
 
 @media screen and (max-width: 500px) {
     header {
         width: 100%;
-        background: transparent!important;
-        height: auto!important;
-        background: var(--primary)!important;
+        background: transparent !important;
+        height: auto !important;
+        background: var(--primary) !important;
     }
 
-    .lines{
-        display: none!important;
+    .lines {
+        display: none !important;
     }
 
-    header .logo{
-        display: none;
+    header .logo,
+    header .logo-wrap {
+        /* display: none; */
+        flex: auto !important;
+        filter: none !important;
+        width: 100px !important;
+        height: 30px !important;
+        
     }
 
-    header .flex{
-        display: block!important;
+    .search{
+        margin: 0 10px;
+    }
+
+    header .logo-wrap{
+        padding: 10px;
+    }
+
+    header .flex {
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 10px 10px 0 10px;
+        box-sizing: border-box;
+    }
+
+    header .biu{
+        justify-content: space-between;
+    }
+
+    header .search input {
+        box-sizing: border-box;
+        width: calc(100%) !important;
     }
 
     .section {
@@ -100,12 +126,12 @@ h1 {
     .post-list li {
         width: 33.3% !important;
         margin: 0 !important;
-        padding: 5px!important;
+        padding: 5px !important;
     }
 
-    .ugc-list .posts li{
-        width: 33.3%!important;
-        height: 40px!important;
+    .ugc-list .posts li {
+        width: 33.3% !important;
+        height: 40px !important;
     }
 
     .recommend .cover,
@@ -129,7 +155,7 @@ h1 {
         display: none;
     }
 
-    .weekcontent{
+    .weekcontent {
         margin-top: 10px;
     }
 
@@ -142,7 +168,7 @@ h1 {
     .week-list .headline button {
         margin: 0 !important;
         flex: 1;
-        border-radius: 0!important;
+        border-radius: 0 !important;
     }
 
     .week-list .posts li .post {
@@ -153,17 +179,17 @@ h1 {
         margin: 0 !important;
     }
 
-    .card-wrap{
-        width: 100%!important;
-        flex: 1!important;
+    .card-wrap {
+        width: 100% !important;
+        flex: 1 !important;
     }
 
-    .post-card ul li{
-        flex: 0 0 125px!important;
+    .post-card ul li {
+        flex: 0 0 125px !important;
     }
 
-    .week-list .headline{
-        display: block!important;
+    .week-list .headline {
+        display: block !important;
     }
 
     .postplayer {
@@ -175,11 +201,6 @@ h1 {
         transform: none !important;
         width: 100% !important;
         height: 100% !important;
-    }
-
-    header .search input {
-        flex: 1 !important;
-        width: auto !important;
     }
 
     .player.wrap {
@@ -208,15 +229,15 @@ h1 {
     }
 
     .ep {
-        border-radius: 5px!important;
-        overflow: hidden!important;
+        border-radius: 5px !important;
+        overflow: hidden !important;
     }
 
     .p {
         width: 100% !important;
     }
 
-    .upload{
-        padding: 10px!important;
+    .upload {
+        padding: 10px !important;
     }
 }

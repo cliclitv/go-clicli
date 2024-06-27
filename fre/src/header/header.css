@@ -13,6 +13,11 @@ header .wrap {
 
 }
 
+header .biu ul{
+    display: flex;
+    align-items: center;
+}
+
 header .logo {
     width: 200px;
     height: 60px;
