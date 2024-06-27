@@ -86,14 +86,14 @@ h1 {
         filter: none !important;
         width: 100px !important;
         height: 30px !important;
-        
+
     }
 
-    .search{
+    .search {
         margin: 0 10px;
     }
 
-    header .logo-wrap{
+    header .logo-wrap {
         padding: 10px;
     }
 
@@ -104,7 +104,7 @@ h1 {
         box-sizing: border-box;
     }
 
-    header .biu{
+    header .biu {
         justify-content: space-between;
     }
 
@@ -126,8 +126,8 @@ h1 {
     .post-list li {
         width: 33.3% !important;
         padding: 5px !important;
-        border-radius: 0!important;
-        margin: 0!important;
+        border-radius: 0 !important;
+        margin: 0 !important;
     }
 
     .ugc-list .posts li {
@@ -242,8 +242,18 @@ h1 {
         padding: 10px !important;
     }
 
-    .ei-wrap, .ei-wrap img{
-        max-width: 100%!important;
-        height: auto!important;
+    .ei-wrap,
+    .ei-wrap img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .p {
+        height: auto !important;
+        overflow-y: auto !important;
+    }
+
+    .postplayer:hover body{
+        overflow: hidden;
     }
 }
