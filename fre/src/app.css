@@ -75,6 +75,10 @@ h1 {
         background: var(--primary)!important;
     }
 
+    .lines{
+        display: none!important;
+    }
+
     header .logo{
         display: none;
     }
@@ -125,8 +129,8 @@ h1 {
         display: none;
     }
 
-    .headline h1 {
-        display: none;
+    .weekcontent{
+        margin-top: 10px;
     }
 
     .headline ul {
@@ -156,6 +160,10 @@ h1 {
 
     .post-card ul li{
         flex: 0 0 125px!important;
+    }
+
+    .week-list .headline{
+        display: block!important;
     }
 
     .postplayer {
