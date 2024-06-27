@@ -50,7 +50,7 @@ export default function Header() {
                     <div className="biu">
                         <li onClick={() => push('/')}>首页</li>
                             <a href="https://app.clicli.cc" target="_blank"><li>APP</li></a>
-                            <a href="https://www.acgzone.fun" target="_blank"><li>ACG里世界</li></a>
+                            <a href="https://www.acgzone.fun" target="_blank"><li>里世界</li></a>
                             <li onClick={() => push('/sponsor')}>赞助会员</li>
                             <li onClick={() => push('/play/gv31')}>使用说明</li>
                         <li onClick={openWallet} style={{ position: 'relative' }}>
