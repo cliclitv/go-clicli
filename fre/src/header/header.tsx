@@ -48,11 +48,11 @@ export default function Header() {
                         {key && <Search k={key}></Search>}
                     </div>
                     <div className="biu">
-                        <ul><li onClick={() => push('/')}>首页</li>
+                        <li onClick={() => push('/')}>首页</li>
                             <a href="https://app.clicli.cc" target="_blank"><li>APP</li></a>
                             <a href="https://www.acgzone.fun" target="_blank"><li>ACG里世界</li></a>
                             <li onClick={() => push('/sponsor')}>赞助会员</li>
-                            <li onClick={() => push('/play/gv31')}>使用说明</li></ul>
+                            <li onClick={() => push('/play/gv31')}>使用说明</li>
                         <li onClick={openWallet} style={{ position: 'relative' }}>
                             <Avatar uqq={user.qq} uname={user.name} utime={user.time} />
                             {user.id ? <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
