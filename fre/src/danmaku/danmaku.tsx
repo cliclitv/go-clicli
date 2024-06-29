@@ -26,7 +26,7 @@ export default function Danmaku({ post, p, danmakus }) {
             pid: post.id,
             p,
             pos: Math.floor(video.currentTime),
-            color: '#ffffff',
+            color: 'FFFFFF',
             content: danmaku,
         }
         window.dm.add(data)
