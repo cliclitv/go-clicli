@@ -191,7 +191,7 @@ func SearchPosts(key string) ([]*Post, error) {
 
 func GetRank(day string) ([]*Post, error) {
 
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv, posts.uv, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.time >= current_timestamp - interval '1 day' * $1 AND posts.status='public' ORDER BY posts.pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv, posts.uv, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.time >= current_timestamp - interval '1 day' * $1 AND posts.status='public' AND posts.sort!='原创' ORDER BY posts.pv DESC LIMIT 10 OFFSET 0")
 
 	if err != nil {
 		return nil, err
@@ -214,7 +214,7 @@ func GetRank(day string) ([]*Post, error) {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv, Uv: uv}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv, Uv: uv, Uname: uname, Uqq:uqq, Uid:uid}
 		res = append(res, c)
 	}
 
