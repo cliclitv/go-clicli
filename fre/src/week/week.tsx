@@ -11,7 +11,7 @@ export default function WeekList() {
         getPost('新番', '', 1, 100).then(res => {
             let ret = {}
             res.posts.forEach(item => {
-                let day = new Date(item.time).getDay()
+                let day = new Date(item.time).getDay() - 1
                 ret[day] = ret[day] || []
                 ret[day].push(item)
             })
