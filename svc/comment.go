@@ -34,7 +34,7 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	if _, err := db.AddComment(body.Content, body.Pid, user.Id, body.Rid, body.Runame, 0); err != nil {
+	if _, err := db.AddComment(body.Content, body.Pid, user.Id, body.Rid, body.Runame); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
@@ -69,17 +69,39 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 }
 
-func ReadComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	runame := r.URL.Query().Get("runame")
+func UpdateCommentUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	cid := r.URL.Query().Get("cid")
+	cidt, _ := strconv.Atoi(pid)
+	name := r.URL.Query().Get("name")
 
-	err := db.ReadComments(runame)
+	res, err := db.GetComments(cidt)
+
+	resp := res[0]
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
-	} else {
-		sendMsg(w, 200, fmt.Sprintf("%s", "成功啦"))
 	}
+	uv := resp.Uv
+	names := strings.Split(uv, ",")
+	names = remove(names, "") // 特殊处理，删除空字符串
+
+	if strings.Contains(uv, name) {
+		names = remove(names, name)
+	} else {
+		names = append(names, name)
+	}
+
+	var namestr = strings.Join(names, ",")
+
+	err = db.UpdateCommentUv(cidt, namestr)
+
+	if err != nil {
+		sendMsg(w, 500, fmt.Sprintf("%s", err))
+	} else {
+		sendMsg(w, 200, namestr)
+	}
+
 }
 
 func fillComments(data []*db.Comment) []*db.Comment {

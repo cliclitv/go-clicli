@@ -66,7 +66,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 }
 
-func remove(s []string, r string) []string {
+func Remove(s []string, r string) []string {
 	for i, v := range s {
 		if v == r {
 			return append(s[:i], s[i+1:]...)
@@ -88,10 +88,10 @@ func UpdateUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 	uv := resp.Uv
 	names := strings.Split(uv, ",")
-	names = remove(names, "") // 特殊处理，删除空字符串
+	names = Remove(names, "") // 特殊处理，删除空字符串
 
 	if strings.Contains(uv, name) {
-		names = remove(names, name)
+		names = Remove(names, name)
 	} else {
 		names = append(names, name)
 	}

@@ -20,12 +20,12 @@ type Comment struct {
 	Rid      int        `json:"rid,omitempty"`
 	Ruid     int        `json:"ruid,omitempty"`
 	Runame   string     `json:"runame,omitempty"`
-	Read     int        `json:"read,omitempty"`
 	Uid      int        `json:"uid,omitempty"`
 	Uname    string     `json:"uname,omitempty"`
 	Uqq      string     `json:"uqq,omitempty"`
 	Uviptime int        `json:"uviptime,omitempty"`
 	Ulevel   int        `json:"ulevel,omitempty"`
+	Uv       string     `json:"uv,omitempty"`
 	Replies  []*Comment `json:"replies,omitempty"`
 }
 
