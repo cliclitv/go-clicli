@@ -120,7 +120,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 		for _, s := range tags {
 			key := string("%" + s + "%")
 			slice = append(slice, key)
-			query += fmt.Sprintf(" OR posts.tag LIKE $%d", len(slice))
+			query += fmt.Sprintf(" AND posts.tag LIKE $%d", len(slice))
 		}
 		query += `)`
 	}
