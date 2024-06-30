@@ -116,7 +116,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	if tag != "" {
 		tags := strings.Split(tag, ",")
-		query += ` AND (1=2`
+		query += ` AND (1=1`
 		for _, s := range tags {
 			key := string("%" + s + "%")
 			slice = append(slice, key)
