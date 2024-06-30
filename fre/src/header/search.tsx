@@ -6,18 +6,22 @@ export default function Search({ k }) {
     const [search, setSearch] = useState([])
     const [show, setShow] = useState(!!search)
     useEffect(() => {
-        if (k.slice(0, 4) === 'uid:') {
-            getPost("", "", 1, 10, null, k.slice(4)).then(res => {
-                setSearch(res.posts)
+        try {
+            if (k.slice(0, 4) === 'uid:') {
+                getPost("", "", 1, 10, null, k.slice(4)).then(res => {
+                    setSearch(res.posts)
+                })
+            } else {
+                getSearch(k).then((res: any) => {
+                    setSearch(res.posts)
+                })
+            }
+            document.body.addEventListener('click', () => {
+                setShow(false)
             })
-        } else {
-            getSearch(k).then((res: any) => {
-                setSearch(res.posts)
-            })
+        } catch (e) {
+            console.log(e)
         }
-        document.body.addEventListener('click',()=>{
-            setShow(false)
-        })
     }, [k])
 
     return (
