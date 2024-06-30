@@ -29,7 +29,7 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 	var id interface{}
 
 	// 查找 pid 的消息
-	query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id 
+	query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,comments.uv,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.pid=$1 ORDER BY time DESC LIMIT $2 OFFSET $3`
 	id = pid
 
@@ -50,12 +50,12 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 
 	for rows.Next() {
 		var id, pid, uid, ruid, rid, uviptime, ulevel int
-		var content, ctime, uname, uqq, runame string
-		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uid, &uname, &uqq, &uviptime, &ulevel); err != nil {
+		var content, ctime, uname, uqq, runame, uv string
+		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uv, &uid, &uname, &uqq, &uviptime, &ulevel); err != nil {
 			return res, err
 		}
 
-		c := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Uviptime: uviptime, Ulevel: ulevel}
+		c := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Uviptime: uviptime, Ulevel: ulevel, Uv: uv}
 		res = append(res, c)
 	}
 	return res, nil
@@ -78,14 +78,14 @@ func DeleteComment(id int) error {
 }
 
 func GetComment(id int) (*Comment, error) {
-	stmt, err := dbConn.Prepare(`comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id WHERE posts.id = $1`)
+	stmt, err := dbConn.Prepare(`comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,comments.uv,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id WHERE posts.id = $1`)
 	if err != nil {
 		return nil, err
 	}
 	var pid, uid, ruid, rid, uviptime, ulevel int
-	var content, ctime, uname, uqq, runame string
+	var content, ctime, uname, uqq, runame, uv string
 
-	err = stmt.QueryRow(id).Scan(&id, &content, &ctime, &pid, &rid, &runame, &uid, &uname, &uqq, &uviptime, &ulevel)
+	err = stmt.QueryRow(id).Scan(&id, &content, &ctime, &pid, &rid, &runame, &uv, &uid, &uname, &uqq, &uviptime, &ulevel)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func GetComment(id int) (*Comment, error) {
 	}
 	defer stmt.Close()
 
-	res := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Uviptime: uviptime, Ulevel: ulevel, Uv}
+	res := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Uviptime: uviptime, Ulevel: ulevel, Uv: uv}
 
 	return res, nil
 }

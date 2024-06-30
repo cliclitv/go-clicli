@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/cliclitv/go-clicli/util"
@@ -71,12 +72,10 @@ func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func UpdateCommentUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	cid := r.URL.Query().Get("cid")
-	cidt, _ := strconv.Atoi(pid)
+	cidt, _ := strconv.Atoi(cid)
 	name := r.URL.Query().Get("name")
 
-	res, err := db.GetComments(cidt)
-
-	resp := res[0]
+	resp, err := db.GetComment(cidt)
 
 	if err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
@@ -84,10 +83,10 @@ func UpdateCommentUv(w http.ResponseWriter, r *http.Request, p httprouter.Params
 	}
 	uv := resp.Uv
 	names := strings.Split(uv, ",")
-	names = remove(names, "") // 特殊处理，删除空字符串
+	names = Remove(names, "") // 特殊处理，删除空字符串
 
 	if strings.Contains(uv, name) {
-		names = remove(names, name)
+		names = Remove(names, name)
 	} else {
 		names = append(names, name)
 	}
