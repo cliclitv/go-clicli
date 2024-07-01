@@ -8,11 +8,11 @@ import (
 func AddComment(content string, pid int, uid int, rid int, runame string) (*Comment, error) {
 	t := time.Now()
 	ctime := t.Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO comments (content,time,pid,uid,rid,runame) VALUES ($1,$2,$3,$4,$5,$6)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO comments (content,time,pid,uid,rid,runame,uv) VALUES ($1,$2,$3,$4,$5,$6,$7)")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmtIns.Exec(content, ctime, pid, uid, rid, runame)
+	_, err = stmtIns.Exec(content, ctime, pid, uid, rid, runame, "")
 	if err != nil {
 		return nil, err
 	}
