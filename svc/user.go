@@ -27,7 +27,7 @@ func IsNumber(str string) bool {
 
 }
 
-func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func Register(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	if !tb.TryConsume() {
 		sendMsg(w, 429, "请求限速")
 		return
@@ -37,6 +37,13 @@ func Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
+		return
+	}
+
+	fmt.Println(ubody.Id)
+
+	if ubody.Id != 0 {
+		UpdateUser(w, r, p)
 		return
 	}
 
@@ -174,7 +181,7 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	names:= r.URL.Query().Get("names")
+	names := r.URL.Query().Get("names")
 
 	resp, err := db.GetUsers(names)
 	if err != nil {

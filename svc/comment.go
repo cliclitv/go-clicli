@@ -89,7 +89,7 @@ func UpdateCommentUv(w http.ResponseWriter, r *http.Request, p httprouter.Params
 		names = Remove(names, name)
 	} else {
 		names = append(names, name)
-	} 
+	}
 
 	var namestr = strings.Join(names, ",")
 

@@ -22,6 +22,11 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
+	if pbody.Id != 0 {
+		UpdatePost(w, r, p)
+		return
+	}
+
 	user, err := Auth(
 		r.Header.Get("token"), 0b1110) // 非游客都可以
 

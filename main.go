@@ -54,7 +54,6 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/user/register", svc.Register) // 需要限流
 	router.POST("/user/login", svc.Login)
 	router.POST("/user/logout", svc.Logout) // 前端清空 localstorage
-	router.POST("/user/update/:id", svc.UpdateUser)
 	router.GET("/users", svc.GetUsers)
 	router.GET("/user", svc.GetUser)
 
@@ -68,7 +67,6 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/danmaku/delete/:id", svc.DeleteDanmaku)
 	router.GET("/danmakus", svc.GetDanmakus)
 
-	router.POST("/post/update/:id", svc.UpdatePost)
 	router.POST("/post/uv", svc.UpdateUv)
 	router.POST("/post/add", svc.AddPost)
 	router.GET("/post/:id", svc.GetPost)
