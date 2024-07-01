@@ -44,7 +44,6 @@ func Register(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	token := r.Header.Get("token")
 
 	if ubody.Id != 0 {
-		fmt.Println(r)
 		resp, err := UpdateUser(ubody, token)
 		if err != nil {
 			sendMsg(w, 400, fmt.Sprintf("%s", err))
