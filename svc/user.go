@@ -2,6 +2,7 @@ package svc
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -40,10 +41,16 @@ func Register(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	fmt.Println(ubody.Id)
+	token := r.Header.Get("token")
 
 	if ubody.Id != 0 {
-		UpdateUser(w, r, p)
+		fmt.Println(r)
+		resp, err := UpdateUser(ubody, token)
+		if err != nil {
+			sendMsg(w, 400, fmt.Sprintf("%s", err))
+		} else {
+			sendUserResponse(w, resp, 200, "更新成功啦")
+		}
 		return
 	}
 
@@ -67,11 +74,33 @@ func Register(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 }
 
+func UpdateUser(ubody *db.User, token string) (*db.User, error) {
+
+	uid := ubody.Id
+
+	user, err := ParseToken(token)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp *db.User
+
+	if user.Level&0b1000 != 0 {
+		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Sign)
+	} else if uid == user.Id {
+		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, user.Level, ubody.QQ, ubody.Sign)
+	} else {
+
+		return nil, errors.New("权限不足")
+	}
+
+	return resp, err
+
+}
+
 func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	req, _ := io.ReadAll(r.Body)
 	ubody := &db.User{}
-
-	fmt.Println(ubody)
 
 	if err := json.Unmarshal(req, ubody); err != nil {
 		sendMsg(w, 400, fmt.Sprintf("%s", err))
@@ -121,38 +150,6 @@ func Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func Logout(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	sendMsg(w, 200, "退出成功啦")
-}
-
-func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	uid, _ := strconv.Atoi(p.ByName("id"))
-	req, _ := io.ReadAll(r.Body)
-	ubody := &db.User{}
-	if err := json.Unmarshal(req, ubody); err != nil {
-		sendMsg(w, 400, "参数解析失败")
-		return
-	}
-
-	token := r.Header.Get("token")
-
-	user, err := ParseToken(token)
-	if err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
-	}
-
-	var resp *db.User
-
-	if user.Level&0b1000 != 0 {
-		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, ubody.Level, ubody.QQ, ubody.Sign)
-	} else if uid == user.Id {
-		resp, _ = db.UpdateUser(uid, ubody.Name, ubody.Pwd, user.Level, ubody.QQ, ubody.Sign)
-	} else {
-		sendMsg(w, 500, "权限不足")
-		return
-	}
-
-	sendUserResponse(w, resp, 200, "更新成功啦")
-
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
