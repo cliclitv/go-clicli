@@ -78,7 +78,7 @@ func DeleteComment(id int) error {
 }
 
 func GetComment(id int) (*Comment, error) {
-	stmt, err := dbConn.Prepare(`comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,comments.uv,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id WHERE posts.id = $1`)
+	stmt, err := dbConn.Prepare(`SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,comments.uv,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id WHERE comments.id = $1`)
 	if err != nil {
 		return nil, err
 	}

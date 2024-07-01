@@ -93,6 +93,9 @@ func UpdateCommentUv(w http.ResponseWriter, r *http.Request, p httprouter.Params
 
 	var namestr = strings.Join(names, ",")
 
+	fmt.Println(cidt)
+	fmt.Println(namestr)
+
 	err = db.UpdateCommentUv(cidt, namestr)
 
 	if err != nil {
