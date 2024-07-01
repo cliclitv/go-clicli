@@ -23,7 +23,12 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	if pbody.Id != 0 {
-		UpdatePost(w, r, p)
+		resp, err := UpdatePost(pbody, r.Header.Get("token"))
+		if err != nil {
+			sendMsg(w, 400, fmt.Sprintf("%s", err))
+		} else {
+			sendPostResponse(w, resp, 200)
+		}
 		return
 	}
 
@@ -45,28 +50,19 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 }
 
-func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	pid := p.ByName("id")
-	pint, _ := strconv.Atoi(pid)
-	req, _ := io.ReadAll(r.Body)
-	pbody := &db.Post{}
-	if err := json.Unmarshal(req, pbody); err != nil {
-		sendMsg(w, 400, fmt.Sprintf("%s", err))
-		return
-	}
+func UpdatePost(pbody *db.Post,token string) (*db.Post,error) {
 
-	_, err := Auth(r.Header.Get("token"), 0b1100) // 审核和管理可以
+
+	_, err := Auth(token, 0b1100) // 审核和管理可以
 
 	if err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
+		return nil, err
 	}
 
-	if resp, err := db.UpdatePost(pint, pbody.Title, pbody.Content, pbody.Status, pbody.Sort, pbody.Tag, pbody.Time, pbody.Videos); err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
+	if resp, err := db.UpdatePost(pbody.Id, pbody.Title, pbody.Content, pbody.Status, pbody.Sort, pbody.Tag, pbody.Time, pbody.Videos); err != nil {
+		return nil, err
 	} else {
-		sendPostResponse(w, resp, 200)
+		return resp, nil
 	}
 
 }
