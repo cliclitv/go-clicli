@@ -1,6 +1,6 @@
 import { useState, useEffect } from "fre"
 import { push } from "../use-route"
-import { addPost, getGonggao, getPostB, getPostDetail, getUser, updatePost } from "../util/api"
+import { addPost, getGonggao, getPostB, getPostDetail, getUser } from "../util/api"
 import './draft.css'
 
 let lock = false
@@ -38,7 +38,7 @@ export default function Upload(props) {
             // 新增
         }
         if (user) {
-            getPostB("", "", 1, 200, "", user?.id).then(res => {
+            getPostB("", "", 1, 200, "", user?.id).then((res:any) => {
                 setDraft(res.posts)
             })
             getGonggao().then(res => {
@@ -78,7 +78,7 @@ export default function Upload(props) {
         }
         lock = true
         if (props.id > 0) {
-            updatePost(post as any).then(res => {
+            addPost(post as any).then(res => {
                 lock = false
                 alert((res.msg || '搞定^_^') + ' gv' + res.result.id)
             })

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'fre'
 import { A, push } from '../use-route'
 import { post } from '../util/post'
 import './login.css'
-import { getUser, getUserB, updateUser } from '../util/api'
+import { addUser, getUser, getUserB } from '../util/api'
 
 export function logout() {
     localStorage.clear()
@@ -33,7 +33,7 @@ export default function Register({ uid }) {
     async function register() {
         if (uid != null) {
             console.log('修改用户')
-            updateUser(user as any).then(res => {
+            addUser(user as any).then(res => {
                 if ((res as any).code === 200) {
                     alert("修改成功啦~")
                 }
@@ -44,7 +44,7 @@ export default function Register({ uid }) {
             alert('全都得填::>_<::')
             return
         }
-        const res = await post("https://www.clicli.cc/user/register", { name: user.name, pwd: user.pwd, qq: user.qq, sign: "这个人很懒，什么都没有留下~" }) as any
+        const res = await addUser({ name: user.name, pwd: user.pwd, qq: user.qq, sign: "这个人很懒，什么都没有留下~" }) as any
         if (res.code === 200) {
             alert("注册成功啦~")
         } else {
