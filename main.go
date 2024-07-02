@@ -26,7 +26,6 @@ var whiteOrigins = [6]string{
 	"https://clicli.cc",
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
-	"http://localhost:53230",
 }
 
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
@@ -45,7 +44,7 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
 	w.Header().Add("Access-Control-Allow-Methods", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token")
+	w.Header().Add("Access-Control-Allow-Headers", "*")
 	m.r.ServeHTTP(w, r)
 }
 
