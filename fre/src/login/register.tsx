@@ -64,7 +64,7 @@ export default function Register({ uid }) {
             <li><input type="text" placeholder={uid ? "留空则不改" : "密码"} onInput={(e) => change('pwd', e.target.value)} /></li>
             <li><input type="text" placeholder="签名(可不填)" onInput={(e) => change('sign', e.target.value)} value={user.sign} /></li>
 
-            {uid && (getUser().level & 0b1000) != 0 && <select value={user.level} onInput={e => change('level', e.target.value)}>
+            {uid && (getUser().level & 0b1000) != 0 && <select value={user.level} onInput={e => change('level', parseInt(e.target.value))}>
                 <option value="1">游客</option>
                 <option value="2">作者</option>
                 <option value="4">审核</option>
