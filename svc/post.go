@@ -22,6 +22,16 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
+	if pbody.Id != 0 {
+		resp, err := UpdatePost(pbody, r.Header.Get("token"))
+		if err != nil {
+			sendMsg(w, 400, fmt.Sprintf("%s", err))
+		} else {
+			sendPostResponse(w, resp, 200)
+		}
+		return
+	}
+
 	user, err := Auth(
 		r.Header.Get("token"), 0b1110) // 非游客都可以
 
@@ -40,33 +50,24 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 }
 
-func UpdatePost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	pid := p.ByName("id")
-	pint, _ := strconv.Atoi(pid)
-	req, _ := io.ReadAll(r.Body)
-	pbody := &db.Post{}
-	if err := json.Unmarshal(req, pbody); err != nil {
-		sendMsg(w, 400, fmt.Sprintf("%s", err))
-		return
-	}
+func UpdatePost(pbody *db.Post,token string) (*db.Post,error) {
 
-	_, err := Auth(r.Header.Get("token"), 0b1100) // 审核和管理可以
+
+	_, err := Auth(token, 0b1100) // 审核和管理可以
 
 	if err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
+		return nil, err
 	}
 
-	if resp, err := db.UpdatePost(pint, pbody.Title, pbody.Content, pbody.Status, pbody.Sort, pbody.Tag, pbody.Time, pbody.Videos); err != nil {
-		sendMsg(w, 500, fmt.Sprintf("%s", err))
-		return
+	if resp, err := db.UpdatePost(pbody.Id, pbody.Title, pbody.Content, pbody.Status, pbody.Sort, pbody.Tag, pbody.Time, pbody.Videos); err != nil {
+		return nil, err
 	} else {
-		sendPostResponse(w, resp, 200)
+		return resp, nil
 	}
 
 }
 
-func remove(s []string, r string) []string {
+func Remove(s []string, r string) []string {
 	for i, v := range s {
 		if v == r {
 			return append(s[:i], s[i+1:]...)
@@ -88,10 +89,10 @@ func UpdateUv(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 	uv := resp.Uv
 	names := strings.Split(uv, ",")
-	names = remove(names, "") // 特殊处理，删除空字符串
+	names = Remove(names, "") // 特殊处理，删除空字符串
 
 	if strings.Contains(uv, name) {
-		names = remove(names, name)
+		names = Remove(names, name)
 	} else {
 		names = append(names, name)
 	}

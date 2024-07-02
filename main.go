@@ -44,7 +44,7 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Access-Control-Allow-Credentials", "true")
 	w.Header().Add("Access-Control-Allow-Methods", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token")
+	w.Header().Add("Access-Control-Allow-Headers", "*")
 	m.r.ServeHTTP(w, r)
 }
 
@@ -54,20 +54,19 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/user/register", svc.Register) // 需要限流
 	router.POST("/user/login", svc.Login)
 	router.POST("/user/logout", svc.Logout) // 前端清空 localstorage
-	router.POST("/user/update/:id", svc.UpdateUser)
 	router.GET("/users", svc.GetUsers)
 	router.GET("/user", svc.GetUser)
 
 	router.POST("/comment/add", svc.AddComment) // 需要限流
-	router.POST("/comment/read", svc.ReadComments)
 	router.GET("/comment/delete/:id", svc.DeleteComment)
 	router.GET("/comments", svc.GetComments)
+	router.POST("/comment/uv", svc.UpdateCommentUv)
+
 
 	router.POST("/danmaku/add", svc.AddDanmaku) // 需要限流
 	router.GET("/danmaku/delete/:id", svc.DeleteDanmaku)
 	router.GET("/danmakus", svc.GetDanmakus)
 
-	router.POST("/post/update/:id", svc.UpdatePost)
 	router.POST("/post/uv", svc.UpdateUv)
 	router.POST("/post/add", svc.AddPost)
 	router.GET("/post/:id", svc.GetPost)

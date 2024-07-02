@@ -116,11 +116,11 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 
 	if tag != "" {
 		tags := strings.Split(tag, ",")
-		query += ` AND (1=2`
+		query += ` AND (1=1`
 		for _, s := range tags {
 			key := string("%" + s + "%")
 			slice = append(slice, key)
-			query += fmt.Sprintf(" OR posts.tag LIKE $%d", len(slice))
+			query += fmt.Sprintf(" AND posts.tag LIKE $%d", len(slice))
 		}
 		query += `)`
 	}
@@ -191,7 +191,7 @@ func SearchPosts(key string) ([]*Post, error) {
 
 func GetRank(day string) ([]*Post, error) {
 
-	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv, posts.uv, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.time >= current_timestamp - interval '1 day' * $1 AND posts.status='public' AND posts.sort!='原创' ORDER BY posts.pv DESC LIMIT 10")
+	stmt, err := dbConn.Prepare("SELECT posts.id, posts.title, posts.content, posts.status, posts.sort, posts.tag, posts.time, posts.videos, posts.pv, posts.uv, users.id, users.name, users.qq FROM posts LEFT JOIN users ON posts.uid = users.id WHERE posts.time >= current_timestamp - interval '1 day' * $1 AND posts.status='public' AND posts.sort!='原创' ORDER BY posts.pv DESC LIMIT 10 OFFSET 0")
 
 	if err != nil {
 		return nil, err
@@ -214,7 +214,7 @@ func GetRank(day string) ([]*Post, error) {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv, Uv: uv}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv, Uv: uv, Uname: uname, Uqq:uqq, Uid:uid}
 		res = append(res, c)
 	}
 

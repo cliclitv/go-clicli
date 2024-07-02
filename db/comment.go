@@ -1,38 +1,25 @@
 package db
 
 import (
-	_ "database/sql"
+	"database/sql"
 	"time"
 )
 
-func AddComment(content string, pid int, uid int, rid int, runame string, read int) (*Comment, error) {
+func AddComment(content string, pid int, uid int, rid int, runame string) (*Comment, error) {
 	t := time.Now()
 	ctime := t.Format("2006-01-02 15:04")
-	stmtIns, err := dbConn.Prepare("INSERT INTO comments (content,time,pid,uid,rid,runame,read) VALUES ($1,$2,$3,$4,$5,$6,$7)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO comments (content,time,pid,uid,rid,runame,uv) VALUES ($1,$2,$3,$4,$5,$6,$7)")
 	if err != nil {
 		return nil, err
 	}
-	_, err = stmtIns.Exec(content, ctime, pid, uid, rid, runame, read)
+	_, err = stmtIns.Exec(content, ctime, pid, uid, rid, runame, "")
 	if err != nil {
 		return nil, err
 	}
 	defer stmtIns.Close()
 
-	res := &Comment{Content: content, Time: ctime, Uid: uid, Pid: pid, Rid: rid, Runame: runame, Read: read}
+	res := &Comment{Content: content, Time: ctime, Uid: uid, Pid: pid, Rid: rid, Runame: runame}
 	return res, err
-}
-
-func ReadComments(runame string) error {
-	stmtIns, err := dbConn.Prepare("UPDATE comments set read=1 WHERE runame=$1")
-	if err != nil {
-		return err
-	}
-	_, err = stmtIns.Exec(runame)
-	if err != nil {
-		return err
-	} else {
-		return nil
-	}
 }
 
 func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, error) {
@@ -41,17 +28,10 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 	var query string
 	var id interface{}
 
-	if runame != "" {
-		// 查找别人发给我的未读消息
-		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id 
-		WHERE comments.runame=$1 AND read = 0 ORDER BY time DESC LIMIT $2 OFFSET $3`
-		id = runame
-	} else {
-		// 查找 pid 的消息
-		query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id 
+	// 查找 pid 的消息
+	query = `SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,comments.uv,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id 
 		WHERE comments.pid=$1 ORDER BY time DESC LIMIT $2 OFFSET $3`
-		id = pid
-	}
+	id = pid
 
 	stmtOut, err := dbConn.Prepare(query)
 
@@ -69,13 +49,13 @@ func GetComments(pid int, runame string, page int, pageSize int) ([]*Comment, er
 	defer rows.Close()
 
 	for rows.Next() {
-		var id, pid, uid, ruid, read, rid, uviptime, ulevel int
-		var content, ctime, uname, uqq, runame string
-		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uid, &uname, &uqq, &uviptime, &ulevel); err != nil {
+		var id, pid, uid, ruid, rid, uviptime, ulevel int
+		var content, ctime, uname, uqq, runame, uv string
+		if err := rows.Scan(&id, &content, &ctime, &pid, &rid, &runame, &uv, &uid, &uname, &uqq, &uviptime, &ulevel); err != nil {
 			return res, err
 		}
 
-		c := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Read: read, Uviptime: uviptime, Ulevel: ulevel}
+		c := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Uviptime: uviptime, Ulevel: ulevel, Uv: uv}
 		res = append(res, c)
 	}
 	return res, nil
@@ -94,5 +74,40 @@ func DeleteComment(id int) error {
 	}
 	defer stmtDel.Close()
 
+	return nil
+}
+
+func GetComment(id int) (*Comment, error) {
+	stmt, err := dbConn.Prepare(`SELECT comments.id,comments.content,comments.time,comments.pid,comments.rid,comments.runame,comments.uv,users.id,users.name,users.qq,users.viptime,users.level FROM comments INNER JOIN users ON comments.uid = users.id WHERE comments.id = $1`)
+	if err != nil {
+		return nil, err
+	}
+	var pid, uid, ruid, rid, uviptime, ulevel int
+	var content, ctime, uname, uqq, runame, uv string
+
+	err = stmt.QueryRow(id).Scan(&id, &content, &ctime, &pid, &rid, &runame, &uv, &uid, &uname, &uqq, &uviptime, &ulevel)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
+	}
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	defer stmt.Close()
+
+	res := &Comment{Id: id, Content: content, Time: ctime, Pid: pid, Rid: rid, Runame: runame, Uid: uid, Uname: uname, Uqq: uqq, Ruid: ruid, Uviptime: uviptime, Ulevel: ulevel, Uv: uv}
+
+	return res, nil
+}
+
+func UpdateCommentUv(id int, uv string) error {
+	stmtCount, err := dbConn.Prepare("UPDATE comments SET uv = $1 WHERE id = $2")
+	if err != nil {
+		return err
+	}
+	_, err = stmtCount.Exec(uv, id)
+	if err != nil && err != sql.ErrNoRows {
+		return err
+	}
+	defer stmtCount.Close()
 	return nil
 }

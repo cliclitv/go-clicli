@@ -33,40 +33,18 @@ function replaceContent(c = '') {
     .replace(/img[0-9].doubanio.com/g, 'doubanimg.deno.dev')
 }
 
-export function addPost({ title, content, status, sort, tag, videos }) {
-  videos = replaceContent(videos)
-  return post('https://www.clicli.cc/post/add', {
-    title,
-    content,
-    status,
-    sort,
-    tag,
-    videos
-  })
+export function addPost(data) {
+  let videos = replaceContent(data.videos)
+  return post('https://www.clicli.cc/post/add', { videos: videos, ...data })
 }
 
 export function getUser() {
   return JSON.parse(window.localStorage.getItem('user'))
 }
 
-export function updatePost({ id, title, content, status, sort, tag, time, videos }) {
-  videos = replaceContent(videos)
-  return post(`https://www.clicli.cc/post/update/${id}`, {
-    id,
-    title,
-    content,
-    status,
-    sort,
-    tag,
-    time,
-    videos
-  })
-}
 
-export function updateUser({ id, name, pwd, qq, level, hash, sign }) {
-  return post(`https://www.clicli.cc/user/update/${id}`, {
-    name, pwd, qq, level: parseInt(level), hash, sign
-  })
+export function addUser(data) {
+  return post(`https://www.clicli.cc/user/register`, data)
 }
 
 export function getUserB({ id, qq, name }) {
@@ -154,6 +132,6 @@ export function getUsers(names) {
   return get(`https://www.clicli.cc/users?names=${names.join(',')}`)
 }
 
-export function getGonggao(){
+export function getGonggao() {
   return get(`https://www.clicli.cc/post/1`)
 }
