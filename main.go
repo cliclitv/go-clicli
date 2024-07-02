@@ -26,6 +26,7 @@ var whiteOrigins = [6]string{
 	"https://clicli.cc",
 	"http://localhost:3000",
 	"https://cdn.clicli.cc",
+	"http://localhost:53230",
 }
 
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
