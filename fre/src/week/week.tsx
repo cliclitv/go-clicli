@@ -11,7 +11,8 @@ export default function WeekList() {
         getPost('新番', '', 1, 100).then(res => {
             let ret = {}
             res.posts.forEach(item => {
-                let day = new Date(item.time).getDay() - 1
+                let day = new Date(item.time).getUTCDay()
+                console.log(item.time,day)
                 ret[day] = ret[day] || []
                 ret[day].push(item)
             })
@@ -32,9 +33,12 @@ export default function WeekList() {
             <div className="headline">
                 <h1>更新表</h1>
                 <ul>
-                    {posts && Object.keys(posts).map((item, index) => <button
+                    {posts && Object.keys(posts).map((item, index) => {
+                        console.log(index,item,day)
+                        return <button
                         className={index === day ? 'active' : ''}
-                        onClick={() => setDay(index)}>{map[item]}</button>)}
+                        onClick={() => setDay(index)}>{map[item]}</button>
+                    })}
                 </ul>
             </div>
             <div class="weekcontent">
