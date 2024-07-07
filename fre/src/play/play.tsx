@@ -46,6 +46,7 @@ export default function Post({ gv, uu }) {
                     id: uu,
                     title: `${res.result.name}の直播间`,
                     content: `![suo](${getAvatar(res.result.qq)})`,
+                    tag:`直播`
                 })
 
             })
