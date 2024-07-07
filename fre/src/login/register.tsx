@@ -63,7 +63,7 @@ export default function Register({ uid }) {
             <li><input type="text" placeholder="昵称" onInput={(e) => change('name', e.target.value)} value={user.name} /></li>
             <li><input type="text" placeholder={uid ? "留空则不改" : "密码"} onInput={(e) => change('pwd', e.target.value)} /></li>
             <li><input type="text" placeholder="签名(可不填)" onInput={(e) => change('sign', e.target.value)} value={user.sign} /></li>
-            {(user.level & 0b1100) && <li><input type="text" value={`rtmp://www.clicli.us/live/uu${user.id}`} /></li>}
+            {(user.level & 0b1110) && <li><input type="text" value={`rtmp://www.clicli.us/live/uu${user.id}`} /></li>}
 
             {uid && (getUser().level & 0b1110) != 0 && <select value={user.level} onInput={e => change('level', parseInt(e.target.value))}>
                 <option value="1">游客</option>
