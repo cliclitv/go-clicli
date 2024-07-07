@@ -30,9 +30,6 @@ export default function Post({ gv }) {
                     setAuthors(res.users)
                 })
             }
-
-
-
             setVideos(videos)
             setSource(res.result.uname)
             if (videos.length > 0) {
@@ -45,6 +42,9 @@ export default function Post({ gv }) {
             document.body.style.overflow = 'auto'
         }
     }, [])
+
+        const isLive = post.tag.indexOf('直播')>-1
+
 
     useEffect(() => {
         const canvas = document.querySelector('canvas')
@@ -83,7 +83,7 @@ export default function Post({ gv }) {
     return (
         <div class="wrap player">
 
-            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} isMug={isMug} beat={beat}></Eplayer>}
+            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} isMug={isMug} beat={beat} live={isLive}></Eplayer>}
 
             <div className="p" style={{ height: isOther ? '800px' : '565px' }}>
                 <div className="info">
@@ -178,6 +178,9 @@ export function Eplayer(props) {
                 if (props.isMug) {
                     t.current.setAttribute('beatmap', props.beat)
                     t.current.setAttribute('height', '565')
+                }
+                if(props.live){
+                    t.current.setAttribute('live', props.live)
                 }
             }
         })
