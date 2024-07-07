@@ -59,9 +59,6 @@ export function getTransfer({ from, to }) {
   return get(`https://www.clicli.cc/eth/transfer?from=${from}&to=${to}`)
 }
 
-export function getBal(from) {
-  return get(`https://www.clicli.cc/eth/balanceof?from=${from}`)
-}
 
 export function pay({ price, order, uid }) {
   return get(`https://www.clicli.cc/vip/pay?price=${price}&order=${order}&uid=${uid}`)

@@ -11,6 +11,7 @@ const routes = {
     '/register': import('./home/home'),
     '/draft/:id': import('./draft/draft'),
     '/play/:gv': import('./home/home'),
+    '/live/:uu': import('./home/home'),
     '/user/:uid': import('./home/home'),
     '/sponsor': import('./sponsor/sponsor'),
 }

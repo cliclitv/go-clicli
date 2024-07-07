@@ -14,7 +14,7 @@ import Register from '../login/register'
 function CenterSection({ comp, props }) {
     const Comp = comp
     return <div style={{ 'position': 'relative' }}>
-        <div className={props.gv ? 'postplayer' : "usercenter"}>
+        <div className={(props.gv || props.uu) ? 'postplayer' : "usercenter"}>
             <Comp {...props}></Comp>
         </div>
         <div className="mask">
@@ -52,7 +52,7 @@ export default function App(props) {
             }
 
 
-            {props.gv && <CenterSection comp={Post} props={props}></CenterSection>}
+            {(props.gv || props.uu) && <CenterSection comp={Post} props={props}></CenterSection>}
         </div>
 
     )

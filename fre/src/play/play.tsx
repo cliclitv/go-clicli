@@ -1,15 +1,16 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
 import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
-import { getAv, getSuo } from '../util/avatar'
+import { getAv, getAvatar, getSuo } from '../util/avatar'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
 import Danmaku from '../danmaku/danmaku'
 import Danmu from './danmaku'
+import { get } from '../util/post'
 
-export default function Post({ gv }) {
-    const [id, fp] = getAv(gv)
+export default function Post({ gv, uu }) {
+    const [id, fp] = getAv(gv || uu)
     const [post, setPost] = useState({} as any)
     const [videos, setVideos] = useState([])
     const [play, setPlay] = useState("")
@@ -21,24 +22,50 @@ export default function Post({ gv }) {
     const [beat, setBeat] = useState('')
 
     useEffect(() => {
-        getPostDetail(id).then((res: any) => {
-            setPost((res as any).result)
-            const videos = buildVideos((res as any).result.videos || "", res.result.uname)
-            const names = buildNames(videos)
-            if (names.length > 1) {
-                getUsers(names).then((res: any) => {
-                    setAuthors(res.users)
+        if (gv) {
+            getPostDetail(id).then((res: any) => {
+                setPost((res as any).result)
+                const videos = buildVideos((res as any).result.videos || "", res.result.uname)
+                const names = buildNames(videos)
+                if (names.length > 1) {
+                    getUsers(names).then((res: any) => {
+                        setAuthors(res.users)
+                    })
+                }
+                setVideos(videos)
+                setSource(res.result.uname)
+                if (videos.length > 0) {
+                    setPlay(videos[0][1])
+                    setBeat(videos[0][2])
+                }
+            })
+        } else if (uu) {
+            // 直播
+            getUserB({ id: id }).then(res => {
+                console.log(res)
+                setPost({
+                    id: uu,
+                    title: `${res.result.name}の直播间`,
+                    content: `![suo](${getAvatar(res.result.qq)})`,
                 })
-            }
-            setVideos(videos)
-            setSource(res.result.uname)
-            if (videos.length > 0) {
-                setPlay(videos[0][1])
-                setBeat(videos[0][2])
-            }
-        })
+
+            })
+
+            const url = `https://cliclius.deno.dev/live/${uu}.m3u8`
+
+            fetch(url).then(res => {
+                if (res.status === 403) {
+                    setPlay(null)
+                } else {
+                    setPlay(url)
+                }
+            })
+
+            // setPlay()
+        }
+
         document.body.style.overflow = 'hidden'
-        return ()=>{
+        return () => {
             document.body.style.overflow = 'auto'
         }
     }, [])
@@ -177,7 +204,7 @@ export function Eplayer(props) {
                     t.current.setAttribute('beatmap', props.beat)
                     t.current.setAttribute('height', '565')
                 }
-                if(props.live){
+                if (props.live) {
                     t.current.setAttribute('live', props.live)
                 }
             }
@@ -187,7 +214,7 @@ export function Eplayer(props) {
     return (
         <div className="ep-wrap">
             <canvas id="danmaku"></canvas>
-            <e-player ref={t} class='ep' />
+            {props.url != null ? <e-player ref={t} class='ep' /> : <h1>没有正在播放的视频流</h1>}
         </div>
     )
 }
