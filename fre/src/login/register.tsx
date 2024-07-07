@@ -52,7 +52,7 @@ export default function Register({ uid }) {
         }
     }
 
-    const isLive = user.level === 4 && user.sign != null
+    console.log(user.id)
 
     return <div class="section">
         <div class="login">
@@ -63,10 +63,11 @@ export default function Register({ uid }) {
             <li><input type="text" placeholder="昵称" onInput={(e) => change('name', e.target.value)} value={user.name} /></li>
             <li><input type="text" placeholder={uid ? "留空则不改" : "密码"} onInput={(e) => change('pwd', e.target.value)} /></li>
             <li><input type="text" placeholder="签名(可不填)" onInput={(e) => change('sign', e.target.value)} value={user.sign} /></li>
+            {(user.level & 0b1100) && <li><input type="text" value={`https://www.clicli.us/live/uu${user.id}`} /></li>}
 
-            {uid && (getUser().level & 0b1000) != 0 && <select value={user.level} onInput={e => change('level', parseInt(e.target.value))}>
+            {uid && (getUser().level & 0b1110) != 0 && <select value={user.level} onInput={e => change('level', parseInt(e.target.value))}>
                 <option value="1">游客</option>
-                <option value="2">作者</option>
+                <option value="2">主播</option>
                 <option value="4">审核</option>
                 <option value="8">管理</option>
             </select>}
