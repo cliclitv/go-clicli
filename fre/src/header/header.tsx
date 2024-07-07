@@ -50,7 +50,6 @@ export default function Header() {
                     <div className="biu">
                         <li onClick={() => push('/')}>首页</li>
                             <a href="https://app.clicli.cc" target="_blank"><li>APP</li></a>
-                            <a href="https://www.acgzone.fun" target="_blank"><li>里世界</li></a>
                             <li onClick={() => push('/sponsor')}>赞助会员</li>
                             <li onClick={() => push('/play/gv31')}>使用说明</li>
                         <li onClick={openWallet} style={{ position: 'relative' }}>
@@ -59,6 +58,7 @@ export default function Header() {
                                 <li>UID {user?.id}</li>
                                 <li onClick={() => push('/draft/0')}>草稿箱</li>
                                 <li onClick={() => push(`/user/${(user || {}).qq}`)}>资料卡</li>
+                                <li onClick={() => push(`/live/uu${(user || {}).id}`)}>直播间</li>
                                 <li onClick={logout}>退出</li>
                             </div> : <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
                                 <li>UID {user?.id}</li>

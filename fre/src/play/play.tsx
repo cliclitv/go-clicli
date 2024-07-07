@@ -19,7 +19,6 @@ export default function Post({ gv, uu }) {
     const [danmakus, setDanmakus] = useState([])
     const [source, setSource] = useState('')
     const [authors, setAuthors] = useState('')
-    const [beat, setBeat] = useState('')
 
     useEffect(() => {
         if (gv) {
@@ -36,7 +35,7 @@ export default function Post({ gv, uu }) {
                 setSource(res.result.uname)
                 if (videos.length > 0) {
                     setPlay(videos[0][1])
-                    setBeat(videos[0][2])
+                    // setBeat(videos[0][2])
                 }
             })
         } else if (uu) {
@@ -102,13 +101,12 @@ export default function Post({ gv, uu }) {
     }
 
     const isOther = post.tag?.includes('其它')
-    const isMug = post.tag?.includes('音游')
     const isLive = post.tag?.includes('直播')
 
     return (
         <div class="wrap player">
 
-            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} isMug={isMug} beat={beat} live={isLive}></Eplayer>}
+            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive}></Eplayer>}
 
             <div className="p" style={{ height: isOther ? '800px' : '565px' }}>
                 <div className="info">
@@ -134,7 +132,9 @@ export default function Post({ gv, uu }) {
                             {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
                                 return <li>{tag}</li>
                             })}
-                            {((getUser() || {}).level & 0b1110) > 0 ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li> : null}
+                            {(((getUser() || {}).level & 0b1110) > 0 && !uu) ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li> : null}
+                            {(((getUser() || {}).level & 0b1110) > 0 && uu) ? <li> 推流: rtmp://www.clicli.us/live/{uu} ⯈</li> : null}
+                            {(uu) ? <li> 播放： https://www.clicli.cc/live/{uu} ⯈</li> : null}
                         </div>
                     </div>
                 </div>
@@ -200,10 +200,6 @@ export function Eplayer(props) {
             if (t.current) {
                 t.current.setAttribute('type', type)
                 t.current.setAttribute('src', res.result.url)
-                if (props.isMug) {
-                    t.current.setAttribute('beatmap', props.beat)
-                    t.current.setAttribute('height', '565')
-                }
                 if (props.live) {
                     t.current.setAttribute('live', props.live)
                 }
