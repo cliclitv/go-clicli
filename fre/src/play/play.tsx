@@ -133,8 +133,8 @@ export default function Post({ gv, uu }) {
                                 return <li>{tag}</li>
                             })}
                             {(((getUser() || {}).level & 0b1110) > 0 && !uu) ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li> : null}
-                            {(((getUser() || {}).level & 0b1110) > 0 && uu) ? <li> 推流: rtmp://www.clicli.us/live/{uu} ⯈</li> : null}
-                            {(uu) ? <li> 播放： https://www.clicli.cc/live/{uu} ⯈</li> : null}
+                            {(((getUser() || {}).level & 0b1110) > 0 && uu) ? <li> 推流 rtmp://www.clicli.us/live/{uu} ⯈</li> : null}
+                            {(uu) ? <li> 播放 https://www.clicli.cc/live/{uu} ⯈</li> : null}
                         </div>
                     </div>
                 </div>
