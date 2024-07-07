@@ -10,11 +10,14 @@ const gametags = []
 export default function WeekList() {
     const [posts, setPosts] = useState([])
     const [tag, setTag] = useState('全部')
+    
     useEffect(() => {
         getPost('原创', tag == '全部' ? '' : tag, 1, 18).then((res: any) => {
             setPosts(res.posts)
         })
     }, [tag])
+
+    //https://img.hongrenshuo.com.cn/h5/websiteManbo-live-icon-wr.png
 
     return <div className="week-list ugc-list">
         <div className="wrap section">
@@ -28,16 +31,17 @@ export default function WeekList() {
             </div>
             <div class="weekcontent">
                 <ul className="posts">
-                    {posts.map((item, index) => (
-                        <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
-                            <div className="post">
-                                <div className="cover">
-                                    <img src={getSuo(item.content)} />
-                                </div>
-                                <div className="title">{item.title}</div>
+                    {posts.map((item, index) => {
+                        const isLive = item.tag.includes('直播')
+                        return <li key={index} onClick={() => push(`/play/gv${item.id}`)} class={isLive?'live':''}>
+                        <div className="post">
+                            <div className="cover">
+                                <img src={getSuo(item.content)} />
                             </div>
-                        </li>
-                    )
+                            <div className="title">{item.title}</div>
+                        </div>
+                    </li>
+                    }
                     )}
                 </ul>
             </div>
