@@ -14,7 +14,8 @@ export default function Recommend(props) {
             setPosts(res.posts)
         })
         getGonggao().then(res=>{
-            setTags(res.result.videos.split('\n'))
+            const tags = res.result.videos.split('\n')
+            setTags(tags.splice(0,10))
         })
     }, [cat])
     return <div className="recommend">

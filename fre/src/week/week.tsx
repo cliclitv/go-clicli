@@ -12,7 +12,6 @@ export default function WeekList() {
             let ret = {}
             res.posts.forEach(item => {
                 let day = new Date(item.time).getUTCDay()
-                console.log(item.time,day)
                 ret[day] = ret[day] || []
                 ret[day].push(item)
             })
