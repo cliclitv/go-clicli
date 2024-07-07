@@ -104,6 +104,8 @@ export default function Post({ gv, uu }) {
     const isOther = post.tag?.includes('其它')
     const isLive = post.tag?.includes('直播')
 
+    console.log(isLive)
+
     return (
         <div class="wrap player">
 
@@ -201,12 +203,13 @@ export function Eplayer(props) {
             if (t.current) {
                 t.current.setAttribute('type', type)
                 t.current.setAttribute('src', res.result.url)
+                console.log(props.live)
                 if (props.live) {
                     t.current.setAttribute('live', props.live)
                 }
             }
         })
-    }, [props.url])
+    }, [props.url, props.live])
 
     return (
         <div className="ep-wrap">
