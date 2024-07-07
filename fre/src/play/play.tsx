@@ -43,9 +43,6 @@ export default function Post({ gv }) {
         }
     }, [])
 
-        const isLive = post.tag.indexOf('直播')>-1
-
-
     useEffect(() => {
         const canvas = document.querySelector('canvas')
         const video = document.querySelector('e-player').shadowRoot.querySelector('video')
@@ -79,6 +76,7 @@ export default function Post({ gv }) {
 
     const isOther = post.tag?.includes('其它')
     const isMug = post.tag?.includes('音游')
+    const isLive = post.tag?.includes('直播')
 
     return (
         <div class="wrap player">
