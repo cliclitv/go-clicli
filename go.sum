@@ -1,3 +1,5 @@
+github.com/cliclitv/clicli-live v0.0.0-20240707063144-62cb2ec039da h1:e/xRQ7VVEUIFQqbR2L8n84aNuLz11/H09rNkZUZjpSo=
+github.com/cliclitv/clicli-live v0.0.0-20240707063144-62cb2ec039da/go.mod h1:/pr0GnY4NbfaoiVkExhBAHSrBcHnPDAqug63Yc9C6po=
 github.com/didip/tollbooth v4.0.2+incompatible h1:fVSa33JzSz0hoh2NxpwZtksAzAgd7zjmGO20HCZtF4M=
 github.com/didip/tollbooth v4.0.2+incompatible/go.mod h1:A9b0665CE6l1KmzpDws2++elm/CsuWBMa5Jv4WY0PEY=
 github.com/didip/tollbooth_httprouter v0.0.0-20170928042012-f7d42d1bfca5 h1:BLKTZHmsg+VUn8myI5/rVn/goWSQHGA5eKaBw0McXkE=

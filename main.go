@@ -62,7 +62,6 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/comments", svc.GetComments)
 	router.POST("/comment/uv", svc.UpdateCommentUv)
 
-
 	router.POST("/danmaku/add", svc.AddDanmaku) // 需要限流
 	router.GET("/danmaku/delete/:id", svc.DeleteDanmaku)
 	router.GET("/danmakus", svc.GetDanmakus)
@@ -95,6 +94,11 @@ func main() {
 	}
 	r := RegisterHandler()
 	mh := NewMiddleWareHandler(r)
-	fmt.Println("server is run on http://localhost:4000")
-	http.ListenAndServe(":4000", mh)
+
+	go func() {
+		fmt.Println("server is run on http://localhost:4000")
+		http.ListenAndServe(":4000", mh)
+	}()
+
+	svc.StartLive()
 }
