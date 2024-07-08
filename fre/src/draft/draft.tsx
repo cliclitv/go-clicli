@@ -1,6 +1,6 @@
 import { useState, useEffect } from "fre"
 import { push } from "../use-route"
-import { addPost, getGonggao, getPostB, getPostDetail, getUser } from "../util/api"
+import { addPost, getGonggao, getPost, getPostB, getPostDetail, getUser } from "../util/api"
 import './draft.css'
 
 let lock = false
@@ -36,14 +36,24 @@ export default function Upload(props) {
             })
 
         } else if (props.id == '00') {
-            selectTag('直播')
-            setPost({
-                videos: `https://www.clicli.cc/live/uu${getUser().id}`,
-                sort: "直播"
-            } as any)
+
+            getPostB('直播', '', 1, 1, '', user.id).then(res => {
+                selectTag('直播')
+                const data = {
+                    videos: `https://www.clicli.cc/live/uu${getUser().id}`,
+                    sort: "直播",
+                    status:'发布'
+                } as any
+                if (res.posts) {
+                    data['id'] = res.posts[0].id
+                }
+                setPost(data)
+            })
+
+
             // 直播
         }
-        if (user) {
+        if (user && props.id !== '00') {
             getPostB("", "", 1, 200, "", user?.id).then((res: any) => {
                 setDraft(res.posts)
             })
@@ -135,7 +145,7 @@ export default function Upload(props) {
                 </div>}
                 <div className="tags">
                     <ul>
-                        {(post.sort === '原创' ? gametags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
+                        {(post.sort === '原创' || post.sort === '直播' ? gametags : tags).map((item, index) => <li onClick={() => selectTag(item)} key={index.toString()}
                             className={tag.includes(item) ? 'active' : ''}>{item}</li>)}
                     </ul>
 

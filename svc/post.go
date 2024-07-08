@@ -52,6 +52,7 @@ func AddPost(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func UpdatePost(pbody *db.Post,token string) (*db.Post,error) {
 
+	
 
 	_, err := Auth(token, 0b1100) // 审核和管理可以
 

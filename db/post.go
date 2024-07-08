@@ -27,17 +27,21 @@ func AddPost(title string, content string, status string, sort string, tag strin
 	return res, err
 }
 
-func UpdatePost(id int, title string, content string, status string, sort string, tag string, time string, videos string) (*Post, error) {
+func UpdatePost(id int, title string, content string, status string, sort string, tag string, ctime string, videos string) (*Post, error) {
+	if ctime == "" {
+		cstZone := time.FixedZone("CST", 8*3600)
+		ctime = time.Now().In(cstZone).Format("2006-01-02 15:04")
+	}
 	stmtIns, err := dbConn.Prepare("UPDATE posts SET title=$1,content=$2,status=$3,sort=$4,tag=$5,time=$6,videos=$7 WHERE id =$8")
 	if err != nil {
 		return nil, err
 
 	}
-	_, err = stmtIns.Exec(&title, &content, &status, &sort, &tag, &time, &videos, &id)
+	_, err = stmtIns.Exec(&title, &content, &status, &sort, &tag, &ctime, &videos, &id)
 	if err != nil {
 		return nil, err
 	}
-	res := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: time, Videos: videos}
+	res := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos}
 	defer stmtIns.Close()
 	return res, err
 }
@@ -82,7 +86,7 @@ INNER JOIN users ON posts.uid = users.id WHERE posts.id = $1`)
 	return res, nil
 }
 
-func GetPosts(page int, pageSize int, status string, sort string, tag string, uid int,uv string) ([]*Post, error) {
+func GetPosts(page int, pageSize int, status string, sort string, tag string, uid int, uv string) ([]*Post, error) {
 	start := pageSize * (page - 1)
 
 	var query string
@@ -94,7 +98,7 @@ func GetPosts(page int, pageSize int, status string, sort string, tag string, ui
 	}
 
 	if uv != "" {
-		slice = append(slice, string("%" + uv + "%"))
+		slice = append(slice, string("%"+uv+"%"))
 		query += fmt.Sprintf(" AND posts.uv LIKE $%d", len(slice))
 	}
 
@@ -214,7 +218,7 @@ func GetRank(day string) ([]*Post, error) {
 			return res, err
 		}
 
-		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv, Uv: uv, Uname: uname, Uqq:uqq, Uid:uid}
+		c := &Post{Id: id, Title: title, Content: content, Status: status, Sort: sort, Tag: tag, Time: ctime, Videos: videos, Pv: pv, Uv: uv, Uname: uname, Uqq: uqq, Uid: uid}
 		res = append(res, c)
 	}
 
