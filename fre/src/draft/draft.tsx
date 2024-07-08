@@ -40,7 +40,7 @@ export default function Upload(props) {
             selectTag('直播')
             setPost({
                 videos: `https://www.clicli.cc/live/uu${getUser().id}`,
-                sort:"原创"
+                sort: "原创"
             } as any)
             // 直播
         }
@@ -83,17 +83,14 @@ export default function Upload(props) {
             return
         }
         lock = true
-        if (props.id > 0) {
-            addPost(post as any).then(res => {
-                lock = false
-                alert((res.msg || '搞定^_^') + ' gv' + res.result.id)
-            })
-        } else {
-            addPost(post as any).then(res => {
-                lock = false
-                alert((res.msg || '搞定^_^'))
-            })
-        }
+
+
+        addPost(post as any).then(res => {
+            lock = false
+            const gv = res.result?.id ? 'gv' + res.result?.id : ''
+            alert((res.msg || '搞定^_^ ') + gv)
+        })
+
     }
 
     const openWindow = (url) => {
@@ -159,7 +156,7 @@ export default function Upload(props) {
             {(user && props.id === '00') && <div className="draft">
                 <p>直播教程</p>
                 <article>电脑使用 OBS，手机使用芯象，推流到推流地址 <pre>rtmp://www.clicli.us/live/uu{user.id}</pre>
-                然后打开播放地址<pre>https://www.clicli.cc/live/uu{user.id}</pre>播放</article>
+                    然后打开播放地址<pre>https://www.clicli.cc/live/uu{user.id}</pre>播放</article>
 
             </div>}
         </div>
