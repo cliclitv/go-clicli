@@ -171,7 +171,7 @@ export default function Upload(props) {
                 <p>直播教程</p>
                 <article>
                     1. 发布直播信息，在左侧编写然后点发布
-                    2. 电脑使用 <a href="https://obsproject.com/" target="__blank">OBS</a>，服务器填写 <pre>rtmp://www.clicli.us/live/</pre>，推流码填写 <pre>uu{user.id}</pre>
+                    2. 电脑使用 <a href="https://obsproject.com/" target="__blank">OBS</a>，服务器填写 <pre>rtmp://www.clicli.us/live/</pre>推流码填写 <pre>uu{user.id}</pre>
                     3. 手机使用<a href="https://www.sinsam.com/sm/download/?t=2" target="__blank">芯象</a>，推流地址填写 <pre>rtmp://www.clicli.us/live/uu{user.id}</pre>
                     4. 最后打开播放地址<pre>{url}</pre>播放
                 </article>
