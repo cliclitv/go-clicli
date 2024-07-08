@@ -36,11 +36,10 @@ export default function Upload(props) {
             })
 
         } else if (props.id == '00') {
-            console.log('直播')
             selectTag('直播')
             setPost({
                 videos: `https://www.clicli.cc/live/uu${getUser().id}`,
-                sort: "原创"
+                sort: "直播"
             } as any)
             // 直播
         }
