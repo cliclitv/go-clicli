@@ -40,9 +40,9 @@ export default function Upload(props) {
             getPostB('直播', '', 1, 1, '', user.id).then(res => {
                 selectTag('直播')
                 const data = {
-                    videos: `https://www.clicli.cc/live/uu${getUser().id}`,
+                    videos: `https://cliclius.deno.dev/live/uu${getUser().id}.m3u8`,
                     sort: "直播",
-                    status:'发布'
+                    status:'public'
                 } as any
                 if (res.posts) {
                     data['id'] = res.posts[0].id
@@ -87,6 +87,7 @@ export default function Upload(props) {
         if (lock) {
             return
         }
+        console.log(post)
         if (!post.title || !post.content || !post.sort || !post.tag) {
             alert("都要填")
             return

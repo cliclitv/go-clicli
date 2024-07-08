@@ -7,12 +7,12 @@ import '../week/week.css'
 
 const gametags = []
 
-export default function WeekList() {
+export default function WeekList(props) {
     const [posts, setPosts] = useState([])
     const [tag, setTag] = useState('全部')
-    
+
     useEffect(() => {
-        getPost('原创', tag == '全部' ? '' : tag, 1, 18).then((res: any) => {
+        getPost(props.sort, tag == '全部' ? '' : tag, 1, 12).then((res: any) => {
             setPosts(res.posts)
         })
     }, [tag])
@@ -22,7 +22,7 @@ export default function WeekList() {
     return <div className="week-list ugc-list">
         <div className="wrap section">
             <div className="">
-                <h1>投稿区</h1>
+                <h1>{props.sort}区</h1>
                 <ul>
                     {([].concat(gametags)).map((item, index) => <button
                         className={item === tag ? 'active' : ''}
@@ -33,14 +33,14 @@ export default function WeekList() {
                 <ul className="posts">
                     {posts.map((item, index) => {
                         const isLive = item.tag.includes('直播')
-                        return <li key={index} onClick={() => push(`/play/gv${item.id}`)} class={isLive?'live':''}>
-                        <div className="post">
-                            <div className="cover">
-                                <img src={getSuo(item.content)} />
+                        return <li key={index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
+                            <div className="post">
+                                <div className="cover">
+                                    <img src={getSuo(item.content)} />
+                                </div>
+                                <div className="title">{item.title}</div>
                             </div>
-                            <div className="title">{item.title}</div>
-                        </div>
-                    </li>
+                        </li>
                     }
                     )}
                 </ul>

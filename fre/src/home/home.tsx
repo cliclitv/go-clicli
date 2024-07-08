@@ -34,7 +34,8 @@ export default function App(props) {
                 <RankList />
             </div>
             <WeekList />
-            <UGCList></UGCList>
+            <UGCList sort='原创'></UGCList>
+            <UGCList sort='直播'></UGCList>
             <PostList></PostList>
             {
                 window.location.pathname === '/login' && <CenterSection comp={Login} props={props}></CenterSection>
