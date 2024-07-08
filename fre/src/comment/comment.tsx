@@ -44,7 +44,7 @@ export default function Comment({ post }) {
         }
         <div class="comment">
             <div className="comment-input">
-                <Avatar uqq={user.qq} uname={user.name}></Avatar>
+                <Avatar uqq={user.qq}></Avatar>
                 <input type="text" placeholder="Duang~" onInput={(e) => setComment(e.target.value)} />
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
