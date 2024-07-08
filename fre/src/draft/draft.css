@@ -31,6 +31,7 @@
 .draft pre{
     background: #fff;
     color: var(--secondary);
+    font-weight: bold;
     padding: 2px;
     margin: 5px 0;
 }

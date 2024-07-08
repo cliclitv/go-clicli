@@ -33,35 +33,20 @@ export default function Post({ gv, uu }) {
                 }
                 setVideos(videos)
                 setSource(res.result.uname)
+                console.log(videos)
                 if (videos.length > 0) {
-                    setPlay(videos[0][1])
-                    // setBeat(videos[0][2])
+                    const url = videos[0][1]
+                    console.log(url)
+                    fetch(url).then(res => {
+                        console.log(res)
+                        if (res.status === 403) {
+                            setPlay(null)
+                        } else {
+                            setPlay(url)
+                        }
+                    })
                 }
             })
-        } else if (uu) {
-            // 直播
-            getUserB({ id: id }).then(res => {
-                console.log(res)
-                setPost({
-                    id: uu,
-                    title: `${res.result.name}の直播间`,
-                    content: `![suo](${getAvatar(res.result.qq)})`,
-                    tag:`直播`
-                })
-
-            })
-
-            const url = `https://cliclius.deno.dev/live/${uu}.m3u8`
-
-            fetch(url).then(res => {
-                if (res.status === 403) {
-                    setPlay(null)
-                } else {
-                    setPlay(url)
-                }
-            })
-
-            // setPlay()
         }
 
         document.body.style.overflow = 'hidden'
@@ -136,8 +121,6 @@ export default function Post({ gv, uu }) {
                                 return <li>{tag}</li>
                             })}
                             {(((getUser() || {}).level & 0b1110) > 0 && !uu) ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li> : null}
-                            {(((getUser() || {}).level & 0b1110) > 0 && uu) ? <li> 推流 rtmp://www.clicli.us/live/{uu} ⯈</li> : null}
-                            {(uu) ? <li> 播放 https://www.clicli.cc/live/{uu} ⯈</li> : null}
                         </div>
                     </div>
                 </div>

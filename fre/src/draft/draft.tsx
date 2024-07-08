@@ -21,6 +21,7 @@ export default function Upload(props) {
     const [tag, setTag] = useState([])
     const [draft, setDraft] = useState([])
     const [tags, setTags] = useState(tags1)
+    const [url, setUrl] = useState('')
 
     useEffect(() => {
         window.md = new (window as any).TinyMDE(document.querySelector('textarea'))
@@ -40,14 +41,16 @@ export default function Upload(props) {
             getPostB('直播', '', 1, 1, '', user.id).then(res => {
                 selectTag('直播')
                 const data = {
-                    videos: `https://cliclius.deno.dev/live/uu${getUser().id}.m3u8`,
+                    videos: `HLS$https://cliclius.deno.dev/live/uu${getUser().id}.m3u8`,
                     sort: "直播",
-                    status:'public'
+                    status: 'public'
                 } as any
                 if (res.posts) {
                     data['id'] = res.posts[0].id
+                    setUrl(`https://www.clicli.cc/play/gv${data['id']}`)
                 }
                 setPost(data)
+
             })
 
 
@@ -165,8 +168,11 @@ export default function Upload(props) {
             </div>}
             {(user && props.id === '00') && <div className="draft">
                 <p>直播教程</p>
-                <article>电脑使用 OBS，手机使用芯象，推流到推流地址 <pre>rtmp://www.clicli.us/live/uu{user.id}</pre>
-                    然后打开播放地址<pre>https://www.clicli.cc/live/uu{user.id}</pre>播放</article>
+                <article>
+                    1. 发布直播信息，在左侧编写然后点发布
+                    2. 电脑使用 <a href="https://obsproject.com/" target="__blank">OBS</a>，手机使用<a href="https://www.sinsam.com/sm/download/?t=2" target="__blank">芯象</a>，推流到推流地址 <pre>rtmp://www.clicli.us/live/uu{user.id}</pre>
+                    3. 最后打开播放地址<pre>{url}</pre>播放
+                </article>
 
             </div>}
         </div>
