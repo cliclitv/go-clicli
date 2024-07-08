@@ -39,7 +39,7 @@ export default function Danmaku({ post, p, danmakus }) {
     return <div>
         <div class="danmaku">
             <div className="danmaku-input">
-                <Avatar uqq={user.qq} uname={user.name} noname={true}></Avatar>
+                <Avatar uqq={user.qq} uname={user.name}></Avatar>
                 <input type="text" placeholder="Duang~" onInput={(e) => setDanmaku(e.target.value)} />
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>

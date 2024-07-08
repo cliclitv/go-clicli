@@ -129,7 +129,7 @@ export default function Post({ gv, uu }) {
                         <ul class="tabs">
                             {(authors || []).map((item, i) => {
                                 return <div class={item.name == source ? 'active' : ''} onClick={() => setSource(item.name)}>
-                                    <Avatar uqq={item.qq} noname={true}></Avatar>
+                                    <Avatar uqq={item.qq}></Avatar>
                                 </div>
                             })}
                         </ul>
