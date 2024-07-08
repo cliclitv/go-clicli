@@ -245,6 +245,7 @@ section p {
     z-index: 9;
     background-size: 50%;
     border-radius: 8px;
+    opacity: 0.5;
 }
 
 .live .cover{
