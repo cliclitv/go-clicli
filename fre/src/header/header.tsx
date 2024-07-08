@@ -59,7 +59,7 @@ export default function Header() {
                                 <li onClick={() => push(`/user/${(user || {}).qq}`)}>资料卡</li>
 
                                 {user.level >= 2 && <li onClick={() => push('/draft/0')}>草稿箱</li>}
-                                {user.level >= 2 && <li onClick={() => push(`/live/uu${(user || {}).id}`)}>直播间</li>}
+                                {user.level >= 2 && <li onClick={() => push(`/draft/00`)}>开直播</li>}
                                 <li onClick={logout}>退出</li>
                             </div> : <div className="wallet" style={{ display: show ? 'block' : 'none' }}>
                                 <li>UID {user?.id}</li>

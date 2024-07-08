@@ -16,12 +16,23 @@
     border-radius: 10px;
     margin: 20px;
     flex: 1;
-    height: 635px;
+    max-height: 635px;
     overflow-y: scroll;
 }
 
 .draft ul{
     padding: 10px;
+}
+
+.draft article{
+    padding: 10px;
+}
+
+.draft pre{
+    background: #fff;
+    color: var(--secondary);
+    padding: 2px;
+    margin: 5px 0;
 }
 
 .draft li{
