@@ -1,14 +1,16 @@
 .avatar {
-    margin:0 10px;
+    margin-right: 10px;
     display: flex;
     align-items: center;
     position: relative;
+    height: 30px;
+    width: 30px;
 }
 
 
 .avatar img {
-    height: 30px;
-    width: 30px;
+    height: 30px !important;
+    width: 30px !important;
     border-radius: 50%;
     /* margin-right: 20px; */
 }

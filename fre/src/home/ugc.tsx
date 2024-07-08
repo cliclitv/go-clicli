@@ -3,6 +3,7 @@ import { push } from '../use-route'
 import { getPost } from '../util/api'
 import { getSuo } from '../util/avatar'
 import '../week/week.css'
+import Avatar from '../component/avatar/avatar'
 // import { gametags } from '../draft/draft'
 
 const gametags = []
@@ -38,7 +39,10 @@ export default function WeekList(props) {
                                 <div className="cover">
                                     <img src={getSuo(item.content)} />
                                 </div>
-                                <div className="title">{item.title}</div>
+                                <div className="title">
+                                    {props.sort === '直播' && <Avatar uqq={item.uqq}></Avatar>}
+                                    <p>{item.title}</p>
+                                </div>
                             </div>
                         </li>
                     }
