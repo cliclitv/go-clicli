@@ -56,20 +56,9 @@ export default function Post({ gv, uu }) {
     }, [])
 
     useEffect(() => {
-        const canvas = document.querySelector('canvas')
-        const video = document.querySelector('e-player').shadowRoot.querySelector('video')
-
         getDanmakus(id, idx).then(res => {
             setDanmakus((res as any).danmakus || [])
-            window.dm = new Danmu(canvas, video, (res as any).danmakus || [])
-            video.addEventListener('play', function () {
-                console.log("开始播放")
-                window.dm.play()
-            })
-            video.addEventListener('pause', function () {
-                console.log("播放暂停")
-                window.dm.pause()
-            })
+
         })
     }, [])
 
@@ -192,9 +181,36 @@ export function Eplayer(props) {
         })
     }, [props.url, props.live])
 
+    useEffect(() => {
+        const messages = [
+            '来了来了',
+            '沙发~',
+            '准时到达',
+            '发个弹幕见证一下',
+            'c站招募投稿君',
+            'c站招募主播',
+            'up主威武',
+            'c站发光发热',
+            '发一下弹幕菊花有不会坏',
+            '有人在吗',
+            '兄弟们又见面了',
+            '哈哈哈哈哈',
+            '呵呵呵',
+            '嘻嘻'
+        ]
+
+
+        for (let i = 0; i < 100; i++) {
+
+            document.querySelector('e-player').setAttribute('danma', messages[Math.random() * messages.length] as string)
+        }
+
+
+
+    }, [])
+
     return (
         <div className="ep-wrap">
-            <canvas id="danmaku"></canvas>
             {props.url != null ? <e-player ref={t} class='ep' /> : <h1>没有正在播放的视频流</h1>}
         </div>
     )
