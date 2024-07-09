@@ -13,7 +13,7 @@ export function getAvatar(avatar) {
 export function getSuo(content) {
   if (!content) return ""
   let m = content.match(/suo(.+?)\)/i)
-  return m ? m[1].slice(2) : 'https://cdn-us.imgs.moe/2023/02/27/63fcb180cbb30.jpg'
+  return m ? m[1].slice(2) : 'https://image.planet.youku.com/img/100/9/42605/i_1719400142605_ca83ed260c207767fc7f5b695e4fd0ad_b_w400h400.jpg'
 }
 
 export function removeSuo(content) {
