@@ -81,7 +81,7 @@ export default function Post({ gv, uu }) {
                             {
                                 !isOther && <ul class="tab">
                                     <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
-                                    <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>弹评</li>
+                                    <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>弹幕</li>
                                 </ul>
                             }
                         </div>

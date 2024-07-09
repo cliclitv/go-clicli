@@ -55,7 +55,7 @@ export default function Comment({ post }) {
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
-            <h1>共有{comments ? comments.length : 0}条弹评</h1>
+            <h1>共有{comments ? comments.length : 0}条弹幕</h1>
             {comments && comments.map(item => {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')
