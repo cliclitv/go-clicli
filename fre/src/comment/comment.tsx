@@ -1,31 +1,15 @@
 import { useEffect, useState, Fragment } from 'fre'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
-import { addComment, getComments, getUser } from '../util/api'
+import { addComment, getdanmakus, getUser } from '../util/api'
 import './comment.css'
 import Markdown from '../component/md/md'
 import { removeSuo } from '../util/avatar'
 
-export default function Comment({ post }) {
-    console.log(post)
+export default function Comment({ post, danmakus }) {
     const [comment, setComment] = useState('')
-    const [comments, setComments] = useState([])
 
     const [pos, setPos] = useState(0)
-    useEffect(() => {
-
-        getComments(post.id, 0).then(res => {
-            setComments((res as any).comments || [])
-        })
-
-    }, [])
-
-    useEffect(() => {
-        comments.forEach(item => {
-            document.querySelector('e-player').setAttribute('danma', item.content)
-        })
-
-    }, [comments])
 
     function submit() {
         if (comment.length < 1) {
@@ -55,8 +39,8 @@ export default function Comment({ post }) {
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
-            <h1>共有{comments ? comments.length : 0}条弹幕</h1>
-            {comments && comments.map(item => {
+            <h1>共有{danmakus ? danmakus.length : 0}条弹幕</h1>
+            {danmakus && danmakus.map(item => {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')
                 return <div className="comment-item">

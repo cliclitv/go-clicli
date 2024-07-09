@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
-import { getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
+import { getComments, getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
 import { getAv, getAvatar, getSuo } from '../util/avatar'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
@@ -15,9 +15,17 @@ export default function Post({ gv, uu }) {
     const [idx, setId] = useState(fp - 1)
     const [source, setSource] = useState('')
     const [authors, setAuthors] = useState('')
+    const [danmakus, setDanmakus] = useState([])
 
     useEffect(() => {
         if (gv) {
+            getComments(id, 0).then(res => {
+                const dammas = (res as any).comments || []
+                dammas.forEach(item => {
+                    document.querySelector('e-player').setAttribute('danma', item.content)
+                })
+                setDanmakus(dammas)
+            })
             getPostDetail(id).then((res: any) => {
                 setPost((res as any).result)
                 const videos = buildVideos((res as any).result.videos || "", res.result.uname)
@@ -31,7 +39,6 @@ export default function Post({ gv, uu }) {
                 setSource(res.result.uname)
                 if (videos.length > 0) {
                     const url = videos[0][1]
-                    console.log(url)
                     fetch(url).then(res => {
                         console.log(res)
                         if (res.status === 403) {
@@ -115,7 +122,7 @@ export default function Post({ gv, uu }) {
                     </>
                 }
                 {
-                    (show == 1) && post.id && <Comment post={post}></Comment>
+                    (show == 1) && <Comment post={post} danmakus={danmakus || []}></Comment>
                 }
             </div>
         </div>
