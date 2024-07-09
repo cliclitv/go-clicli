@@ -14,7 +14,7 @@ export default function Pay() {
         pay({
             price: Object.values(list)[index],
             order,
-            uid: user?.id || getUser()?.id
+            uid: user?.id || getUser()?.id || 2
         }).then((res: any) => {
             q.current.innerHTML = render(getMatrix(res.alipay_trade_precreate_response.qr_code), 'var(--secondary)')
             q2.current.href = res.alipay_trade_precreate_response.qr_code
