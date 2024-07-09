@@ -20,11 +20,17 @@ export default function Comment({ post }) {
 
     }, [])
 
+    useEffect(() => {
+        comments.forEach(item => {
+            document.querySelector('e-player').setAttribute('danma', item.content)
+        })
+
+    }, [comments])
+
     function submit() {
         if (comment.length < 1) {
             return
         }
-
         addComment({
             pid: post.id,
             rid: 0,
@@ -32,7 +38,7 @@ export default function Comment({ post }) {
             ruid: post.uid,
             content: comment,
         } as any).then((res: any) => {
-            alert(res.msg)
+            document.querySelector('e-player').setAttribute('danma', comment)
         })
 
     }
@@ -49,7 +55,7 @@ export default function Comment({ post }) {
                 {user.id ? <button onClick={submit}>发送</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
-            <h1>共有{comments ? comments.length : 0}条讨论</h1>
+            <h1>共有{comments ? comments.length : 0}条弹评</h1>
             {comments && comments.map(item => {
                 //@ts-ignore
                 const time = dayjs(item.time).format('MM-DD-YYYY')

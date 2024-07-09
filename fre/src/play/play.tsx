@@ -5,7 +5,6 @@ import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
-import Danmaku from '../danmaku/danmaku'
 
 export default function Post({ gv, uu }) {
     const [id, fp] = getAv(gv || uu)
@@ -14,7 +13,6 @@ export default function Post({ gv, uu }) {
     const [play, setPlay] = useState("")
     const [show, setShow] = useState(0)
     const [idx, setId] = useState(fp - 1)
-    const [danmakus, setDanmakus] = useState([])
     const [source, setSource] = useState('')
     const [authors, setAuthors] = useState('')
 
@@ -53,13 +51,6 @@ export default function Post({ gv, uu }) {
     }, [])
 
     useEffect(() => {
-        getDanmakus(id, idx).then(res => {
-            setDanmakus((res as any).danmakus || [])
-
-        })
-    }, [])
-
-    useEffect(() => {
         if (isOther) {
             setShow(1)
         }
@@ -90,8 +81,7 @@ export default function Post({ gv, uu }) {
                             {
                                 !isOther && <ul class="tab">
                                     <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
-                                    <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>讨论</li>
-                                    <li class={(show == 2) && 'active'} onclick={() => setShow(2)}>弹幕</li>
+                                    <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>弹评</li>
                                 </ul>
                             }
                         </div>
@@ -126,10 +116,6 @@ export default function Post({ gv, uu }) {
                 }
                 {
                     (show == 1) && post.id && <Comment post={post}></Comment>
-                }
-
-                {
-                    (show == 2) && post.id && <Danmaku post={post} p={idx} danmakus={danmakus}></Danmaku>
                 }
             </div>
         </div>
@@ -197,7 +183,7 @@ export function Eplayer(props) {
         ]
 
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 20; i++) {
             document.querySelector('e-player').setAttribute('danma', messages[parseInt(Math.random() * messages.length)] as string)
         }
     }, [props.url])
