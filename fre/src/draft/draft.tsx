@@ -54,9 +54,6 @@ export default function Upload(props) {
                 setPost(data)
 
             })
-
-
-            // 直播
         }
         if (user && props.id !== '00') {
             getPostB("", "", 1, 200, "", user?.id).then((res: any) => {

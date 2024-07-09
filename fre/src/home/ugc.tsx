@@ -33,7 +33,7 @@ export default function WeekList(props) {
             <div class="weekcontent">
                 <ul className="posts">
                     {posts.map((item, index) => {
-                        const isLive = item.tag.includes('直播')
+                        const isLive = item.sort === '直播'
                         return <li key={index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
                             <div className="post">
                                 <div className="cover">

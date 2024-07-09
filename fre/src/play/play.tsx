@@ -87,9 +87,7 @@ export default function Post({ gv, uu }) {
     }
 
     const isOther = post.tag?.includes('其它')
-    const isLive = post.tag?.includes('直播')
-
-    console.log(isLive)
+    const isLive = post.sort === '直播'
 
     return (
         <div class="wrap player">
