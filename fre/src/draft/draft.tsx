@@ -39,7 +39,6 @@ export default function Upload(props) {
         } else if (props.id == '00') {
 
             getPostB('直播', '', 1, 1, '', user.id).then(res => {
-                selectTag('直播')
                 const data = {
                     videos: `HLS$https://cliclius.deno.dev/live/uu${getUser().id}.m3u8`,
                     sort: "直播",
@@ -47,6 +46,9 @@ export default function Upload(props) {
                 } as any
                 if (res.posts) {
                     data['id'] = res.posts[0].id
+                    data['title'] = res.posts[0].title
+                    data['content'] = res.posts[0].content
+                    data['tag'] = res.posts[0].tag
                     setUrl(`https://www.clicli.cc/play/gv${data['id']}`)
                 }
                 setPost(data)
