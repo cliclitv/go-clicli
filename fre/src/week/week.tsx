@@ -33,7 +33,6 @@ export default function WeekList() {
                 <h1>更新表</h1>
                 <ul>
                     {posts && Object.keys(posts).map((item, index) => {
-                        console.log(index,item,day)
                         return <button
                         className={index === day ? 'active' : ''}
                         onClick={() => setDay(index)}>{map[item]}</button>

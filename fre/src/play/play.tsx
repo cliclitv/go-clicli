@@ -6,8 +6,6 @@ import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
 import Danmaku from '../danmaku/danmaku'
-import Danmu from './danmaku'
-import { get } from '../util/post'
 
 export default function Post({ gv, uu }) {
     const [id, fp] = getAv(gv || uu)
@@ -33,7 +31,6 @@ export default function Post({ gv, uu }) {
                 }
                 setVideos(videos)
                 setSource(res.result.uname)
-                console.log(videos)
                 if (videos.length > 0) {
                     const url = videos[0][1]
                     console.log(url)
@@ -201,13 +198,9 @@ export function Eplayer(props) {
 
 
         for (let i = 0; i < 100; i++) {
-
-            document.querySelector('e-player').setAttribute('danma', messages[Math.random() * messages.length] as string)
+            document.querySelector('e-player').setAttribute('danma', messages[parseInt(Math.random() * messages.length)] as string)
         }
-
-
-
-    }, [])
+    }, [props.url])
 
     return (
         <div className="ep-wrap">

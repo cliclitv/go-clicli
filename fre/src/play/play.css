@@ -8,10 +8,11 @@
 
 .ep-wrap {
     width: 1000px;
-    height: calc(var(--width) / 16 * 9);
+    /* height: calc(var(--width) / 16 * 9); */
     overflow: hidden;
     position: relative;
     border-radius: 5px 0 0 5px;
+    height: 565px;
 }
 
 
