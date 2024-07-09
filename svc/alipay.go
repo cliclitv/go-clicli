@@ -55,6 +55,12 @@ func Check(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	priceMap := map[float64]int{
+		0.5: 86400,
+		10:  30 * 86400,
+		25:  90 * 86400,
+		100: 360 * 86400,
+	}
 	r.ParseForm()
 	uid, _ := strconv.Atoi(r.Form.Get("body"))
 	amount, _ := strconv.ParseFloat(r.Form.Get("total_amount"), 64)
@@ -71,7 +77,7 @@ func Callback(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	cTime := int(time.Now().Unix())
 
-	atime := int(amount * 2 * 86400)
+	atime := priceMap[amount]
 
 	if cTime > user.Viptime || user.Viptime == 0 {
 		// 已过期

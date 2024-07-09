@@ -30,7 +30,7 @@ export default function Pay() {
         })
     }
 
-    const list = { '一天': 0.5, '一月': 15, '一季度': 45, '一年': 180 }
+    const list = { '一天': 0.5, '一月': 10, '一季度': 25, '一年': 100 }
 
     return <div className="vip wrap section">
         {/* <h3>1. 请输入c站昵称</h3> */}
