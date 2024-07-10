@@ -44,7 +44,7 @@ export default function PostList(props) {
                                 return (
                                     <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
                                         <div className="cover">
-                                            <img src={getSuo(item.content)} />
+                                            <img src={getSuo(item.content)} loading="lazy"/>
                                         </div>
                                         <div className="title">{item.title}</div>
                                     </li>

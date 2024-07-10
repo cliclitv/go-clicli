@@ -27,7 +27,7 @@ export default function Rank(props) {
                 return index === 0 ?
                     <li className='current' key={index} onClick={() => push(`/play/gv${item.id}`)}>
                         <div className="cover">
-                            <img src={getSuo(item.content)} />
+                            <img src={getSuo(item.content)} loading="lazy"/>
                         </div>
                         <div className="info">
                             <div className="title">{item.title}</div>

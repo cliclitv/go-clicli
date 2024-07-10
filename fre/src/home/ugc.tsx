@@ -37,7 +37,7 @@ export default function WeekList(props) {
                         return <li key={index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
                             <div className="post">
                                 <div className="cover">
-                                    <img src={getSuo(item.content)} />
+                                    <img src={getSuo(item.content)} loading="lazy"/>
                                 </div>
                                 <div className="title">
                                     {props.sort === '直播' && <Avatar uqq={item.uqq}></Avatar>}

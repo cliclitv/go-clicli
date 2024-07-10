@@ -205,6 +205,6 @@ export function Eplayer(props) {
 
 function Eimage({ content }) {
     return <div className="ei-wrap">
-        <img src={getSuo(content)}></img>
+        <img src={getSuo(content)} loading="lazy"></img>
     </div>
 }

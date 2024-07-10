@@ -32,7 +32,7 @@ export default function Recommend(props) {
             {posts.length > 0 && posts.map(item => {
                 return <li key={item.id} onClick={() => push(`/play/gv${item.id}`)}>
                     <div className="cover" >
-                        <img src={getSuo(item.content)} />
+                        <img src={getSuo(item.content)} loading="lazy"/>
                     </div>
                     <div className="title">{item.title}</div>
                 </li>

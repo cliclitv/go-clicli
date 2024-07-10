@@ -45,7 +45,7 @@ export default function WeekList() {
                         <li key={index} onClick={() => push(`/play/gv${item.id}`)}>
                             <div className="post">
                                 <div className="cover">
-                                    <img src={getSuo(item.content)} />
+                                    <img src={getSuo(item.content)} loading="lazy"/>
                                 </div>
                                 <div className="title">{item.title}</div>
                             </div>
