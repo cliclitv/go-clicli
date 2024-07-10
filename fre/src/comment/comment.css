@@ -6,31 +6,28 @@
 
 .comment-item {
     box-sizing: border-box;
-    padding: 10px;
-    display: flex;
-}
-
-.comment-block{
-    flex: 1;
+    padding: 2px;
+    display: inline-flex;
+    align-items: center;
+    background: #271f3c;
+    border-radius: 8px;
 }
 
 .comment-item .avatar{
     margin: 0;
     display: block;
-    padding: 5px 10px;
+    padding: 5px ;
+    height: 25px!important;
+    width: 25px!important;
+}
+
+.comment-item .avatar img{
+    height: 25px!important;
+    width: 25px!important;
 }
 
 .comment-item p{
     padding: 5px;
-}
-
-.comment-item p:nth-child(1){
-    color: #ddd;
-}
-
-.comment-item p:nth-child(3){
-    color: #888;
-    font-size: 12px;
 }
 
 .comment h1 {

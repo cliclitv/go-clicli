@@ -41,16 +41,10 @@ export default function Comment({ post, danmakus }) {
 
             <h1>共有{danmakus ? danmakus.length : 0}条弹幕</h1>
             {danmakus && danmakus.map(item => {
-                //@ts-ignore
-                const time = dayjs(item.time).format('MM-DD-YYYY')
                 return <div className="comment-item">
                     <Avatar uqq={item.uqq}></Avatar>
-                    <div className="comment-block">
-                        <p>{item.uname} <a href={`https://www.clicli.cc/comment/delete/${item.id}?token=${window.localStorage.getItem('token')}`} target="_blank"><del>#{item.id}</del></a></p>
-                        <p>{item.content}</p>
-                        <p>{time}</p>
-                    </div>
-
+                    <p>{item.uname}: </p>
+                    <p>{item.content}</p>
                 </div>
             })}
         </div>
