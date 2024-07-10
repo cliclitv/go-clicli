@@ -19,7 +19,7 @@ type Comment struct {
 	Pid      int        `json:"pid"`
 	Rid      int        `json:"rid,omitempty"`
 	Ruid     int        `json:"ruid,omitempty"`
-	Runame   string     `json:"runame,omitempty"`
+	Rstr   string     `json:"rstr,omitempty"`
 	Uid      int        `json:"uid,omitempty"`
 	Uname    string     `json:"uname,omitempty"`
 	Uqq      string     `json:"uqq,omitempty"`

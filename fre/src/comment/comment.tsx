@@ -20,7 +20,7 @@ export default function Comment({ post, danmakus }) {
             rid: 0,
             pos,
             ruid: post.uid,
-            runame: '1|0|FFFFFF',
+            rstr: '1|0|FFFFFF',
             content: comment,
         } as any).then((res: any) => {
             document.querySelector('e-player').setAttribute('danma', comment)

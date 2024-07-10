@@ -35,7 +35,7 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	}
-	if _, err := db.AddComment(body.Content, body.Pid, user.Id, body.Rid, body.Runame); err != nil {
+	if _, err := db.AddComment(body.Content, body.Pid, user.Id, body.Rid, body.Rstr); err != nil {
 		sendMsg(w, 500, fmt.Sprintf("%s", err))
 		return
 	} else {
@@ -46,18 +46,18 @@ func AddComment(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 func GetComments(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	pid, _ := strconv.Atoi(r.URL.Query().Get("pid"))
-	runame := r.URL.Query().Get("runame")
+	rstr := r.URL.Query().Get("rstr")
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	pageSize, _ := strconv.Atoi(r.URL.Query().Get("pageSize"))
 
 	var resp []*db.Comment
 	var err error
 
-	if runame == "" {
-		resp, err = db.GetComments(pid, runame, page, pageSize)
+	if rstr == "" {
+		resp, err = db.GetComments(pid, rstr, page, pageSize)
 		resp = fillComments(resp)
 	} else {
-		resp, err = db.GetComments(pid, runame, page, pageSize)
+		resp, err = db.GetComments(pid, rstr, page, pageSize)
 		// 然后设置为已读
 	}
 
