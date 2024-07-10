@@ -11,6 +11,7 @@
     align-items: center;
     background: #271f3c;
     border-radius: 8px;
+    margin:5px 10px;
 }
 
 .comment-item .avatar{

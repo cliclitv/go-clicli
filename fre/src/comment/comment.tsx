@@ -42,10 +42,12 @@ export default function Comment({ post, danmakus }) {
 
             <h1>共有{danmakus ? danmakus.length : 0}条弹幕</h1>
             {danmakus && danmakus.map(item => {
-                return <div className="comment-item">
-                    <Avatar uqq={item.uqq}></Avatar>
-                    <p>{item.uname}: </p>
-                    <p>{item.content}</p>
+                return <div>
+                    <div className="comment-item">
+                        <Avatar uqq={item.uqq}></Avatar>
+                        <p>{item.uname}: </p>
+                        <p>{item.content}</p>
+                    </div>
                 </div>
             })}
         </div>
