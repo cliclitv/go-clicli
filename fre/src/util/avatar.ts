@@ -6,7 +6,7 @@ export function getAvatar(avatar) {
     return `https://q1.qlogo.cn/g?b=qq&nk=${avatar}&s=640`
   } else {
     let hash = md5(avatar)
-    return `https://gravatar.aby.pub/avatar/${hash}?s=100`
+    return `https://cravatar.cn/avatar/${hash}?d=wavatar`
   }
 }
 
