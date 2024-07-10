@@ -251,3 +251,13 @@ section p {
 .live .cover{
     position: relative;
 }
+
+.names{
+    justify-content: start;
+    text-align: left;
+}
+
+.names p{
+    color: #888;
+    font-size: 12px;
+}
