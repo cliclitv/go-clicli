@@ -24,6 +24,7 @@ export default function Comment({ post, danmakus }) {
             content: comment,
         } as any).then((res: any) => {
             document.querySelector('e-player').setAttribute('danma', comment)
+            setComment('')
         })
 
     }
@@ -36,7 +37,7 @@ export default function Comment({ post, danmakus }) {
         <div class="comment">
             <div className="comment-input">
                 <Avatar uqq={user.qq}></Avatar>
-                <input type="text" placeholder="发个弹幕，见证当下" onInput={(e) => setComment(e.target.value)} />
+                <input type="text" placeholder="发个弹幕，见证当下" onInput={(e) => setComment(e.target.value)} value={comment}/>
                 {user.id ? <button onClick={submit}>发射</button> : <button onclick={() => push('/login')}>登录</button>}
             </div>
 
