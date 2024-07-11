@@ -20,8 +20,8 @@
     margin: 0;
     display: block;
     padding: 5px;
-    height: 25px !important;
-    width: 25px !important;
+    height: 24px !important;
+    width: 24px !important;
 }
 
 .comment-item .avatar img {
@@ -63,6 +63,8 @@
 
 .comment-input .avatar{
     margin: 5px;
+    height: 25px;
+    width: 25px;
 }
 
 .comment-input input {
