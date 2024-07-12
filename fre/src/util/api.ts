@@ -99,10 +99,9 @@ export function getComments(pid, rid, page?, pageSize?) {
   return get(`https://www.clicli.cc/comments?pid=${pid}&rid=${rid}&page=${page || 1}&pageSize=${pageSize || 1000}`)
 }
 
-export function addComment({ pid, uid, pos, content, rid = 0, rstr }) {
+export function addComment({ pid, content, rid = 0, rstr }) {
   return post('https://www.clicli.cc/comment/add', {
     content,
-    pos: pos.toString(),
     uid: getUser().id,
     pid, rid, rstr
   })

@@ -77,7 +77,7 @@ export default function Post({ gv, uu }) {
     return (
         <div class="wrap player">
 
-            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive} post={post}></Eplayer>}
+            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive} post={post} idx={idx}></Eplayer>}
 
             <div className="p" style={{ height: isOther ? '800px' : '565px' }}>
                 <div className="info">
@@ -160,7 +160,6 @@ export function Eplayer(props) {
     const t = useRef(null)
     const [comment, setComment] = useState('')
 
-    const [pos, setPos] = useState(0)
     useEffect(() => {
         getPlayUrl(props.url).then((res: any) => {
             const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
@@ -203,12 +202,12 @@ export function Eplayer(props) {
         if (comment.length < 1) {
             return
         }
+        const time = document.querySelector('e-player').shadowRoot.querySelector('video').currentTime
         addComment({
             pid: props.post.id,
             rid: 0,
-            pos,
             ruid: props.post.uid,
-            rstr: '1|0|FFFFFF',
+            rstr: [props.idx, time|0, 'ffffff'].join('|'),
             content: comment,
         } as any).then((res: any) => {
             document.querySelector('e-player').setAttribute('danma', comment)
