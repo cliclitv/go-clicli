@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
-import { getComments, getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
+import { addComment, getComments, getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
 import { getAv, getAvatar, getSuo } from '../util/avatar'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
 import Comment from '../comment/comment'
+import { hotIcon, rssIcon } from '../util/icons'
 
 export default function Post({ gv, uu }) {
     const [id, fp] = getAv(gv || uu)
@@ -30,7 +31,7 @@ export default function Post({ gv, uu }) {
                 setPost((res as any).result)
                 const videos = buildVideos((res as any).result.videos || "", res.result.uname)
                 const names = buildNames(videos)
-                if (names.length > 1) {
+                if (names.length > 0) {
                     getUsers(names).then((res: any) => {
                         setAuthors(res.users)
                     })
@@ -76,7 +77,7 @@ export default function Post({ gv, uu }) {
     return (
         <div class="wrap player">
 
-            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive}></Eplayer>}
+            {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive} post={post}></Eplayer>}
 
             <div className="p" style={{ height: isOther ? '800px' : '565px' }}>
                 <div className="info">
@@ -93,7 +94,7 @@ export default function Post({ gv, uu }) {
                             }
                         </div>
 
-                        <h1>{post.title}<span>{post.pv} ℃</span>
+                        <h1>{post.title}
                         </h1>
                     </div>
                     <div className="tag">
@@ -157,6 +158,9 @@ export function buildNameVideos(videos, name) {
 
 export function Eplayer(props) {
     const t = useRef(null)
+    const [comment, setComment] = useState('')
+
+    const [pos, setPos] = useState(0)
     useEffect(() => {
         getPlayUrl(props.url).then((res: any) => {
             const type = res.result.mtype === "m3u8" ? "hls" : res.result.mtype
@@ -195,10 +199,42 @@ export function Eplayer(props) {
         }
     }, [props.url])
 
+    function submit() {
+        if (comment.length < 1) {
+            return
+        }
+        addComment({
+            pid: props.post.id,
+            rid: 0,
+            pos,
+            ruid: props.post.uid,
+            rstr: '1|0|FFFFFF',
+            content: comment,
+        } as any).then((res: any) => {
+            document.querySelector('e-player').setAttribute('danma', comment)
+            setComment('')
+        })
+
+    }
+    const user = getUser()
+
     return (
-        <div className="ep-wrap">
-            {props.url != null ? <e-player ref={t} class='ep' /> : <h1>没有正在播放的视频流</h1>}
+        <div><div className="ep-wrap">
+            {props.url != null ? <e-player ref={t} /> : <h1>没有正在播放的视频流</h1>}
+
         </div>
+            <div class="comment-wrap">
+                <div class="hot">
+                    <span><i ref={dom => dom && (dom.innerHTML = hotIcon)}></i>{props.post.pv}℃</span>
+                    <span><i ref={dom => dom && (dom.innerHTML = rssIcon)}></i>共有{props.post.uv?.split(',').length}人追番</span>
+                </div>
+                <div className="comment-input">
+                    <Avatar uqq={user.qq}></Avatar>
+                    <input type="text" placeholder="发个弹幕，见证当下" onInput={(e) => setComment(e.target.value)} value={comment} />
+                    {user.id ? <button onClick={submit}>发射</button> : <button onclick={() => push('/login')}>登录</button>}
+                </div>
+            </div>
+        </div >
     )
 }
 

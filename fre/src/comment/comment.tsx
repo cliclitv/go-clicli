@@ -1,33 +1,12 @@
 import { useEffect, useState, Fragment } from 'fre'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
-import { addComment, getdanmakus, getUser } from '../util/api'
+import { addComment, getUser } from '../util/api'
 import './comment.css'
 import Markdown from '../component/md/md'
 import { removeSuo } from '../util/avatar'
 
 export default function Comment({ post, danmakus }) {
-    const [comment, setComment] = useState('')
-
-    const [pos, setPos] = useState(0)
-
-    function submit() {
-        if (comment.length < 1) {
-            return
-        }
-        addComment({
-            pid: post.id,
-            rid: 0,
-            pos,
-            ruid: post.uid,
-            rstr: '1|0|FFFFFF',
-            content: comment,
-        } as any).then((res: any) => {
-            document.querySelector('e-player').setAttribute('danma', comment)
-            setComment('')
-        })
-
-    }
     const isOther = post.tag?.includes('其它')
     const user = getUser() || {}
     return <div>
@@ -35,12 +14,6 @@ export default function Comment({ post, danmakus }) {
             isOther && <Markdown text={removeSuo(post.content)}></Markdown>
         }
         <div class="comment">
-            <div className="comment-input">
-                <Avatar uqq={user.qq}></Avatar>
-                <input type="text" placeholder="发个弹幕，见证当下" onInput={(e) => setComment(e.target.value)} value={comment}/>
-                {user.id ? <button onClick={submit}>发射</button> : <button onclick={() => push('/login')}>登录</button>}
-            </div>
-
             <h1>共有{danmakus ? danmakus.length : 0}条弹幕</h1>
             {danmakus && danmakus.map(item => {
                 return <div>

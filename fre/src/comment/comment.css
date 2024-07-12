@@ -47,11 +47,9 @@
 
 .comment-input {
     display: flex;
+    height: 34px;
     align-items: center;
     padding: 0;
-    position: fixed;
-    z-index: 99999;
-    bottom: 0;
     width: 400px;
     background: #2b1e31;
     border-radius: 8px;
@@ -61,28 +59,53 @@
     overflow: hidden;
 }
 
+.comment-input .avatar,.comment-input .avatar img{
+    height: 25px!important;
+    width: 25px!important;
+}
+
 .comment-input .avatar{
     margin: 5px;
-    height: 25px;
-    width: 25px;
+}
+
+.comment-wrap .hot{
+    padding-right: 10px;
+    display: flex;
+}
+.comment-wrap .hot span{
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.comment-wrap .hot span i{
+    padding: 0 5px;
 }
 
 .comment-input input {
     color: #fff;
     border: 0px;
-    padding: 10px;
+    padding: 8px;
     background: transparent;
     flex: 1;
     outline: none;
 }
 
 .comment-input button {
-    position: absolute;
-    right: 0;
     border-radius: 0px;
     height: 100%;
     font-size: 16px;
     padding: 5px 15px;
+    height: 30px;
+}
+
+.comment-wrap{
+    display: flex;
+    align-items: center;
+}
+
+.hot{
+    flex: 1;
 }
 
 .rate ul {
