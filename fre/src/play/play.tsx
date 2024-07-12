@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
 import { addComment, getComments, getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
-import { getAv, getAvatar, getSuo } from '../util/avatar'
+import { getAv, getAvatar, getSuo, removeSuo } from '../util/avatar'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
 import { push } from '../use-route'
-import Comment from '../comment/comment'
 import { hotIcon, rssIcon } from '../util/icons'
+import Markdown from '../component/md/md'
 
 export default function Post({ gv, uu }) {
     const [id, fp] = getAv(gv || uu)
@@ -79,7 +79,7 @@ export default function Post({ gv, uu }) {
 
             {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive} post={post} idx={idx}></Eplayer>}
 
-            <div className="p" style={{ height: isOther ? '800px' : '565px' }}>
+            <div className="p" style={{ height: isOther ? '800px' : '620px' }}>
                 <div className="info">
                     <div>
                         <div class='avatar-wrap'>
@@ -194,7 +194,7 @@ export function Eplayer(props) {
 
 
         for (let i = 0; i < 20; i++) {
-            document.querySelector('e-player').setAttribute('danma', messages[parseInt(Math.random() * messages.length)] as string)
+            document.querySelector('e-player').setAttribute('danma', messages[parseInt(Math.random() * messages.length) as any] as string)
         }
     }, [props.url])
 
@@ -241,5 +241,27 @@ export function Eplayer(props) {
 function Eimage({ content }) {
     return <div className="ei-wrap">
         <img src={getSuo(content)} loading="lazy"></img>
+    </div>
+}
+
+export  function Comment({ post, danmakus }) {
+    const isOther = post.tag?.includes('其它')
+    const user = getUser() || {}
+    return <div>
+        {
+            isOther && <Markdown text={removeSuo(post.content)}></Markdown>
+        }
+        <div class="comment">
+            <h1>共有{danmakus ? danmakus.length : 0}条弹幕</h1>
+            {danmakus && danmakus.map(item => {
+                return <div>
+                    <div className="comment-item">
+                        <Avatar uqq={item.uqq}></Avatar>
+                        <p>{item.uname}: </p>
+                        <p>{item.content}</p>
+                    </div>
+                </div>
+            })}
+        </div>
     </div>
 }
