@@ -228,9 +228,9 @@ export function Eplayer(props) {
                     <span><i ref={dom => dom && (dom.innerHTML = rssIcon)}></i>共有{props.post.uv?.split(',').length}人追番</span>
                 </div>
                 <div className="comment-input">
-                    <Avatar uqq={user.qq}></Avatar>
+                    <Avatar uqq={user?.qq}></Avatar>
                     <input type="text" placeholder="发个弹幕，见证当下" onInput={(e) => setComment(e.target.value)} value={comment} />
-                    {user.id ? <button onClick={submit}>发射</button> : <button onclick={() => push('/login')}>登录</button>}
+                    {user?.id ? <button onClick={submit}>发射</button> : <button onclick={() => push('/login')}>登录</button>}
                 </div>
             </div>
         </div >
