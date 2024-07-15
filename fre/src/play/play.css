@@ -354,14 +354,14 @@ canvas {
 
 .ep-ad a{
     position: absolute;
-    bottom: 8px;
-    left: 10px;
+    bottom: 10px;
+    right: 10px;
     display: block;
     color: #fff;
     border: 2px solid var(--secondary);
     background:var(--secondary);
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 20px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
