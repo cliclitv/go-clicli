@@ -225,7 +225,7 @@ export function Eplayer(props) {
             <div class="comment-wrap">
                 <div class="hot">
                     <span><i ref={dom => dom && (dom.innerHTML = hotIcon)}></i>{props.post.pv}℃</span>
-                    <span><i ref={dom => dom && (dom.innerHTML = rssIcon)}></i>共有{props.post.uv?.split(',').length}人追番</span>
+                    <span><i ref={dom => dom && (dom.innerHTML = rssIcon)}></i>共有{props.post.uv?.split(',').length??0}人追番</span>
                 </div>
                 <div className="comment-input">
                     <Avatar uqq={user?.qq}></Avatar>
