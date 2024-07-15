@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, Fragment } from 'fre'
-import { addComment, getComments, getDanmakus, getPlayUrl, getPostDetail, getPv, getUser, getUserB, getUsers } from '../util/api'
+import { addComment, getComments, getDanmakus, getPlayUrl, getPostDetail, getPv, getRandomAD, getUser, getUserB, getUsers } from '../util/api'
 import { getAv, getAvatar, getSuo, removeSuo } from '../util/avatar'
 import './play.css'
 import Avatar from '../component/avatar/avatar'
@@ -159,6 +159,26 @@ export function buildNameVideos(videos, name) {
 export function Eplayer(props) {
     const t = useRef(null)
     const [comment, setComment] = useState('')
+    const [ad, setAD] = useState({})
+    const adref = useRef(null)
+
+    useEffect(() => {
+        const ep = window.customElements.get('e-player') as any
+
+        ep.use('play', (host) => {
+            document.querySelector('.ep-ad').style.display = 'none'
+        })
+
+        ep.use('pause', () => {
+
+            getRandomAD().then(res => {
+                setAD(res.data)
+                document.querySelector('.ep-ad').style.display = 'block'
+            })
+            
+        })
+
+    }, [])
 
     useEffect(() => {
         getPlayUrl(props.url).then((res: any) => {
@@ -166,7 +186,6 @@ export function Eplayer(props) {
             if (t.current) {
                 t.current.setAttribute('type', type)
                 t.current.setAttribute('src', res.result.url)
-                console.log(props.live)
                 if (props.live) {
                     t.current.setAttribute('live', props.live)
                 }
@@ -207,7 +226,7 @@ export function Eplayer(props) {
             pid: props.post.id,
             rid: 0,
             ruid: props.post.uid,
-            rstr: [props.idx, time|0, 'ffffff'].join('|'),
+            rstr: [props.idx, time | 0, 'ffffff'].join('|'),
             content: comment,
         } as any).then((res: any) => {
             document.querySelector('e-player').setAttribute('danma', comment)
@@ -216,16 +235,27 @@ export function Eplayer(props) {
 
     }
     const user = getUser()
+    console.log(ad)
 
     return (
-        <div><div className="ep-wrap">
-            {props.url != null ? <e-player ref={t} /> : <h1>没有正在播放的视频流</h1>}
+        <div style={{ 'position': 'relative' }}>
+            <div class="ep-ad" t={adref}>
+                <a href={ad.url} target="__blank">戳我跳转</a>
+                <div className="suo" style={{
+                    'background-image': `url(${ad.img})`,
+                    'background-size': 'cover'
+                }}>
 
-        </div>
+                </div>
+            </div>
+            <div className="ep-wrap">
+                {props.url != null ? <e-player ref={t} /> : <h1>没有正在播放的视频流</h1>}
+
+            </div>
             <div class="comment-wrap">
                 <div class="hot">
                     <span><i ref={dom => dom && (dom.innerHTML = hotIcon)}></i>{props.post.pv}℃</span>
-                    <span><i ref={dom => dom && (dom.innerHTML = rssIcon)}></i>共有{props.post.uv?.split(',').length??0}人追番</span>
+                    <span><i ref={dom => dom && (dom.innerHTML = rssIcon)}></i>共有{props.post.uv?.split(',').length ?? 0}人追番</span>
                 </div>
                 <div className="comment-input">
                     <Avatar uqq={user?.qq}></Avatar>
@@ -244,7 +274,7 @@ function Eimage({ content }) {
     </div>
 }
 
-export  function Comment({ post, danmakus }) {
+export function Comment({ post, danmakus }) {
     const isOther = post.tag?.includes('其它')
     const user = getUser() || {}
     return <div>

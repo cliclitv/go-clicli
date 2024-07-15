@@ -334,6 +334,38 @@ canvas {
     background: radial-gradient(circle, #490aba2e, black,#490aba2e);
 }
 
+.ep-ad{
+    display: none;
+    position: absolute;
+    z-index: 99999999999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 355px;
+    height: 200px;
+}
+
+.ep-ad .suo{
+    height: 200px;
+    width: 355px;
+    background-size: 100%;
+    border-radius: 12px;
+}
+
+.ep-ad a{
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    display: block;
+    color: #fff;
+    border: 2px solid var(--secondary);
+    background:var(--secondary);
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
 .hot {
     flex: 1;
 }

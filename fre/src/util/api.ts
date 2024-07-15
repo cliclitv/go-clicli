@@ -131,3 +131,7 @@ export function getUsers(names) {
 export function getGonggao() {
   return get(`https://www.clicli.cc/post/1`)
 }
+
+export function getRandomAD(){
+  return get(`https://cps.deno.dev`)
+}
