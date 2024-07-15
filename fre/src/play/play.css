@@ -74,43 +74,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
 }
 
 .tab li {
-    background: rgba(108, 230, 123, 0.1) !important;
-    color: var(--secondary) !important;
-    padding: 0 20px !important;
-    line-height: 25px !important;
-}
-
-.tab li:nth-child(1) {
-    border-radius: 10px 0 0 10px;
-}
-
-
-.tab li:nth-child(2) {
-    border-radius: 0 10px 10px 0;
+    padding: 0 !important;
+    width: 50%;
+    border-radius: 0px;
+    text-align: center;
 }
 
 .tab li.active {
-    background: rgba(108, 230, 123, 0.3) !important;
     font-weight: bold;
+    border-bottom: 2px solid var(--secondary);
+    color: #fff;
+    border-radius: 0px;
+    background: #2b1e31;
     /* background-color: rgba(148, 108, 230, 0.3) !important; */
 
 }
-
-#mycanvas {
-    margin: 0 auto;
-    width: 1000px;
-    overflow: hidden
-}
-
-.canvas-wrap {
-    width: 1000px;
-    margin: 0 auto;
-}
-
 
 .avatar-wrap {
     display: flex;

@@ -229,6 +229,10 @@ h1 {
 
     }
 
+    .hot{
+        display: none!important;
+    }
+
     .ep {
         border-radius: 5px !important;
         overflow: hidden !important;

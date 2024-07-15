@@ -80,34 +80,34 @@ export default function Post({ gv, uu }) {
             {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive} post={post} idx={idx}></Eplayer>}
 
             <div className="p" style={{ height: isOther ? '800px' : '620px' }}>
-                <div className="info">
-                    <div>
-                        <div class='avatar-wrap'>
-                            <div style={{ flex: 1 }}>
-                                {isOther && <Avatar uqq={post.uqq} uname={post.uname} />}
-                            </div>
-                            {
-                                !isOther && <ul class="tab">
-                                    <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
-                                    <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>弹幕</li>
-                                </ul>
-                            }
-                        </div>
-
-                        <h1>{post.title}
-                        </h1>
-                    </div>
-                    <div className="tag">
-                        <div className="tags">
-                            {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
-                                return <li>{tag}</li>
-                            })}
-                            {(((getUser() || {}).level & 0b1110) > 0 && !uu) ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li> : null}
-                        </div>
-                    </div>
-                </div>
+                {
+                    !isOther && <ul class="tab">
+                        <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
+                        <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>弹幕</li>
+                    </ul>
+                }
                 {
                     (show == 0) && <>
+                        <div className="info">
+                            <div>
+                                <div class='avatar-wrap'>
+                                    <div style={{ flex: 1 }}>
+                                        {isOther && <Avatar uqq={post.uqq} uname={post.uname} />}
+                                    </div>
+
+                                </div>
+
+                                <h1>{post.title}</h1>
+                            </div>
+                            <div className="tag">
+                                <div className="tags">
+                                    {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
+                                        return <li>{tag}</li>
+                                    })}
+                                    {(((getUser() || {}).level & 0b1110) > 0 && !uu) ? <li onclick={() => push(`/draft/${id}`)}>编辑草稿 ⯈</li> : null}
+                                </div>
+                            </div>
+                        </div>
                         <ul class="tabs">
                             {(authors || []).map((item, i) => {
                                 return <div class={item.name == source ? 'active' : ''} onClick={() => setSource(item.name)}>
@@ -175,7 +175,7 @@ export function Eplayer(props) {
                 setAD(res.data)
                 document.querySelector('.ep-ad').style.display = 'block'
             })
-            
+
         })
 
     }, [])
@@ -235,7 +235,6 @@ export function Eplayer(props) {
 
     }
     const user = getUser()
-    console.log(ad)
 
     return (
         <div style={{ 'position': 'relative' }}>
@@ -276,7 +275,6 @@ function Eimage({ content }) {
 
 export function Comment({ post, danmakus }) {
     const isOther = post.tag?.includes('其它')
-    const user = getUser() || {}
     return <div>
         {
             isOther && <Markdown text={removeSuo(post.content)}></Markdown>
