@@ -187,29 +187,29 @@ export function Eplayer(props) {
         })
     }, [props.url, props.live])
 
-    useEffect(() => {
-        const messages = [
-            '来了来了',
-            '沙发~',
-            '准时到达',
-            '发个弹幕见证一下',
-            'c站招募投稿君',
-            'c站招募主播',
-            'up主威武',
-            'c站发光发热',
-            '发一下弹幕菊花有不会坏',
-            '有人在吗',
-            '兄弟们又见面了',
-            '哈哈哈哈哈',
-            '呵呵呵',
-            '嘻嘻'
-        ]
+    // useEffect(() => {
+    //     const messages = [
+    //         '来了来了',
+    //         '沙发~',
+    //         '准时到达',
+    //         '发个弹幕见证一下',
+    //         'c站招募投稿君',
+    //         'c站招募主播',
+    //         'up主威武',
+    //         'c站发光发热',
+    //         '发一下弹幕菊花有不会坏',
+    //         '有人在吗',
+    //         '兄弟们又见面了',
+    //         '哈哈哈哈哈',
+    //         '呵呵呵',
+    //         '嘻嘻'
+    //     ]
 
 
-        for (let i = 0; i < 20; i++) {
-            document.querySelector('e-player').setAttribute('danma', messages[parseInt(Math.random() * messages.length) as any] as string)
-        }
-    }, [props.url])
+    //     for (let i = 0; i < 20; i++) {
+    //         document.querySelector('e-player').setAttribute('danma', messages[parseInt(Math.random() * messages.length) as any] as string)
+    //     }
+    // }, [props.url])
 
     function submit() {
         if (comment.length < 1) {
