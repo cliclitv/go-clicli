@@ -247,7 +247,7 @@ section p {
     color: #fff;
     /* display: flex; */
     padding: 2px 8px 2px 22px;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 .live .cover i {
