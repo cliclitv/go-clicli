@@ -43,7 +43,7 @@ export default function UGCList(props) {
                         const key = `live/uu${item.uid}`
                         const isLive = item.sort === '直播' && streams.includes(key)
 
-                        return <li key={isLive ? -1 : index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
+                        return <li key={isLive ? -index : index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
                             <div className="post">
                                 <div className="cover">
                                     <img src={getSuo(item.content)} loading="lazy" />
