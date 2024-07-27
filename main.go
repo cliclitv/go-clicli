@@ -77,6 +77,7 @@ func RegisterHandler() *httprouter.Router {
 	router.GET("/vip/pay", svc.Pay)
 	router.GET("/vip/paycheck", svc.Check)
 	router.POST("/vip/callback", svc.Callback)
+	router.GET("/live/streams", svc.GetStream)
 
 	fsys, _ := fs.Sub(cli_files, "fre/dist")
 	router.ServeFiles("/assets/*filepath", http.FS(fsys))
