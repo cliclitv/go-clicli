@@ -35,9 +35,17 @@
   flex: 1;
 }
 
+.ugc-list .posts li.live{
+  width: 20%;
+}
+
+.ugc-list .posts .live .cover, .ugc-list .posts .live img{
+  height: 150px;
+}
+
 .week-list .posts li {
   display: inline-block;
-  width: 25%;
+  width: 20%;
   text-align: center;
   cursor: pointer;
 }
