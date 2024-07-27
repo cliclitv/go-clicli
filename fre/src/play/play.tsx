@@ -79,26 +79,19 @@ export default function Post({ gv, uu }) {
 
             {isOther ? <Eimage content={post.content || ''}></Eimage> : <Eplayer url={play} live={isLive} post={post} idx={idx}></Eplayer>}
 
-            <div className="p" style={{ height: isOther ? '800px' : '620px' }}>
+            <div className="p" style={{ height: '620px' }}>
                 {
-                    !isOther && <ul class="tab">
-                        <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>分P</li>
+                    <ul class="tab">
+                        <li class={(show == 0) && 'active'} onclick={() => setShow(0)}>{isOther ? '简介' : '分P'}</li>
                         <li class={(show == 1) && 'active'} onclick={() => setShow(1)}>弹幕</li>
                     </ul>
                 }
                 {
                     (show == 0) && <>
                         <div className="info">
-                            <div>
-                                <div class='avatar-wrap'>
-                                    <div style={{ flex: 1 }}>
-                                        {isOther && <Avatar uqq={post.uqq} uname={post.uname} />}
-                                    </div>
 
-                                </div>
+                            <h1>{post.title}</h1>
 
-                                <h1>{post.title}</h1>
-                            </div>
                             <div className="tag">
                                 <div className="tags">
                                     {post.tag && post.tag.split(' ').filter(t => t.length > 0).map(tag => {
@@ -120,6 +113,7 @@ export default function Post({ gv, uu }) {
                                 return <li class={video[3] == idx ? 'active' : ''} onClick={() => changeid(video[3])}>{`${video[0]}`}</li>
                             })}
                         </ul>
+                        <Markdown text={removeSuo(post.content)}></Markdown>
                     </>
                 }
                 {
@@ -274,11 +268,7 @@ function Eimage({ content }) {
 }
 
 export function Comment({ post, danmakus }) {
-    const isOther = post.tag?.includes('其它')
     return <div>
-        {
-            isOther && <Markdown text={removeSuo(post.content)}></Markdown>
-        }
         <div class="comment">
             <h1>共有{danmakus ? danmakus.length : 0}条弹幕</h1>
             {danmakus && danmakus.map(item => {
