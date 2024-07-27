@@ -19,13 +19,13 @@ export default function UGCList(props) {
         })
     }, [tag])
 
-    useEffect(()=>{
-        if(props.sort === '直播'){
-            getStreams().then(res=>{
-                setStreams(res.publishers.map(item=>item.key))
+    useEffect(() => {
+        if (props.sort === '直播') {
+            getStreams().then(res => {
+                setStreams(res.publishers.map(item => item.key))
             })
         }
-    },[])
+    }, [])
 
     return <div className="week-list ugc-list">
         <div className="wrap section">
@@ -42,11 +42,12 @@ export default function UGCList(props) {
                     {posts.map((item, index) => {
                         const key = `live/uu${item.uid}`
                         const isLive = item.sort === '直播' && streams.includes(key)
-                        
-                        return <li key={index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
+
+                        return <li key={isLive ? -1 : index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
                             <div className="post">
                                 <div className="cover">
                                     <img src={getSuo(item.content)} loading="lazy" />
+                                    <i>{item.pv}℃</i>
                                 </div>
                                 <div className="title">
                                     {props.sort === '直播' && <Avatar uqq={item.uqq}></Avatar>}
@@ -59,7 +60,7 @@ export default function UGCList(props) {
                             </div>
                         </li>
                     }
-                    )}
+                    ).sort((a,b)=>a.key-b.key)}
                 </ul>
             </div>
         </div>
