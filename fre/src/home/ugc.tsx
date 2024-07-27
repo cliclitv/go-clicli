@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'fre'
 import { push } from '../use-route'
-import { getPost } from '../util/api'
+import { getPost, getStreams } from '../util/api'
 import { getSuo } from '../util/avatar'
 import '../week/week.css'
 import Avatar from '../component/avatar/avatar'
@@ -8,9 +8,10 @@ import Avatar from '../component/avatar/avatar'
 
 const gametags = []
 
-export default function WeekList(props) {
+export default function UGCList(props) {
     const [posts, setPosts] = useState([])
     const [tag, setTag] = useState('全部')
+    const [streams, setStreams] = useState([])
 
     useEffect(() => {
         getPost(props.sort, tag == '全部' ? '' : tag, 1, 12).then((res: any) => {
@@ -18,7 +19,13 @@ export default function WeekList(props) {
         })
     }, [tag])
 
-    //https://img.hongrenshuo.com.cn/h5/websiteManbo-live-icon-wr.png
+    useEffect(()=>{
+        if(props.sort === '直播'){
+            getStreams().then(res=>{
+                setStreams(res.publishers.map(item=>item.key))
+            })
+        }
+    },[])
 
     return <div className="week-list ugc-list">
         <div className="wrap section">
@@ -33,7 +40,9 @@ export default function WeekList(props) {
             <div class="weekcontent">
                 <ul className="posts">
                     {posts.map((item, index) => {
-                        const isLive = item.sort === '直播'
+                        const key = `live/uu${item.uid}`
+                        const isLive = item.sort === '直播' && streams.includes(key)
+                        
                         return <li key={index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'live' : ''}>
                             <div className="post">
                                 <div className="cover">

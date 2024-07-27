@@ -2,12 +2,10 @@ package svc
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
 
-	"github.com/cliclitv/clicli-live/av"
 	"github.com/cliclitv/go-clicli/db"
 	"github.com/julienschmidt/httprouter"
 )
@@ -26,20 +24,6 @@ func GetPlay(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	sendPlayResponse(w, res, 200)
 
 }
-
-func GetStream(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
-	fmt.Println(Getters)
-
-
-	w.WriteHeader(200)
-	resStr, _ := json.Marshal(struct {
-		Code   int `json:"code"`
-		Result []av.GetWriter  `json:"result"`
-	}{200, Getters})
-
-	io.WriteString(w, string(resStr))
-}
-
 //兼容接口，未来会删除
 func GetPv(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	type Pv struct {

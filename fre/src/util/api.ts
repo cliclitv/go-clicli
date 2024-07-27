@@ -135,3 +135,7 @@ export function getGonggao() {
 export function getRandomAD(){
   return get(`https://cps.deno.dev`)
 }
+
+export function getStreams(){
+  return get(`https://cliclius.deno.dev/streams`)
+}
