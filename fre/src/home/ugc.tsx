@@ -14,7 +14,7 @@ export default function UGCList(props) {
     const [streams, setStreams] = useState([])
 
     useEffect(() => {
-        getPost(props.sort, tag == '全部' ? '' : tag, 1, 10).then((res: any) => {
+        getPost(props.sort, tag == '全部' ? '' : tag, 1, props.sort==='直播'?10:12).then((res: any) => {
             setPosts(res.posts)
         })
     }, [tag])
