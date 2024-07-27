@@ -41,9 +41,10 @@ export default function UGCList(props) {
                 <ul className="posts">
                     {posts.map((item, index) => {
                         const key = `live/uu${item.uid}`
-                        const isLive = item.sort === '直播' && (streams||[]).includes(key)
+                        const isLive = item.sort === '直播'
+                        const isLiving = (streams || []).includes(key)
 
-                        return <li key={isLive ? -index : index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'living' : 'live'}>
+                        return <li key={isLiving ? -index : index} onClick={() => push(`/play/gv${item.id}`)} class={isLiving ? 'living' : isLive ? 'live' : 'no'}>
                             <div className="post">
                                 <div className="cover">
                                     <img src={getSuo(item.content)} loading="lazy" />
@@ -60,7 +61,7 @@ export default function UGCList(props) {
                             </div>
                         </li>
                     }
-                    ).sort((a,b)=>a.key-b.key)}
+                    ).sort((a, b) => a.key - b.key)}
                 </ul>
             </div>
         </div>
