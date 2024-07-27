@@ -35,11 +35,11 @@
   flex: 1;
 }
 
-.ugc-list .posts li.live{
+.ugc-list .posts li.live, .ugc-list .posts li.living{
   width: 20%;
 }
 
-.ugc-list .posts .live .cover, .ugc-list .posts .live img{
+.ugc-list .posts .live .cover, .ugc-list .posts .live img,.ugc-list .posts .living .cover, .ugc-list .posts .living img{
   height: 150px;
 }
 
