@@ -113,7 +113,7 @@ export default function Post({ gv, uu }) {
                                 return <li class={video[3] == idx ? 'active' : ''} onClick={() => changeid(video[3])}>{`${video[0]}`}</li>
                             })}
                         </ul>
-                        <Markdown text={removeSuo(post.content)}></Markdown>
+                        {isOther && <Markdown text={removeSuo(post.content)}></Markdown>}
                     </>
                 }
                 {
