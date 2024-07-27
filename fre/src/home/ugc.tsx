@@ -22,7 +22,7 @@ export default function UGCList(props) {
     useEffect(() => {
         if (props.sort === '直播') {
             getStreams().then(res => {
-                setStreams(res.publishers.map(item => item.key))
+                setStreams(res?.publishers?.map(item => item.key))
             })
         }
     }, [])
@@ -41,7 +41,7 @@ export default function UGCList(props) {
                 <ul className="posts">
                     {posts.map((item, index) => {
                         const key = `live/uu${item.uid}`
-                        const isLive = item.sort === '直播' && streams.includes(key)
+                        const isLive = item.sort === '直播' && (streams||[]).includes(key)
 
                         return <li key={isLive ? -index : index} onClick={() => push(`/play/gv${item.id}`)} class={isLive ? 'living' : 'live'}>
                             <div className="post">
