@@ -83,6 +83,25 @@
     text-align: center;
 }
 
+.hot a {
+    color: #fff;
+    position: relative;
+    padding-left: 4px;
+    margin-left: 10px;
+}
+
+.hot a::before {
+    content: "";
+    height: 8px;
+    width: 8px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    background: #fff;
+    border-radius: 4px;
+}
+
 .tab li.active {
     font-weight: bold;
     border-bottom: 2px solid var(--secondary);
@@ -312,10 +331,10 @@ canvas {
 .comment-wrap {
     display: flex;
     align-items: center;
-    background: radial-gradient(circle, #490aba2e, black,#490aba2e);
+    background: radial-gradient(circle, #490aba2e, black, #490aba2e);
 }
 
-.ep-ad{
+.ep-ad {
     display: none;
     position: absolute;
     z-index: 99999999999;
@@ -326,21 +345,21 @@ canvas {
     height: 200px;
 }
 
-.ep-ad .suo{
+.ep-ad .suo {
     height: 200px;
     width: 355px;
     background-size: 100%;
     border-radius: 12px;
 }
 
-.ep-ad a{
+.ep-ad a {
     position: absolute;
     bottom: 10px;
     right: 10px;
     display: block;
     color: #fff;
     border: 2px solid var(--secondary);
-    background:var(--secondary);
+    background: var(--secondary);
     font-weight: bold;
     padding: 8px 20px;
     border-radius: 20px;

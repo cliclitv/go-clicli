@@ -249,6 +249,7 @@ export function Eplayer(props) {
                 <div class="hot">
                     <span><i ref={dom => dom && (dom.innerHTML = hotIcon)}></i>{props.post.pv}℃</span>
                     <span><i ref={dom => dom && (dom.innerHTML = rssIcon)}></i>共有{props.post.uv?.split(',').length ?? 0}人追番</span>
+                    <a href={'ddplay:' + props.url} target="__blank"><span>弹弹Play</span></a>
                 </div>
                 <div className="comment-input">
                     <Avatar uqq={user?.qq}></Avatar>
